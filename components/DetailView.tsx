@@ -1,9 +1,19 @@
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ComponentMeta } from '../types';
 import { Activity, Code, Layers, MousePointer2, Target } from 'lucide-react';
 
-// New Labs Components
+// New Designs
+import TectonicLoaderDemo from './demos/TectonicLoaderDemo';
+import PhotonicLoaderDemo from './demos/PhotonicLoaderDemo';
+import EntropyLoaderDemo from './demos/EntropyLoaderDemo';
+import VelocityCursorDemo from './demos/VelocityCursorDemo';
+import TetherCursorDemo from './demos/TetherCursorDemo';
+import FieldCursorDemo from './demos/FieldCursorDemo';
+
+// Labs Components
+import KineticLoadersDemo from './demos/KineticLoadersDemo';
 import TectonicAccordionDemo from './demos/TectonicAccordionDemo';
 import TrailCursorDemo from './demos/TrailCursorDemo';
 import KineticStatusDemo from './demos/KineticStatusDemo';
@@ -59,7 +69,7 @@ import CircadianInterfaceDemo from './demos/CircadianInterfaceDemo';
 import HistoryEchoDemo from './demos/HistoryEchoDemo';
 import ChronoDimensionDemo from './demos/ChronoDimensionDemo';
 
-// (Rest of the imports are preserved as per existing file)
+// Restoration of deeper legacy/supplemental demos
 import MagnetoNavDemo from './demos/MagnetoNavDemo';
 import TensionGridDemo from './demos/TensionGridDemo';
 import ChronoScrollDemo from './demos/ChronoScrollDemo';
@@ -130,7 +140,16 @@ const DetailView: React.FC<DetailViewProps> = ({ component, temporalContext }) =
     const props = { temporal: temporalContext };
     
     switch (component.id) {
+      // New Unique Primitives
+      case 'tectonic-loader': return <TectonicLoaderDemo />;
+      case 'photonic-loader': return <PhotonicLoaderDemo />;
+      case 'entropy-loader': return <EntropyLoaderDemo />;
+      case 'velocity-cursor': return <VelocityCursorDemo />;
+      case 'tether-cursor': return <TetherCursorDemo />;
+      case 'field-cursor': return <FieldCursorDemo />;
+
       // New Specific Labs Modules
+      case 'kinetic-loaders': return <KineticLoadersDemo />;
       case 'tectonic-accordion': return <TectonicAccordionDemo />;
       case 'trail-cursor': return <TrailCursorDemo />;
       case 'kinetic-status': return <KineticStatusDemo />;
@@ -322,8 +341,10 @@ const DetailView: React.FC<DetailViewProps> = ({ component, temporalContext }) =
             >
               {tab === 'demo' ? (
                 <>
-                  {renderDemo()}
-                  <div className="absolute bottom-6 left-6 flex items-center gap-2 text-neutral-600 mono text-[9px]">
+                  <div className="w-full h-full">
+                    {renderDemo()}
+                  </div>
+                  <div className="absolute bottom-6 left-6 flex items-center gap-2 text-neutral-600 mono text-[9px] pointer-events-none">
                     <MousePointer2 size={12} />
                     <span>EXPERIMENTAL_SENSORY_DATA: ON</span>
                   </div>

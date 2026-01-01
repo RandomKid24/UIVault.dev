@@ -1,9 +1,17 @@
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ComponentMeta } from '../types';
 import { ArrowUpRight, Gauge, Eye, Play, Terminal } from 'lucide-react';
 
 // === DEMO IMPORTS FOR PREVIEWS ===
+import TectonicLoaderDemo from './demos/TectonicLoaderDemo';
+import PhotonicLoaderDemo from './demos/PhotonicLoaderDemo';
+import EntropyLoaderDemo from './demos/EntropyLoaderDemo';
+import VelocityCursorDemo from './demos/VelocityCursorDemo';
+import TetherCursorDemo from './demos/TetherCursorDemo';
+import FieldCursorDemo from './demos/FieldCursorDemo';
+import KineticLoadersDemo from './demos/KineticLoadersDemo';
 import TectonicAccordionDemo from './demos/TectonicAccordionDemo';
 import TrailCursorDemo from './demos/TrailCursorDemo';
 import KineticStatusDemo from './demos/KineticStatusDemo';
@@ -116,6 +124,13 @@ interface ExplorerProps {
 
 const SimulationRouter: React.FC<{ id: string }> = ({ id }) => {
   switch (id) {
+    case 'tectonic-loader': return <TectonicLoaderDemo />;
+    case 'photonic-loader': return <PhotonicLoaderDemo />;
+    case 'entropy-loader': return <EntropyLoaderDemo />;
+    case 'velocity-cursor': return <VelocityCursorDemo />;
+    case 'tether-cursor': return <TetherCursorDemo />;
+    case 'field-cursor': return <FieldCursorDemo />;
+    case 'kinetic-loaders': return <KineticLoadersDemo />;
     case 'tectonic-accordion': return <TectonicAccordionDemo />;
     case 'trail-cursor': return <TrailCursorDemo />;
     case 'kinetic-status': return <KineticStatusDemo />;

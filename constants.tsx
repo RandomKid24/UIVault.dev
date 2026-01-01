@@ -3,6 +3,76 @@ import { ComponentMeta } from './types';
 
 export const COMPONENTS: ComponentMeta[] = [
   {
+    id: 'tectonic-loader',
+    name: 'TectonicLoader',
+    category: 'feedback',
+    description: 'A progress indicator that treats data arrival as a physical collision. Progress segments overshoot and settle with high-viscosity spring inertia.',
+    interactionModel: 'Auto-cycling progress with manual override. Observes kinetic overshoot on state change.',
+    motionLogic: 'Damped spring physics (stiffness: 80, damping: 12) applied to linear width.',
+    useCases: ['System loading', 'File transfers', 'Physics-heavy UIs'],
+    difficulty: 'low'
+  },
+  {
+    id: 'photonic-loader',
+    name: 'PhotonicLoader',
+    category: 'feedback',
+    description: 'A volumetric light-seed that bleeds photonic energy into the background medium as it traverses the progress track.',
+    interactionModel: 'Light spill intensity scales with progress velocity.',
+    motionLogic: 'Radial gradient masks with variable blur and opacity decay.',
+    useCases: ['Atmospheric dashboards', 'Premium wait states', 'Data streaming'],
+    difficulty: 'medium'
+  },
+  {
+    id: 'entropy-loader',
+    name: 'EntropyLoader',
+    category: 'feedback',
+    description: 'Information emerging from digital chaos. The loader begins as high-frequency visual noise and crystallizes into a solid block as it nears completion.',
+    interactionModel: 'Noise-to-signal ratio is inverse-mapped to progress percentage.',
+    motionLogic: 'Procedural noise filters and clip-path randomization.',
+    useCases: ['Secure boot', 'AI processing', 'Cryptographic tasks'],
+    difficulty: 'high'
+  },
+  {
+    id: 'velocity-cursor',
+    name: 'VelocityCursor',
+    category: 'motion',
+    description: 'An intent-aware cursor entity that physically deforms into a kinetic "pill" shape based on real-time movement velocity.',
+    interactionModel: 'Mouse speed determines stretch factor and rotation angle.',
+    motionLogic: 'useVelocity mapping to scaleX and rotation transform matrices.',
+    useCases: ['Creative portfolios', 'High-speed navigation', 'Immersive storytelling'],
+    difficulty: 'medium'
+  },
+  {
+    id: 'tether-cursor',
+    name: 'TetherCursor',
+    category: 'motion',
+    description: 'A spatial navigation cursor that projects a dynamic SVG tether line to the nearest interactive anchor point within its influence field.',
+    interactionModel: 'Calculates 1/r² proximity to draw elastic connections to system nodes.',
+    motionLogic: 'Vector distance calculations mapped to SVG line coordinates.',
+    useCases: ['Complex node maps', 'Interactive galleries', 'Guided UX'],
+    difficulty: 'high'
+  },
+  {
+    id: 'field-cursor',
+    name: 'FieldCursor',
+    category: 'motion',
+    description: 'A cursor that acts as a local gravity well, causing background coordinate nodes to shrink or expand as the user passes over them.',
+    interactionModel: 'Proximity-based repulsion field affecting the local grid topology.',
+    motionLogic: 'Spring-driven displacement vectors applied to a coordinate grid.',
+    useCases: ['Interactive backgrounds', 'Sensory feedback', 'Atmospheric UI'],
+    difficulty: 'medium'
+  },
+  {
+    id: 'kinetic-loaders',
+    name: 'KineticLoaders',
+    category: 'feedback',
+    description: 'A suite of high-fidelity progress indicators that treat data loading as a physical event involving mass, light, and stratification.',
+    interactionModel: 'Progress values are mapped to physical variables like damping, blur, and Z-depth displacement.',
+    motionLogic: 'Spring-driven inertia coupled with procedural noise stabilization.',
+    useCases: ['System boot sequences', 'Data processing states', 'Immersive file uploads'],
+    difficulty: 'medium'
+  },
+  {
     id: 'tectonic-accordion',
     name: 'TectonicAccordion',
     category: 'navigation',
@@ -458,7 +528,7 @@ export const COMPONENTS: ComponentMeta[] = [
     category: 'input',
     description: 'An interaction gate that refuses input unless the user matches a specific rhythmic heartbeat.',
     interactionModel: 'Requires rhythmic clicking/tapping within a specific BPM tolerance.',
-    motionLogic: 'Sinusoidal visual feedback mapped to timing precision.',
+    motionLogic: 'Sinusoidal visual feedback mapped to precision.',
     useCases: ['Secure auth', 'Mindfulness gates', 'Alternative inputs'],
     difficulty: 'medium'
   },
@@ -657,7 +727,7 @@ export const COMPONENTS: ComponentMeta[] = [
     name: 'CircadianInterface',
     category: 'feedback',
     description: 'A UI that shifts its color temperature, shadow direction, and energy based on a simulated time-of-day cycle.',
-    interactionModel: 'Visual properties synchronized to a global 24h clock (simulated for demo).',
+    interactionModel: 'Visual properties synchronized to a global 24h clock.',
     motionLogic: 'Trigonometric mapping of time to light-source vectors.',
     useCases: ['Health-tech apps', 'Smart home dashboards', 'Atmospheric portfolios'],
     difficulty: 'low'
