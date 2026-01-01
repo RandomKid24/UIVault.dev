@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Eye, Wind, Zap, Box, MousePointer, Activity, ShieldCheck, Cpu, BrainCircuit } from 'lucide-react';
@@ -64,7 +63,7 @@ const Philosophy: React.FC = () => {
          <div className="p-16 bg-black border-4 border-white/5 rounded-[5rem] relative overflow-hidden">
             <div className="absolute top-10 left-10 mono text-[10px] text-cyan-900 font-black uppercase tracking-[1em]">Engine_Kernel_Source</div>
             <pre className="text-neutral-700 text-xs leading-relaxed font-mono mt-12">
-{`// uivault.dev_CORE_PROCESSOR_v4
+{`// KINETIC_CORE_PROCESSOR_v4
 const processIntent = (vector, mass) => {
   const dist = vector.getMagnitude();
   const v = vector.getVelocity();
@@ -118,7 +117,7 @@ const processIntent = (vector, mass) => {
         <div className="order-1 lg:order-2 space-y-12">
            <h3 className="text-6xl font-black italic tracking-tighter uppercase leading-none">Cognitive<br /><span className="text-cyan-500 italic">Load_Sync</span></h3>
            <p className="text-2xl text-neutral-400 font-light leading-relaxed">
-             uivault.dev dynamically adjusts animation complexity based on session duration and interaction frequency. 
+             Kinetic.io dynamically adjusts animation complexity based on session duration and interaction frequency. 
              If the system detects high-frequency "panic" movements, it simplifies the visual language to prioritize semantic clarity over atmospheric depth.
            </p>
            <ul className="space-y-6">

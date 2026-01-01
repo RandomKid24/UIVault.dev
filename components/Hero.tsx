@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { Activity, Cpu, Layers, MousePointer2, Zap, Wind, ShieldCheck, Terminal } from 'lucide-react';
@@ -64,12 +63,12 @@ const Hero: React.FC<{ onStart: () => void }> = ({ onStart }) => {
         <motion.div style={{ opacity, scale }} className="z-10 text-center px-6">
           <div className="flex items-center justify-center gap-4 mb-10">
             <Terminal size={14} className="text-cyan-500" />
-            <span className="mono text-[10px] tracking-[1.2em] text-cyan-500 font-black uppercase">Vault_Access_v9.0</span>
+            <span className="mono text-[10px] tracking-[1.2em] text-cyan-500 font-black uppercase">Kernel_Access_v9.0</span>
           </div>
 
           <h1 className="text-[14vw] lg:text-[10rem] font-black tracking-tighter leading-[0.8] mb-12 italic uppercase select-none">
-            UI<br />
-            <span className="text-transparent" style={{ WebkitTextStroke: '2px white' }}>Vault.dev</span>
+            Kinetic<br />
+            <span className="text-transparent" style={{ WebkitTextStroke: '2px white' }}>Structures</span>
           </h1>
 
           <p className="max-w-3xl mx-auto text-2xl text-neutral-400 font-light leading-relaxed mb-20">
