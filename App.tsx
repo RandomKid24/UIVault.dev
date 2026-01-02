@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Clock, History, Wind, ChevronDown, ChevronUp, Settings2, Zap } from 'lucide-react';
 import { View, ComponentMeta } from './types';
@@ -16,11 +16,19 @@ const App: React.FC = () => {
   const [activeView, setActiveView] = useState<View>('home');
   const [selectedComponent, setSelectedComponent] = useState<ComponentMeta | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const scrollPosRef = useRef(0);
   
   // Temporal State (Defaults preserved for component logic, controls removed)
   const [globalTime, setGlobalTime] = useState(12); // 0-24h
   const [entropy, setEntropy] = useState(0); // 0-1
   const [lastActivity, setLastActivity] = useState(Date.now());
+
+  // Disable automatic browser scroll restoration to prevent jumps during SPA view changes
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -31,9 +39,32 @@ const App: React.FC = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  // Restore scroll position when returning to the explorer view
+  useEffect(() => {
+    if (activeView === 'explorer' && scrollPosRef.current > 0) {
+      // Use a slight delay to ensure the Explorer grid has recalculated its height
+      // and the AnimatePresence transition has progressed enough.
+      const timer = setTimeout(() => {
+        window.scrollTo({
+          top: scrollPosRef.current,
+          behavior: 'instant'
+        });
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [activeView]);
+
   const navigateToComponent = (comp: ComponentMeta) => {
+    // Capture current scroll position precisely before navigating away
+    scrollPosRef.current = window.scrollY;
     setSelectedComponent(comp);
     setActiveView('detail');
+    // Ensure detail view starts at the absolute top
+    window.scrollTo(0, 0);
+  };
+
+  const handleBackToLab = () => {
+    setActiveView('explorer');
   };
 
   return (
@@ -46,7 +77,10 @@ const App: React.FC = () => {
         }}
       />
 
-      <HUD activeView={activeView} setView={setActiveView} />
+      <HUD activeView={activeView} setView={(v) => {
+        if (v !== 'detail') scrollPosRef.current = 0; // Reset scroll ref if using main nav
+        setActiveView(v);
+      }} />
 
       <main className="relative z-10 pt-24 pb-12 px-6 lg:px-12 max-w-[1800px] mx-auto">
         <AnimatePresence mode="wait">
@@ -84,7 +118,7 @@ const App: React.FC = () => {
               exit={{ opacity: 0, scale: 0.98 }}
             >
               <button 
-                onClick={() => setActiveView('explorer')}
+                onClick={handleBackToLab}
                 className="flex items-center gap-2 mb-8 text-neutral-400 hover:text-white transition-colors group"
               >
                 <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />

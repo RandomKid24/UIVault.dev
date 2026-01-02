@@ -35,33 +35,23 @@ import KineticTickerDemo from './demos/KineticTickerDemo';
 import AuraSentimentDemo from './demos/AuraSentimentDemo';
 import ViscousDataFeelDemo from './demos/ViscousDataFeelDemo';
 import TectonicDataDemo from './demos/TectonicDataDemo';
-import HazyCertaintyDemo from './demos/HazyCertaintyDemo';
-import DataVacuumDemo from './demos/DataVacuumDemo';
 import GridCompressionDemo from './demos/GridCompressionDemo';
 import FragileGlassDemo from './demos/FragileGlassDemo';
 import CadenceLockDemo from './demos/CadenceLockDemo';
-import FleeingIntentDemo from './demos/FleeingIntentDemo';
 import EarnedLegibilityDemo from './demos/EarnedLegibilityDemo';
 import StructuralGlitchDemo from './demos/StructuralGlitchDemo';
 import ThermalOverloadDemo from './demos/ThermalOverloadDemo';
 import RebelNavigationDemo from './demos/RebelNavigationDemo';
-import SeismicSurfaceDemo from './demos/SeismicSurfaceDemo';
 import SpatialStrataDemo from './demos/SpatialStrataDemo';
 import PerspectiveFocalDemo from './demos/PerspectiveFocalDemo';
-import ZPortalListDemo from './demos/ZPortalListDemo';
 import ProximityFieldDemo from './demos/ProximityFieldDemo';
 import IsometricGridFluxDemo from './demos/IsometricGridFluxDemo';
 import DepthSqueezeDemo from './demos/DepthSqueezeDemo';
-import ZLayerExplorerDemo from './demos/ZLayerExplorerDemo';
 import OrbitalZAxisDemo from './demos/OrbitalZAxisDemo';
-import TemporalEvolutionDemo from './demos/TemporalEvolutionDemo';
 import StateMemoryDemo from './demos/StateMemoryDemo';
 import AtrophySurfaceDemo from './demos/AtrophySurfaceDemo';
-import VisualAgingDemo from './demos/VisualAgingDemo';
-import InactivityResetDemo from './demos/InactivityResetDemo';
 import CircadianInterfaceDemo from './demos/CircadianInterfaceDemo';
 import HistoryEchoDemo from './demos/HistoryEchoDemo';
-import ChronoDimensionDemo from './demos/ChronoDimensionDemo';
 // Restoration of deeper legacy/supplemental demos
 import MagnetoNavDemo from './demos/MagnetoNavDemo';
 import TensionGridDemo from './demos/TensionGridDemo';
@@ -105,16 +95,12 @@ import ReducedMotionEleganceDemo from './demos/ReducedMotionEleganceDemo';
 import MonochromeLogicDemo from './demos/MonochromeLogicDemo';
 import PremiumKeyboardDemo from './demos/PremiumKeyboardDemo';
 import EchoFocusDemo from './demos/EchoFocusDemo';
-import UniversalKineticDemo from './demos/UniversalKineticDemo';
 import CognitiveShieldDemo from './demos/CognitiveShieldDemo';
 import GlyphKineticDemo from './demos/GlyphKineticDemo';
-import IndecisionSyncDemo from './demos/IndecisionSyncDemo';
 import CommitmentShardDemo from './demos/CommitmentShardDemo';
 import ConfidenceMeterDemo from './demos/ConfidenceMeterDemo';
 import ResonanceFieldDemo from './demos/ResonanceFieldDemo';
 import EvolutionaryShellDemo from './demos/EvolutionaryShellDemo';
-import TrustPulseDemo from './demos/TrustPulseDemo';
-import ImpatienceEngineDemo from './demos/ImpatienceEngineDemo';
 import ChoiceConvergenceDemo from './demos/ChoiceConvergenceDemo';
 
 interface ExplorerProps {
@@ -154,33 +140,23 @@ const SimulationRouter: React.FC<{ id: string }> = ({ id }) => {
     case 'aura-sentiment': return <AuraSentimentDemo />;
     case 'viscous-data-feel': return <ViscousDataFeelDemo />;
     case 'tectonic-data': return <TectonicDataDemo />;
-    case 'hazy-certainty': return <HazyCertaintyDemo />;
-    case 'data-vacuum': return <DataVacuumDemo />;
     case 'grid-compression': return <GridCompressionDemo />;
     case 'fragile-glass': return <FragileGlassDemo />;
     case 'cadence-lock': return <CadenceLockDemo />;
-    case 'fleeing-intent': return <FleeingIntentDemo />;
     case 'earned-legibility': return <EarnedLegibilityDemo />;
     case 'structural-glitch': return <StructuralGlitchDemo />;
     case 'thermal-overload': return <ThermalOverloadDemo />;
     case 'rebel-navigation': return <RebelNavigationDemo />;
-    case 'seismic-surface': return <SeismicSurfaceDemo />;
     case 'spatial-strata': return <SpatialStrataDemo />;
     case 'perspective-focal': return <PerspectiveFocalDemo />;
-    case 'z-portal-list': return <ZPortalListDemo />;
     case 'proximity-field': return <ProximityFieldDemo />;
     case 'isometric-grid-flux': return <IsometricGridFluxDemo />;
     case 'depth-squeeze': return <DepthSqueezeDemo />;
-    case 'z-layer-explorer': return <ZLayerExplorerDemo />;
     case 'orbital-z-axis': return <OrbitalZAxisDemo />;
-    case 'temporal-evolution': return <TemporalEvolutionDemo />;
     case 'state-memory': return <StateMemoryDemo />;
     case 'atrophy-surface': return <AtrophySurfaceDemo />;
-    case 'visual-aging': return <VisualAgingDemo />;
-    case 'inactivity-reset': return <InactivityResetDemo />;
     case 'circadian-interface': return <CircadianInterfaceDemo />;
     case 'history-echo': return <HistoryEchoDemo />;
-    case 'chrono-dimension': return <ChronoDimensionDemo />;
     // Restoration cases
     case 'magneto-nav': return <MagnetoNavDemo />;
     case 'tension-grid': return <TensionGridDemo />;
@@ -224,16 +200,12 @@ const SimulationRouter: React.FC<{ id: string }> = ({ id }) => {
     case 'monochrome-logic': return <MonochromeLogicDemo />;
     case 'premium-keyboard': return <PremiumKeyboardDemo />;
     case 'echo-focus': return <EchoFocusDemo />;
-    case 'universal-kinetic': return <UniversalKineticDemo />;
     case 'cognitive-shield': return <CognitiveShieldDemo />;
     case 'glyph-kinetic': return <GlyphKineticDemo />;
-    case 'indecision-sync': return <IndecisionSyncDemo />;
     case 'commitment-shard': return <CommitmentShardDemo />;
     case 'confidence-meter': return <ConfidenceMeterDemo />;
     case 'resonance-field': return <ResonanceFieldDemo />;
     case 'evolutionary-shell': return <EvolutionaryShellDemo />;
-    case 'trust-pulse': return <TrustPulseDemo />;
-    case 'impatience-engine': return <ImpatienceEngineDemo />;
     case 'choice-convergence': return <ChoiceConvergenceDemo />;
     default: return (
       <div className="flex flex-col items-center gap-4 opacity-10">
@@ -257,6 +229,7 @@ const Explorer: React.FC<ExplorerProps> = ({ components, onSelect }) => {
       const matchesCategory = selectedCategory === 'all' || comp.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
+    // Fix: Correct typo in filteredComponents useMemo dependency array where setMaxedCategory was used instead of selectedCategory.
   }, [components, searchQuery, selectedCategory]);
 
   const categories = useMemo(() => {

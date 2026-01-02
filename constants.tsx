@@ -356,20 +356,10 @@ export const COMPONENTS: ComponentMeta[] = [
     id: 'stochastic-mass',
     name: 'Random Physics Body',
     category: 'motion',
-    description: 'An entity with randomized physical properties that "learns" user preferences through interaction weight.',
+    description: 'An entity with randomized physical properties that "learn" user preferences through interaction weight.',
     interactionModel: 'Drag and toss mechanics with random inertia curves.',
     motionLogic: 'Physics-based mass and damping randomization.',
     useCases: ['Playful branding', 'Experimental physics', 'Generative UI'],
-    difficulty: 'high'
-  },
-  {
-    id: 'universal-kinetic',
-    name: 'Global Motion Field',
-    category: 'motion',
-    description: 'A unified field logic where all interactive elements share a single kinetic medium.',
-    interactionModel: 'Cross-element interaction ripples.',
-    motionLogic: 'Global state propagation via inertia-weighted events.',
-    useCases: ['Ecosystem design', 'Unified platforms', 'Immersive OS'],
     difficulty: 'high'
   },
   {
@@ -391,16 +381,6 @@ export const COMPONENTS: ComponentMeta[] = [
     motionLogic: 'Frequency-modulated oscillation curves.',
     useCases: ['Textless interfaces', 'Status systems', 'Micro-interactions'],
     difficulty: 'low'
-  },
-  {
-    id: 'indecision-sync',
-    name: 'Hesitation Detector',
-    category: 'input',
-    description: 'A component that detects and visualizes user hesitation between two choices.',
-    interactionModel: 'Calculates the toggle delta between nodes to show "tension".',
-    motionLogic: 'Dithered color interpolation between competing states.',
-    useCases: ['A/B testing tools', 'Complex decision making', 'Decision feedback'],
-    difficulty: 'medium'
   },
   {
     id: 'commitment-shard',
@@ -443,33 +423,13 @@ export const COMPONENTS: ComponentMeta[] = [
     difficulty: 'medium'
   },
   {
-    id: 'trust-pulse',
-    name: 'Rhythmic Trust Pulse',
-    category: 'feedback',
-    description: 'A security indicator that uses biological Fibonacci timing to evoke trust rather than linear timers.',
-    interactionModel: 'Non-linear rhythmic pulsing.',
-    motionLogic: 'Fibonacci-sequence based oscillation delays.',
-    useCases: ['Authentication UI', 'Privacy indicators', 'Secure states'],
-    difficulty: 'low'
-  },
-  {
-    id: 'impatience-engine',
-    name: 'Impatience Accelerator',
-    category: 'feedback',
-    description: 'UI that simplifies and accelerates its responses if it detects user jitter or rapid clicking.',
-    interactionModel: 'Jitter/Rapid-click detection.',
-    motionLogic: 'Adaptive timescale for animation sequences.',
-    useCases: ['Utility tools', 'High-speed data apps', 'Reactive systems'],
-    difficulty: 'high'
-  },
-  {
     id: 'choice-convergence',
     name: 'Target Gravity Pull',
     category: 'input',
     description: 'Interactive targets that physically converge or pull toward the user intent vector.',
     interactionModel: 'Proximity-driven gravity wells.',
     motionLogic: 'Attractive spring forces between cursor and target.',
-    useCases: ['Form selection', 'Rapid choice', 'Guided interaction'],
+    useCases: ['Form selection', 'Hold-down choice', 'Guided interaction'],
     difficulty: 'medium'
   },
   {
@@ -481,26 +441,6 @@ export const COMPONENTS: ComponentMeta[] = [
     motionLogic: 'Rigid-body physics simulation and collision detection.',
     useCases: ['Alert systems', 'Database updates', 'Live sports scores'],
     difficulty: 'high'
-  },
-  {
-    id: 'hazy-certainty',
-    name: 'Vibrating Confidence',
-    category: 'feedback',
-    description: 'Visualizes statistical uncertainty through Gaussian blur and positional jitter.',
-    interactionModel: 'Unreliable data feels "vibrated" and difficult to focus on; stable data is sharp.',
-    motionLogic: 'High-frequency noise applied to filters and transform-origin.',
-    useCases: ['AI confidence levels', 'Predictive modeling', 'Unverified sources'],
-    difficulty: 'medium'
-  },
-  {
-    id: 'data-vacuum',
-    name: 'Imploding Empty State',
-    category: 'feedback',
-    description: 'Visualizes the absence of data through physical collapse and "digital hunger" voids.',
-    interactionModel: 'Elements physically cave inward toward a central singularity when data is nulled.',
-    motionLogic: 'Centripetal force mapping and scale-zero interpolation.',
-    useCases: ['Empty states', 'Connection loss', 'Data deletion confirmation'],
-    difficulty: 'medium'
   },
   {
     id: 'grid-compression',
@@ -530,16 +470,6 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Requires rhythmic clicking/tapping within a specific BPM tolerance.',
     motionLogic: 'Sinusoidal visual feedback mapped to precision.',
     useCases: ['Secure auth', 'Mindfulness gates', 'Alternative inputs'],
-    difficulty: 'medium'
-  },
-  {
-    id: 'fleeing-intent',
-    name: 'Dodging Interaction',
-    category: 'motion',
-    description: 'A component that actively retreats from high-velocity cursor approaches to prevent "accidental" clicks.',
-    interactionModel: 'Vector-based repulsion driven by cursor momentum.',
-    motionLogic: 'Momentum-aware spring displacement field.',
-    useCases: ['Confirmation safeguards', 'Playful UX', 'Experimental navigation'],
     difficulty: 'medium'
   },
   {
@@ -583,16 +513,6 @@ export const COMPONENTS: ComponentMeta[] = [
     difficulty: 'high'
   },
   {
-    id: 'seismic-surface',
-    name: 'System Stress Shaker',
-    category: 'feedback',
-    description: 'A surface that reacts to "tectonic" shifts in interaction, vibrating and shaking to communicate system stress.',
-    interactionModel: 'Global interaction density drives the amplitude of a screen-shake effect.',
-    motionLogic: 'High-frequency noise applied to the layout container transforms.',
-    useCases: ['Real-time data stress', 'Error state feedback', 'Atmospheric dashboards'],
-    difficulty: 'low'
-  },
-  {
     id: 'spatial-strata',
     name: '3D Floating Layers',
     category: 'motion',
@@ -610,16 +530,6 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Dynamic CSS perspective-origin modulation driven by focus state.',
     motionLogic: 'Interpolated focal point coordinates mapped to container perspective.',
     useCases: ['Spatial menus', 'Focus-driven galleries', '3D dashboards'],
-    difficulty: 'high'
-  },
-  {
-    id: 'z-portal-list',
-    name: 'Infinite Dive Archive',
-    category: 'navigation',
-    description: 'A vertical list that translates through the Z-axis (into the screen) instead of Y-translation.',
-    interactionModel: 'Scroll or drag modulates translateZ and scale properties.',
-    motionLogic: 'Logarithmic scaling to simulate physical movement through depth.',
-    useCases: ['Immersive archives', 'Spatial feed exploration', 'Z-axis navigation'],
     difficulty: 'high'
   },
   {
@@ -653,16 +563,6 @@ export const COMPONENTS: ComponentMeta[] = [
     difficulty: 'medium'
   },
   {
-    id: 'z-layer-explorer',
-    name: 'Depth Slice Scrubber',
-    category: 'navigation',
-    description: 'Scrub through layers of a component like a cross-section, revealing internal data structures.',
-    interactionModel: 'Linear scrubbing controls which depth slice is currently "sharp".',
-    motionLogic: 'Selective focal depth modulation using masks and Z-position.',
-    useCases: ['Technical documentation', 'Product exploded-views', 'Data archaeology'],
-    difficulty: 'high'
-  },
-  {
     id: 'orbital-z-axis',
     name: 'Planetary Orbit Nav',
     category: 'navigation',
@@ -670,16 +570,6 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Sinusoidal mapping of Z-depth and horizontal position.',
     motionLogic: 'Polar coordinate conversion to 3D Cartesian space.',
     useCases: ['Atmospheric menus', 'Social feeds', 'Ambient navigation'],
-    difficulty: 'high'
-  },
-  {
-    id: 'temporal-evolution',
-    name: 'Time-Growing Geometry',
-    category: 'motion',
-    description: 'A UI entity that procedurally grows more complex the longer the session lasts.',
-    interactionModel: 'Time-elapsed triggers state shifts in geometry and detail density.',
-    motionLogic: 'L-system inspired procedural growth mapped to session duration.',
-    useCases: ['Immersive dashboards', 'Organic digital art', 'Progressive disclosure'],
     difficulty: 'high'
   },
   {
@@ -703,26 +593,6 @@ export const COMPONENTS: ComponentMeta[] = [
     difficulty: 'medium'
   },
   {
-    id: 'visual-aging',
-    name: 'Click-Wear Component',
-    category: 'feedback',
-    description: 'A component that gains physical "wear" (blur, roundedness, noise) based on cumulative interaction count.',
-    interactionModel: 'Total clicks/hovers mapped to structural degradation properties.',
-    motionLogic: 'Linear accumulation mapping to CSS filter and border variables.',
-    useCases: ['Historical archives', 'Digital scarcity demos', 'Usage-driven design'],
-    difficulty: 'medium'
-  },
-  {
-    id: 'inactivity-reset',
-    name: 'Auto-Collapse Guard',
-    category: 'feedback',
-    description: 'A UI that physically dissolves or collapses back into a "seed" state after prolonged inactivity.',
-    interactionModel: 'Detects lack of user input to trigger an "entropy" reversal.',
-    motionLogic: 'Dissolve shaders or particle-based collapse physics.',
-    useCases: ['Public kiosks', 'Privacy-first interfaces', 'Ephemeral tools'],
-    difficulty: 'high'
-  },
-  {
     id: 'circadian-interface',
     name: 'Day-Night Sync UI',
     category: 'feedback',
@@ -740,16 +610,6 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Snapshot capture on state change with a persistence scrub interaction.',
     motionLogic: 'Temporal stacking with opacity decay and Z-index layering.',
     useCases: ['Complex workflows', 'Version control visualization', 'Undo/Redo interactions'],
-    difficulty: 'high'
-  },
-  {
-    id: 'chrono-dimension',
-    name: 'Timeline Chaos Slider',
-    category: 'motion',
-    description: 'A UI where the layouts entropy (disorder) is a direct function of a temporal scrub-bar.',
-    interactionModel: 'Timeline scrubbing controls the chaos vs order of the layout.',
-    motionLogic: 'Interpolation between a rigid grid and a physics-shattered state.',
-    useCases: ['Interactive storyboards', 'Data archaeology', 'Technical presentations'],
     difficulty: 'high'
   }
 ];
