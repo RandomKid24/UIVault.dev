@@ -127,13 +127,26 @@ import QuantumSwarmCursorDemo from './demos/QuantumSwarmCursorDemo';
 import TacticalScanCursorDemo from './demos/TacticalScanCursorDemo';
 import ElasticTendrilCursorDemo from './demos/ElasticTendrilCursorDemo';
 
+// Fixed missing demos referenced in registry
+import ChronoDimensionDemo from './demos/ChronoDimensionDemo';
+import ZLayerExplorerDemo from './demos/ZLayerExplorerDemo';
+import ZPortalListDemo from './demos/ZPortalListDemo';
+import IndecisionSyncDemo from './demos/IndecisionSyncDemo';
+import TrustPulseDemo from './demos/TrustPulseDemo';
+import ImpatienceEngineDemo from './demos/ImpatienceEngineDemo';
+import TemporalEvolutionDemo from './demos/TemporalEvolutionDemo';
+import VisualAgingDemo from './demos/VisualAgingDemo';
+import InactivityResetDemo from './demos/InactivityResetDemo';
+
+interface TemporalContext {
+  time: number;
+  entropy: number;
+  lastActivity: number;
+}
+
 interface DetailViewProps {
   component: ComponentMeta;
-  temporalContext?: {
-    time: number;
-    entropy: number;
-    lastActivity: number;
-  };
+  temporalContext: TemporalContext;
 }
 
 const DetailView: React.FC<DetailViewProps> = ({ component, temporalContext }) => {
@@ -209,6 +222,21 @@ const DetailView: React.FC<DetailViewProps> = ({ component, temporalContext }) =
       case 'circadian-interface': return <CircadianInterfaceDemo {...props} />;
       case 'history-echo': return <HistoryEchoDemo {...props} />;
 
+      // Additional Modules
+      case 'velocity-reader': return <VelocityReaderDemo />;
+      case 'edge-manifest': return <EdgeManifestDemo />;
+      case 'spatial-tunnel': return <SpatialTunnelDemo />;
+      case 'personality-matrix': return <PersonalityMatrixDemo />;
+      case 'indecision-sync': return <IndecisionSyncDemo />;
+      case 'trust-pulse': return <TrustPulseDemo />;
+      case 'impatience-engine': return <ImpatienceEngineDemo />;
+      case 'temporal-evolution': return <TemporalEvolutionDemo {...props} />;
+      case 'visual-aging': return <VisualAgingDemo {...props} />;
+      case 'inactivity-reset': return <InactivityResetDemo {...props} />;
+      case 'chrono-dimension': return <ChronoDimensionDemo {...props} />;
+      case 'z-layer-explorer': return <ZLayerExplorerDemo />;
+      case 'z-portal-list': return <ZPortalListDemo />;
+      
       // Restoration of other legacy cases...
       case 'commitment-shard': return <CommitmentShardDemo />;
       case 'confidence-meter': return <ConfidenceMeterDemo />;
@@ -248,7 +276,6 @@ const DetailView: React.FC<DetailViewProps> = ({ component, temporalContext }) =
       case 'personality-matrix': return <PersonalityMatrixDemo />;
       case 'intent-morph': return <IntentMorphDemo />;
       case 'edge-manifest': return <EdgeManifestDemo />;
-      case 'spatial-tunnel': return <SpatialTunnelDemo />;
       case 'trace-memory': return <TraceMemoryDemo />;
       case 'intent-pulse': return <IntentPulseDemo />;
       case 'stochastic-mass': return <StochasticMassDemo />;

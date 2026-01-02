@@ -11,4 +11,4 @@ export interface ComponentMeta {
   keywords?: string[];
 }
 
-export type View = 'home' | 'explorer' | 'detail' | 'philosophy';
+export type View = 'home' | 'lab' | 'detail' | 'philosophy';

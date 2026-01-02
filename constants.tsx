@@ -4,7 +4,7 @@ import { ComponentMeta } from './types';
 export const COMPONENTS: ComponentMeta[] = [
   {
     id: 'holographic-impulse',
-    name: 'Holographic Impulse',
+    name: 'Glowing 3D Button',
     category: 'input',
     description: 'A button that projects a volumetric shadow and interactive light-field into the virtual Z-space of the container.',
     interactionModel: 'Proximity-driven shadow translation and color-bleed. Click triggers a multi-layered photonic ripple.',
@@ -15,7 +15,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'pressure-execution',
-    name: 'Pressure Execution',
+    name: 'Long-Press Confirm Button',
     category: 'input',
     description: 'A button that treats time-held as physical pressure. Requires a sustained temporal hold to overcome magnetic stasis and execute.',
     interactionModel: 'Hold to build potential energy. Visualizes structural compression and chromatic heat-buildup.',
@@ -26,7 +26,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'vector-skew-trigger',
-    name: 'Angle-Aware Vector',
+    name: 'Cursor-Tracking Skew Button',
     category: 'input',
     description: 'A button that skews its geometry and hit-box based on the cursors angle of approach, meeting the user intent vector halfway.',
     interactionModel: 'Calculates the approach angle (atan2) to apply a technical geometric skew and lean.',
@@ -37,7 +37,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'vortex-accretion-loader',
-    name: 'Vortex Accretion',
+    name: 'Spiraling Progress Circle',
     category: 'feedback',
     description: 'A circular progress entity where data "mass" spirals into a central singularity, increasing angular velocity as it nears completion.',
     interactionModel: 'Non-linear orbital acceleration. Outer rings collapse inward as progress increases.',
@@ -48,10 +48,10 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'bismuth-growth-loader',
-    name: 'Bismuth Growth',
+    name: 'Growing 3D Crystal Stack',
     category: 'feedback',
     description: 'Progress visualized as iridescent geometric strata stacking vertically, mimicking the recursive growth patterns of Bismuth crystals.',
-    interactionModel: 'Step-based vertical growth with chromatic shift on每 layer addition.',
+    interactionModel: 'Step-based vertical growth with chromatic shift on each layer addition.',
     motionLogic: 'Isometric transform stacking with staggered spring physics and hue-rotation cycles.',
     useCases: ['File assembly', 'Memory allocation', 'Organic processing'],
     difficulty: 'medium',
@@ -59,7 +59,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'plasma-conduit-loader',
-    name: 'Plasma Conduit',
+    name: 'Liquid Loading Bar',
     category: 'feedback',
     description: 'A horizontal loading chamber where blobs of data-plasma merge and pulse within a high-viscosity electromagnetic field.',
     interactionModel: 'Dynamic fluid merging. "Blobs" of progress coalesce as completion increases.',
@@ -70,7 +70,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'quantum-swarm-cursor',
-    name: 'Quantum Swarm',
+    name: 'Particle Swarm Cursor',
     category: 'motion',
     description: 'A cloud of high-entropy particles that follow the cursor with stochastic inertia, condensing into a core during stasis.',
     interactionModel: 'Multi-agent spring physics. Velocity dictates particle dispersion and trail length.',
@@ -81,7 +81,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'tactical-scan-cursor',
-    name: 'Tactical HUD Scan',
+    name: 'Tactical HUD Crosshair',
     category: 'motion',
     description: 'A military-grade tactical crosshair that projects coordinate axes and telemetry metadata across the container field.',
     interactionModel: 'Axis-linked projection lines with real-time coordinate and velocity readout.',
@@ -92,7 +92,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'elastic-tendril-cursor',
-    name: 'Elastic Tendril',
+    name: 'Elastic Jellyfish Trail',
     category: 'motion',
     description: 'Organic SVG tendrils that trail the cursor with variable viscosity, creating a fluid jellyfish-like movement signature.',
     interactionModel: 'Staggered path-following with high-damping spring physics.',
@@ -103,7 +103,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'history-strata',
-    name: 'History Strata',
+    name: '3D Parallax Timeline',
     category: 'navigation',
     description: 'A narrative-driven timeline where history is stratified in 3D space. Eras emerge from temporal fog and crystallize into sharp focus as the user scrolls through the epoch.',
     interactionModel: 'Vertical scroll drives temporal depth. Focal events scale and sharpen while background eras parallax in Z-space.',
@@ -114,7 +114,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'kinetic-timeline',
-    name: 'Temporal Scrub Axis',
+    name: 'Interactive Film Strip',
     category: 'navigation',
     description: 'A non-linear timeline that treats time as a physical medium. Events are stratified in Z-space and respond to scrubbing velocity with elastic deformation.',
     interactionModel: 'Drag the photonic playhead to scrub. High velocity triggers focal distortion. Event nodes drift in Z-depth based on temporal distance from focus.',
@@ -125,7 +125,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'strata-loader',
-    name: '3D Depth Progress',
+    name: 'Layered Loading Stack',
     category: 'feedback',
     description: 'A volumetric progress stack revealing data completion across independent Z-plane strata with staggered temporal offsets.',
     interactionModel: 'Auto-cycling progress. Visualizes the "depth" of data arriving in the system buffer.',
@@ -136,7 +136,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'tectonic-loader',
-    name: 'Weighty Progress Bar',
+    name: 'Physics-Based Progress',
     category: 'feedback',
     description: 'A progress indicator that treats data arrival as a physical collision. Progress segments overshoot and settle with high-viscosity spring inertia.',
     interactionModel: 'Auto-cycling progress with manual override. Observes kinetic overshoot on state change.',
@@ -147,7 +147,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'photonic-loader',
-    name: 'Light Spill Loader',
+    name: 'Glowing Beam Progress',
     category: 'feedback',
     description: 'A volumetric light-seed that bleeds photonic energy into the background medium as it traverses the progress track.',
     interactionModel: 'Light spill intensity scales with progress velocity.',
@@ -158,7 +158,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'entropy-loader',
-    name: 'Static Noise Reveal',
+    name: 'Fuzzy Noise Reveal',
     category: 'feedback',
     description: 'Information emerging from digital chaos. The loader begins as high-frequency visual noise and crystallizes into a solid block as it nears completion.',
     interactionModel: 'Noise-to-signal ratio is inverse-mapped to progress percentage.',
@@ -169,7 +169,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'velocity-cursor',
-    name: 'Velocity Stretch Cursor',
+    name: 'Stretchy Speed Cursor',
     category: 'motion',
     description: 'An intent-aware cursor entity that physically deforms into a kinetic "pill" shape based on real-time movement velocity.',
     interactionModel: 'Mouse speed determines stretch factor and rotation angle.',
@@ -180,7 +180,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'tether-cursor',
-    name: 'Magnetic Link Cursor',
+    name: 'Magnetic Tether Cursor',
     category: 'motion',
     description: 'A spatial navigation cursor that projects a dynamic SVG tether line to the nearest interactive anchor point within its influence field.',
     interactionModel: 'Calculates 1/r² proximity to draw elastic connections to system nodes.',
@@ -191,7 +191,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'field-cursor',
-    name: 'Gravity Field Grid',
+    name: 'Bouncing Grid Background',
     category: 'motion',
     description: 'A cursor that acts as a local gravity well, causing background coordinate nodes to shrink or expand as the user passes over them.',
     interactionModel: 'Proximity-based repulsion field affecting the local grid topology.',
@@ -202,7 +202,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'tectonic-accordion',
-    name: 'Collision Panels',
+    name: 'Colliding Panels',
     category: 'navigation',
     description: 'A multi-layered information rift where sections physically collide and displace neighbors using rigid-body physics.',
     interactionModel: 'Selecting a rift causes a structural shift, pushing other layers into a compressed stack.',
@@ -213,7 +213,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'trail-cursor',
-    name: 'Memory Trail Pointer',
+    name: 'Ghostly Mouse Trail',
     category: 'motion',
     description: 'A custom cursor entity that leaves a temporal "memory" of its path, visualizing the users velocity and intent.',
     interactionModel: 'Cursor-driven trail. High-speed movement creates longer, sharper echoes.',
@@ -224,7 +224,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'kinetic-status',
-    name: 'Bending Icon Status',
+    name: 'Bending Status Icons',
     category: 'feedback',
     description: 'A status indicator where "Check" and "Cross" symbols are procedural wires that bend into state-forms.',
     interactionModel: 'State toggle triggers a geometric re-routing of the symbols structural lines.',
@@ -235,7 +235,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'velocity-scrollbar',
-    name: 'Speed-Sensitive Scroll',
+    name: 'Flexible Thick Scrollbar',
     category: 'navigation',
     description: 'A navigation spine that reacts to scroll speed, expanding into a high-visibility handle during rapid travel.',
     interactionModel: 'Scroll-velocity modulates the thickness and luminance of the scroll indicator.',
@@ -246,7 +246,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'refractive-image',
-    name: 'Liquid Lens Zoom',
+    name: 'Bubble Zoom Lens',
     category: 'feedback',
     description: 'Media elements that distort like looking through a liquid lens, reacting to the cursors focal pressure.',
     interactionModel: 'Hovering over the media creates a refractive distortion field.',
@@ -257,7 +257,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'neural-badge',
-    name: 'Rhythmic Pulsing Tag',
+    name: 'Breathing Health Badge',
     category: 'feedback',
     description: 'Status badges that pulse with biological rhythmic patterns to communicate system vitality.',
     interactionModel: 'Ambient animation that reacts to global system entropy.',
@@ -268,7 +268,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'decay-timer',
-    name: 'Shattering Clock',
+    name: 'Shattering Digital Clock',
     category: 'feedback',
     description: 'Time visualized as a structural entity that physically disintegrates as entropy increases.',
     interactionModel: 'Countdown timer that triggers geometric collapse.',
@@ -279,7 +279,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'bio-profile',
-    name: 'Thermal Energy Card',
+    name: 'Glow-Map User Card',
     category: 'motion',
     description: 'User identity cards visualized as energy fields that heat up or cool down based on activity telemetry.',
     interactionModel: 'Interaction increases the cards "thermal energy" and glow radius.',
@@ -290,7 +290,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'action-impulse',
-    name: 'Shockwave Trigger',
+    name: 'Shockwave Ripple Button',
     category: 'input',
     description: 'A trigger that treats a click as a kinetic event, propagating a shockwave through the layout medium.',
     interactionModel: 'Click triggers a radial displacement field. Hover creates a pre-stress vibration.',
@@ -301,7 +301,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'sequence-strata',
-    name: 'Deep Layer List',
+    name: 'Peeling Folder List',
     category: 'navigation',
     description: 'A vertical sequence where items are stratified in Z-depth, revealed via focal slicing.',
     interactionModel: 'Vertical movement "peels" back the top layer to reveal the underlying sequence item.',
@@ -312,7 +312,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'portal-branch',
-    name: 'Sprouting Radial Menu',
+    name: 'Blooming Circle Menu',
     category: 'navigation',
     description: 'A radial navigation entity that branches from a central intent node.',
     interactionModel: 'Selection expands into a recursive tree of possibilities. Lines represent logical connection.',
@@ -323,7 +323,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'friction-toggle',
-    name: 'Heavy Resistance Switch',
+    name: 'Heavy Pull Switch',
     category: 'input',
     description: 'A state switcher that requires physical momentum to overcome its structural magnetic lock.',
     interactionModel: 'Drag-based interaction with a "snap-zone" that resists transition until high velocity is reached.',
@@ -334,7 +334,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'liquid-tab',
-    name: 'Melting Tab Bar',
+    name: 'Melting Liquid Tabs',
     category: 'navigation',
     description: 'Switching context is a fluid event. The indicator physically "melts" and flows between positions.',
     interactionModel: 'Horizontal selection triggers a gooey-filtered transition between states.',
@@ -345,7 +345,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'vortex-dial',
-    name: 'Centrifugal Spin Dial',
+    name: 'Spinning Vortex Dial',
     category: 'input',
     description: 'A circular input where the speed of rotation is as important as the final value.',
     interactionModel: 'Rotation modulates the focal value; high-speed rotation triggers "Centrifugal mode".',
@@ -356,7 +356,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'impulse-signal',
-    name: 'Glitch Tear Alert',
+    name: 'Glitch Alert Banner',
     category: 'feedback',
     description: 'Notifications are temporary glitches in system stability, demanding attention through structural noise.',
     interactionModel: 'Temporal manifestation. The UI "breaks" briefly to show the message then repairs itself.',
@@ -367,7 +367,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'volumetric-gauge',
-    name: 'Liquid Tank Meter',
+    name: 'Water Level Meter',
     category: 'feedback',
     description: 'Visualizes data volume as a literal physical filling of a translucent geometric vessel.',
     interactionModel: 'Simulates liquid sloshing and surface tension based on data-flow velocity.',
@@ -378,7 +378,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'crystallized-text',
-    name: 'Static Scramble Input',
+    name: 'Jittery Reveal Input',
     category: 'input',
     description: 'Information emerges from digital entropy. Text solidifies as the system gains confidence in the input.',
     interactionModel: 'Typing triggers a crystallization effect where chars jitter into their final sharp state.',
@@ -389,7 +389,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'momentum-trigger',
-    name: 'Magnetic Intent Button',
+    name: 'Magnetic Snap Button',
     category: 'input',
     description: 'A professional-grade SaaS button with intent-aware magnetic pull and tactile haptic feedback.',
     interactionModel: 'Cursor proximity drives subtle 3D leaning and internal element translation.',
@@ -400,7 +400,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'luminance-mass',
-    name: 'Photonic Mass Glow',
+    name: 'Bright Glow Intensity',
     category: 'feedback',
     description: 'Visualizes data magnitude via light intensity and volumetric blur rather than numeric scales.',
     interactionModel: 'Hover to "feel" the data mass through light spill and peripheral glow.',
@@ -411,7 +411,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'kinetic-ticker',
-    name: 'Vibration Data Feed',
+    name: 'Vibrating Live Feed',
     category: 'motion',
     description: 'Communicates data momentum and velocity through rhythmic oscillation and speed of travel.',
     interactionModel: 'The faster the data stream, the more violent the rhythmic "breathing" of the UI.',
@@ -422,7 +422,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'aura-sentiment',
-    name: 'Fluid Mood Background',
+    name: 'Liquid Background Mood',
     category: 'feedback',
     description: 'Translates emotional trends into organic color bleeding and liquid motion signatures.',
     interactionModel: 'Intentional color shifts and "viscosity" changes based on data sentiment scores.',
@@ -433,7 +433,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'viscous-data-feel',
-    name: 'Heavy Liquid Drag',
+    name: 'Heavy Resistance Drag',
     category: 'input',
     description: 'Data density is communicated through "friction" — interaction becomes physically heavier as complexity increases.',
     interactionModel: 'Cursor resistance and scroll-inertia change based on the active dataset weight.',
@@ -444,7 +444,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'magneto-nav',
-    name: 'Magnetic Node Nav',
+    name: 'Magnetic Sticky Menu',
     category: 'navigation',
     description: 'A navigation system that exerts a physical pull on the cursor as it passes by linked nodes.',
     interactionModel: 'Cursor-driven magnetic attraction toward nav items.',
@@ -455,7 +455,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'tension-grid',
-    name: 'Elastic Grid Canvas',
+    name: 'Elastic Canvas Grid',
     category: 'motion',
     description: 'A spatial layout that deforms based on interaction density, like a stretched fabric.',
     interactionModel: 'Cursor proximity causes grid cells to scale and rotate toward the focal point.',
@@ -466,7 +466,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'chrono-scroll',
-    name: 'Time-Warping Scroll',
+    name: 'Warp Speed Scroller',
     category: 'motion',
     description: 'A scroll container that treats the scrollbar as a temporal scrub bar, warping content as speed increases.',
     interactionModel: 'Scroll velocity drives chromatic aberration and scale warping.',
@@ -477,7 +477,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'orbit-nexus',
-    name: 'Orbiting Hub Menu',
+    name: 'Spinning Planet Menu',
     category: 'navigation',
     description: 'A non-linear menu where items orbit the central intent, shifting speed based on focus.',
     interactionModel: 'Polar coordinate navigation with dynamic centrifugal force.',
@@ -488,7 +488,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'halt-reveal',
-    name: 'Stillness Reveal',
+    name: 'Hold Still to Reveal',
     category: 'input',
     description: 'Interaction gated by stillness. Information manifests only when user intent stabilizes.',
     interactionModel: 'Hovering without moving for a threshold triggers a content bloom.',
@@ -499,7 +499,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'intent-pulse',
-    name: 'Pre-Click Glow',
+    name: 'Anticipation Glow',
     category: 'feedback',
     description: 'A component that radiates state signals before an action is even confirmed.',
     interactionModel: 'Approach-aware glow and scale shifts.',
@@ -510,7 +510,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'stochastic-mass',
-    name: 'Random Physics Body',
+    name: 'Random Bouncy Body',
     category: 'motion',
     description: 'An entity with randomized physical properties that "learn" user preferences through interaction weight.',
     interactionModel: 'Drag and toss mechanics with random inertia curves.',
@@ -521,7 +521,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'cognitive-shield',
-    name: 'Focus Isolation Shield',
+    name: 'Blurred Background Focus',
     category: 'feedback',
     description: 'UI that protects user focus by dynamically blurring or hiding non-focal information.',
     interactionModel: 'Automatic isolation of focal nodes.',
@@ -532,7 +532,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'glyph-kinetic',
-    name: 'Silent Motion Symbols',
+    name: 'Quiet Pulsing Symbols',
     category: 'feedback',
     description: 'Semantic symbols that use rhythmic motion rather than labels to communicate complex states.',
     interactionModel: 'Rhythmic vibration and geometric morphing.',
@@ -543,7 +543,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'commitment-shard',
-    name: 'Shattering Commitment',
+    name: 'Glass Shatter Choice',
     category: 'input',
     description: 'A choice mechanism that physically solidifies and "shatters" the alternative upon selection.',
     interactionModel: 'Drag-to-commit with high resistance.',
@@ -554,7 +554,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'confidence-meter',
-    name: 'Type Confidence Flow',
+    name: 'Fluent Typing Effect',
     category: 'feedback',
     description: 'Visualizes input confidence through text clarity and weight.',
     interactionModel: 'Typing speed and consistency drives clarity.',
@@ -565,7 +565,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'resonance-field',
-    name: 'Action Ghost Field',
+    name: 'Ghostly Mouse Trace',
     category: 'motion',
     description: 'A field where user actions leave persistent "after-glow" resonances that influence future states.',
     interactionModel: 'Cursor actions leave energy traces.',
@@ -576,7 +576,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'evolutionary-shell',
-    name: 'Mastery-Adaptive UI',
+    name: 'Self-Learning Menu',
     category: 'navigation',
     description: 'A UI shell that sheds decorative complexity as user mastery increases over a session.',
     interactionModel: 'Interaction frequency reduces visual labels.',
@@ -587,7 +587,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'choice-convergence',
-    name: 'Target Gravity Pull',
+    name: 'Target Gravity Select',
     category: 'input',
     description: 'Interactive targets that physically converge or pull toward the user intent vector.',
     interactionModel: 'Proximity-driven gravity wells.',
@@ -598,7 +598,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'tectonic-data',
-    name: 'Earthquake Data Feed',
+    name: 'Shakey Data Feed',
     category: 'feedback',
     description: 'Live data changes cause physical "earthquakes" or shifts in the layout structure.',
     interactionModel: 'UI elements physically settle or collide when data points arrive.',
@@ -609,7 +609,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'grid-compression',
-    name: 'Smart Packing Grid',
+    name: 'Tight Packed Grid',
     category: 'navigation',
     description: 'Layout density physically compacts or expands based on data volume, changing the UI "weather".',
     interactionModel: 'The more data exists, the more the layout "compresses" into a dense, high-energy grid.',
@@ -620,7 +620,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'fragile-glass',
-    name: 'Shattering Panel',
+    name: 'Exploding Data Panel',
     category: 'feedback',
     description: 'A UI surface that physically shatters into shards when clicked, requiring a temporal recovery phase.',
     interactionModel: 'Click triggers a physics-based fragmentation simulation.',
@@ -642,7 +642,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'earned-legibility',
-    name: 'Focus Decryptor',
+    name: 'Steady Focus Decoder',
     category: 'input',
     description: 'Information is obscured by procedural noise and only decodes when the user maintains perfect focus.',
     interactionModel: 'Cursor stability (zero velocity) triggers the decryption process.',
@@ -653,7 +653,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'structural-glitch',
-    name: 'Wireframe Leak View',
+    name: 'X-Ray Dev View',
     category: 'feedback',
     description: 'A UI that intentionally "breaks" its own layout rules to reveal the underlying code architecture.',
     interactionModel: 'Hovering over components reveals wireframes, Z-index slices, and raw telemetry.',
@@ -664,7 +664,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'thermal-overload',
-    name: 'Overheating Rate Limiter',
+    name: 'Overheating Safety Lock',
     category: 'input',
     description: 'A component that "heats up" with rapid interaction, eventually locking out the user to prevent system burnout.',
     interactionModel: 'Cumulative interaction frequency increases a "Thermal" state.',
@@ -675,7 +675,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'rebel-navigation',
-    name: 'Hijacked Axes Menu',
+    name: 'Swapped Control Menu',
     category: 'navigation',
     description: 'A menu that challenges spatial memory by inverting or randomly remapping its interaction axes.',
     interactionModel: 'Remaps cursor X/Y coordinates to unexpected UI responses.',
@@ -686,7 +686,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'spatial-strata',
-    name: '3D Floating Layers',
+    name: 'Floating Depth Layers',
     category: 'motion',
     description: 'A multi-layered UI where components drift and parallax based on their assigned virtual Z-depth.',
     interactionModel: 'Cursor-driven parallax with independent Z-translation constants.',
@@ -697,7 +697,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'perspective-focal',
-    name: 'Focus Vanishing Point',
+    name: 'Warping Perspective Grid',
     category: 'navigation',
     description: 'A UI that warps its vanishing point and layout perspective based on the active focal element.',
     interactionModel: 'Dynamic CSS perspective-origin modulation driven by focus state.',
@@ -708,7 +708,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'proximity-field',
-    name: 'Focus Sharpness Grid',
+    name: 'Smart Focus Blur Grid',
     category: 'feedback',
     description: 'A layout where elements gain detail and sharpness based on their virtual distance from the cursor.',
     interactionModel: 'Calculates 1/r² distance to modulate Gaussian blur and opacity.',
@@ -730,7 +730,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'depth-squeeze',
-    name: 'Expanding Layer Stack',
+    name: 'Expanding 3D Layers',
     category: 'feedback',
     description: 'A UI that physically flattens into 2D when ignored and expands into a deep Z-stack when engaged.',
     interactionModel: 'Engagement triggers a Z-axis expansion of nested layers.',
@@ -741,7 +741,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'orbital-z-axis',
-    name: 'Planetary Orbit Nav',
+    name: 'Planetary Circular Nav',
     category: 'navigation',
     description: 'Navigation items that orbit the user in 3D space, moving behind and in front of the primary view.',
     interactionModel: 'Sinusoidal mapping of Z-depth and horizontal position.',
@@ -752,7 +752,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'state-memory',
-    name: 'Recent Interaction Bias',
+    name: 'Smart Preference Tilt',
     category: 'navigation',
     description: 'A layout that physically tilts and biases itself toward the users most recent interactions.',
     interactionModel: 'Stores last-interacted coordinates to influence the default "rest" state of the UI.',
@@ -763,7 +763,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'atrophy-surface',
-    name: 'Idle Dissolve Effect',
+    name: 'Dusty Idle Effect',
     category: 'feedback',
     description: 'A UI surface that dims and gathers "digital dust" (visual noise) when ignored by the cursor.',
     interactionModel: 'Inactivity timer modulates noise filters and luminance.',
@@ -774,7 +774,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'circadian-interface',
-    name: 'Day-Night Sync UI',
+    name: 'Day & Night Sync',
     category: 'feedback',
     description: 'A UI that shifts its color temperature, shadow direction, and energy based on a simulated time-of-day cycle.',
     interactionModel: 'Visual properties synchronized to a global 24h clock.',
@@ -785,7 +785,7 @@ export const COMPONENTS: ComponentMeta[] = [
   },
   {
     id: 'history-echo',
-    name: 'Visual State History',
+    name: 'Past Path Trails',
     category: 'navigation',
     description: 'A navigation system that leaves "ghostly" trails of its previous states, allowing users to scrub through temporal history.',
     interactionModel: 'Snapshot capture on state change with a persistence scrub interaction.',
@@ -793,5 +793,49 @@ export const COMPONENTS: ComponentMeta[] = [
     useCases: ['Complex workflows', 'Version control visualization', 'Undo/Redo interactions'],
     difficulty: 'high',
     keywords: ['navigation', 'history', 'echo', 'ghost', 'stacking', 'trails']
+  },
+  {
+    id: 'velocity-reader',
+    name: 'Blurry Fast Reader',
+    category: 'feedback',
+    description: 'A text rendering engine that dynamically skews and blurs typography based on scroll velocity.',
+    interactionModel: 'Scroll speed drives font-skew and tracking expansion.',
+    motionLogic: 'Linear velocity mapping to font-variation axes.',
+    useCases: ['Kinetic landing pages', 'Dynamic archives'],
+    difficulty: 'medium',
+    keywords: ['velocity', 'reader', 'text', 'skew']
+  },
+  {
+    id: 'edge-manifest',
+    name: 'Hidden Edge Menu',
+    category: 'navigation',
+    description: 'Navigation elements that only manifest from the edges of the screen upon high-velocity proximity.',
+    interactionModel: 'Edge collision detection with spring expansion.',
+    motionLogic: 'Elastic boundaries and clip-path reveals.',
+    useCases: ['Minimalist layouts', 'Immersive menus'],
+    difficulty: 'medium',
+    keywords: ['edge', 'menu', 'reveal']
+  },
+  {
+    id: 'spatial-tunnel',
+    name: 'Infinite Depth Zoom',
+    category: 'motion',
+    description: 'A Z-axis navigation tunnel where layers scale and blur past the user during scrolling.',
+    interactionModel: 'Continuous Z-depth interpolation.',
+    motionLogic: 'Logarithmic scaling and depth-buffer fog.',
+    useCases: ['Infinite scrolling lists', '3D headers'],
+    difficulty: 'high',
+    keywords: ['tunnel', 'zoom', 'depth']
+  },
+  {
+    id: 'personality-matrix',
+    name: 'Bouncy Brand Logo',
+    category: 'motion',
+    description: 'An entity that shifts between aggressive and soft motion personalities based on interaction speed.',
+    interactionModel: 'Velocity-driven trait switching.',
+    motionLogic: 'Stiffness/Damping parameter interpolation.',
+    useCases: ['Interactive branding', 'Dynamic logos'],
+    difficulty: 'medium',
+    keywords: ['personality', 'matrix', 'logo']
   }
 ];

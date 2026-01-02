@@ -1,13 +1,13 @@
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ArrowLeft, Clock, History, Wind, ChevronDown, ChevronUp, Settings2, Zap } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { View, ComponentMeta } from './types';
 import { COMPONENTS } from './constants';
 
 // Internal Components
 import Hero from './components/Hero';
-import Explorer from './components/Explorer';
+import Lab from './components/Lab';
 import DetailView from './components/DetailView';
 import Philosophy from './components/Philosophy';
 import HUD from './components/HUD';
@@ -22,13 +22,10 @@ const ScrollProgress = () => {
 
   const percentage = useTransform(scrollYProgress, (latest) => Math.round(latest * 100));
   
-  // Fix: MotionValue cannot be rendered directly as a ReactNode. We sync it to a state for display.
   const [displayPercentage, setDisplayPercentage] = useState(0);
 
   useEffect(() => {
-    // Initialize value
     setDisplayPercentage(percentage.get());
-    // Subscribe to changes to update state
     return percentage.on("change", (latest) => {
       setDisplayPercentage(latest);
     });
@@ -47,7 +44,6 @@ const ScrollProgress = () => {
           style={{ scaleY }}
         />
         
-        {/* Moving Indicator Dot */}
         <motion.div 
           className="absolute left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_white] z-10"
           style={{ top: useTransform(scaleY, (s) => `${s * 100}%`) }}
@@ -77,12 +73,10 @@ const App: React.FC = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const scrollPosRef = useRef(0);
   
-  // Temporal State (Defaults preserved for component logic, controls removed)
-  const [globalTime, setGlobalTime] = useState(12); // 0-24h
-  const [entropy, setEntropy] = useState(0); // 0-1
+  const [globalTime, setGlobalTime] = useState(12);
+  const [entropy, setEntropy] = useState(0);
   const [lastActivity, setLastActivity] = useState(Date.now());
 
-  // Disable automatic browser scroll restoration to prevent jumps during SPA view changes
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
@@ -98,11 +92,8 @@ const App: React.FC = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Restore scroll position when returning to the explorer view
   useEffect(() => {
-    if (activeView === 'explorer' && scrollPosRef.current > 0) {
-      // Use a slight delay to ensure the Explorer grid has recalculated its height
-      // and the AnimatePresence transition has progressed enough.
+    if (activeView === 'lab' && scrollPosRef.current > 0) {
       const timer = setTimeout(() => {
         window.scrollTo({
           top: scrollPosRef.current,
@@ -114,21 +105,18 @@ const App: React.FC = () => {
   }, [activeView]);
 
   const navigateToComponent = (comp: ComponentMeta) => {
-    // Capture current scroll position precisely before navigating away
     scrollPosRef.current = window.scrollY;
     setSelectedComponent(comp);
     setActiveView('detail');
-    // Ensure detail view starts at the absolute top
     window.scrollTo(0, 0);
   };
 
   const handleBackToLab = () => {
-    setActiveView('explorer');
+    setActiveView('lab');
   };
 
   return (
     <div className={`relative min-h-screen selection:bg-cyan-500/30 transition-colors duration-1000 ${globalTime < 6 || globalTime > 18 ? 'bg-[#030303]' : 'bg-[#080808]'}`}>
-      {/* Temporal Glow Aura */}
       <div 
         className="fixed inset-0 z-0 opacity-20 pointer-events-none"
         style={{
@@ -137,11 +125,10 @@ const App: React.FC = () => {
       />
 
       <HUD activeView={activeView} setView={(v) => {
-        if (v !== 'detail') scrollPosRef.current = 0; // Reset scroll ref if using main nav
+        if (v !== 'detail') scrollPosRef.current = 0;
         setActiveView(v);
       }} />
 
-      {/* Global Scroll Progress */}
       <ScrollProgress />
 
       <main className="relative z-10 pt-24 pb-12 px-6 lg:px-12 max-w-[1800px] mx-auto">
@@ -154,18 +141,18 @@ const App: React.FC = () => {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Hero onStart={() => setActiveView('explorer')} />
+              <Hero onStart={() => setActiveView('lab')} />
             </motion.div>
           )}
 
-          {activeView === 'explorer' && (
+          {activeView === 'lab' && (
             <motion.div
-              key="explorer"
+              key="lab"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <Explorer 
+              <Lab 
                 components={COMPONENTS} 
                 onSelect={navigateToComponent} 
               />

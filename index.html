@@ -25,6 +25,15 @@
       canvas {
         pointer-events: none;
       }
+
+      /* Fix for missing scrollbar-hide plugin */
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
     </style>
   <script type="importmap">
 {

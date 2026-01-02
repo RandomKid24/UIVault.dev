@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Home, LayoutGrid, Cpu, Info } from 'lucide-react';
@@ -11,7 +12,8 @@ interface HUDProps {
 const HUD: React.FC<HUDProps> = ({ activeView, setView }) => {
   const navItems: { id: View; icon: React.ReactNode; label: string }[] = [
     { id: 'home', icon: <Home size={20} />, label: 'HOME' },
-    { id: 'explorer', icon: <LayoutGrid size={20} />, label: 'LAB' },
+    // Fix: Type '"explorer"' is not assignable to type 'View'. Changed 'explorer' to 'lab' to match the View union type.
+    { id: 'lab', icon: <LayoutGrid size={20} />, label: 'LAB' },
     { id: 'philosophy', icon: <Info size={20} />, label: 'DOCS' },
   ];
 
