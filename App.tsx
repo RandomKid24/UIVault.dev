@@ -48,7 +48,7 @@ const App: React.FC = () => {
 
       <HUD activeView={activeView} setView={setActiveView} />
 
-      <main className="relative z-10 pt-24 pb-12 px-6 max-w-7xl mx-auto">
+      <main className="relative z-10 pt-24 pb-12 px-6 lg:px-12 max-w-[1800px] mx-auto">
         <AnimatePresence mode="wait">
           {activeView === 'home' && (
             <motion.div

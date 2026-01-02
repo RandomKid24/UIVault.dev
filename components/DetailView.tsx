@@ -5,6 +5,7 @@ import { ComponentMeta } from '../types';
 import { Activity, Code, Layers, MousePointer2, Target } from 'lucide-react';
 
 // New Designs
+import StrataLoaderDemo from './demos/StrataLoaderDemo';
 import TectonicLoaderDemo from './demos/TectonicLoaderDemo';
 import PhotonicLoaderDemo from './demos/PhotonicLoaderDemo';
 import EntropyLoaderDemo from './demos/EntropyLoaderDemo';
@@ -13,7 +14,6 @@ import TetherCursorDemo from './demos/TetherCursorDemo';
 import FieldCursorDemo from './demos/FieldCursorDemo';
 
 // Labs Components
-import KineticLoadersDemo from './demos/KineticLoadersDemo';
 import TectonicAccordionDemo from './demos/TectonicAccordionDemo';
 import TrailCursorDemo from './demos/TrailCursorDemo';
 import KineticStatusDemo from './demos/KineticStatusDemo';
@@ -23,7 +23,7 @@ import NeuralBadgeDemo from './demos/NeuralBadgeDemo';
 import DecayTimerDemo from './demos/DecayTimerDemo';
 import BioProfileDemo from './demos/BioProfileDemo';
 
-// Existing Experimental Primitives
+// Experimental Primitives
 import ActionImpulseDemo from './demos/ActionImpulseDemo';
 import SequenceStrataDemo from './demos/SequenceStrataDemo';
 import PortalBranchDemo from './demos/PortalBranchDemo';
@@ -141,6 +141,7 @@ const DetailView: React.FC<DetailViewProps> = ({ component, temporalContext }) =
     
     switch (component.id) {
       // New Unique Primitives
+      case 'strata-loader': return <StrataLoaderDemo />;
       case 'tectonic-loader': return <TectonicLoaderDemo />;
       case 'photonic-loader': return <PhotonicLoaderDemo />;
       case 'entropy-loader': return <EntropyLoaderDemo />;
@@ -148,8 +149,7 @@ const DetailView: React.FC<DetailViewProps> = ({ component, temporalContext }) =
       case 'tether-cursor': return <TetherCursorDemo />;
       case 'field-cursor': return <FieldCursorDemo />;
 
-      // New Specific Labs Modules
-      case 'kinetic-loaders': return <KineticLoadersDemo />;
+      // Specific Labs Modules
       case 'tectonic-accordion': return <TectonicAccordionDemo />;
       case 'trail-cursor': return <TrailCursorDemo />;
       case 'kinetic-status': return <KineticStatusDemo />;
