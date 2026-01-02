@@ -3,6 +3,105 @@ import { ComponentMeta } from './types';
 
 export const COMPONENTS: ComponentMeta[] = [
   {
+    id: 'holographic-impulse',
+    name: 'Holographic Impulse',
+    category: 'input',
+    description: 'A button that projects a volumetric shadow and interactive light-field into the virtual Z-space of the container.',
+    interactionModel: 'Proximity-driven shadow translation and color-bleed. Click triggers a multi-layered photonic ripple.',
+    motionLogic: 'Z-axis displacement and dynamic box-shadow scaling mapped to cursor distance.',
+    useCases: ['Primary actions', 'Futuristic interfaces', 'High-priority triggers'],
+    difficulty: 'medium',
+    keywords: ['button', 'click', 'trigger', 'action', 'press', 'interactive']
+  },
+  {
+    id: 'pressure-execution',
+    name: 'Pressure Execution',
+    category: 'input',
+    description: 'A button that treats time-held as physical pressure. Requires a sustained temporal hold to overcome magnetic stasis and execute.',
+    interactionModel: 'Hold to build potential energy. Visualizes structural compression and chromatic heat-buildup.',
+    motionLogic: 'Continuous linear interpolation of scale and blur while active, settling with high-damping spring physics on release.',
+    useCases: ['Destructive actions', 'Confirmations', 'Secure gates'],
+    difficulty: 'high',
+    keywords: ['button', 'hold', 'press', 'longpress', 'confirm', 'execution', 'security']
+  },
+  {
+    id: 'vector-skew-trigger',
+    name: 'Angle-Aware Vector',
+    category: 'input',
+    description: 'A button that skews its geometry and hit-box based on the cursors angle of approach, meeting the user intent vector halfway.',
+    interactionModel: 'Calculates the approach angle (atan2) to apply a technical geometric skew and lean.',
+    motionLogic: 'Rotation and skew transform mapping based on polar coordinate distance.',
+    useCases: ['Interactive dashboards', 'Gaming UI', 'Experimental navigation'],
+    difficulty: 'medium',
+    keywords: ['button', 'skew', 'vector', 'angle', 'intent', 'direction']
+  },
+  {
+    id: 'vortex-accretion-loader',
+    name: 'Vortex Accretion',
+    category: 'feedback',
+    description: 'A circular progress entity where data "mass" spirals into a central singularity, increasing angular velocity as it nears completion.',
+    interactionModel: 'Non-linear orbital acceleration. Outer rings collapse inward as progress increases.',
+    motionLogic: 'Polar coordinate interpolation with centrifugal force simulation and radial blur.',
+    useCases: ['System initialization', 'Data merging', 'Quantum computations'],
+    difficulty: 'high',
+    keywords: ['loading', 'spinner', 'progress', 'waiting', 'circle', 'vortex', 'accretion']
+  },
+  {
+    id: 'bismuth-growth-loader',
+    name: 'Bismuth Growth',
+    category: 'feedback',
+    description: 'Progress visualized as iridescent geometric strata stacking vertically, mimicking the recursive growth patterns of Bismuth crystals.',
+    interactionModel: 'Step-based vertical growth with chromatic shift on每 layer addition.',
+    motionLogic: 'Isometric transform stacking with staggered spring physics and hue-rotation cycles.',
+    useCases: ['File assembly', 'Memory allocation', 'Organic processing'],
+    difficulty: 'medium',
+    keywords: ['loading', 'progress', 'stack', '3d', 'geometric', 'growth', 'crystals']
+  },
+  {
+    id: 'plasma-conduit-loader',
+    name: 'Plasma Conduit',
+    category: 'feedback',
+    description: 'A horizontal loading chamber where blobs of data-plasma merge and pulse within a high-viscosity electromagnetic field.',
+    interactionModel: 'Dynamic fluid merging. "Blobs" of progress coalesce as completion increases.',
+    motionLogic: 'SVG gooey filters combined with turbulent displacement and sine-wave oscillation.',
+    useCases: ['High-bandwidth streaming', 'Energy monitoring', 'Experimental data feeds'],
+    difficulty: 'high',
+    keywords: ['loading', 'progress', 'fluid', 'gooey', 'plasma', 'conduit', 'liquid']
+  },
+  {
+    id: 'quantum-swarm-cursor',
+    name: 'Quantum Swarm',
+    category: 'motion',
+    description: 'A cloud of high-entropy particles that follow the cursor with stochastic inertia, condensing into a core during stasis.',
+    interactionModel: 'Multi-agent spring physics. Velocity dictates particle dispersion and trail length.',
+    motionLogic: 'Independent spring-damped agents with randomized temporal offsets.',
+    useCases: ['Immersive storytelling', 'Experimental portfolios', 'High-energy dashboards'],
+    difficulty: 'high',
+    keywords: ['mouse', 'pointer', 'cursor', 'particles', 'swarm', 'follow', 'velocity']
+  },
+  {
+    id: 'tactical-scan-cursor',
+    name: 'Tactical HUD Scan',
+    category: 'motion',
+    description: 'A military-grade tactical crosshair that projects coordinate axes and telemetry metadata across the container field.',
+    interactionModel: 'Axis-linked projection lines with real-time coordinate and velocity readout.',
+    motionLogic: 'Screen-space coordinate mapping with linear interpolation and rotational radar sweeps.',
+    useCases: ['Technical tools', 'Gaming UI', 'Precision dashboards'],
+    difficulty: 'medium',
+    keywords: ['mouse', 'pointer', 'cursor', 'crosshair', 'hud', 'scanning', 'precision']
+  },
+  {
+    id: 'elastic-tendril-cursor',
+    name: 'Elastic Tendril',
+    category: 'motion',
+    description: 'Organic SVG tendrils that trail the cursor with variable viscosity, creating a fluid jellyfish-like movement signature.',
+    interactionModel: 'Staggered path-following with high-damping spring physics.',
+    motionLogic: 'Procedural SVG path interpolation using a temporal coordinate buffer.',
+    useCases: ['Atmospheric sites', 'Creative interactive art', 'Nature-inspired UI'],
+    difficulty: 'high',
+    keywords: ['mouse', 'pointer', 'cursor', 'organic', 'trail', 'viscous', 'fluid']
+  },
+  {
     id: 'history-strata',
     name: 'History Strata',
     category: 'navigation',
@@ -10,7 +109,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Vertical scroll drives temporal depth. Focal events scale and sharpen while background eras parallax in Z-space.',
     motionLogic: 'Scroll-linked Z-axis translation combined with focal blur interpolation and elastic spine deformation.',
     useCases: ['Company histories', 'Product roadmaps', 'Evolutionary timelines'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['navigation', 'timeline', 'scroll', 'z-space', 'history', 'parallax']
   },
   {
     id: 'kinetic-timeline',
@@ -20,7 +120,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Drag the photonic playhead to scrub. High velocity triggers focal distortion. Event nodes drift in Z-depth based on temporal distance from focus.',
     motionLogic: 'Mass-spring playhead physics (stiffness: 120, damping: 20) with velocity-mapped chromatic aberration and Gaussian blur.',
     useCases: ['Video editing suites', 'Historical data exploration', 'Process scrubbing'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['navigation', 'timeline', 'scroll', 'scrub', 'video', 'editing', 'playback']
   },
   {
     id: 'strata-loader',
@@ -30,7 +131,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Auto-cycling progress. Visualizes the "depth" of data arriving in the system buffer.',
     motionLogic: 'Z-axis displacement combined with staggered ease-out curves.',
     useCases: ['Spatial dashboards', 'Complex file processing', 'Depth-heavy UIs'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['loading', 'progress', 'depth', '3d', 'strata', 'layers']
   },
   {
     id: 'tectonic-loader',
@@ -40,7 +142,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Auto-cycling progress with manual override. Observes kinetic overshoot on state change.',
     motionLogic: 'Damped spring physics (stiffness: 80, damping: 12) applied to linear width.',
     useCases: ['System loading', 'File transfers', 'Physics-heavy UIs'],
-    difficulty: 'low'
+    difficulty: 'low',
+    keywords: ['loading', 'progress', 'heavy', 'physics', 'tectonic', 'mass']
   },
   {
     id: 'photonic-loader',
@@ -50,7 +153,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Light spill intensity scales with progress velocity.',
     motionLogic: 'Radial gradient masks with variable blur and opacity decay.',
     useCases: ['Atmospheric dashboards', 'Premium wait states', 'Data streaming'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['loading', 'progress', 'light', 'beam', 'glow', 'photonic']
   },
   {
     id: 'entropy-loader',
@@ -60,7 +164,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Noise-to-signal ratio is inverse-mapped to progress percentage.',
     motionLogic: 'Procedural noise filters and clip-path randomization.',
     useCases: ['Secure boot', 'AI processing', 'Cryptographic tasks'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['loading', 'progress', 'noise', 'static', 'entropy', 'reveal', 'chaos']
   },
   {
     id: 'velocity-cursor',
@@ -70,7 +175,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Mouse speed determines stretch factor and rotation angle.',
     motionLogic: 'useVelocity mapping to scaleX and rotation transform matrices.',
     useCases: ['Creative portfolios', 'High-speed navigation', 'Immersive storytelling'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['mouse', 'pointer', 'cursor', 'speed', 'stretch', 'velocity']
   },
   {
     id: 'tether-cursor',
@@ -80,7 +186,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Calculates 1/r² proximity to draw elastic connections to system nodes.',
     motionLogic: 'Vector distance calculations mapped to SVG line coordinates.',
     useCases: ['Complex node maps', 'Interactive galleries', 'Guided UX'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['mouse', 'pointer', 'cursor', 'magnetic', 'link', 'tether', 'anchor']
   },
   {
     id: 'field-cursor',
@@ -90,7 +197,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Proximity-based repulsion field affecting the local grid topology.',
     motionLogic: 'Spring-driven displacement vectors applied to a coordinate grid.',
     useCases: ['Interactive backgrounds', 'Sensory feedback', 'Atmospheric UI'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['mouse', 'pointer', 'cursor', 'grid', 'repulsion', 'gravity', 'field']
   },
   {
     id: 'tectonic-accordion',
@@ -100,7 +208,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Selecting a rift causes a structural shift, pushing other layers into a compressed stack.',
     motionLogic: 'Spring-driven displacement with elastic collision damping.',
     useCases: ['Complex settings', 'Data-heavy reveals', 'Hierarchical navigation'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['navigation', 'accordion', 'panels', 'collision', 'tectonic', 'stack']
   },
   {
     id: 'trail-cursor',
@@ -110,7 +219,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Cursor-driven trail. High-speed movement creates longer, sharper echoes.',
     motionLogic: 'Temporal buffer sampling with opacity and scale decay curves.',
     useCases: ['Immersive galleries', 'Interactive storytelling', 'Visual feedback'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['mouse', 'pointer', 'cursor', 'trail', 'memory', 'echo', 'ghost']
   },
   {
     id: 'kinetic-status',
@@ -120,7 +230,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'State toggle triggers a geometric re-routing of the symbols structural lines.',
     motionLogic: 'SVG path interpolation with varying stroke-dasharray tension.',
     useCases: ['Form validation', 'System health', 'Task completion'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['status', 'icon', 'check', 'error', 'morph', 'feedback']
   },
   {
     id: 'velocity-scrollbar',
@@ -130,7 +241,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Scroll-velocity modulates the thickness and luminance of the scroll indicator.',
     motionLogic: 'Velocity mapping to CSS variables for width and filter intensity.',
     useCases: ['Deep archives', 'Timeline scrubbing', 'Data feeds'],
-    difficulty: 'low'
+    difficulty: 'low',
+    keywords: ['navigation', 'scrollbar', 'scroll', 'velocity', 'spine']
   },
   {
     id: 'refractive-image',
@@ -140,7 +252,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Hovering over the media creates a refractive distortion field.',
     motionLogic: 'CSS mask-image + Displacement maps (simulated via SVG filters).',
     useCases: ['Premium portfolios', 'Product showcases', 'Artistic media'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['image', 'zoom', 'refraction', 'liquid', 'lens', 'distortion']
   },
   {
     id: 'neural-badge',
@@ -150,7 +263,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Ambient animation that reacts to global system entropy.',
     motionLogic: 'Multi-layered sinusoidal scaling and blur oscillation.',
     useCases: ['Live metrics', 'User status', 'System health'],
-    difficulty: 'low'
+    difficulty: 'low',
+    keywords: ['badge', 'status', 'tag', 'pulse', 'neural', 'vitality']
   },
   {
     id: 'decay-timer',
@@ -160,7 +274,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Countdown timer that triggers geometric collapse.',
     motionLogic: 'Fragmented clip-path animation with particle dispersion.',
     useCases: ['Expiring sessions', 'Time-limited tasks', 'Auction timers'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['timer', 'clock', 'time', 'decay', 'shatter', 'disintegrate']
   },
   {
     id: 'bio-profile',
@@ -170,7 +285,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Interaction increases the cards "thermal energy" and glow radius.',
     motionLogic: 'Gaussian blur accumulation and chromatic color shifting.',
     useCases: ['Social dashboards', 'Team activity', 'User presence'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['profile', 'card', 'identity', 'thermal', 'energy', 'user']
   },
   {
     id: 'action-impulse',
@@ -180,7 +296,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Click triggers a radial displacement field. Hover creates a pre-stress vibration.',
     motionLogic: 'Wave propagation using expanding concentric masks and spring-back scale.',
     useCases: ['Impactful actions', 'System resets', 'High-energy CTAs'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['button', 'click', 'trigger', 'shockwave', 'impulse', 'ripple']
   },
   {
     id: 'sequence-strata',
@@ -190,7 +307,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Vertical movement "peels" back the top layer to reveal the underlying sequence item.',
     motionLogic: 'CSS clip-path interpolation combined with logarithmic Z-scaling.',
     useCases: ['Product feeds', 'Storytelling lists', 'Portfolio navigation'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['navigation', 'list', 'sequence', 'strata', 'layers', 'depth']
   },
   {
     id: 'portal-branch',
@@ -200,7 +318,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Selection expands into a recursive tree of possibilities. Lines represent logical connection.',
     motionLogic: 'L-system branching animation with spring-force layout nodes.',
     useCases: ['Complex menus', 'Feature discovery', 'Logic branching'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['navigation', 'menu', 'radial', 'branch', 'portal', 'tree']
   },
   {
     id: 'friction-toggle',
@@ -210,7 +329,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Drag-based interaction with a "snap-zone" that resists transition until high velocity is reached.',
     motionLogic: 'Bimodal spring physics with a non-linear friction curve.',
     useCases: ['Critical switches', 'Security toggles', 'Intentional states'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['input', 'toggle', 'switch', 'friction', 'momentum', 'security']
   },
   {
     id: 'liquid-tab',
@@ -220,7 +340,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Horizontal selection triggers a gooey-filtered transition between states.',
     motionLogic: 'SVG Gaussian blur + Color matrix contrast filtering (Gooey effect).',
     useCases: ['Dashboard navigation', 'Mode switching', 'Filtering'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['navigation', 'tabs', 'liquid', 'melting', 'gooey', 'indicator']
   },
   {
     id: 'vortex-dial',
@@ -230,7 +351,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Rotation modulates the focal value; high-speed rotation triggers "Centrifugal mode".',
     motionLogic: 'Angular velocity mapping to particle dispersion and blur.',
     useCases: ['Volume control', 'Temporal scrubbing', 'Parameter tuning'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['input', 'dial', 'knob', 'rotate', 'vortex', 'centrifugal']
   },
   {
     id: 'impulse-signal',
@@ -240,7 +362,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Temporal manifestation. The UI "breaks" briefly to show the message then repairs itself.',
     motionLogic: 'Horizontal slice displacement and chromatic aberration pulses.',
     useCases: ['System alerts', 'Error states', 'High-priority messages'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['notification', 'alert', 'glitch', 'error', 'signal', 'impulse']
   },
   {
     id: 'volumetric-gauge',
@@ -250,7 +373,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Simulates liquid sloshing and surface tension based on data-flow velocity.',
     motionLogic: 'Sine-wave surface perturbation and gravitational settling.',
     useCases: ['Storage meters', 'Progress indicators', 'Load monitoring'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['gauge', 'meter', 'liquid', 'volume', 'tank', 'sloshing']
   },
   {
     id: 'crystallized-text',
@@ -260,7 +384,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Typing triggers a crystallization effect where chars jitter into their final sharp state.',
     motionLogic: 'Procedural noise scrambling with linear decoherence curves.',
     useCases: ['Login fields', 'Search bars', 'Title reveals'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['input', 'text', 'type', 'reveal', 'scramble', 'static']
   },
   {
     id: 'momentum-trigger',
@@ -270,7 +395,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Cursor proximity drives subtle 3D leaning and internal element translation.',
     motionLogic: 'Spring-damped displacement vectors with a 0.98x active compression scale.',
     useCases: ['Primary CTAs', 'Form submission', 'Deliberate actions'],
-    difficulty: 'low'
+    difficulty: 'low',
+    keywords: ['button', 'click', 'magnetic', 'intent', 'momentum', 'trigger']
   },
   {
     id: 'luminance-mass',
@@ -280,7 +406,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Hover to "feel" the data mass through light spill and peripheral glow.',
     motionLogic: 'Inverse-square glow falloff and logarithmic radius scaling.',
     useCases: ['System load monitoring', 'Volume indicators', 'Energy dashboards'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['glow', 'magnitude', 'light', 'mass', 'photonic', 'volume']
   },
   {
     id: 'kinetic-ticker',
@@ -290,7 +417,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'The faster the data stream, the more violent the rhythmic "breathing" of the UI.',
     motionLogic: 'Frequency-modulated sine waves applied to scale and opacity.',
     useCases: ['Live stock feeds', 'Real-time traffic', 'Pulse monitors'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['data', 'ticker', 'vibration', 'feed', 'live', 'momentum']
   },
   {
     id: 'aura-sentiment',
@@ -300,7 +428,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Intentional color shifts and "viscosity" changes based on data sentiment scores.',
     motionLogic: 'Perlin noise-based color interpolation and fluid displacement.',
     useCases: ['Social sentiment analysis', 'Brand health', 'Community mood'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['sentiment', 'mood', 'aura', 'color', 'fluid', 'viscosity']
   },
   {
     id: 'viscous-data-feel',
@@ -310,7 +439,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Cursor resistance and scroll-inertia change based on the active dataset weight.',
     motionLogic: 'Dynamic damping and mass variables applied to spring physics.',
     useCases: ['File size indicators', 'Data heavy list exploration', 'Wait-state feedback'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['input', 'drag', 'viscous', 'friction', 'heavy', 'resistance']
   },
   {
     id: 'magneto-nav',
@@ -320,7 +450,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Cursor-driven magnetic attraction toward nav items.',
     motionLogic: 'Weighted spring physics with distance-based attenuation.',
     useCases: ['High-intent navigation', 'Interactive menus', 'Focused choice selection'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['navigation', 'menu', 'magnetic', 'nodes', 'magneto']
   },
   {
     id: 'tension-grid',
@@ -330,7 +461,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Cursor proximity causes grid cells to scale and rotate toward the focal point.',
     motionLogic: 'Inverse-square displacement with spring-return tension.',
     useCases: ['Data visualization', 'Atmospheric backgrounds', 'Sensory feedback'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['grid', 'elastic', 'tension', 'canvas', 'deform', 'fabric']
   },
   {
     id: 'chrono-scroll',
@@ -340,7 +472,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Scroll velocity drives chromatic aberration and scale warping.',
     motionLogic: 'Velocity mapping to multiple CSS filter variables.',
     useCases: ['Long-form storytelling', 'Media feeds', 'Chronological data'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['scroll', 'time', 'warping', 'chrono', 'aberration', 'velocity']
   },
   {
     id: 'orbit-nexus',
@@ -350,7 +483,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Polar coordinate navigation with dynamic centrifugal force.',
     motionLogic: 'Sinusoidal path mapping with variable frequency damping.',
     useCases: ['Feature clouds', 'Complexity management', 'Immersive menus'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['navigation', 'menu', 'orbit', 'nexus', 'polar', 'centrifugal']
   },
   {
     id: 'halt-reveal',
@@ -360,7 +494,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Hovering without moving for a threshold triggers a content bloom.',
     motionLogic: 'Velocity detection threshold linked to an opacity/scale progress ramp.',
     useCases: ['Deep data exploration', 'Engagement gates', 'Reading modes'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['input', 'reveal', 'stillness', 'halt', 'bloom', 'gate']
   },
   {
     id: 'intent-pulse',
@@ -370,7 +505,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Approach-aware glow and scale shifts.',
     motionLogic: 'Proximity mapping to SVG filters and spring-driven luminance.',
     useCases: ['Critical actions', 'System readiness', 'Success states'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['glow', 'intent', 'pulse', 'pre-click', 'feedback', 'approach']
   },
   {
     id: 'stochastic-mass',
@@ -380,7 +516,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Drag and toss mechanics with random inertia curves.',
     motionLogic: 'Physics-based mass and damping randomization.',
     useCases: ['Playful branding', 'Experimental physics', 'Generative UI'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['motion', 'physics', 'stochastic', 'random', 'mass', 'learning']
   },
   {
     id: 'cognitive-shield',
@@ -390,7 +527,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Automatic isolation of focal nodes.',
     motionLogic: 'Z-depth focal blur interpolation.',
     useCases: ['Complex dashboards', 'Developer tools', 'High-load environments'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['shield', 'focus', 'isolation', 'blur', 'cognitive', 'clarity']
   },
   {
     id: 'glyph-kinetic',
@@ -400,7 +538,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Rhythmic vibration and geometric morphing.',
     motionLogic: 'Frequency-modulated oscillation curves.',
     useCases: ['Textless interfaces', 'Status systems', 'Micro-interactions'],
-    difficulty: 'low'
+    difficulty: 'low',
+    keywords: ['symbols', 'glyphs', 'kinetic', 'silent', 'motion', 'rhythm']
   },
   {
     id: 'commitment-shard',
@@ -410,7 +549,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Drag-to-commit with high resistance.',
     motionLogic: 'Physical fragmentation simulation with gravity.',
     useCases: ['High-stakes actions', 'Security gates', 'Final commits'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['input', 'choice', 'commitment', 'shatter', 'fragment', 'selection']
   },
   {
     id: 'confidence-meter',
@@ -420,7 +560,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Typing speed and consistency drives clarity.',
     motionLogic: 'Blur and weight mapping to user keystroke cadence.',
     useCases: ['Cognitive assessment', 'Interactive logs', 'Flow tracking'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['meter', 'confidence', 'typing', 'flow', 'clarity', 'weight']
   },
   {
     id: 'resonance-field',
@@ -430,7 +571,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Cursor actions leave energy traces.',
     motionLogic: 'Temporal alpha decay with spatial persistence.',
     useCases: ['Collaborative heatmaps', 'Interactive art', 'Discovery paths'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['field', 'resonance', 'ghost', 'trace', 'echo', 'memory']
   },
   {
     id: 'evolutionary-shell',
@@ -440,7 +582,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Interaction frequency reduces visual labels.',
     motionLogic: 'Semantic state-clipping and icon scaling.',
     useCases: ['Expert tools', 'Onboarding-to-mastery', 'Minimalist systems'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['navigation', 'adaptive', 'evolutionary', 'mastery', 'minimalism', 'shell']
   },
   {
     id: 'choice-convergence',
@@ -450,7 +593,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Proximity-driven gravity wells.',
     motionLogic: 'Attractive spring forces between cursor and target.',
     useCases: ['Form selection', 'Hold-down choice', 'Guided interaction'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['input', 'choice', 'convergence', 'gravity', 'pull', 'guided']
   },
   {
     id: 'tectonic-data',
@@ -460,7 +604,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'UI elements physically settle or collide when data points arrive.',
     motionLogic: 'Rigid-body physics simulation and collision detection.',
     useCases: ['Alert systems', 'Database updates', 'Live sports scores'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['data', 'feed', 'tectonic', 'earthquake', 'collision', 'physics']
   },
   {
     id: 'grid-compression',
@@ -470,7 +615,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'The more data exists, the more the layout "compresses" into a dense, high-energy grid.',
     motionLogic: 'Spring-forced repulsion vs attraction grid logic.',
     useCases: ['Calendar density', 'Inventory management', 'Log exploration'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['navigation', 'grid', 'compression', 'packing', 'density', 'weather']
   },
   {
     id: 'fragile-glass',
@@ -480,7 +626,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Click triggers a physics-based fragmentation simulation.',
     motionLogic: 'Polygon clip-path shattering with gravity-based debris fall.',
     useCases: ['Impactful warnings', 'One-way decisions', 'Digital scarcity'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['feedback', 'glass', 'shatter', 'fragment', 'fragile', 'scarcity']
   },
   {
     id: 'cadence-lock',
@@ -490,7 +637,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Requires rhythmic clicking/tapping within a specific BPM tolerance.',
     motionLogic: 'Sinusoidal visual feedback mapped to precision.',
     useCases: ['Secure auth', 'Mindfulness gates', 'Alternative inputs'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['input', 'lock', 'rhythm', 'cadence', 'heartbeat', 'security']
   },
   {
     id: 'earned-legibility',
@@ -500,7 +648,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Cursor stability (zero velocity) triggers the decryption process.',
     motionLogic: 'Noise shader intensity modulated by cursor velocity delta.',
     useCases: ['Deep reading modes', 'Secure data reveal', 'Engagement testing'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['input', 'legibility', 'decrypt', 'focus', 'noise', 'reading']
   },
   {
     id: 'structural-glitch',
@@ -510,7 +659,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Hovering over components reveals wireframes, Z-index slices, and raw telemetry.',
     motionLogic: 'State-based interpolation between "Rendered" and "Wireframe" modes.',
     useCases: ['Developer tools', 'Technical branding', 'Creative portfolios'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['feedback', 'glitch', 'wireframe', 'leak', 'architecture', 'dev']
   },
   {
     id: 'thermal-overload',
@@ -520,7 +670,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Cumulative interaction frequency increases a "Thermal" state.',
     motionLogic: 'Chromatic aberration and Gaussian blur intensity mapped to heat levels.',
     useCases: ['Rate-limiting feedback', 'Resource protection', 'Anti-spam UIs'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['input', 'overload', 'thermal', 'heat', 'limiter', 'rate']
   },
   {
     id: 'rebel-navigation',
@@ -530,7 +681,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Remaps cursor X/Y coordinates to unexpected UI responses.',
     motionLogic: 'Non-linear transform mapping to break standard expectation chains.',
     useCases: ['Skill-based UIs', 'Interactive art', 'Cognitive training'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['navigation', 'rebel', 'axes', 'hijack', 'inverted', 'skill']
   },
   {
     id: 'spatial-strata',
@@ -540,7 +692,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Cursor-driven parallax with independent Z-translation constants.',
     motionLogic: 'Relative transform-3d mapping with spring-based smoothing.',
     useCases: ['Immersive headers', 'Interactive infographics', 'Data storytelling'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['motion', 'layers', 'parallax', 'spatial', '3d', 'floating']
   },
   {
     id: 'perspective-focal',
@@ -550,7 +703,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Dynamic CSS perspective-origin modulation driven by focus state.',
     motionLogic: 'Interpolated focal point coordinates mapped to container perspective.',
     useCases: ['Spatial menus', 'Focus-driven galleries', '3D dashboards'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['navigation', 'perspective', 'focus', 'vanishing', 'focal', '3d']
   },
   {
     id: 'proximity-field',
@@ -560,7 +714,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Calculates 1/r² distance to modulate Gaussian blur and opacity.',
     motionLogic: 'Dynamic filter interpolation based on proximity vectors.',
     useCases: ['Interactive grids', 'Visual search results', 'Focus-aware UIs'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['feedback', 'proximity', 'field', 'sharpness', 'focus', 'grid']
   },
   {
     id: 'isometric-grid-flux',
@@ -570,7 +725,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Tilting the layout using cursor X/Y coordinates to reveal hidden faces.',
     motionLogic: 'Shear and rotate interpolation for pseudo-3D perspective.',
     useCases: ['Strategy dashboards', 'Resource management UIs', 'Interactive maps'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['navigation', 'isometric', 'grid', 'tilting', 'flux', '3d']
   },
   {
     id: 'depth-squeeze',
@@ -580,7 +736,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Engagement triggers a Z-axis expansion of nested layers.',
     motionLogic: 'Spring physics applied to translateZ and depth separation.',
     useCases: ['Contextual menus', 'Advanced notifications', 'Depth-heavy layouts'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['feedback', 'depth', 'squeeze', 'stack', 'layers', 'expand']
   },
   {
     id: 'orbital-z-axis',
@@ -590,7 +747,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Sinusoidal mapping of Z-depth and horizontal position.',
     motionLogic: 'Polar coordinate conversion to 3D Cartesian space.',
     useCases: ['Atmospheric menus', 'Social feeds', 'Ambient navigation'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['navigation', 'orbit', 'planetary', '3d', 'orbital', 'space']
   },
   {
     id: 'state-memory',
@@ -600,7 +758,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Stores last-interacted coordinates to influence the default "rest" state of the UI.',
     motionLogic: 'Persistent vector bias applied to spring-based layout nodes.',
     useCases: ['Adaptive menus', 'Personalized tools', 'Smart shortcuts'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['navigation', 'memory', 'bias', 'recent', 'adaptive', 'state']
   },
   {
     id: 'atrophy-surface',
@@ -610,7 +769,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Inactivity timer modulates noise filters and luminance.',
     motionLogic: 'Inverted decay curve mapped to SVG filter intensity.',
     useCases: ['Ambient notifications', 'Energy-saving UIs', 'Dynamic focus systems'],
-    difficulty: 'medium'
+    difficulty: 'medium',
+    keywords: ['feedback', 'atrophy', 'dissolve', 'idle', 'decay', 'dust']
   },
   {
     id: 'circadian-interface',
@@ -620,7 +780,8 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Visual properties synchronized to a global 24h clock.',
     motionLogic: 'Trigonometric mapping of time to light-source vectors.',
     useCases: ['Health-tech apps', 'Smart home dashboards', 'Atmospheric portfolios'],
-    difficulty: 'low'
+    difficulty: 'low',
+    keywords: ['feedback', 'circadian', 'day-night', 'sync', 'time', 'lighting']
   },
   {
     id: 'history-echo',
@@ -630,6 +791,7 @@ export const COMPONENTS: ComponentMeta[] = [
     interactionModel: 'Snapshot capture on state change with a persistence scrub interaction.',
     motionLogic: 'Temporal stacking with opacity decay and Z-index layering.',
     useCases: ['Complex workflows', 'Version control visualization', 'Undo/Redo interactions'],
-    difficulty: 'high'
+    difficulty: 'high',
+    keywords: ['navigation', 'history', 'echo', 'ghost', 'stacking', 'trails']
   }
 ];

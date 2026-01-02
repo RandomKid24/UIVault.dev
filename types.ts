@@ -8,6 +8,7 @@ export interface ComponentMeta {
   motionLogic: string;
   useCases: string[];
   difficulty: 'low' | 'medium' | 'high';
+  keywords?: string[];
 }
 
 export type View = 'home' | 'explorer' | 'detail' | 'philosophy';

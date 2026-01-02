@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowLeft, Clock, History, Wind, ChevronDown, ChevronUp, Settings2, Zap } from 'lucide-react';
 import { View, ComponentMeta } from './types';
 import { COMPONENTS } from './constants';
@@ -11,6 +11,65 @@ import Explorer from './components/Explorer';
 import DetailView from './components/DetailView';
 import Philosophy from './components/Philosophy';
 import HUD from './components/HUD';
+
+const ScrollProgress = () => {
+  const { scrollYProgress } = useScroll();
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const percentage = useTransform(scrollYProgress, (latest) => Math.round(latest * 100));
+  
+  // Fix: MotionValue cannot be rendered directly as a ReactNode. We sync it to a state for display.
+  const [displayPercentage, setDisplayPercentage] = useState(0);
+
+  useEffect(() => {
+    // Initialize value
+    setDisplayPercentage(percentage.get());
+    // Subscribe to changes to update state
+    return percentage.on("change", (latest) => {
+      setDisplayPercentage(latest);
+    });
+  }, [percentage]);
+
+  return (
+    <div className="fixed right-6 top-1/2 -translate-y-1/2 h-64 w-8 flex flex-col items-center justify-between z-[100] pointer-events-none hidden md:flex">
+      <div className="flex flex-col items-center gap-1 mb-2">
+        <span className="mono text-[8px] text-neutral-600 font-black tracking-widest vertical-text rotate-180">START</span>
+        <div className="w-px h-4 bg-white/10" />
+      </div>
+      
+      <div className="relative flex-1 w-px bg-white/5">
+        <motion.div 
+          className="absolute top-0 left-0 w-full bg-cyan-500 origin-top shadow-[0_0_10px_cyan]"
+          style={{ scaleY }}
+        />
+        
+        {/* Moving Indicator Dot */}
+        <motion.div 
+          className="absolute left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_white] z-10"
+          style={{ top: useTransform(scaleY, (s) => `${s * 100}%`) }}
+        />
+      </div>
+
+      <div className="flex flex-col items-center gap-1 mt-2">
+        <div className="w-px h-4 bg-white/10" />
+        <motion.span className="mono text-[9px] text-cyan-500 font-black tracking-tighter">
+          {displayPercentage}%
+        </motion.span>
+        <span className="mono text-[8px] text-neutral-600 font-black tracking-widest vertical-text rotate-180">END</span>
+      </div>
+
+      <style>{`
+        .vertical-text {
+          writing-mode: vertical-rl;
+        }
+      `}</style>
+    </div>
+  );
+};
 
 const App: React.FC = () => {
   const [activeView, setActiveView] = useState<View>('home');
@@ -81,6 +140,9 @@ const App: React.FC = () => {
         if (v !== 'detail') scrollPosRef.current = 0; // Reset scroll ref if using main nav
         setActiveView(v);
       }} />
+
+      {/* Global Scroll Progress */}
+      <ScrollProgress />
 
       <main className="relative z-10 pt-24 pb-12 px-6 lg:px-12 max-w-[1800px] mx-auto">
         <AnimatePresence mode="wait">

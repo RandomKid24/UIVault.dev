@@ -112,6 +112,21 @@ import EvasiveGridDemo from './demos/EvasiveGridDemo';
 import DepthProbeDemo from './demos/DepthProbeDemo';
 import KineticShutterDemo from './demos/KineticShutterDemo';
 
+// NEW UNIQUE BUTTON DEMOS
+import HolographicTriggerDemo from './demos/HolographicTriggerDemo';
+import PressureExecutionDemo from './demos/PressureExecutionDemo';
+import VectorSkewDemo from './demos/VectorSkewDemo';
+
+// NEW UNIQUE LOADER DEMOS
+import VortexAccretionLoaderDemo from './demos/VortexAccretionLoaderDemo';
+import BismuthGrowthLoaderDemo from './demos/BismuthGrowthLoaderDemo';
+import PlasmaConduitLoaderDemo from './demos/PlasmaConduitLoaderDemo';
+
+// NEW UNIQUE CURSOR DEMOS
+import QuantumSwarmCursorDemo from './demos/QuantumSwarmCursorDemo';
+import TacticalScanCursorDemo from './demos/TacticalScanCursorDemo';
+import ElasticTendrilCursorDemo from './demos/ElasticTendrilCursorDemo';
+
 interface DetailViewProps {
   component: ComponentMeta;
   temporalContext?: {
@@ -129,6 +144,15 @@ const DetailView: React.FC<DetailViewProps> = ({ component, temporalContext }) =
     
     switch (component.id) {
       // New Unique Primitives
+      case 'holographic-impulse': return <HolographicTriggerDemo />;
+      case 'pressure-execution': return <PressureExecutionDemo />;
+      case 'vector-skew-trigger': return <VectorSkewDemo />;
+      case 'vortex-accretion-loader': return <VortexAccretionLoaderDemo />;
+      case 'bismuth-growth-loader': return <BismuthGrowthLoaderDemo />;
+      case 'plasma-conduit-loader': return <PlasmaConduitLoaderDemo />;
+      case 'quantum-swarm-cursor': return <QuantumSwarmCursorDemo />;
+      case 'tactical-scan-cursor': return <TacticalScanCursorDemo />;
+      case 'elastic-tendril-cursor': return <ElasticTendrilCursorDemo />;
       case 'history-strata': return <HistoryStrataDemo />;
       case 'kinetic-timeline': return <KineticTimelineDemo />;
       case 'strata-loader': return <StrataLoaderDemo />;
