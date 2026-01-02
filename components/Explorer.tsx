@@ -5,6 +5,8 @@ import { ComponentMeta } from '../types';
 import { ArrowUpRight, Gauge, Eye, Play, Search, Hash, Filter } from 'lucide-react';
 
 // === DEMO IMPORTS FOR PREVIEWS ===
+import HistoryStrataDemo from './demos/HistoryStrataDemo';
+import KineticTimelineDemo from './demos/KineticTimelineDemo';
 import StrataLoaderDemo from './demos/StrataLoaderDemo';
 import TectonicLoaderDemo from './demos/TectonicLoaderDemo';
 import PhotonicLoaderDemo from './demos/PhotonicLoaderDemo';
@@ -110,6 +112,8 @@ interface ExplorerProps {
 
 const SimulationRouter: React.FC<{ id: string }> = ({ id }) => {
   switch (id) {
+    case 'history-strata': return <HistoryStrataDemo />;
+    case 'kinetic-timeline': return <KineticTimelineDemo />;
     case 'strata-loader': return <StrataLoaderDemo />;
     case 'tectonic-loader': return <TectonicLoaderDemo />;
     case 'photonic-loader': return <PhotonicLoaderDemo />;

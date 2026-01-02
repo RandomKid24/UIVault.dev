@@ -3,6 +3,26 @@ import { ComponentMeta } from './types';
 
 export const COMPONENTS: ComponentMeta[] = [
   {
+    id: 'history-strata',
+    name: 'History Strata',
+    category: 'navigation',
+    description: 'A narrative-driven timeline where history is stratified in 3D space. Eras emerge from temporal fog and crystallize into sharp focus as the user scrolls through the epoch.',
+    interactionModel: 'Vertical scroll drives temporal depth. Focal events scale and sharpen while background eras parallax in Z-space.',
+    motionLogic: 'Scroll-linked Z-axis translation combined with focal blur interpolation and elastic spine deformation.',
+    useCases: ['Company histories', 'Product roadmaps', 'Evolutionary timelines'],
+    difficulty: 'high'
+  },
+  {
+    id: 'kinetic-timeline',
+    name: 'Temporal Scrub Axis',
+    category: 'navigation',
+    description: 'A non-linear timeline that treats time as a physical medium. Events are stratified in Z-space and respond to scrubbing velocity with elastic deformation.',
+    interactionModel: 'Drag the photonic playhead to scrub. High velocity triggers focal distortion. Event nodes drift in Z-depth based on temporal distance from focus.',
+    motionLogic: 'Mass-spring playhead physics (stiffness: 120, damping: 20) with velocity-mapped chromatic aberration and Gaussian blur.',
+    useCases: ['Video editing suites', 'Historical data exploration', 'Process scrubbing'],
+    difficulty: 'high'
+  },
+  {
     id: 'strata-loader',
     name: '3D Depth Progress',
     category: 'feedback',

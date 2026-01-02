@@ -5,6 +5,8 @@ import { ComponentMeta } from '../types';
 import { Activity, Code, Layers, MousePointer2, Target } from 'lucide-react';
 
 // New Designs
+import HistoryStrataDemo from './demos/HistoryStrataDemo';
+import KineticTimelineDemo from './demos/KineticTimelineDemo';
 import StrataLoaderDemo from './demos/StrataLoaderDemo';
 import TectonicLoaderDemo from './demos/TectonicLoaderDemo';
 import PhotonicLoaderDemo from './demos/PhotonicLoaderDemo';
@@ -127,6 +129,8 @@ const DetailView: React.FC<DetailViewProps> = ({ component, temporalContext }) =
     
     switch (component.id) {
       // New Unique Primitives
+      case 'history-strata': return <HistoryStrataDemo />;
+      case 'kinetic-timeline': return <KineticTimelineDemo />;
       case 'strata-loader': return <StrataLoaderDemo />;
       case 'tectonic-loader': return <TectonicLoaderDemo />;
       case 'photonic-loader': return <PhotonicLoaderDemo />;
