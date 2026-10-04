@@ -2,8 +2,8 @@
 
 Slim React components you copy into your project. Radix for behavior, Tailwind 4 for styling, CSS variables for theming. Includes HRMS and marketing blocks.
 
-- 31 components, one file each, in `src/components/ui`
-- 6 blocks in `src/blocks` (people overview, employee directory, leave approvals, campaign performance, lead pipeline, sign in)
+- 36 components, one file each, in `src/components/ui`, including date picker, combobox, sidebar and app shell
+- 8 blocks in `src/blocks` (admin shell, people overview, employee directory, leave approvals, leave request form, campaign performance, lead pipeline, sign in)
 - A docs site with live previews, source, and Ctrl/Cmd+K search
 
 ## Run the site

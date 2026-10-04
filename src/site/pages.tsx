@@ -281,7 +281,7 @@ export function ComponentPage({ slug }: { slug: string }) {
       <p className="mt-3 max-w-2xl text-muted-foreground">{c.description}</p>
 
       <div className="mt-8">
-        <Preview title={`examples/${c.slug}.tsx`} code={c.demoSource}><c.Demo /></Preview>
+        <Preview bleed={c.wide} title={`examples/${c.slug}.tsx`} code={c.demoSource}><c.Demo /></Preview>
       </div>
 
       <h2 className={h2}>Install</h2>
