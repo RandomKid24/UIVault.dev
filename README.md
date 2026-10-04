@@ -1,20 +1,37 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# UIVault
 
-# Run and deploy your AI Studio app
+Slim React components you copy into your project. Radix for behavior, Tailwind 4 for styling, CSS variables for theming. Includes HRMS and marketing blocks.
 
-This contains everything you need to run your app locally.
+- 31 components, one file each, in `src/components/ui`
+- 6 blocks in `src/blocks` (people overview, employee directory, leave approvals, campaign performance, lead pipeline, sign in)
+- A docs site with live previews, source, and Ctrl/Cmd+K search
 
-View your app in AI Studio: https://ai.studio/apps/drive/1g1N98q0rEZ_aOM-NQ35Qlc9Rr7bTWths
+## Run the site
 
-## Run Locally
+```bash
+npm install
+npm run dev
+```
 
-**Prerequisites:**  Node.js
+## Use a component in your own app
 
+The site's "Getting started" page has the full steps. Short version:
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+1. `npm i tailwindcss @tailwindcss/vite clsx tailwind-merge class-variance-authority lucide-react`
+2. Copy `src/lib/utils.ts` and the theme variables from `src/index.css`.
+3. Add the `@` alias to `src`.
+4. Copy the component file, plus any Radix packages listed on its page.
+
+## Add a component
+
+1. Create `src/components/ui/<slug>.tsx`.
+2. Create `src/examples/<slug>.tsx` with a default-exported demo.
+3. Add an entry to `src/registry/index.ts`. The docs page, search and sidebar come from it.
+
+## Theme
+
+All colors are variables in `src/index.css`. Change `--primary`, `--ring`, `--accent` and `--accent-foreground` to rebrand. Dark mode applies when `<html>` has the `dark` class.
+
+## Legacy
+
+`legacy/` holds the earlier motion experiments (130 demos). It is not part of the build.
