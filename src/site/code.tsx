@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { Check, Copy } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { CopyButton } from '@/components/ui/copy-button';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 
 const KEYWORDS =
@@ -28,32 +30,6 @@ function highlight(code: string): React.ReactNode[] {
   return out;
 }
 
-export function CopyButton({ text, className, label }: { text: string; className?: string; label?: string }) {
-  const [done, setDone] = React.useState(false);
-  return (
-    <button
-      type="button"
-      aria-label="Copy"
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(text);
-          setDone(true);
-          setTimeout(() => setDone(false), 1400);
-        } catch {
-          /* clipboard can be blocked in iframes */
-        }
-      }}
-      className={cn(
-        'inline-flex h-7 items-center gap-1.5 rounded-md px-2 text-xs font-medium text-muted-foreground outline-none transition-colors hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40',
-        className,
-      )}
-    >
-      {done ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
-      {label && <span>{done ? 'Copied' : label}</span>}
-    </button>
-  );
-}
-
 export function CodeBlock({
   code,
   title,
@@ -72,7 +48,7 @@ export function CodeBlock({
     <div className={cn('overflow-hidden rounded-lg border bg-muted/60', className)}>
       <div className="flex h-9 items-center justify-between border-b bg-muted px-3">
         <span className="font-mono text-xs text-muted-foreground">{title}</span>
-        <CopyButton text={code} label="Copy" />
+        <CopyButton value={code} className="size-7 border-transparent bg-transparent" />
       </div>
       <div className="relative">
         <pre
@@ -83,12 +59,7 @@ export function CodeBlock({
         </pre>
         {clipped && (
           <div className="absolute inset-x-0 bottom-0 flex h-20 items-end justify-center bg-gradient-to-t from-muted to-transparent pb-3">
-            <button
-              onClick={() => setExpanded(true)}
-              className="rounded-md border bg-background px-3 py-1 text-xs font-medium shadow-sm transition-colors hover:bg-secondary"
-            >
-              Show full file
-            </button>
+            <Button size="xs" variant="outline" onClick={() => setExpanded(true)}>Show full file</Button>
           </div>
         )}
       </div>
@@ -96,11 +67,38 @@ export function CodeBlock({
   );
 }
 
+const managers = [
+  ['npm', (c: string) => c],
+  ['pnpm', (c: string) => c.replace(/^npm i /, 'pnpm add ')],
+  ['yarn', (c: string) => c.replace(/^npm i /, 'yarn add ')],
+  ['bun', (c: string) => c.replace(/^npm i /, 'bun add ')],
+] as const;
+
+/** Shell command with a package-manager switch when it is an `npm i` line. The choice sticks across the page. */
 export function Command({ children }: { children: string }) {
+  const [pm, setPm] = React.useState(() => {
+    try { return localStorage.getItem('befui-pm') ?? 'npm'; } catch { return 'npm'; }
+  });
+  React.useEffect(() => {
+    const sync = () => { try { setPm(localStorage.getItem('befui-pm') ?? 'npm'); } catch { /* storage can be blocked */ } };
+    window.addEventListener('befui-pm', sync);
+    return () => window.removeEventListener('befui-pm', sync);
+  }, []);
+  const swappable = children.startsWith('npm i ');
+  const text = swappable ? managers.find(([n]) => n === pm)![1](children) : children;
   return (
-    <div className="flex items-center justify-between gap-3 rounded-lg border bg-muted/60 py-1.5 pl-4 pr-1.5">
-      <code className="overflow-x-auto whitespace-nowrap font-mono text-[12.5px]">{children}</code>
-      <CopyButton text={children} />
+    <div className="overflow-hidden rounded-lg border bg-muted/60">
+      {swappable && (
+        <Tabs value={pm} onValueChange={(v) => { setPm(v); try { localStorage.setItem('befui-pm', v); } catch { /* storage can be blocked */ } window.dispatchEvent(new Event('befui-pm')); }}>
+          <TabsList variant="pill" className="m-1.5 mb-0">
+            {managers.map(([n]) => <TabsTrigger key={n} value={n} className="px-2.5 text-xs">{n}</TabsTrigger>)}
+          </TabsList>
+        </Tabs>
+      )}
+      <div className="flex items-center justify-between gap-3 py-1.5 pl-4 pr-1.5">
+        <code className="overflow-x-auto whitespace-nowrap font-mono text-[12.5px]">{text}</code>
+        <CopyButton value={text} className="size-7 shrink-0 border-transparent bg-transparent" />
+      </div>
     </div>
   );
 }

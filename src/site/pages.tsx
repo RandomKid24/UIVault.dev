@@ -1,6 +1,12 @@
 import * as React from 'react';
-import { ArrowRight, Blocks, Check, Github, Layers, Palette, Package } from 'lucide-react';
+import { Github } from 'lucide-react';
+import { ArrowRightIcon, CheckIcon, SearchIcon } from '@/components/ui/icons';
 import { Badge } from '@/components/ui/badge';
+import { ChipGroup } from '@/components/ui/chip';
+import { EmptyState } from '@/components/ui/empty-state';
+import { Input } from '@/components/ui/input';
+import { Reveal } from '@/components/ui/reveal';
+import { SpotlightCard } from '@/components/ui/spotlight-card';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -13,16 +19,17 @@ import { Users, IndianRupee } from 'lucide-react';
 import { blocks, categories, components, globalCss, utilsSource } from '@/registry';
 import { cn } from '@/lib/utils';
 import { Command, CodeBlock } from './code';
-import { REPO } from './layout';
 import { Link } from './router';
 import { Preview } from './preview';
+import { Playground, hasPlayground } from './playground';
+import { Gallery, hasGallery } from './gallery';
 
 const h1 = 'text-3xl font-semibold tracking-tight sm:text-4xl';
 const h2 = 'mt-12 mb-4 scroll-mt-20 text-xl font-semibold tracking-tight';
 
 /* ------------------------------------------------------------------ home */
 
-function HeroCollage() {
+export function HeroCollage() {
   return (
     <div className="pointer-events-none relative mx-auto mt-14 w-full max-w-4xl select-none text-left" aria-hidden>
       <div className="absolute -inset-x-6 -top-6 bottom-0 -z-10 rounded-[2rem] bg-[radial-gradient(60%_60%_at_50%_0%,color-mix(in_srgb,var(--primary)_14%,transparent),transparent)]" />
@@ -55,72 +62,6 @@ function HeroCollage() {
         </div>
       </div>
     </div>
-  );
-}
-
-export function Home() {
-  const features = [
-    { icon: Package, title: 'You own the code', body: 'Each component is one file. Copy it, edit it. No package to upgrade or fight.' },
-    { icon: Palette, title: 'Themed with CSS variables', body: 'Change --primary once and everything follows, in light and dark.' },
-    { icon: Layers, title: 'Radix underneath', body: 'Dialogs, menus, selects and tabs get focus handling and keyboard support from Radix.' },
-    { icon: Blocks, title: 'Real screens included', body: 'HRMS and marketing blocks you can drop in: directory, approvals, pipeline, campaign report.' },
-  ];
-  return (
-    <>
-      <section className="mx-auto max-w-[88rem] px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-24">
-        <Badge variant="outline" className="mb-5 py-1 pl-1 pr-3">
-          <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">New</span>
-          {components.length} components and {blocks.length} blocks
-        </Badge>
-        <h1 className="mx-auto max-w-3xl text-balance text-4xl font-semibold tracking-tight sm:text-6xl sm:leading-[1.05]">
-          Slim React components you copy into your project
-        </h1>
-        <p className="mx-auto mt-5 max-w-xl text-pretty text-base text-muted-foreground sm:text-lg">
-          Dense, quiet UI for dashboards and internal tools. Built on Radix and Tailwind, with ready-made HRMS and marketing screens.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Button asChild size="lg"><Link to="/docs">Get started <ArrowRight /></Link></Button>
-          <Button asChild size="lg" variant="outline"><Link to="/components">Browse components</Link></Button>
-        </div>
-        <HeroCollage />
-      </section>
-
-      <section className="border-y bg-muted/40">
-        <div className="mx-auto grid max-w-[88rem] gap-8 px-4 py-14 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
-          {features.map((f) => (
-            <div key={f.title} className="grid content-start gap-2">
-              <span className="grid size-9 place-items-center rounded-lg border bg-background text-primary"><f.icon className="size-4" /></span>
-              <h3 className="mt-1 text-sm font-semibold">{f.title}</h3>
-              <p className="text-[13px] leading-relaxed text-muted-foreground">{f.body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[88rem] px-4 py-16 sm:px-6">
-        <div className="mb-6 flex items-end justify-between">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight">Blocks</h2>
-            <p className="mt-1 text-[13px] text-muted-foreground">Whole screens built from the components.</p>
-          </div>
-          <Button asChild variant="ghost" size="sm"><Link to="/blocks">All blocks <ArrowRight /></Link></Button>
-        </div>
-        <BlockGrid items={blocks.slice(0, 3)} />
-      </section>
-
-      <Footer />
-    </>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="border-t">
-      <div className="mx-auto flex max-w-[88rem] flex-wrap items-center justify-between gap-3 px-4 py-6 text-[13px] text-muted-foreground sm:px-6">
-        <span>UIVault. MIT licensed.</span>
-        <a href={REPO} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"><Github className="size-4" /> Source on GitHub</a>
-      </div>
-    </footer>
   );
 }
 
@@ -158,7 +99,7 @@ function AccentPicker() {
           className={cn('grid size-8 place-items-center rounded-full border-2 border-transparent outline-none transition-transform hover:scale-110 focus-visible:ring-2 focus-visible:ring-ring/50 aria-pressed:border-foreground/70')}
           style={{ background: a.value }}
         >
-          {active === a.name && <Check className="size-3.5 text-white" strokeWidth={3} />}
+          {active === a.name && <CheckIcon className="size-3.5 text-white" strokeWidth={3} />}
         </button>
       ))}
       <span className="ml-1 text-xs text-muted-foreground">Accent applies to this tab only.</span>
@@ -178,7 +119,7 @@ export function GettingStarted() {
       <Breadcrumb className="mb-4" items={[{ label: 'Docs', href: '#/docs' }, { label: 'Getting started' }]} />
       <h1 className={h1}>Getting started</h1>
       <p className="mt-3 text-muted-foreground">
-        UIVault is not an npm package. You copy the files you need into your own project, so there is nothing to version-lock. Setup takes five minutes the first time.
+        befui is not an npm package. You copy the files you need into your own project, so there is nothing to version-lock. Setup takes five minutes the first time.
       </p>
 
       {step(1, 'Install Tailwind 4')}
@@ -231,24 +172,40 @@ export function GettingStarted() {
 /* ------------------------------------------------------------ components */
 
 export function ComponentsIndex() {
+  const [q, setQ] = React.useState('');
+  const [cat, setCat] = React.useState<string[]>([]);
+  const term = q.trim().toLowerCase();
+  const match = (c: (typeof components)[number]) =>
+    (!cat.length || cat.includes(c.category)) &&
+    (!term || `${c.name} ${c.description} ${c.keywords.join(' ')}`.toLowerCase().includes(term));
+  const shown = components.filter(match);
   return (
     <div>
-      <h1 className={h1}>Components</h1>
-      <p className="mt-3 max-w-2xl text-muted-foreground">{components.length} components. Each is a single file with a live example.</p>
-      {categories.map((cat) => (
-        <section key={cat} className="mt-10">
-          <h2 className="mb-3 text-sm font-semibold text-muted-foreground">{cat}</h2>
+      <h1 className={h1}>Components <Badge variant="outline" className="ml-2 align-middle">{shown.length}</Badge></h1>
+      <p className="mt-3 max-w-2xl text-muted-foreground">Each is a single file with a live example.</p>
+      <div className="mt-6 grid gap-3">
+        <Input leftIcon={<SearchIcon />} placeholder="Filter by name or keyword" value={q} onChange={(e) => setQ(e.target.value)} className="max-w-sm" />
+        <ChipGroup options={categories} value={cat} onValueChange={setCat} />
+      </div>
+      {shown.length === 0 && (
+        <EmptyState className="mt-10" icon={<SearchIcon />} title="Nothing matches" description="Try a different word, or clear the category filters." action={<Button variant="outline" size="sm" onClick={() => { setQ(''); setCat([]); }}>Clear filters</Button>} />
+      )}
+      {categories.filter((k) => shown.some((c) => c.category === k)).map((k) => (
+        <section key={k} className="mt-10">
+          <h2 className="mb-3 text-sm font-semibold text-muted-foreground">{k}</h2>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {components.filter((c) => c.category === cat).map((c) => (
-              <Link key={c.slug} to={`/components/${c.slug}`} className="group rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
-                <Card hoverable className="h-full p-4">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-semibold">{c.name}</p>
-                    <ArrowRight className="size-4 text-muted-foreground/0 transition-all group-hover:translate-x-0.5 group-hover:text-muted-foreground" />
-                  </div>
-                  <p className="mt-1 text-[13px] text-muted-foreground">{c.description}</p>
-                </Card>
-              </Link>
+            {shown.filter((c) => c.category === k).map((c, i) => (
+              <Reveal key={c.slug} delay={Math.min(i, 5) * 40} y={10}>
+                <Link to={`/components/${c.slug}`} className="group block h-full rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
+                  <SpotlightCard className="h-full p-4 hover:translate-y-0">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-semibold">{c.name}</p>
+                      <ArrowRightIcon className="size-4 text-muted-foreground/0 transition-all group-hover:translate-x-0.5 group-hover:text-muted-foreground" />
+                    </div>
+                    <p className="mt-1 text-[13px] text-muted-foreground">{c.description}</p>
+                  </SpotlightCard>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -273,7 +230,7 @@ export function ComponentPage({ slug }: { slug: string }) {
   const c = components.find((x) => x.slug === slug);
   if (!c) return <NotFound />;
   const packages = ['clsx', 'tailwind-merge', 'class-variance-authority', ...c.deps];
-  const needs = c.requires.map((r) => components.find((x) => x.slug === r)!);
+  const needs = c.requires.map((r) => (r === 'icons' ? { slug: 'icons', name: 'Icons', to: '/icons' } : { slug: r, name: components.find((x) => x.slug === r)!.name, to: `/components/${r}` }));
   return (
     <article className="max-w-4xl">
       <Breadcrumb className="mb-4" items={[{ label: 'Components', href: '#/components' }, { label: c.category }, { label: c.name }]} />
@@ -281,7 +238,14 @@ export function ComponentPage({ slug }: { slug: string }) {
       <p className="mt-3 max-w-2xl text-muted-foreground">{c.description}</p>
 
       <div className="mt-8">
-        <Preview bleed={c.wide} title={`examples/${c.slug}.tsx`} code={c.demoSource}><c.Demo /></Preview>
+        {hasGallery(slug) ? (
+          <div className="grid gap-8">
+            {hasPlayground(slug) && <Playground slug={slug} />}
+            <Gallery slug={slug} />
+          </div>
+        ) : (
+          <Preview bleed={c.wide} title={`examples/${c.slug}.tsx`} code={c.demoSource} playground={hasPlayground(c.slug) ? <Playground slug={c.slug} /> : undefined}><c.Demo /></Preview>
+        )}
       </div>
 
       <h2 className={h2}>Install</h2>
@@ -292,12 +256,13 @@ export function ComponentPage({ slug }: { slug: string }) {
         {needs.length > 0 && (
           <>
             , along with {needs.map((n, i) => (
-              <React.Fragment key={n.slug}>{i > 0 && ', '}<Link to={`/components/${n.slug}`} className="font-medium text-primary hover:underline">{n.name}</Link></React.Fragment>
+              <React.Fragment key={n.slug}>{i > 0 && ', '}<Link to={n.to} className="font-medium text-primary hover:underline">{n.name}</Link></React.Fragment>
             ))}
           </>
         )}
         .
       </p>
+      <h2 className={h2}>Source</h2>
       <CodeBlock code={c.source} title={c.path} maxHeight={420} />
 
       <PrevNext list={components} slug={slug} base="/components" />
@@ -307,7 +272,7 @@ export function ComponentPage({ slug }: { slug: string }) {
 
 /* ---------------------------------------------------------------- blocks */
 
-function BlockGrid({ items }: { items: typeof blocks }) {
+export function BlockGrid({ items }: { items: typeof blocks }) {
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
       {items.map((b) => (
@@ -368,10 +333,8 @@ export function BlockPage({ slug }: { slug: string }) {
 
 export function NotFound() {
   return (
-    <div className="grid place-items-center gap-3 py-24 text-center">
-      <p className="text-4xl font-semibold">404</p>
-      <p className="text-muted-foreground">That page does not exist.</p>
-      <Button asChild variant="outline"><Link to="/components">See all components</Link></Button>
+    <div className="mx-auto max-w-md py-24">
+      <EmptyState icon={<SearchIcon />} title="404, that page does not exist" description="It may have moved. Try the component list." action={<Button asChild variant="outline"><Link to="/components">See all components</Link></Button>} />
     </div>
   );
 }

@@ -9,7 +9,7 @@ export interface Entry {
   category: Category;
   /** npm packages the file imports, besides react, clsx, tailwind-merge and class-variance-authority. */
   deps: string[];
-  /** Other UIVault files this one imports. */
+  /** Other befui files this one imports. */
   requires: string[];
   keywords: string[];
   /** Example needs the full page width, so skip the centered dotted frame. */
@@ -31,7 +31,7 @@ const m = (
 ): Meta => ({ slug, name, category, description, deps: extra.deps ?? [], requires: extra.requires ?? [], keywords: extra.keywords ?? [], wide: extra.wide ?? false });
 
 const metas: Meta[] = [
-  m('button', 'Button', 'Inputs', 'Six variants, five sizes, loading state, and asChild for links.', { deps: ['@radix-ui/react-slot', 'lucide-react'], keywords: ['cta', 'action', 'submit'] }),
+  m('button', 'Button', 'Inputs', 'Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links.', { deps: ['@radix-ui/react-slot', 'lucide-react'], keywords: ['cta', 'action', 'submit'] }),
   m('input', 'Input', 'Inputs', 'Text input and textarea with icon, trailing slot, and invalid state.', { keywords: ['text', 'field', 'form', 'textarea', 'search'] }),
   m('label', 'Label and Field', 'Inputs', 'Label with required marker, plus Field for label, control and hint or error.', { deps: ['@radix-ui/react-label'], keywords: ['form', 'error', 'hint'] }),
   m('checkbox', 'Checkbox', 'Inputs', 'Checked, unchecked and indeterminate. Works for select-all rows.', { deps: ['@radix-ui/react-checkbox', 'lucide-react'], keywords: ['select', 'check', 'form'] }),
@@ -41,6 +41,44 @@ const metas: Meta[] = [
   m('calendar', 'Calendar', 'Inputs', 'Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work.', { deps: ['lucide-react'], keywords: ['date', 'month', 'range', 'schedule'] }),
   m('date-picker', 'Date picker', 'Inputs', 'Date and date range fields that open a calendar. Closes on pick.', { deps: ['@radix-ui/react-popover', 'lucide-react'], requires: ['calendar', 'popover'], keywords: ['date', 'range', 'leave', 'schedule', 'calendar'] }),
   m('segmented', 'Segmented control', 'Inputs', 'Pick one of a few views or ranges. Smaller than tabs.', { deps: ['@radix-ui/react-toggle-group'], keywords: ['toggle', 'filter', 'range'] }),
+
+  m('accordion', 'Accordion', 'Display', 'Collapsible sections with a smooth height animation. Single or multiple open.', { deps: ['lucide-react'], keywords: ['faq', 'collapse', 'expand'] }),
+  m('spotlight-card', 'Spotlight card', 'Display', 'Card with a glow and border highlight that follow the cursor.', { keywords: ['hover', 'glow', 'feature', 'marketing'] }),
+  m('border-beam', 'Border beam', 'Display', 'A light beam that circles the border. For pricing cards and featured content.', { keywords: ['glow', 'pricing', 'highlight', 'animated border'] }),
+  m('marquee', 'Marquee', 'Display', 'Endless logo or tag scroll with edge fade. Pauses on hover.', { keywords: ['logos', 'ticker', 'scroll', 'carousel', 'social proof'] }),
+  m('number-ticker', 'Number ticker', 'Data', 'Counts up to a value with easing once it scrolls into view.', { keywords: ['count', 'animate', 'stat', 'kpi'] }),
+  m('reveal', 'Reveal', 'Display', 'Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each.', { keywords: ['scroll', 'animation', 'stagger', 'headline', 'text'] }),
+  m('copy-button', 'Copy button', 'Inputs', 'Copies text and morphs to a check.', { deps: ['lucide-react'], keywords: ['clipboard', 'code', 'share'] }),
+  m('otp-input', 'OTP input', 'Inputs', 'Code boxes with paste, backspace, arrow keys, autofill and a shake on error.', { keywords: ['verification', 'pin', 'code', '2fa', 'login'] }),
+  m('slider', 'Slider', 'Inputs', 'Native range input with a filled track and floating value bubble.', { keywords: ['range', 'budget', 'volume'] }),
+  m('dropzone', 'Dropzone', 'Inputs', 'Drag and drop file area with size check and removable file list.', { deps: ['lucide-react'], keywords: ['upload', 'file', 'attachment', 'drag'] }),
+
+  m('radio-group', 'Radio group', 'Inputs', 'Native radios as selectable cards with descriptions.', { keywords: ['option', 'plan', 'choice', 'form'] }),
+  m('rating', 'Rating', 'Inputs', 'Star rating with hover preview. Read-only when no handler is given.', { deps: ['lucide-react'], keywords: ['stars', 'review', 'feedback'] }),
+  m('tag-input', 'Tag input', 'Inputs', 'Type and press Enter to add chips. Backspace removes the last.', { deps: ['lucide-react'], keywords: ['chips', 'tags', 'skills', 'multi'] }),
+  m('number-stepper', 'Number stepper', 'Inputs', 'Number field with plus and minus buttons and arrow keys.', { deps: ['lucide-react'], keywords: ['quantity', 'counter', 'increment'] }),
+  m('chip', 'Chip', 'Inputs', 'Toggleable filter chips, single or multi select.', { deps: ['lucide-react'], keywords: ['filter', 'tag', 'toggle', 'pill'] }),
+  m('carousel', 'Carousel', 'Display', 'Scroll-snap slides with arrows and animated dots.', { deps: ['lucide-react'], keywords: ['slider', 'gallery', 'swipe', 'slides'] }),
+  m('compare', 'Image compare', 'Display', 'Before and after slider. Drag or use arrow keys.', { keywords: ['before after', 'image', 'diff'] }),
+  m('tilt-card', 'Tilt card', 'Display', '3D card that tilts toward the cursor with a moving sheen.', { keywords: ['3d', 'hover', 'perspective', 'id card'] }),
+  m('shimmer-text', 'Shimmer text', 'Display', 'Text with a light sweep passing over it.', { keywords: ['heading', 'hero', 'loading text', 'animated text'] }),
+  m('countdown', 'Countdown', 'Data', 'Live countdown with flipping digits.', { keywords: ['timer', 'deadline', 'launch', 'clock'] }),
+  m('progress-ring', 'Progress ring', 'Data', 'Circular progress with an eased stroke animation.', { keywords: ['circle', 'gauge', 'radial', 'completion'] }),
+  m('banner', 'Banner', 'Feedback', 'Announcement bar that collapses smoothly when dismissed.', { deps: ['lucide-react'], keywords: ['announcement', 'promo', 'notice'] }),
+  m('scroll-progress', 'Scroll progress', 'Navigation', 'Thin bar that fills as you scroll the page or a container.', { keywords: ['reading', 'indicator', 'article'] }),
+  m('tree-view', 'Tree view', 'Navigation', 'Nested expandable list with animated open and close.', { deps: ['lucide-react'], keywords: ['files', 'folders', 'hierarchy', 'org chart', 'nested'] }),
+
+  m('toggle', 'Toggle', 'Inputs', 'Two-state button for favourite, bold or mute. Announces its state to screen readers.', { requires: [], keywords: ['pressed', 'favourite', 'like', 'bold', 'button'] }),
+  m('search-input', 'Search input', 'Inputs', 'Search field with a clear button, Escape to clear and a slash shortcut to focus.', { requires: ['icons'], keywords: ['filter', 'find', 'query', 'shortcut'] }),
+  m('password-input', 'Password input', 'Inputs', 'Show and hide toggle with an optional strength meter.', { requires: ['icons', 'input'], keywords: ['secret', 'login', 'sign up', 'strength'] }),
+  m('color-picker', 'Color picker', 'Inputs', 'Swatches, hex field and the native picker. Always returns a six-digit hex.', { requires: ['icons'], keywords: ['hex', 'swatch', 'theme', 'brand'] }),
+  m('collapsible', 'Collapsible', 'Display', 'One section that opens with a smooth height animation.', { requires: ['icons'], keywords: ['expand', 'show more', 'details', 'disclosure'] }),
+  m('dock', 'Dock', 'Navigation', 'Icons that grow toward the pointer, like the macOS dock.', { keywords: ['magnify', 'toolbar', 'apps', 'launcher'] }),
+  m('data-table', 'Data table', 'Data', 'Sortable columns, a filter box and pagination. You pass rows and column definitions.', { requires: ['icons', 'pagination', 'table'], keywords: ['sort', 'filter', 'grid', 'list', 'rows'] }),
+  m('gauge', 'Gauge', 'Data', 'Half-circle meter with a needle that swings to the value.', { keywords: ['meter', 'speedometer', 'score', 'dial'] }),
+  m('typewriter', 'Typewriter', 'Display', 'Types, holds and deletes phrases in a loop. Static for reduced motion.', { keywords: ['text', 'hero', 'rotating', 'headline', 'animated text'] }),
+  m('confetti', 'Confetti', 'Feedback', 'Burst of confetti from any button, or call fireConfetti(x, y) yourself.', { keywords: ['celebrate', 'success', 'party', 'delight'] }),
+  m('alert-dialog', 'Alert dialog', 'Overlays', 'Confirm before something destructive. Cancel and confirm, controlled by you.', { deps: [], requires: ['icons', 'button', 'dialog'], keywords: ['confirm', 'delete', 'are you sure', 'modal'] }),
 
   m('card', 'Card', 'Display', 'Bordered surface with header, content and footer parts.', { keywords: ['panel', 'container', 'surface'] }),
   m('badge', 'Badge', 'Display', 'Status pill with semantic colors and an optional dot.', { keywords: ['status', 'tag', 'chip', 'label'] }),

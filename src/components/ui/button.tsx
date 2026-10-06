@@ -15,7 +15,15 @@ export const buttonVariants = cva(
         ghost: 'text-muted-foreground hover:bg-secondary hover:text-foreground',
         destructive: 'bg-destructive text-white shadow-sm hover:bg-destructive/90',
         link: 'h-auto p-0 text-primary hover:underline underline-offset-4',
+        soft: 'bg-primary/10 text-primary hover:bg-primary/20',
+        dark: 'bg-foreground text-background hover:bg-foreground/85',
+        glow: 'bg-primary text-primary-foreground shadow-[0_0_0_0_var(--primary)] hover:shadow-[0_0_24px_2px_color-mix(in_srgb,var(--primary)_60%,transparent)] hover:-translate-y-px',
+        shine: 'relative overflow-hidden bg-foreground text-background before:absolute before:inset-0 before:-translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent before:transition-transform before:duration-700 hover:before:translate-x-full',
+        brutal: 'border-2 border-foreground bg-warning text-black shadow-[3px_3px_0_0_var(--foreground)] hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_0_var(--foreground)] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none',
+        raised: 'border-b-4 border-primary/60 bg-primary text-primary-foreground hover:brightness-110 active:translate-y-0.5 active:border-b-2',
+        outlineGlow: 'border border-primary/40 bg-transparent text-primary hover:border-primary hover:bg-primary/10 hover:shadow-[0_0_16px_color-mix(in_srgb,var(--primary)_35%,transparent)]',
       },
+      shape: { default: '', pill: 'rounded-full' },
       size: {
         xs: 'h-7 px-2.5 text-xs',
         sm: 'h-8 px-3 text-[13px]',
@@ -25,7 +33,7 @@ export const buttonVariants = cva(
         'icon-sm': 'size-8',
       },
     },
-    defaultVariants: { variant: 'primary', size: 'md' },
+    defaultVariants: { variant: 'primary', size: 'md', shape: 'default' },
   },
 );
 
@@ -37,12 +45,12 @@ export interface ButtonProps
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild, loading, children, disabled, ...props }, ref) => {
+  ({ className, variant, size, shape, asChild, loading, children, disabled, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
     return (
       <Comp
         ref={ref}
-        className={cn(buttonVariants({ variant, size }), className)}
+        className={cn(buttonVariants({ variant, size, shape }), className)}
         disabled={disabled || loading}
         {...props}
       >
