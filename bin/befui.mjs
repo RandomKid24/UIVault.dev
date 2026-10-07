@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // befui add button       copy a component (and the components it needs) into your project
+// befui add all            copy every component
 // befui add block:sign-in copy a block
 // befui init             add the theme CSS and cn() helper
 // befui list             show everything available
@@ -80,7 +81,12 @@ if (cmd === 'list') {
     seen.set(n, item);
     for (const r of item.requires) await visit(r);
   };
-  for (const n of names) await visit(n);
+  let wanted = names;
+  if (names.includes('all')) {
+    const idx = /^https?:/.test(from) ? await (await fetch(`${from}/index.json`)).json() : JSON.parse(readFileSync(join(from, 'index.json'), 'utf8'));
+    wanted = idx.map((i) => i.name).filter((n) => !n.startsWith('block:'));
+  }
+  for (const n of wanted) await visit(n);
   const deps = new Set(['clsx', 'tailwind-merge', 'class-variance-authority']);
   for (const item of seen.values()) item.deps.forEach((d) => deps.add(d));
   if (!existsSync(join(dir, 'lib/utils.ts'))) write((await load('init')).files);

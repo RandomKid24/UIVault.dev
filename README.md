@@ -27,6 +27,7 @@ One story per component and block, generated from the same registry as the docs 
 ```bash
 npx befui init                    # theme CSS + cn() helper
 npx befui add button combobox     # components, plus the ones they need and their npm packages
+npx befui add all                # every component at once
 npx befui add block:sign-in       # a whole block
 npx befui list
 ```
