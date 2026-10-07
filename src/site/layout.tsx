@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { flushSync } from 'react-dom';
 import { Github } from 'lucide-react';
-import { BarChartIcon, BefMark, BellIcon, BlocksIcon, ChevronRightIcon, EditIcon, ImageIcon, LayersIcon, ListIcon, BookIcon, CommandKeyIcon, ComponentsIcon, MenuIcon, MoonIcon, SearchIcon, SparkleIcon, SunIcon } from '@/components/ui/icons';
+import { BarChartIcon, BefMark, BellIcon, BlocksIcon, ChevronRightIcon, EditIcon, ImageIcon, LayersIcon, ListIcon, BookIcon, CommandKeyIcon, ComponentsIcon, MenuIcon, MoonIcon, SearchIcon, SparkleIcon, SunIcon, ZapIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { Kbd } from '@/components/ui/kbd';
@@ -74,6 +74,7 @@ function SearchPalette({ open, setOpen }: { open: boolean; setOpen: (o: boolean)
           <CommandItem onSelect={() => pick('/components')}><ComponentsIcon /> All components</CommandItem>
           <CommandItem onSelect={() => pick('/blocks')}><BlocksIcon /> All blocks</CommandItem>
           <CommandItem onSelect={() => pick('/icons')}><SparkleIcon /> Icons</CommandItem>
+          <CommandItem onSelect={() => pick('/ai')}><ZapIcon /> Use with AI</CommandItem>
         </CommandGroup>
         <CommandGroup heading="Components">
           {components.map((c) => (
@@ -180,7 +181,7 @@ export function SidebarNav({ path, onNavigate }: { path: string; onNavigate?: ()
       {label}
     </Link>
   );
-  const top = [['/docs', 'Getting started', BookIcon], ['/components', 'All components', ComponentsIcon], ['/blocks', 'All blocks', BlocksIcon], ['/icons', 'Icons', SparkleIcon]] as const;
+  const top = [['/docs', 'Getting started', BookIcon], ['/components', 'All components', ComponentsIcon], ['/blocks', 'All blocks', BlocksIcon], ['/icons', 'Icons', SparkleIcon], ['/ai', 'Use with AI', ZapIcon]] as const;
   const allOpen = groups.every((g) => open[g.title]);
   const visible = groups
     .map((g) => ({ ...g, shown: term ? g.items.filter((i) => `${i.label} ${i.extra}`.toLowerCase().includes(term)) : g.items }))
@@ -312,6 +313,7 @@ export function Shell({ path, docs, children }: { path: string; docs: boolean; c
             {navLink('/components', 'Components', '/components')}
             {navLink('/blocks', 'Blocks', '/blocks')}
             {navLink('/icons', 'Icons', '/icons')}
+            {navLink('/ai', 'AI', '/ai')}
           </nav>
           <div className="ml-auto flex items-center gap-1.5">
             <button
@@ -344,7 +346,7 @@ export function Shell({ path, docs, children }: { path: string; docs: boolean; c
           <SheetTitle className="sr-only">Navigation</SheetTitle>
           <Logo />
           <nav className={cn('mt-4 grid gap-1 md:hidden', docs && 'border-b pb-4')}>
-            {[['/docs', 'Docs'], ['/components', 'Components'], ['/blocks', 'Blocks'], ['/icons', 'Icons']].map(([to, label]) => (
+            {[['/docs', 'Docs'], ['/components', 'Components'], ['/blocks', 'Blocks'], ['/icons', 'Icons'], ['/ai', 'Use with AI']].map(([to, label]) => (
               <Link key={to} to={to} onClick={() => setMenuOpen(false)} className="rounded-md px-2.5 py-2 text-sm font-medium hover:bg-secondary">{label}</Link>
             ))}
           </nav>

@@ -1,0 +1,2050 @@
+# befui
+
+> Copy-paste React components (Radix + Tailwind 4 + CSS variables) with real motion, plus HRMS and marketing blocks. You own the files: add them with the CLI, then import from `@/components/ui/<name>`.
+
+## Setup
+- One time: `npx github:RandomKid24/befui init` (theme CSS, cn helper, AGENTS.md rules)
+- Add: `npx github:RandomKid24/befui add <name> [name...]` or `add all`; blocks are `block:<name>`
+- Icons: our own set in `@/components/ui/icons`, e.g. `import { SearchIcon } from '@/components/ui/icons'`; no icon package needed
+- Theme: CSS variables in index.css (--primary, --ring, --accent...). Dark mode = `dark` class on <html>
+- Full catalog with examples: https://raw.githubusercontent.com/RandomKid24/befui/main/public/llms-full.txt
+
+# Components
+
+## Accordion (`accordion`)
+Collapsible sections with a smooth height animation. Single or multiple open.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add accordion`
+- Import: `import { Accordion } from '@/components/ui/accordion'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import { Accordion } from '@/components/ui/accordion';
+
+export default function AccordionDemo() {
+  return (
+    <Accordion
+      className="w-full max-w-lg"
+      defaultOpen={['a']}
+      items={[
+        { id: 'a', title: 'How are leave balances calculated?', content: 'Accrual runs on the first of every month, pro-rated for new joiners.' },
+        { id: 'b', title: 'Can managers delegate approvals?', content: 'Yes. Set a delegate for any date range from the approvals page.' },
+        { id: 'c', title: 'Where is payroll data stored?', content: 'Encrypted at rest, in the region you pick at signup.' },
+      ]}
+    />
+  );
+}
+```
+
+## Alert dialog (`alert-dialog`)
+Confirm before something destructive. Cancel and confirm, controlled by you.
+- Group: Overlays
+- Add: `npx github:RandomKid24/befui add alert-dialog`
+- Import: `import { AlertDialog } from '@/components/ui/alert-dialog'`
+- Also needs: button, dialog, icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { AlertDialog } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { TrashIcon } from '@/components/ui/icons';
+import { toast } from '@/components/ui/toast';
+
+export default function AlertDialogDemo() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <>
+      <Button variant="destructive" onClick={() => setOpen(true)}><TrashIcon /> Delete employee</Button>
+      <AlertDialog
+        open={open}
+        onOpenChange={setOpen}
+        destructive
+        title="Delete this employee?"
+        description="Their records are removed from payroll and cannot be recovered."
+        confirmLabel="Delete"
+        onConfirm={() => toast.success('Employee deleted')}
+      />
+    </>
+  );
+}
+```
+
+## Alert (`alert`)
+Inline message in info, success, warning and danger.
+- Group: Feedback
+- Add: `npx github:RandomKid24/befui add alert`
+- Import: `import { Alert } from '@/components/ui/alert'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import { Alert } from '@/components/ui/alert';
+
+export default function AlertDemo() {
+  return (
+    <div className="grid w-full max-w-lg gap-3">
+      <Alert variant="info" title="Payroll locks on the 25th">Submit attendance corrections before then.</Alert>
+      <Alert variant="success" title="Leave approved" />
+      <Alert variant="warning" title="3 documents expire this month">Review them in the compliance tab.</Alert>
+      <Alert variant="danger" title="Sync failed">The biometric device did not respond. Retrying in 5 minutes.</Alert>
+    </div>
+  );
+}
+```
+
+## App shell (`app-shell`)
+Sidebar, topbar and scrolling content area, plus a page header.
+- Group: Layout
+- Add: `npx github:RandomKid24/befui add app-shell`
+- Import: `import { AppShell, Topbar, AppContent, PageHeader } from '@/components/ui/app-shell'`
+- Also needs: sidebar
+
+Example:
+
+```tsx
+import { Bell, Search } from 'lucide-react';
+import { AppContent, AppShell, PageHeader, Topbar } from '@/components/ui/app-shell';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Kbd } from '@/components/ui/kbd';
+import { Sidebar, SidebarContent, SidebarHeader, SidebarItem } from '@/components/ui/sidebar';
+import { Home, Settings, Users } from 'lucide-react';
+
+/** Minimal frame. See the Admin shell block for a full one. */
+export default function AppShellDemo() {
+  return (
+    <div className="h-[420px] overflow-hidden rounded-xl border text-left">
+      <AppShell className="h-full" sidebar={
+        <Sidebar>
+          <SidebarHeader><span className="text-sm font-semibold">My app</span></SidebarHeader>
+          <SidebarContent>
+            <SidebarItem icon={<Home />} label="Home" active />
+            <SidebarItem icon={<Users />} label="Team" />
+            <SidebarItem icon={<Settings />} label="Settings" />
+          </SidebarContent>
+        </Sidebar>
+      }>
+        <Topbar>
+          <button className="ml-2 hidden h-8 w-56 items-center gap-2 rounded-md border bg-muted/60 px-2.5 text-[13px] text-muted-foreground sm:flex"><Search className="size-3.5" /> Search <Kbd className="ml-auto">/</Kbd></button>
+          <Button variant="ghost" size="icon-sm" className="ml-auto" aria-label="Notifications"><Bell /></Button>
+        </Topbar>
+        <AppContent>
+          <PageHeader title="Home" description="Content scrolls here, the sidebar and topbar stay put." actions={<Button size="sm">New</Button>} />
+          <Card className="p-5 text-[13px] text-muted-foreground">Your page goes here.</Card>
+        </AppContent>
+      </AppShell>
+    </div>
+  );
+}
+```
+
+## Avatar (`avatar`)
+Image with initials fallback in a stable color, plus a stacked group.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add avatar`
+- Import: `import { Avatar, AvatarGroup } from '@/components/ui/avatar'`
+- npm packages: @radix-ui/react-avatar
+
+Example:
+
+```tsx
+import { Avatar, AvatarGroup } from '@/components/ui/avatar';
+
+export default function AvatarDemo() {
+  return (
+    <div className="grid gap-5">
+      <div className="flex items-center gap-3">
+        <Avatar name="Aarav Mehta" size="xs" />
+        <Avatar name="Diya Rao" size="sm" />
+        <Avatar name="Kabir Shah" size="md" />
+        <Avatar name="Meera Iyer" size="lg" />
+      </div>
+      <AvatarGroup names={['Aarav Mehta', 'Diya Rao', 'Kabir Shah', 'Meera Iyer', 'Rohan Das', 'Isha Nair']} max={4} />
+    </div>
+  );
+}
+```
+
+## Badge (`badge`)
+Status pill with semantic colors and an optional dot.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add badge`
+- Import: `import { Badge } from '@/components/ui/badge'`
+
+Example:
+
+```tsx
+import { Check } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+
+export default function BadgeDemo() {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <Badge>Default</Badge>
+      <Badge variant="outline">Outline</Badge>
+      <Badge variant="primary">Primary</Badge>
+      <Badge variant="success" dot>Approved</Badge>
+      <Badge variant="warning" dot>Pending</Badge>
+      <Badge variant="danger" dot>Rejected</Badge>
+      <Badge variant="info">
+        <Check /> Verified
+      </Badge>
+    </div>
+  );
+}
+```
+
+## Banner (`banner`)
+Announcement bar that collapses smoothly when dismissed.
+- Group: Feedback
+- Add: `npx github:RandomKid24/befui add banner`
+- Import: `import { Banner } from '@/components/ui/banner'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import { Banner } from '@/components/ui/banner';
+
+export default function BannerDemo() {
+  return (
+    <div className="w-full overflow-hidden rounded-lg border">
+      <Banner action={<a href="#/" className="underline underline-offset-2">Read more</a>}>Payroll 2.0 is live for everyone.</Banner>
+      <div className="p-6 text-sm text-muted-foreground">Dismiss the bar and the page slides up.</div>
+    </div>
+  );
+}
+```
+
+## Border beam (`border-beam`)
+A light beam that circles the border. For pricing cards and featured content.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add border-beam`
+- Import: `import { BorderBeam } from '@/components/ui/border-beam'`
+
+Example:
+
+```tsx
+import { BorderBeam } from '@/components/ui/border-beam';
+import { Button } from '@/components/ui/button';
+
+export default function BorderBeamDemo() {
+  return (
+    <BorderBeam className="w-72">
+      <div className="grid gap-3 p-6">
+        <span className="text-xs font-medium text-primary">Most popular</span>
+        <p className="text-3xl font-semibold tracking-tight">₹499<span className="text-sm font-normal text-muted-foreground"> /seat</span></p>
+        <p className="text-sm text-muted-foreground">Payroll, leave and attendance for growing teams.</p>
+        <Button>Start free trial</Button>
+      </div>
+    </BorderBeam>
+  );
+}
+```
+
+## Breadcrumb (`breadcrumb`)
+Trail of parent pages.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add breadcrumb`
+- Import: `import { Breadcrumb } from '@/components/ui/breadcrumb'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+
+export default function BreadcrumbDemo() {
+  return <Breadcrumb items={[{ label: 'People', href: '#' }, { label: 'Employees', href: '#' }, { label: 'Aarav Mehta' }]} />;
+}
+```
+
+## Button (`button`)
+Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add button`
+- Import: `import { Button } from '@/components/ui/button'`
+- npm packages: @radix-ui/react-slot, lucide-react
+
+Example:
+
+```tsx
+import { Download } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+export default function ButtonDemo() {
+  return (
+    <Button>
+      <Download /> Export
+    </Button>
+  );
+}
+```
+
+## Calendar (`calendar`)
+Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add calendar`
+- Import: `import { startOfDay, addDays, addMonths, isSameDay, Calendar } from '@/components/ui/calendar'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Calendar, type DateRange, addDays, startOfDay } from '@/components/ui/calendar';
+
+export default function CalendarDemo() {
+  const [day, setDay] = React.useState<Date | undefined>(new Date());
+  const [range, setRange] = React.useState<DateRange>();
+  const today = startOfDay(new Date());
+  return (
+    <div className="flex flex-wrap items-start justify-center gap-6">
+      <div className="rounded-xl border bg-card p-3">
+        <Calendar selected={day} onSelect={setDay} />
+      </div>
+      <div className="rounded-xl border bg-card p-3">
+        <Calendar mode="range" selected={range} onSelect={setRange} weekStartsOn={1} disabled={(d) => d < addDays(today, -1)} />
+      </div>
+    </div>
+  );
+}
+```
+
+## Card (`card`)
+Bordered surface with header, content and footer parts.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add card`
+- Import: `import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'`
+
+Example:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+
+export default function CardDemo() {
+  return (
+    <div className="grid w-full max-w-2xl gap-4 sm:grid-cols-2">
+      <Card>
+        <CardHeader>
+          <CardTitle>Payroll run</CardTitle>
+          <CardDescription>October cycle closes in 3 days.</CardDescription>
+        </CardHeader>
+        <CardContent className="text-[13px] text-muted-foreground">142 employees, 6 pending adjustments.</CardContent>
+        <CardFooter className="justify-end gap-2">
+          <Button variant="ghost" size="sm">Later</Button>
+          <Button size="sm">Review</Button>
+        </CardFooter>
+      </Card>
+      <Card hoverable className="p-5">
+        <p className="text-sm font-semibold">Hoverable</p>
+        <p className="mt-1 text-[13px] text-muted-foreground">Lifts 2px and gains a shadow on hover. Good for clickable tiles.</p>
+      </Card>
+    </div>
+  );
+}
+```
+
+## Carousel (`carousel`)
+Scroll-snap slides with arrows and animated dots.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add carousel`
+- Import: `import { Carousel } from '@/components/ui/carousel'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import { Carousel } from '@/components/ui/carousel';
+
+const slides = [
+  ['bg-primary text-primary-foreground', 'Hire faster'],
+  ['bg-foreground text-background', 'Onboard in a day'],
+  ['bg-accent text-accent-foreground', 'Pay on time'],
+];
+
+export default function CarouselDemo() {
+  return (
+    <Carousel className="w-full max-w-md">
+      {slides.map(([g, t]) => (
+        <div key={t} className={`grid h-48 place-items-center ${g} text-2xl font-semibold`}>{t}</div>
+      ))}
+    </Carousel>
+  );
+}
+```
+
+## Charts (`charts`)
+Sparkline, bar chart and donut in plain SVG. No chart library.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add charts`
+- Import: `import { Sparkline, BarChart, DonutChart } from '@/components/ui/charts'`
+
+Example:
+
+```tsx
+import { BarChart, DonutChart, Sparkline } from '@/components/ui/charts';
+import { Card } from '@/components/ui/card';
+
+export default function ChartsDemo() {
+  return (
+    <div className="grid w-full gap-4 lg:grid-cols-2">
+      <Card className="p-5">
+        <p className="mb-4 text-sm font-semibold">Leads per month</p>
+        <BarChart data={[{ label: 'May', value: 38 }, { label: 'Jun', value: 52 }, { label: 'Jul', value: 47 }, { label: 'Aug', value: 66 }, { label: 'Sep', value: 59 }, { label: 'Oct', value: 81 }]} />
+      </Card>
+      <Card className="grid gap-5 p-5">
+        <p className="text-sm font-semibold">Lead source</p>
+        <DonutChart
+          centerLabel={<div><p className="text-xl font-semibold leading-none">342</p><p className="text-[11px] text-muted-foreground">leads</p></div>}
+          data={[{ label: 'Website', value: 140 }, { label: 'Referral', value: 90 }, { label: 'Events', value: 70 }, { label: 'Cold outreach', value: 42 }]}
+        />
+        <div className="h-10 w-40"><Sparkline data={[4, 6, 5, 8, 7, 10, 9, 13]} /></div>
+      </Card>
+    </div>
+  );
+}
+```
+
+## Checkbox (`checkbox`)
+Checked, unchecked and indeterminate. Works for select-all rows.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add checkbox`
+- Import: `import { Checkbox } from '@/components/ui/checkbox'`
+- npm packages: @radix-ui/react-checkbox, lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+
+export default function CheckboxDemo() {
+  const [items, setItems] = React.useState({ email: true, sms: false, push: false });
+  const all = Object.values(items).every(Boolean);
+  const some = Object.values(items).some(Boolean);
+  return (
+    <div className="grid gap-3">
+      <div className="flex items-center gap-2.5">
+        <Checkbox
+          id="all"
+          checked={all ? true : some ? 'indeterminate' : false}
+          onCheckedChange={(v) => setItems({ email: !!v, sms: !!v, push: !!v })}
+        />
+        <Label htmlFor="all" className="font-semibold">Notify me by</Label>
+      </div>
+      {(Object.keys(items) as (keyof typeof items)[]).map((k) => (
+        <div key={k} className="ml-6 flex items-center gap-2.5">
+          <Checkbox id={k} checked={items[k]} onCheckedChange={(v) => setItems({ ...items, [k]: !!v })} />
+          <Label htmlFor={k} className="font-normal capitalize">{k}</Label>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## Chip (`chip`)
+Toggleable filter chips, single or multi select.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add chip`
+- Import: `import { Chip, ChipGroup } from '@/components/ui/chip'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { ChipGroup } from '@/components/ui/chip';
+
+export default function ChipDemo() {
+  const [v, setV] = React.useState(['Engineering']);
+  return <ChipGroup value={v} onValueChange={setV} options={['Engineering', 'Design', 'Sales', 'Finance', 'People Ops']} />;
+}
+```
+
+## Collapsible (`collapsible`)
+One section that opens with a smooth height animation.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add collapsible`
+- Import: `import { Collapsible } from '@/components/ui/collapsible'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { Collapsible } from '@/components/ui/collapsible';
+
+export default function CollapsibleDemo() {
+  return (
+    <div className="w-full max-w-sm rounded-xl border bg-card px-4 py-2">
+      <Collapsible title="Show advanced options" defaultOpen>
+        Delegate approvals, set a carry-over cap and choose who is notified when a request is rejected.
+      </Collapsible>
+    </div>
+  );
+}
+```
+
+## Color picker (`color-picker`)
+Swatches, hex field and the native picker. Always returns a six-digit hex.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add color-picker`
+- Import: `import { ColorPicker } from '@/components/ui/color-picker'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { ColorPicker } from '@/components/ui/color-picker';
+
+export default function ColorPickerDemo() {
+  const [c, setC] = React.useState('#2563eb');
+  return (
+    <div className="flex items-start gap-8">
+      <ColorPicker value={c} onValueChange={setC} />
+      <div className="grid h-24 w-32 place-items-center rounded-xl text-sm font-medium text-white transition-colors duration-300" style={{ background: c }}>Preview</div>
+    </div>
+  );
+}
+```
+
+## Combobox (`combobox`)
+Searchable select, single or multiple, with descriptions under each option.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add combobox`
+- Import: `import { Combobox, MultiCombobox } from '@/components/ui/combobox'`
+- Also needs: badge, command, popover
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Combobox, MultiCombobox, type ComboboxOption } from '@/components/ui/combobox';
+import { Field } from '@/components/ui/label';
+
+const people: ComboboxOption[] = [
+  { value: 'aarav', label: 'Aarav Mehta', description: 'Engineering Manager' },
+  { value: 'diya', label: 'Diya Rao', description: 'Product Designer' },
+  { value: 'kabir', label: 'Kabir Shah', description: 'Account Executive' },
+  { value: 'meera', label: 'Meera Iyer', description: 'HR Business Partner' },
+  { value: 'rohan', label: 'Rohan Das', description: 'Backend Engineer' },
+  { value: 'isha', label: 'Isha Nair', description: 'Marketing Lead' },
+];
+
+export default function ComboboxDemo() {
+  const [approver, setApprover] = React.useState<string>();
+  const [watchers, setWatchers] = React.useState<string[]>(['diya']);
+  return (
+    <div className="grid w-full max-w-xs gap-4">
+      <Field label="Approver" htmlFor="appr">
+        <Combobox id="appr" options={people} value={approver} onValueChange={setApprover} placeholder="Choose a person" searchPlaceholder="Search people..." />
+      </Field>
+      <Field label="Notify" htmlFor="notify" hint="Pick as many as you like.">
+        <MultiCombobox id="notify" options={people} value={watchers} onValueChange={setWatchers} placeholder="Add people" />
+      </Field>
+    </div>
+  );
+}
+```
+
+## Command palette (`command`)
+Searchable palette on cmdk. Bind it to Ctrl or Cmd K.
+- Group: Overlays
+- Add: `npx github:RandomKid24/befui add command`
+- Import: `import { Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from '@/components/ui/command'`
+- npm packages: @radix-ui/react-dialog, cmdk, lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Calendar, FileText, Users } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Kbd } from '@/components/ui/kbd';
+import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+
+export default function CommandDemo() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <>
+      <Button variant="outline" onClick={() => setOpen(true)}>
+        Open palette <Kbd>⌘K</Kbd>
+      </Button>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <CommandEmpty>No results.</CommandEmpty>
+          <CommandGroup heading="People">
+            <CommandItem onSelect={() => setOpen(false)}><Users /> Employee directory</CommandItem>
+            <CommandItem onSelect={() => setOpen(false)}><Calendar /> Leave calendar</CommandItem>
+          </CommandGroup>
+          <CommandGroup heading="Reports">
+            <CommandItem onSelect={() => setOpen(false)}><FileText /> Payroll summary</CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
+    </>
+  );
+}
+```
+
+## Image compare (`compare`)
+Before and after slider. Drag or use arrow keys.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add compare`
+- Import: `import { Compare } from '@/components/ui/compare'`
+
+Example:
+
+```tsx
+import { Compare } from '@/components/ui/compare';
+
+const svg = (a: string, t: string) =>
+  `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360"><rect width="640" height="360" fill="${a}"/><text x="320" y="195" font-family="sans-serif" font-size="48" font-weight="700" fill="white" text-anchor="middle">${t}</text></svg>`)}`;
+
+export default function CompareDemo() {
+  return <Compare className="w-full max-w-lg" before={svg('#1e293b', 'Before')} after={svg('#2563eb', 'After')} />;
+}
+```
+
+## Confetti (`confetti`)
+Burst of confetti from any button, or call fireConfetti(x, y) yourself.
+- Group: Feedback
+- Add: `npx github:RandomKid24/befui add confetti`
+- Import: `import { fireConfetti, Confetti } from '@/components/ui/confetti'`
+
+Example:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Confetti } from '@/components/ui/confetti';
+import { SparkleIcon } from '@/components/ui/icons';
+
+export default function ConfettiDemo() {
+  return (
+    <Confetti>
+      <Button size="lg"><SparkleIcon /> Approve all</Button>
+    </Confetti>
+  );
+}
+```
+
+## Copy button (`copy-button`)
+Copies text and morphs to a check.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add copy-button`
+- Import: `import { CopyButton } from '@/components/ui/copy-button'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import { CopyButton } from '@/components/ui/copy-button';
+
+export default function CopyButtonDemo() {
+  const cmd = 'npm i clsx tailwind-merge';
+  return (
+    <div className="flex items-center gap-2 rounded-lg border bg-muted py-1.5 pl-3 pr-1.5">
+      <code className="font-mono text-sm">{cmd}</code>
+      <CopyButton value={cmd} />
+    </div>
+  );
+}
+```
+
+## Countdown (`countdown`)
+Live countdown with flipping digits.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add countdown`
+- Import: `import { Countdown } from '@/components/ui/countdown'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Countdown } from '@/components/ui/countdown';
+
+export default function CountdownDemo() {
+  const to = React.useMemo(() => Date.now() + 3 * 86400000 + 4 * 3600000, []);
+  return <Countdown to={to} />;
+}
+```
+
+## Data table (`data-table`)
+Sortable columns, a filter box and pagination. You pass rows and column definitions.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add data-table`
+- Import: `import { DataTable } from '@/components/ui/data-table'`
+- Also needs: icons, pagination, table
+
+Example:
+
+```tsx
+import { Avatar } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { DataTable, type Column } from '@/components/ui/data-table';
+
+interface Person { id: string; name: string; team: string; salary: number; status: 'Active' | 'On leave' | 'Notice' }
+
+const people: Person[] = [
+  { id: '1', name: 'Aarav Mehta', team: 'Engineering', salary: 1850000, status: 'Active' },
+  { id: '2', name: 'Diya Rao', team: 'Design', salary: 1420000, status: 'On leave' },
+  { id: '3', name: 'Rohan Das', team: 'Sales', salary: 960000, status: 'Active' },
+  { id: '4', name: 'Isha Nair', team: 'People Ops', salary: 1100000, status: 'Active' },
+  { id: '5', name: 'Kabir Shah', team: 'Engineering', salary: 2250000, status: 'Notice' },
+  { id: '6', name: 'Meera Iyer', team: 'Finance', salary: 1380000, status: 'Active' },
+  { id: '7', name: 'Vikram Joshi', team: 'Sales', salary: 880000, status: 'Active' },
+];
+
+const tone = { Active: 'success', 'On leave': 'warning', Notice: 'danger' } as const;
+
+const columns: Column<Person>[] = [
+  { key: 'name', header: 'Name', sortable: true, value: (p) => p.name, render: (p) => <span className="flex items-center gap-2"><Avatar name={p.name} size="sm" />{p.name}</span> },
+  { key: 'team', header: 'Team', sortable: true, value: (p) => p.team },
+  { key: 'salary', header: 'Salary', sortable: true, align: 'right', value: (p) => p.salary, render: (p) => `₹${(p.salary / 100000).toFixed(1)}L` },
+  { key: 'status', header: 'Status', value: (p) => p.status, render: (p) => <Badge variant={tone[p.status]} dot>{p.status}</Badge> },
+];
+
+export default function DataTableDemo() {
+  return <DataTable className="w-full" rows={people} columns={columns} rowKey={(p) => p.id} pageSize={4} filterPlaceholder="Filter people" />;
+}
+```
+
+## Date picker (`date-picker`)
+Date and date range fields that open a calendar. Closes on pick.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add date-picker`
+- Import: `import { formatDate, DatePicker, DateRangePicker } from '@/components/ui/date-picker'`
+- Also needs: calendar, popover
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { DatePicker, DateRangePicker } from '@/components/ui/date-picker';
+import type { DateRange } from '@/components/ui/calendar';
+import { Field } from '@/components/ui/label';
+import { addDays, startOfDay } from '@/components/ui/calendar';
+
+export default function DatePickerDemo() {
+  const [joined, setJoined] = React.useState<Date>();
+  const [leave, setLeave] = React.useState<DateRange>();
+  const today = startOfDay(new Date());
+  return (
+    <div className="grid w-full max-w-xs gap-4">
+      <Field label="Joining date" htmlFor="join" hint="Clear it with the x.">
+        <DatePicker id="join" value={joined} onChange={setJoined} clearable />
+      </Field>
+      <Field label="Leave dates" htmlFor="leave" hint="Past dates are disabled.">
+        <DateRangePicker id="leave" value={leave} onChange={setLeave} disabledDays={(d) => d < addDays(today, 0)} clearable />
+      </Field>
+    </div>
+  );
+}
+```
+
+## Dialog and Sheet (`dialog`)
+Centered modal and edge-docked sheet on Radix Dialog.
+- Group: Overlays
+- Add: `npx github:RandomKid24/befui add dialog`
+- Import: `import { Dialog, DialogTrigger, DialogClose, DialogContent, SheetContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, Sheet, SheetTrigger, SheetClose, SheetHeader, SheetFooter, SheetTitle, SheetDescription } from '@/components/ui/dialog'`
+- npm packages: @radix-ui/react-dialog, lucide-react
+
+Example:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/dialog';
+import { Field } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+
+export default function DialogDemo() {
+  return (
+    <div className="flex flex-wrap gap-3">
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline">Open dialog</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Reject leave request</DialogTitle>
+            <DialogDescription>The employee gets an email with your reason.</DialogDescription>
+          </DialogHeader>
+          <Field label="Reason" htmlFor="reason">
+            <Input id="reason" placeholder="Team is short staffed that week" />
+          </Field>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="ghost">Cancel</Button>
+            </DialogClose>
+            <Button variant="destructive">Reject</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="outline">Open sheet</Button>
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Edit profile</SheetTitle>
+            <SheetDescription>Slides in from the edge. Use for long forms.</SheetDescription>
+          </SheetHeader>
+          <Field label="Display name" htmlFor="dn">
+            <Input id="dn" defaultValue="Aarav Mehta" />
+          </Field>
+        </SheetContent>
+      </Sheet>
+    </div>
+  );
+}
+```
+
+## Dock (`dock`)
+Icons that grow toward the pointer, like the macOS dock.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add dock`
+- Import: `import { Dock } from '@/components/ui/dock'`
+
+Example:
+
+```tsx
+import { BellIcon, CalendarIcon, HomeIcon, MailIcon, SettingsIcon, UsersIcon } from '@/components/ui/icons';
+import { Dock } from '@/components/ui/dock';
+
+export default function DockDemo() {
+  return (
+    <Dock
+      items={[
+        { id: 'home', label: 'Home', icon: <HomeIcon /> },
+        { id: 'people', label: 'People', icon: <UsersIcon /> },
+        { id: 'cal', label: 'Calendar', icon: <CalendarIcon /> },
+        { id: 'mail', label: 'Inbox', icon: <MailIcon /> },
+        { id: 'bell', label: 'Alerts', icon: <BellIcon /> },
+        { id: 'set', label: 'Settings', icon: <SettingsIcon /> },
+      ]}
+    />
+  );
+}
+```
+
+## Dropdown menu (`dropdown-menu`)
+Action menu with checkbox items, shortcuts and destructive items.
+- Group: Overlays
+- Add: `npx github:RandomKid24/befui add dropdown-menu`
+- Import: `import { DropdownMenu, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuContent, DropdownMenuItem, DropdownMenuCheckboxItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut } from '@/components/ui/dropdown-menu'`
+- npm packages: @radix-ui/react-dropdown-menu, lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { CreditCard, LogOut, MoreHorizontal, Settings, User } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+
+export default function DropdownMenuDemo() {
+  const [compact, setCompact] = React.useState(true);
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          Account <MoreHorizontal />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56" align="start">
+        <DropdownMenuLabel>aarav@company.com</DropdownMenuLabel>
+        <DropdownMenuItem><User /> Profile <DropdownMenuShortcut>P</DropdownMenuShortcut></DropdownMenuItem>
+        <DropdownMenuItem><CreditCard /> Billing</DropdownMenuItem>
+        <DropdownMenuItem><Settings /> Settings <DropdownMenuShortcut>,</DropdownMenuShortcut></DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuCheckboxItem checked={compact} onCheckedChange={setCompact}>Compact rows</DropdownMenuCheckboxItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem destructive><LogOut /> Sign out</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+```
+
+## Dropzone (`dropzone`)
+Drag and drop file area with size check and removable file list.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add dropzone`
+- Import: `import { Dropzone } from '@/components/ui/dropzone'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Dropzone } from '@/components/ui/dropzone';
+
+export default function DropzoneDemo() {
+  const [files, setFiles] = React.useState<File[]>([]);
+  return <Dropzone className="w-full max-w-md" files={files} onFilesChange={setFiles} />;
+}
+```
+
+## Empty state (`empty-state`)
+Dashed placeholder with icon, text and an action.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add empty-state`
+- Import: `import { EmptyState } from '@/components/ui/empty-state'`
+
+Example:
+
+```tsx
+import { Inbox } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { EmptyState } from '@/components/ui/empty-state';
+
+export default function EmptyStateDemo() {
+  return (
+    <EmptyState
+      className="w-full max-w-md"
+      icon={<Inbox />}
+      title="No leave requests"
+      description="When someone on your team applies for leave, it shows up here."
+      action={<Button size="sm" variant="outline">Invite teammate</Button>}
+    />
+  );
+}
+```
+
+## Gauge (`gauge`)
+Half-circle meter with a needle that swings to the value.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add gauge`
+- Import: `import { Gauge } from '@/components/ui/gauge'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Gauge } from '@/components/ui/gauge';
+import { Slider } from '@/components/ui/slider';
+
+export default function GaugeDemo() {
+  const [v, setV] = React.useState(72);
+  return (
+    <div className="grid justify-items-center gap-4">
+      <Gauge value={v} label="Team engagement" />
+      <Slider className="w-56" value={v} onValueChange={setV} showValue={false} />
+    </div>
+  );
+}
+```
+
+## icons (`icons`)
+
+- Group: ui
+- Add: `npx github:RandomKid24/befui add icons`
+- Import: `import { BefMark, SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ChevronRightIcon, SunIcon, MoonIcon, SparkleIcon, ZapIcon, ComponentsIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, BookIcon, CommandKeyIcon, MonitorIcon, TabletIcon, PhoneIcon, UploadIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ArrowLeftIcon, ArrowUpIcon, ArrowDownIcon, SortIcon, MinusIcon, MoreIcon, RefreshIcon, InfoIcon, AlertIcon, AlertCircleIcon, CheckCircleIcon, XCircleIcon, LoaderIcon, ShieldIcon, UserIcon, UsersIcon, MailIcon, BellIcon, CalendarIcon, ClockIcon, HomeIcon, SettingsIcon, LockIcon, GlobeIcon, StarIcon, HeartIcon, BookmarkIcon, EditIcon, TrashIcon, DownloadIcon, FilterIcon, EyeIcon, EyeOffIcon, LinkIcon, ExternalLinkIcon, LogOutIcon, ListIcon, FileIcon, FolderIcon, ImageIcon, PlayIcon, PauseIcon, BarChartIcon, TrendingIcon, CodeIcon, TerminalIcon, icons } from '@/components/ui/icons'`
+
+Example:
+
+```tsx
+import { SearchIcon, ArrowRightIcon } from '@/components/ui/icons';
+
+<SearchIcon />                 // 16px, follows text color, static
+<SearchIcon className="size-6" />
+<ArrowRightIcon draw />        // opt-in: redraws on hover
+<SearchIcon weight={2.5} />     // heavier stroke
+
+// All 73 icons: BefMark, SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ChevronRightIcon, SunIcon, MoonIcon, SparkleIcon, ZapIcon, ComponentsIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, BookIcon, CommandKeyIcon, MonitorIcon, TabletIcon, PhoneIcon, UploadIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ArrowLeftIcon, ArrowUpIcon, ArrowDownIcon, SortIcon, MinusIcon, MoreIcon, RefreshIcon, InfoIcon, AlertIcon, AlertCircleIcon, CheckCircleIcon, XCircleIcon, LoaderIcon, ShieldIcon, UserIcon, UsersIcon, MailIcon, BellIcon, CalendarIcon, ClockIcon, HomeIcon, SettingsIcon, LockIcon, GlobeIcon, StarIcon, HeartIcon, BookmarkIcon, EditIcon, TrashIcon, DownloadIcon, FilterIcon, EyeIcon, EyeOffIcon, LinkIcon, ExternalLinkIcon, LogOutIcon, ListIcon, FileIcon, FolderIcon, ImageIcon, PlayIcon, PauseIcon, BarChartIcon, TrendingIcon, CodeIcon, TerminalIcon
+```
+
+## Input (`input`)
+Text input and textarea with icon, trailing slot, and invalid state.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add input`
+- Import: `import { Input, Textarea } from '@/components/ui/input'`
+
+Example:
+
+```tsx
+import { Mail, Search } from 'lucide-react';
+import { Field } from '@/components/ui/label';
+import { Input, Textarea } from '@/components/ui/input';
+import { Kbd } from '@/components/ui/kbd';
+
+export default function InputDemo() {
+  return (
+    <div className="grid w-full max-w-sm gap-4">
+      <Field label="Full name" htmlFor="name" required hint="As it appears on the offer letter.">
+        <Input id="name" placeholder="Aarav Mehta" />
+      </Field>
+      <Field label="Work email" htmlFor="email">
+        <Input id="email" type="email" leftIcon={<Mail />} placeholder="you@company.com" />
+      </Field>
+      <Field label="Employee ID" htmlFor="eid" error="This ID is already taken.">
+        <Input id="eid" defaultValue="EMP-0042" aria-invalid />
+      </Field>
+      <Input leftIcon={<Search />} rightSlot={<Kbd>/</Kbd>} placeholder="Search..." />
+      <Field label="Notes" htmlFor="notes">
+        <Textarea id="notes" placeholder="Anything the approver should know" />
+      </Field>
+      <Input disabled placeholder="Disabled" />
+    </div>
+  );
+}
+```
+
+## Kbd (`kbd`)
+Keyboard key hint.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add kbd`
+- Import: `import { Kbd } from '@/components/ui/kbd'`
+
+Example:
+
+```tsx
+import { Kbd } from '@/components/ui/kbd';
+
+export default function KbdDemo() {
+  return (
+    <p className="flex items-center gap-1.5 text-[13px] text-muted-foreground">
+      Press <Kbd>Ctrl</Kbd> <Kbd>K</Kbd> to search
+    </p>
+  );
+}
+```
+
+## Label and Field (`label`)
+Label with required marker, plus Field for label, control and hint or error.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add label`
+- Import: `import { Label, Field } from '@/components/ui/label'`
+- npm packages: @radix-ui/react-label
+
+Example:
+
+```tsx
+import { Field, Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+
+export default function LabelDemo() {
+  return (
+    <div className="grid w-full max-w-sm gap-5">
+      <div className="grid gap-1.5">
+        <Label htmlFor="a" required>
+          Label on its own
+        </Label>
+        <Input id="a" />
+      </div>
+      <Field label="Field wraps label, control and message" htmlFor="b" hint="Shown under the control.">
+        <Input id="b" />
+      </Field>
+    </div>
+  );
+}
+```
+
+## Marquee (`marquee`)
+Endless logo or tag scroll with edge fade. Pauses on hover.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add marquee`
+- Import: `import { Marquee } from '@/components/ui/marquee'`
+
+Example:
+
+```tsx
+import { Marquee } from '@/components/ui/marquee';
+
+const brands = ['Acme', 'Northwind', 'Globex', 'Initech', 'Umbrella', 'Hooli', 'Stark'];
+
+export default function MarqueeDemo() {
+  return (
+    <div className="grid w-full gap-4">
+      <Marquee>
+        {brands.map((b) => <span key={b} className="text-lg font-semibold tracking-tight text-muted-foreground">{b}</span>)}
+      </Marquee>
+      <Marquee reverse speed={40}>
+        {brands.map((b) => <span key={b} className="rounded-full border px-4 py-1.5 text-sm">{b}</span>)}
+      </Marquee>
+    </div>
+  );
+}
+```
+
+## Number stepper (`number-stepper`)
+Number field with plus and minus buttons and arrow keys.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add number-stepper`
+- Import: `import { NumberStepper } from '@/components/ui/number-stepper'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { NumberStepper } from '@/components/ui/number-stepper';
+
+export default function NumberStepperDemo() {
+  const [v, setV] = React.useState(2);
+  return <NumberStepper value={v} onValueChange={setV} min={1} max={10} />;
+}
+```
+
+## Number ticker (`number-ticker`)
+Counts up to a value with easing once it scrolls into view.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add number-ticker`
+- Import: `import { NumberTicker } from '@/components/ui/number-ticker'`
+
+Example:
+
+```tsx
+import { NumberTicker } from '@/components/ui/number-ticker';
+
+export default function NumberTickerDemo() {
+  return (
+    <div className="grid grid-cols-3 gap-10 text-center">
+      {[
+        { v: 14820, l: 'Employees onboarded', p: '' },
+        { v: 98.6, l: 'Payroll accuracy', s: '%', d: 1 },
+        { v: 4.2, l: 'Revenue', p: '₹', s: 'Cr', d: 1 },
+      ].map((x) => (
+        <div key={x.l}>
+          <NumberTicker value={x.v} prefix={x.p} suffix={x.s} decimals={x.d} className="text-4xl font-semibold tracking-tight" />
+          <p className="mt-1 text-sm text-muted-foreground">{x.l}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## OTP input (`otp-input`)
+Code boxes with paste, backspace, arrow keys, autofill and a shake on error.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add otp-input`
+- Import: `import { OtpInput } from '@/components/ui/otp-input'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { OtpInput } from '@/components/ui/otp-input';
+import { toast } from '@/components/ui/toast';
+
+export default function OtpInputDemo() {
+  const [v, setV] = React.useState('');
+  const [bad, setBad] = React.useState(false);
+  return (
+    <div className="grid justify-items-center gap-3">
+      <OtpInput
+        value={v}
+        invalid={bad}
+        onChange={(x) => { setV(x); setBad(false); }}
+        onComplete={(x) => (x === '123456' ? toast.success('Verified') : (setBad(true), setTimeout(() => setV(''), 500)))}
+      />
+      <p className="text-xs text-muted-foreground">Try 123456, or paste any code.</p>
+    </div>
+  );
+}
+```
+
+## Pagination (`pagination`)
+Page buttons with ellipsis for long ranges.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add pagination`
+- Import: `import { Pagination } from '@/components/ui/pagination'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Pagination } from '@/components/ui/pagination';
+
+export default function PaginationDemo() {
+  const [page, setPage] = React.useState(5);
+  return <Pagination page={page} pageCount={12} onPageChange={setPage} />;
+}
+```
+
+## Password input (`password-input`)
+Show and hide toggle with an optional strength meter.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add password-input`
+- Import: `import { passwordScore, PasswordInput } from '@/components/ui/password-input'`
+- Also needs: icons, input
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { PasswordInput } from '@/components/ui/password-input';
+
+export default function PasswordInputDemo() {
+  const [v, setV] = React.useState('');
+  return <PasswordInput meter className="w-72" placeholder="Choose a password" value={v} onChange={(e) => setV(e.target.value)} />;
+}
+```
+
+## Popover (`popover`)
+Floating panel anchored to a trigger.
+- Group: Overlays
+- Add: `npx github:RandomKid24/befui add popover`
+- Import: `import { Popover, PopoverTrigger, PopoverAnchor, PopoverContent } from '@/components/ui/popover'`
+- npm packages: @radix-ui/react-popover
+
+Example:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Field } from '@/components/ui/label';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
+export default function PopoverDemo() {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline">Quick add</Button>
+      </PopoverTrigger>
+      <PopoverContent className="grid gap-3">
+        <p className="text-sm font-semibold">New lead</p>
+        <Field label="Company" htmlFor="co"><Input id="co" placeholder="Acme Pvt Ltd" /></Field>
+        <Button size="sm">Add lead</Button>
+      </PopoverContent>
+    </Popover>
+  );
+}
+```
+
+## Progress ring (`progress-ring`)
+Circular progress with an eased stroke animation.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add progress-ring`
+- Import: `import { ProgressRing } from '@/components/ui/progress-ring'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { ProgressRing } from '@/components/ui/progress-ring';
+
+export default function ProgressRingDemo() {
+  const [v, setV] = React.useState(0);
+  React.useEffect(() => { const t = setTimeout(() => setV(72), 100); return () => clearTimeout(t); }, []);
+  return (
+    <div className="flex items-center gap-8">
+      <ProgressRing value={v} />
+      <ProgressRing value={v / 2} size={72} stroke={6} className="text-success" />
+      <button className="text-sm text-primary hover:underline" onClick={() => setV((x) => (x === 72 ? 30 : 72))}>Animate</button>
+    </div>
+  );
+}
+```
+
+## Progress (`progress`)
+Thin progress bar with four tones.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add progress`
+- Import: `import { Progress } from '@/components/ui/progress'`
+- npm packages: @radix-ui/react-progress
+
+Example:
+
+```tsx
+import { Progress } from '@/components/ui/progress';
+
+export default function ProgressDemo() {
+  return (
+    <div className="grid w-full max-w-sm gap-4">
+      <Progress value={64} />
+      <Progress value={88} tone="success" />
+      <Progress value={42} tone="warning" />
+      <Progress value={15} tone="danger" />
+    </div>
+  );
+}
+```
+
+## Radio group (`radio-group`)
+Native radios as selectable cards with descriptions.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add radio-group`
+- Import: `import { RadioGroup } from '@/components/ui/radio-group'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { RadioGroup } from '@/components/ui/radio-group';
+
+export default function RadioGroupDemo() {
+  const [v, setV] = React.useState('growth');
+  return (
+    <RadioGroup
+      name="plan"
+      className="w-full max-w-sm"
+      value={v}
+      onValueChange={setV}
+      options={[
+        { value: 'starter', label: 'Starter', description: 'Up to 25 employees' },
+        { value: 'growth', label: 'Growth', description: 'Payroll and attendance included' },
+        { value: 'enterprise', label: 'Enterprise', description: 'SSO and audit logs', disabled: true },
+      ]}
+    />
+  );
+}
+```
+
+## Rating (`rating`)
+Star rating with hover preview. Read-only when no handler is given.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add rating`
+- Import: `import { Rating } from '@/components/ui/rating'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Rating } from '@/components/ui/rating';
+
+export default function RatingDemo() {
+  const [v, setV] = React.useState(3);
+  return (
+    <div className="grid justify-items-center gap-3">
+      <Rating value={v} onValueChange={setV} />
+      <Rating value={4} className="[&_svg]:size-4" />
+    </div>
+  );
+}
+```
+
+## Reveal (`reveal`)
+Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add reveal`
+- Import: `import { Reveal, TextReveal } from '@/components/ui/reveal'`
+
+Example:
+
+```tsx
+import { Reveal, TextReveal } from '@/components/ui/reveal';
+
+export default function RevealDemo() {
+  return (
+    <div className="grid w-full max-w-lg gap-6">
+      <TextReveal text="People software that gets out of the way." className="text-3xl font-semibold tracking-tight" />
+      <div className="grid gap-3">
+        {['Hire', 'Onboard', 'Pay'].map((t, i) => (
+          <Reveal key={t} delay={i * 120} className="rounded-lg border bg-card p-4 text-sm font-medium">
+            {i + 1}. {t}
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+## Scroll progress (`scroll-progress`)
+Thin bar that fills as you scroll the page or a container.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add scroll-progress`
+- Import: `import { ScrollProgress } from '@/components/ui/scroll-progress'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { ScrollProgress } from '@/components/ui/scroll-progress';
+
+export default function ScrollProgressDemo() {
+  const box = React.useRef<HTMLDivElement>(null);
+  return (
+    <div ref={box} className="h-48 w-full max-w-md overflow-auto rounded-lg border">
+      <ScrollProgress target={box} />
+      <div className="space-y-3 p-4 text-sm text-muted-foreground">
+        {Array.from({ length: 14 }, (_, i) => <p key={i}>Scroll this box. The bar at the top tracks your position, paragraph {i + 1}.</p>)}
+      </div>
+    </div>
+  );
+}
+```
+
+## Search input (`search-input`)
+Search field with a clear button, Escape to clear and a slash shortcut to focus.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add search-input`
+- Import: `import { SearchInput } from '@/components/ui/search-input'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { SearchInput } from '@/components/ui/search-input';
+
+export default function SearchInputDemo() {
+  const [v, setV] = React.useState('');
+  return (
+    <div className="grid gap-2">
+      <SearchInput className="w-72" value={v} onValueChange={setV} placeholder="Search people" />
+      <p className="text-xs text-muted-foreground">Press / to focus, Esc to clear.</p>
+    </div>
+  );
+}
+```
+
+## Segmented control (`segmented`)
+Pick one of a few views or ranges. Smaller than tabs.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add segmented`
+- Import: `import { Segmented } from '@/components/ui/segmented'`
+- npm packages: @radix-ui/react-toggle-group
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { LayoutGrid, List } from 'lucide-react';
+import { Segmented } from '@/components/ui/segmented';
+
+export default function SegmentedDemo() {
+  const [range, setRange] = React.useState('30d');
+  const [view, setView] = React.useState('list');
+  return (
+    <div className="grid gap-4">
+      <Segmented value={range} onValueChange={setRange} options={[{ value: '7d', label: '7 days' }, { value: '30d', label: '30 days' }, { value: '90d', label: '90 days' }]} />
+      <Segmented value={view} onValueChange={setView} options={[{ value: 'list', label: <><List /> List</> }, { value: 'grid', label: <><LayoutGrid /> Grid</> }]} />
+    </div>
+  );
+}
+```
+
+## Select (`select`)
+Styled dropdown with groups, built on Radix Select.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add select`
+- Import: `import { Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectLabel, SelectItem } from '@/components/ui/select'`
+- npm packages: @radix-ui/react-select, lucide-react
+
+Example:
+
+```tsx
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+
+export default function SelectDemo() {
+  return (
+    <div className="w-64">
+      <Select defaultValue="eng">
+        <SelectTrigger>
+          <SelectValue placeholder="Department" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Departments</SelectLabel>
+            <SelectItem value="eng">Engineering</SelectItem>
+            <SelectItem value="design">Design</SelectItem>
+            <SelectItem value="sales">Sales</SelectItem>
+            <SelectItem value="hr">People & Culture</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+```
+
+## Separator (`separator`)
+Horizontal or vertical divider.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add separator`
+- Import: `import { Separator } from '@/components/ui/separator'`
+- npm packages: @radix-ui/react-separator
+
+Example:
+
+```tsx
+import { Separator } from '@/components/ui/separator';
+
+export default function SeparatorDemo() {
+  return (
+    <div className="w-64 text-[13px]">
+      <p className="font-medium">befui</p>
+      <p className="text-muted-foreground">Slim React components.</p>
+      <Separator className="my-3" />
+      <div className="flex h-5 items-center gap-3">
+        <span>Docs</span>
+        <Separator orientation="vertical" />
+        <span>Blocks</span>
+        <Separator orientation="vertical" />
+        <span>Source</span>
+      </div>
+    </div>
+  );
+}
+```
+
+## Shimmer text (`shimmer-text`)
+Text with a light sweep passing over it.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add shimmer-text`
+- Import: `import { ShimmerText } from '@/components/ui/shimmer-text'`
+
+Example:
+
+```tsx
+import { ShimmerText } from '@/components/ui/shimmer-text';
+
+export default function ShimmerTextDemo() {
+  return <ShimmerText className="text-2xl font-semibold">Generating your report…</ShimmerText>;
+}
+```
+
+## Sidebar (`sidebar`)
+Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile.
+- Group: Layout
+- Add: `npx github:RandomKid24/befui add sidebar`
+- Import: `import { useSidebar, SidebarProvider, SidebarTrigger, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarGroup, SidebarItem } from '@/components/ui/sidebar'`
+- Also needs: dialog, tooltip
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { BarChart3, CalendarDays, Inbox, LayoutDashboard, Megaphone, Settings, Users } from 'lucide-react';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarItem, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { Avatar } from '@/components/ui/avatar';
+
+export default function SidebarDemo() {
+  const [page, setPage] = React.useState('Dashboard');
+  const [sub, setSub] = React.useState('Requests');
+  const go = (p: string) => () => setPage(p);
+  return (
+    <SidebarProvider>
+      <div className="flex h-[440px] w-full overflow-hidden rounded-xl border bg-background text-left">
+        <Sidebar>
+          <SidebarHeader>
+            <span className="grid size-7 shrink-0 place-items-center rounded-md bg-primary text-xs font-bold text-primary-foreground">A</span>
+            <span className="truncate text-sm font-semibold">Acme HR</span>
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarGroup label="Overview">
+              <SidebarItem icon={<LayoutDashboard />} label="Dashboard" active={page === 'Dashboard'} onClick={go('Dashboard')} />
+              <SidebarItem icon={<Inbox />} label="Inbox" badge="3" active={page === 'Inbox'} onClick={go('Inbox')} />
+            </SidebarGroup>
+            <SidebarGroup label="People">
+              <SidebarItem icon={<Users />} label="Employees" active={page === 'Employees'} onClick={go('Employees')} />
+              <SidebarItem
+                icon={<CalendarDays />}
+                label="Leave"
+                active={page === 'Leave'}
+                items={['Requests', 'Balances', 'Calendar'].map((l) => ({ label: l, active: page === 'Leave' && sub === l, onClick: () => { setPage('Leave'); setSub(l); } }))}
+              />
+            </SidebarGroup>
+            <SidebarGroup label="Marketing">
+              <SidebarItem icon={<Megaphone />} label="Campaigns" active={page === 'Campaigns'} onClick={go('Campaigns')} />
+              <SidebarItem icon={<BarChart3 />} label="Reports" active={page === 'Reports'} onClick={go('Reports')} />
+            </SidebarGroup>
+          </SidebarContent>
+          <SidebarFooter>
+            <SidebarItem icon={<Settings />} label="Settings" active={page === 'Settings'} onClick={go('Settings')} />
+          </SidebarFooter>
+        </Sidebar>
+        <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex h-14 items-center gap-3 border-b px-4">
+            <SidebarTrigger />
+            <span className="text-sm font-medium">{page}{page === 'Leave' ? ` / ${sub}` : ''}</span>
+            <Avatar name="Aarav Mehta" size="xs" className="ml-auto" />
+          </div>
+          <p className="p-5 text-[13px] text-muted-foreground">Use the toggle to collapse the rail. Hover an icon to see its label. Below 1024px wide the sidebar becomes a slide-over.</p>
+        </div>
+      </div>
+    </SidebarProvider>
+  );
+}
+```
+
+## Skeleton (`skeleton`)
+Shimmering placeholder for content that is loading.
+- Group: Feedback
+- Add: `npx github:RandomKid24/befui add skeleton`
+- Import: `import { Skeleton } from '@/components/ui/skeleton'`
+
+Example:
+
+```tsx
+import { Skeleton } from '@/components/ui/skeleton';
+
+export default function SkeletonDemo() {
+  return (
+    <div className="flex items-center gap-3">
+      <Skeleton className="size-10 rounded-full" />
+      <div className="grid gap-2">
+        <Skeleton className="h-3 w-40" />
+        <Skeleton className="h-3 w-24" />
+      </div>
+    </div>
+  );
+}
+```
+
+## Slider (`slider`)
+Native range input with a filled track and floating value bubble.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add slider`
+- Import: `import { Slider } from '@/components/ui/slider'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Slider } from '@/components/ui/slider';
+
+export default function SliderDemo() {
+  const [v, setV] = React.useState(40);
+  return (
+    <div className="w-72">
+      <div className="mb-1 flex justify-between text-sm"><span className="font-medium">Monthly budget</span><span className="tabular-nums text-muted-foreground">₹{v}k</span></div>
+      <Slider value={v} onValueChange={setV} min={10} max={100} step={5} format={(n) => `₹${n}k`} />
+    </div>
+  );
+}
+```
+
+## Spinner (`spinner`)
+Tiny CSS spinner that inherits text color.
+- Group: Feedback
+- Add: `npx github:RandomKid24/befui add spinner`
+- Import: `import { Spinner } from '@/components/ui/spinner'`
+
+Example:
+
+```tsx
+import { Spinner } from '@/components/ui/spinner';
+
+export default function SpinnerDemo() {
+  return (
+    <div className="flex items-center gap-5 text-primary">
+      <Spinner className="size-3" />
+      <Spinner />
+      <Spinner className="size-6 border-[3px]" />
+    </div>
+  );
+}
+```
+
+## Spotlight card (`spotlight-card`)
+Card with a glow and border highlight that follow the cursor.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add spotlight-card`
+- Import: `import { SpotlightCard } from '@/components/ui/spotlight-card'`
+
+Example:
+
+```tsx
+import { BarChart3, ShieldCheck, Zap } from 'lucide-react';
+import { SpotlightCard } from '@/components/ui/spotlight-card';
+
+const items = [
+  { icon: Zap, t: 'Fast', d: 'Approvals in one click.' },
+  { icon: ShieldCheck, t: 'Secure', d: 'Role-based access everywhere.' },
+  { icon: BarChart3, t: 'Insightful', d: 'Reports without a spreadsheet.' },
+];
+
+export default function SpotlightCardDemo() {
+  return (
+    <div className="grid w-full gap-4 sm:grid-cols-3">
+      {items.map(({ icon: I, t, d }) => (
+        <SpotlightCard key={t}>
+          <I className="size-5 text-primary" />
+          <h3 className="mt-3 text-sm font-semibold">{t}</h3>
+          <p className="mt-1 text-sm text-muted-foreground">{d}</p>
+        </SpotlightCard>
+      ))}
+    </div>
+  );
+}
+```
+
+## Stat card (`stat-card`)
+KPI tile with value, trend delta and a sparkline slot.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add stat-card`
+- Import: `import { StatCard } from '@/components/ui/stat-card'`
+- Also needs: card
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import { IndianRupee, Megaphone, Users } from 'lucide-react';
+import { Sparkline } from '@/components/ui/charts';
+import { StatCard } from '@/components/ui/stat-card';
+
+export default function StatCardDemo() {
+  return (
+    <div className="grid w-full gap-4 sm:grid-cols-3">
+      <StatCard label="Headcount" value="142" delta={4.2} icon={<Users />} chart={<Sparkline data={[3, 4, 4, 5, 6, 6, 8, 9]} />} />
+      <StatCard label="Revenue" value="₹48.2L" delta={12.5} icon={<IndianRupee />} chart={<Sparkline data={[2, 3, 2.5, 4, 5, 4.6, 6, 7]} className="text-success" />} />
+      <StatCard label="Open leads" value="64" delta={-3.1} icon={<Megaphone />} chart={<Sparkline data={[8, 7, 7.5, 6, 6.2, 5, 5.4, 4]} className="text-destructive" />} />
+    </div>
+  );
+}
+```
+
+## Stepper (`stepper`)
+Horizontal steps for multi-step forms and onboarding.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add stepper`
+- Import: `import { Stepper } from '@/components/ui/stepper'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { Stepper } from '@/components/ui/stepper';
+
+const steps = [{ title: 'Details', description: 'Basics' }, { title: 'Role', description: 'Team & level' }, { title: 'Documents' }, { title: 'Review' }];
+
+export default function StepperDemo() {
+  const [current, setCurrent] = React.useState(1);
+  return (
+    <div className="grid w-full max-w-xl gap-6">
+      <Stepper steps={steps} current={current} />
+      <div className="flex gap-2">
+        <Button size="sm" variant="outline" disabled={current === 0} onClick={() => setCurrent((c) => c - 1)}>Back</Button>
+        <Button size="sm" disabled={current === steps.length} onClick={() => setCurrent((c) => c + 1)}>Next</Button>
+      </div>
+    </div>
+  );
+}
+```
+
+## Switch (`switch`)
+On/off toggle for settings that apply immediately.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add switch`
+- Import: `import { Switch } from '@/components/ui/switch'`
+- npm packages: @radix-ui/react-switch
+
+Example:
+
+```tsx
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+
+export default function SwitchDemo() {
+  return (
+    <div className="grid gap-3">
+      <div className="flex items-center gap-3">
+        <Switch id="s1" defaultChecked />
+        <Label htmlFor="s1">Auto-approve short leaves</Label>
+      </div>
+      <div className="flex items-center gap-3">
+        <Switch id="s2" />
+        <Label htmlFor="s2">Weekly digest</Label>
+      </div>
+      <div className="flex items-center gap-3">
+        <Switch id="s3" disabled />
+        <Label htmlFor="s3">Disabled</Label>
+      </div>
+    </div>
+  );
+}
+```
+
+## Table (`table`)
+Dense table parts with hover rows and a selected state.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add table`
+- Import: `import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'`
+
+Example:
+
+```tsx
+import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+
+const rows = [
+  { id: 'INV-204', client: 'Northwind', amount: '$4,200', status: 'Paid' },
+  { id: 'INV-205', client: 'Globex', amount: '$1,150', status: 'Due' },
+  { id: 'INV-206', client: 'Initech', amount: '$8,900', status: 'Overdue' },
+];
+const tone = { Paid: 'success', Due: 'warning', Overdue: 'danger' } as const;
+
+export default function TableDemo() {
+  return (
+    <Card className="w-full max-w-xl overflow-hidden">
+      <Table>
+        <TableHeader>
+          <TableRow className="hover:bg-transparent">
+            <TableHead>Invoice</TableHead>
+            <TableHead>Client</TableHead>
+            <TableHead className="text-right">Amount</TableHead>
+            <TableHead>Status</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {rows.map((r) => (
+            <TableRow key={r.id}>
+              <TableCell className="font-mono text-xs">{r.id}</TableCell>
+              <TableCell className="font-medium">{r.client}</TableCell>
+              <TableCell className="text-right tabular-nums">{r.amount}</TableCell>
+              <TableCell><Badge variant={tone[r.status as keyof typeof tone]} dot>{r.status}</Badge></TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Card>
+  );
+}
+```
+
+## Tabs (`tabs`)
+Underline or pill tabs on Radix Tabs.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add tabs`
+- Import: `import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'`
+- npm packages: @radix-ui/react-tabs
+
+Example:
+
+```tsx
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+export default function TabsDemo() {
+  return (
+    <div className="grid w-full max-w-lg gap-8">
+      <Tabs defaultValue="overview">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="leave">Leave</TabsTrigger>
+          <TabsTrigger value="docs">Documents</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview" className="text-[13px] text-muted-foreground">Underline tabs, good for page sections.</TabsContent>
+        <TabsContent value="leave" className="text-[13px] text-muted-foreground">Leave balance and history.</TabsContent>
+        <TabsContent value="docs" className="text-[13px] text-muted-foreground">Contracts and ID proofs.</TabsContent>
+      </Tabs>
+      <Tabs defaultValue="a">
+        <TabsList variant="pill">
+          <TabsTrigger value="a">Weekly</TabsTrigger>
+          <TabsTrigger value="b">Monthly</TabsTrigger>
+          <TabsTrigger value="c">Yearly</TabsTrigger>
+        </TabsList>
+        <TabsContent value="a" className="text-[13px] text-muted-foreground">Pill tabs, good for toggling a view.</TabsContent>
+        <TabsContent value="b" className="text-[13px] text-muted-foreground">Monthly view.</TabsContent>
+        <TabsContent value="c" className="text-[13px] text-muted-foreground">Yearly view.</TabsContent>
+      </Tabs>
+    </div>
+  );
+}
+```
+
+## Tag input (`tag-input`)
+Type and press Enter to add chips. Backspace removes the last.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add tag-input`
+- Import: `import { TagInput } from '@/components/ui/tag-input'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { TagInput } from '@/components/ui/tag-input';
+
+export default function TagInputDemo() {
+  const [v, setV] = React.useState(['Design', 'Remote']);
+  return <TagInput className="w-full max-w-sm" value={v} onValueChange={setV} placeholder="Add skills, press Enter" />;
+}
+```
+
+## Tilt card (`tilt-card`)
+3D card that tilts toward the cursor with a moving sheen.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add tilt-card`
+- Import: `import { TiltCard } from '@/components/ui/tilt-card'`
+
+Example:
+
+```tsx
+import { TiltCard } from '@/components/ui/tilt-card';
+
+export default function TiltCardDemo() {
+  return (
+    <TiltCard className="w-64 bg-primary text-primary-foreground">
+      <p className="text-xs uppercase tracking-widest text-primary-foreground/70">Employee ID</p>
+      <p className="mt-6 text-xl font-semibold">Aarav Mehta</p>
+      <p className="text-sm text-primary-foreground/80">Engineering · EMP-0142</p>
+    </TiltCard>
+  );
+}
+```
+
+## Timeline (`timeline`)
+Vertical activity feed with tone-colored markers.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add timeline`
+- Import: `import { Timeline } from '@/components/ui/timeline'`
+
+Example:
+
+```tsx
+import { Check, FileText, UserPlus, X } from 'lucide-react';
+import { Timeline } from '@/components/ui/timeline';
+
+export default function TimelineDemo() {
+  return (
+    <Timeline
+      className="w-full max-w-sm"
+      items={[
+        { title: 'Offer accepted', description: 'Signed digitally by the candidate.', time: '2h ago', tone: 'success', icon: <Check /> },
+        { title: 'Documents uploaded', time: 'Yesterday', tone: 'info', icon: <FileText /> },
+        { title: 'Background check failed', description: 'Address could not be verified.', time: 'Mon', tone: 'danger', icon: <X /> },
+        { title: 'Application received', time: 'Last week', icon: <UserPlus /> },
+      ]}
+    />
+  );
+}
+```
+
+## Toast (`toast`)
+Call toast.success() from anywhere. No provider needed.
+- Group: Feedback
+- Add: `npx github:RandomKid24/befui add toast`
+- Import: `import { toast, Toaster } from '@/components/ui/toast'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { toast } from '@/components/ui/toast';
+
+export default function ToastDemo() {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <Button variant="outline" onClick={() => toast.success('Saved', 'Your changes are live.')}>Success</Button>
+      <Button variant="outline" onClick={() => toast.error('Could not save', 'Check your connection.')}>Error</Button>
+      <Button variant="outline" onClick={() => toast.info('Heads up')}>Info</Button>
+    </div>
+  );
+}
+```
+
+## Toggle (`toggle`)
+Two-state button for favourite, bold or mute. Announces its state to screen readers.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add toggle`
+- Import: `import { Toggle } from '@/components/ui/toggle'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { BookmarkIcon, HeartIcon, StarIcon } from '@/components/ui/icons';
+import { Toggle } from '@/components/ui/toggle';
+
+export default function ToggleDemo() {
+  const [a, setA] = React.useState(true);
+  const [b, setB] = React.useState(false);
+  const [c, setC] = React.useState(false);
+  return (
+    <div className="flex items-center gap-2">
+      <Toggle pressed={a} onPressedChange={setA} size="icon" aria-label="Favourite"><HeartIcon className={a ? 'fill-current' : ''} /></Toggle>
+      <Toggle variant="outline" pressed={b} onPressedChange={setB} size="icon" aria-label="Star"><StarIcon className={b ? 'fill-current' : ''} /></Toggle>
+      <Toggle variant="outline" pressed={c} onPressedChange={setC}><BookmarkIcon className={c ? 'fill-current' : ''} /> Save</Toggle>
+    </div>
+  );
+}
+```
+
+## Tooltip (`tooltip`)
+One-line hint on hover and focus.
+- Group: Overlays
+- Add: `npx github:RandomKid24/befui add tooltip`
+- Import: `import { TooltipProvider, Tooltip } from '@/components/ui/tooltip'`
+- npm packages: @radix-ui/react-tooltip
+
+Example:
+
+```tsx
+import { Bell, Pencil, Share2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipProvider } from '@/components/ui/tooltip';
+
+export default function TooltipDemo() {
+  return (
+    <TooltipProvider>
+      <div className="flex gap-2">
+        <Tooltip content="Edit"><Button variant="outline" size="icon"><Pencil /></Button></Tooltip>
+        <Tooltip content="Share" side="bottom"><Button variant="outline" size="icon"><Share2 /></Button></Tooltip>
+        <Tooltip content="Notifications" side="right"><Button variant="outline" size="icon"><Bell /></Button></Tooltip>
+      </div>
+    </TooltipProvider>
+  );
+}
+```
+
+## Tree view (`tree-view`)
+Nested expandable list with animated open and close.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add tree-view`
+- Import: `import { TreeView } from '@/components/ui/tree-view'`
+- npm packages: lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { TreeView } from '@/components/ui/tree-view';
+
+const nodes = [
+  { id: 'co', label: 'Acme Inc', children: [
+    { id: 'eng', label: 'Engineering', children: [{ id: 'a', label: 'Aarav Mehta' }, { id: 'b', label: 'Isha Rao' }] },
+    { id: 'des', label: 'Design', children: [{ id: 'c', label: 'Kabir Shah' }] },
+    { id: 'ceo', label: 'Leadership' },
+  ] },
+];
+
+export default function TreeViewDemo() {
+  const [sel, setSel] = React.useState('a');
+  return <TreeView className="w-64 rounded-lg border p-2" nodes={nodes} selected={sel} onSelect={(n) => setSel(n.id)} />;
+}
+```
+
+## Typewriter (`typewriter`)
+Types, holds and deletes phrases in a loop. Static for reduced motion.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add typewriter`
+- Import: `import { Typewriter } from '@/components/ui/typewriter'`
+
+Example:
+
+```tsx
+import { Typewriter } from '@/components/ui/typewriter';
+
+export default function TypewriterDemo() {
+  return (
+    <p className="text-2xl font-semibold tracking-tight">
+      Built for <Typewriter className="text-primary" phrases={['HR teams', 'finance leads', 'people managers', 'growing startups']} />
+    </p>
+  );
+}
+```

@@ -34,6 +34,10 @@ npx befui list
 
 The CLI reads `public/r/*.json`, which `npm run registry:build` regenerates from the source (it runs in `npm run build`). It defaults to this repo's `main` branch on GitHub, so push `public/r` first. Use `--from <folder-or-url>` to point it elsewhere, `--dir` for a different target, `--force` to overwrite and `--no-install` to only print the packages.
 
+## Use with AI
+
+`npx github:RandomKid24/befui init` writes a befui section into your project's `AGENTS.md` (Claude Code: add `@AGENTS.md` to `CLAUDE.md`), so coding agents reuse components and add missing ones with the CLI instead of retyping them. The catalog for agents is generated into `public/llms.txt` (index) and `public/llms-full.txt` (every component with import line, dependencies and a working example). The rules text lives in `scripts/agents-snippet.md`. The site has a "Use with AI" page.
+
 ## Use a component in your own app
 
 The site's "Getting started" page has the full steps. Short version:

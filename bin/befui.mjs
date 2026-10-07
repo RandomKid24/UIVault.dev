@@ -60,6 +60,21 @@ function install(deps) {
   if (spawnSync(pm[0], [...pm.slice(1), ...need], { stdio: 'inherit' }).status !== 0) die('Dependency install failed.');
 }
 
+/** Adds (or refreshes) a marked befui section in AGENTS.md so AI coding agents know how to use the library. */
+async function writeAgentRules() {
+  try {
+    const text = /^https?:/.test(from) ? await (await fetch(`${from}/agents.md`)).text() : readFileSync(join(from, 'agents.md'), 'utf8');
+    const block = `<!-- befui:start -->\n${text.trim()}\n<!-- befui:end -->\n`;
+    const file = 'AGENTS.md';
+    const old = existsSync(file) ? readFileSync(file, 'utf8') : '';
+    const next = /<!-- befui:start -->[\s\S]*<!-- befui:end -->\n?/.test(old) ? old.replace(/<!-- befui:start -->[\s\S]*<!-- befui:end -->\n?/, block) : `${old}${old && !old.endsWith('\n\n') ? '\n' : ''}${block}`;
+    writeFileSync(file, next);
+    ok('AI rules written to AGENTS.md (Claude Code reads CLAUDE.md: add "@AGENTS.md" to it).');
+  } catch {
+    console.log('  skipped AGENTS.md (could not load the rules)');
+  }
+}
+
 if (cmd === 'list') {
   const idx = await (async () => /^https?:/.test(from) ? (await fetch(`${from}/index.json`)).json() : JSON.parse(readFileSync(join(from, 'index.json'), 'utf8')))();
   let g = '';
@@ -72,6 +87,7 @@ if (cmd === 'list') {
   write(init.files);
   install(new Set(init.deps));
   ok('Theme and helpers added.');
+  await writeAgentRules();
   console.log('  Remaining: import "./index.css" in your entry file and add the "@" alias to src (tsconfig paths + vite resolve.alias).');
 } else if (cmd === 'add' && names.length) {
   const seen = new Map();
