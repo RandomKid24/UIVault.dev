@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 
-export type Category = 'Inputs' | 'Display' | 'Feedback' | 'Overlays' | 'Navigation' | 'Data' | 'Layout';
+export type Category = 'Inputs' | 'Display' | 'Feedback' | 'Overlays' | 'Navigation' | 'Data' | 'Layout' | 'Time';
 
 export interface Entry {
   slug: string;
@@ -80,6 +80,15 @@ const metas: Meta[] = [
   m('confetti', 'Confetti', 'Feedback', 'Burst of confetti from any button, or call fireConfetti(x, y) yourself.', { keywords: ['celebrate', 'success', 'party', 'delight'] }),
   m('alert-dialog', 'Alert dialog', 'Overlays', 'Confirm before something destructive. Cancel and confirm, controlled by you.', { deps: [], requires: ['icons', 'button', 'dialog'], keywords: ['confirm', 'delete', 'are you sure', 'modal'] }),
 
+  m('time-picker', 'Time picker', 'Time', 'Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour.', { requires: ['icons'], keywords: ['clock', 'hour', 'minute', 'shift', 'schedule', 'form'] }),
+  m('analog-clock', 'Analog clock', 'Time', 'SVG clock for any time zone, with a second hand that ticks with a small bounce.', { keywords: ['watch', 'timezone', 'hands', 'time'] }),
+  m('world-clock', 'World clock', 'Time', 'Cities with live local time, a day or night icon and the hour difference from you.', { requires: ['icons'], keywords: ['timezone', 'team', 'remote', 'cities'] }),
+  m('stopwatch', 'Stopwatch', 'Time', 'Start, pause, lap and reset, down to hundredths of a second.', { requires: ['icons', 'button'], keywords: ['lap', 'timer', 'time tracking'] }),
+  m('timer', 'Timer', 'Time', 'Countdown with a ring that drains smoothly, presets and an onDone callback.', { requires: ['icons', 'button'], keywords: ['countdown', 'pomodoro', 'focus'] }),
+  m('relative-time', 'Relative time', 'Time', '"3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale.', { keywords: ['ago', 'timestamp', 'activity', 'feed', 'date'] }),
+  m('heatmap', 'Heatmap', 'Data', 'Contribution-style grid for daily activity. Cells pop in column by column.', { keywords: ['activity', 'contributions', 'calendar', 'attendance', 'streak'] }),
+  m('pricing-card', 'Pricing card', 'Display', 'Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam.', { requires: ['icons', 'badge', 'border-beam', 'button', 'number-ticker'], keywords: ['plan', 'subscription', 'marketing', 'tier', 'billing'] }),
+
   m('card', 'Card', 'Display', 'Bordered surface with header, content and footer parts.', { keywords: ['panel', 'container', 'surface'] }),
   m('badge', 'Badge', 'Display', 'Status pill with semantic colors and an optional dot.', { keywords: ['status', 'tag', 'chip', 'label'] }),
   m('avatar', 'Avatar', 'Display', 'Image with initials fallback in a stable color, plus a stacked group.', { deps: ['@radix-ui/react-avatar'], keywords: ['user', 'profile', 'people'] }),
@@ -128,7 +137,7 @@ export const components: Entry[] = metas.map((meta) => {
   };
 });
 
-export const categories: Category[] = ['Layout', 'Inputs', 'Display', 'Data', 'Feedback', 'Overlays', 'Navigation'];
+export const categories: Category[] = ['Layout', 'Inputs', 'Time', 'Display', 'Data', 'Feedback', 'Overlays', 'Navigation'];
 
 export interface Block {
   slug: string;

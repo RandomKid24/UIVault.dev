@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-71 copy-paste React components, 73 hand-drawn icons and 8 full-page blocks.<br/>
+79 copy-paste React components, 73 hand-drawn icons and 8 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -85,6 +85,17 @@ import { SearchIcon, ArrowRightIcon } from '@/components/ui/icons';
 <SearchIcon className="size-6" weight={2.5} />
 ```
 
+### Time: pickers, clocks and timers
+
+<table>
+<tr>
+<td width="50%"><img src="docs/images/time-clocks.png" alt="Analog clocks for three time zones"/></td>
+<td width="50%"><img src="docs/images/time-world.png" alt="World clock list"/></td>
+</tr>
+</table>
+
+Time picker, analog clock, world clock, stopwatch, countdown timer and live relative time ("3 minutes ago").
+
 ### Whole screens
 
 <img src="docs/images/blocks.png" alt="Admin shell, people overview and employee directory blocks" width="900"/>
@@ -100,7 +111,7 @@ import { SearchIcon, ArrowRightIcon } from '@/components/ui/icons';
 
 ## What is inside
 
-### Components (71)
+### Components (79)
 
 <details>
 <summary><b>Layout</b> (2)</summary>
@@ -117,16 +128,23 @@ import { SearchIcon, ArrowRightIcon } from '@/components/ui/icons';
 </details>
 
 <details>
-<summary><b>Display</b> (19)</summary>
+<summary><b>Time</b> (6)</summary>
 
-`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline`
+`time-picker` · `analog-clock` · `world-clock` · `stopwatch` · `timer` · `relative-time`
 
 </details>
 
 <details>
-<summary><b>Data</b> (8)</summary>
+<summary><b>Display</b> (20)</summary>
 
-`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `stat-card` · `charts` · `progress`
+`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `pricing-card` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline`
+
+</details>
+
+<details>
+<summary><b>Data</b> (9)</summary>
+
+`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress`
 
 </details>
 
@@ -150,7 +168,6 @@ import { SearchIcon, ArrowRightIcon } from '@/components/ui/icons';
 `scroll-progress` · `tree-view` · `dock` · `tabs` · `breadcrumb` · `pagination` · `stepper`
 
 </details>
-
 
 Browse them live with search at the docs site, or run `npx github:RandomKid24/befui list`.
 

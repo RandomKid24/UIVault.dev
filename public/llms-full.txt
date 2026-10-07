@@ -97,6 +97,33 @@ export default function AlertDemo() {
 }
 ```
 
+## Analog clock (`analog-clock`)
+SVG clock for any time zone, with a second hand that ticks with a small bounce.
+- Group: Time
+- Add: `npx github:RandomKid24/befui add analog-clock`
+- Import: `import { AnalogClock } from '@/components/ui/analog-clock'`
+
+Example:
+
+```tsx
+import { AnalogClock } from '@/components/ui/analog-clock';
+
+const zones = [['Mumbai', 'Asia/Kolkata'], ['London', 'Europe/London'], ['New York', 'America/New_York']] as const;
+
+export default function AnalogClockDemo() {
+  return (
+    <div className="flex flex-wrap justify-center gap-8">
+      {zones.map(([city, tz]) => (
+        <div key={tz} className="grid justify-items-center gap-2">
+          <AnalogClock timeZone={tz} size={128} />
+          <span className="text-sm font-medium">{city}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
 ## App shell (`app-shell`)
 Sidebar, topbar and scrolling content area, plus a page header.
 - Group: Layout
@@ -948,6 +975,30 @@ export default function GaugeDemo() {
 }
 ```
 
+## Heatmap (`heatmap`)
+Contribution-style grid for daily activity. Cells pop in column by column.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add heatmap`
+- Import: `import { Heatmap } from '@/components/ui/heatmap'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Heatmap } from '@/components/ui/heatmap';
+
+export default function HeatmapDemo() {
+  // Deterministic pseudo-random so the demo looks the same every time.
+  const values = React.useMemo(() => Array.from({ length: 26 * 7 }, (_, i) => {
+    const x = Math.sin(i * 12.9898) * 43758.5453;
+    const r = x - Math.floor(x);
+    const weekend = i % 7 === 0 || i % 7 === 6;
+    return r < (weekend ? 0.6 : 0.2) ? 0 : Math.floor(r * 12);
+  }), []);
+  return <Heatmap values={values} unit="check-ins" />;
+}
+```
+
 ## icons (`icons`)
 
 - Group: ui
@@ -1227,6 +1278,35 @@ export default function PopoverDemo() {
 }
 ```
 
+## Pricing card (`pricing-card`)
+Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add pricing-card`
+- Import: `import { PricingCard } from '@/components/ui/pricing-card'`
+- Also needs: badge, border-beam, button, icons, number-ticker
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { PricingCard } from '@/components/ui/pricing-card';
+import { Segmented } from '@/components/ui/segmented';
+
+export default function PricingCardDemo() {
+  const [plan, setPlan] = React.useState<'monthly' | 'yearly'>('monthly');
+  const y = plan === 'yearly';
+  return (
+    <div className="grid justify-items-center gap-6">
+      <Segmented value={plan} onValueChange={setPlan} options={[{ value: 'monthly', label: 'Monthly' }, { value: 'yearly', label: 'Yearly, save 20%' }]} />
+      <div className="flex flex-wrap items-stretch justify-center gap-4">
+        <PricingCard name="Starter" description="For teams up to 25." price={y ? 239 : 299} features={['Leave and attendance', 'Employee directory', 'Email support']} />
+        <PricingCard highlighted name="Growth" description="Payroll included." price={y ? 399 : 499} features={['Everything in Starter', 'Payroll and payslips', 'Approvals workflow', 'Priority support']} />
+      </div>
+    </div>
+  );
+}
+```
+
 ## Progress ring (`progress-ring`)
 Circular progress with an eased stroke animation.
 - Group: Data
@@ -1326,6 +1406,37 @@ export default function RatingDemo() {
       <Rating value={v} onValueChange={setV} />
       <Rating value={4} className="[&_svg]:size-4" />
     </div>
+  );
+}
+```
+
+## Relative time (`relative-time`)
+"3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale.
+- Group: Time
+- Add: `npx github:RandomKid24/befui add relative-time`
+- Import: `import { relative, RelativeTime } from '@/components/ui/relative-time'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { RelativeTime } from '@/components/ui/relative-time';
+
+export default function RelativeTimeDemo() {
+  const now = React.useMemo(() => Date.now(), []);
+  const items = [
+    ['Leave approved', now - 25000],
+    ['Payslip generated', now - 14 * 60000],
+    ['Review submitted', now - 5 * 3600000],
+    ['Joined the team', now - 3 * 86400000],
+    ['Offer expires', now + 2 * 86400000],
+  ] as const;
+  return (
+    <ul className="w-72 divide-y rounded-xl border bg-card text-sm">
+      {items.map(([t, d]) => (
+        <li key={t} className="flex justify-between px-4 py-2.5"><span>{t}</span><RelativeTime date={d} className="text-muted-foreground" /></li>
+      ))}
+    </ul>
   );
 }
 ```
@@ -1735,6 +1846,23 @@ export default function StepperDemo() {
 }
 ```
 
+## Stopwatch (`stopwatch`)
+Start, pause, lap and reset, down to hundredths of a second.
+- Group: Time
+- Add: `npx github:RandomKid24/befui add stopwatch`
+- Import: `import { Stopwatch } from '@/components/ui/stopwatch'`
+- Also needs: button, icons
+
+Example:
+
+```tsx
+import { Stopwatch } from '@/components/ui/stopwatch';
+
+export default function StopwatchDemo() {
+  return <Stopwatch />;
+}
+```
+
 ## Switch (`switch`)
 On/off toggle for settings that apply immediately.
 - Group: Inputs
@@ -1897,6 +2025,32 @@ export default function TiltCardDemo() {
 }
 ```
 
+## Time picker (`time-picker`)
+Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour.
+- Group: Time
+- Add: `npx github:RandomKid24/befui add time-picker`
+- Import: `import { TimePicker } from '@/components/ui/time-picker'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { TimePicker } from '@/components/ui/time-picker';
+
+export default function TimePickerDemo() {
+  const [a, setA] = React.useState('09:30');
+  const [b, setB] = React.useState('17:45');
+  return (
+    <div className="grid justify-items-start gap-4">
+      <div className="grid gap-1.5"><span className="text-xs text-muted-foreground">Shift starts (12-hour)</span><TimePicker value={a} onValueChange={setA} minuteStep={15} /></div>
+      <div className="grid gap-1.5"><span className="text-xs text-muted-foreground">Shift ends (24-hour)</span><TimePicker value={b} onValueChange={setB} hour12={false} minuteStep={15} /></div>
+      <p className="text-xs text-muted-foreground">Click a part, then use arrow keys or type. Value: {a} to {b}</p>
+    </div>
+  );
+}
+```
+
 ## Timeline (`timeline`)
 Vertical activity feed with tone-colored markers.
 - Group: Display
@@ -1921,6 +2075,24 @@ export default function TimelineDemo() {
       ]}
     />
   );
+}
+```
+
+## Timer (`timer`)
+Countdown with a ring that drains smoothly, presets and an onDone callback.
+- Group: Time
+- Add: `npx github:RandomKid24/befui add timer`
+- Import: `import { Timer } from '@/components/ui/timer'`
+- Also needs: button, icons
+
+Example:
+
+```tsx
+import { Timer } from '@/components/ui/timer';
+import { toast } from '@/components/ui/toast';
+
+export default function TimerDemo() {
+  return <Timer onDone={() => toast.success('Time is up')} />;
 }
 ```
 
@@ -2045,6 +2217,34 @@ export default function TypewriterDemo() {
     <p className="text-2xl font-semibold tracking-tight">
       Built for <Typewriter className="text-primary" phrases={['HR teams', 'finance leads', 'people managers', 'growing startups']} />
     </p>
+  );
+}
+```
+
+## World clock (`world-clock`)
+Cities with live local time, a day or night icon and the hour difference from you.
+- Group: Time
+- Add: `npx github:RandomKid24/befui add world-clock`
+- Import: `import { WorldClock } from '@/components/ui/world-clock'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { WorldClock } from '@/components/ui/world-clock';
+
+export default function WorldClockDemo() {
+  return (
+    <WorldClock
+      className="w-80"
+      zones={[
+        { city: 'Mumbai', timeZone: 'Asia/Kolkata' },
+        { city: 'London', timeZone: 'Europe/London' },
+        { city: 'San Francisco', timeZone: 'America/Los_Angeles' },
+        { city: 'Singapore', timeZone: 'Asia/Singapore' },
+        { city: 'Sydney', timeZone: 'Australia/Sydney' },
+      ]}
+    />
   );
 }
 ```

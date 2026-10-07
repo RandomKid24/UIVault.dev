@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { flushSync } from 'react-dom';
 import { Github } from 'lucide-react';
-import { BarChartIcon, BefMark, BellIcon, BlocksIcon, ChevronRightIcon, EditIcon, ImageIcon, LayersIcon, ListIcon, BookIcon, CommandKeyIcon, ComponentsIcon, MenuIcon, MoonIcon, SearchIcon, SparkleIcon, SunIcon, ZapIcon } from '@/components/ui/icons';
+import { BarChartIcon, BefMark, BellIcon, BlocksIcon, ChevronRightIcon, ClockIcon, EditIcon, ImageIcon, LayersIcon, ListIcon, BookIcon, CommandKeyIcon, ComponentsIcon, MenuIcon, MoonIcon, SearchIcon, SparkleIcon, SunIcon, ZapIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { Kbd } from '@/components/ui/kbd';
@@ -105,6 +105,7 @@ const GROUP_ICONS = {
   Feedback: BellIcon,
   Overlays: LayersIcon,
   Navigation: ListIcon,
+  Time: ClockIcon,
   Blocks: ComponentsIcon,
 } as const;
 

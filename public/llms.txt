@@ -13,6 +13,7 @@
 - `accordion` (Display): Collapsible sections with a smooth height animation. Single or multiple open. Exports: Accordion.
 - `alert-dialog` (Overlays): Confirm before something destructive. Cancel and confirm, controlled by you. Exports: AlertDialog.
 - `alert` (Feedback): Inline message in info, success, warning and danger. Exports: Alert.
+- `analog-clock` (Time): SVG clock for any time zone, with a second hand that ticks with a small bounce. Exports: AnalogClock.
 - `app-shell` (Layout): Sidebar, topbar and scrolling content area, plus a page header. Exports: AppShell, Topbar, AppContent, PageHeader.
 - `avatar` (Display): Image with initials fallback in a stable color, plus a stacked group. Exports: Avatar, AvatarGroup.
 - `badge` (Display): Status pill with semantic colors and an optional dot. Exports: badgeVariants, Badge.
@@ -42,6 +43,7 @@
 - `dropzone` (Inputs): Drag and drop file area with size check and removable file list. Exports: Dropzone.
 - `empty-state` (Display): Dashed placeholder with icon, text and an action. Exports: EmptyState.
 - `gauge` (Data): Half-circle meter with a needle that swings to the value. Exports: Gauge.
+- `heatmap` (Data): Contribution-style grid for daily activity. Cells pop in column by column. Exports: Heatmap.
 - `icons` (ui):  Exports: BefMark, SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ChevronRightIcon, SunIcon, MoonIcon, SparkleIcon, ZapIcon, ComponentsIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, BookIcon, CommandKeyIcon, MonitorIcon, TabletIcon, PhoneIcon, UploadIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ArrowLeftIcon, ArrowUpIcon, ArrowDownIcon, SortIcon, MinusIcon, MoreIcon, RefreshIcon, InfoIcon, AlertIcon, AlertCircleIcon, CheckCircleIcon, XCircleIcon, LoaderIcon, ShieldIcon, UserIcon, UsersIcon, MailIcon, BellIcon, CalendarIcon, ClockIcon, HomeIcon, SettingsIcon, LockIcon, GlobeIcon, StarIcon, HeartIcon, BookmarkIcon, EditIcon, TrashIcon, DownloadIcon, FilterIcon, EyeIcon, EyeOffIcon, LinkIcon, ExternalLinkIcon, LogOutIcon, ListIcon, FileIcon, FolderIcon, ImageIcon, PlayIcon, PauseIcon, BarChartIcon, TrendingIcon, CodeIcon, TerminalIcon, icons.
 - `input` (Inputs): Text input and textarea with icon, trailing slot, and invalid state. Exports: Input, Textarea.
 - `kbd` (Display): Keyboard key hint. Exports: Kbd.
@@ -53,10 +55,12 @@
 - `pagination` (Navigation): Page buttons with ellipsis for long ranges. Exports: Pagination.
 - `password-input` (Inputs): Show and hide toggle with an optional strength meter. Exports: passwordScore, PasswordInput.
 - `popover` (Overlays): Floating panel anchored to a trigger. Exports: Popover, PopoverTrigger, PopoverAnchor, PopoverContent.
+- `pricing-card` (Display): Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam. Exports: PricingCard.
 - `progress-ring` (Data): Circular progress with an eased stroke animation. Exports: ProgressRing.
 - `progress` (Data): Thin progress bar with four tones. Exports: Progress.
 - `radio-group` (Inputs): Native radios as selectable cards with descriptions. Exports: RadioGroup.
 - `rating` (Inputs): Star rating with hover preview. Read-only when no handler is given. Exports: Rating.
+- `relative-time` (Time): "3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale. Exports: relative, RelativeTime.
 - `reveal` (Display): Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each. Exports: Reveal, TextReveal.
 - `scroll-progress` (Navigation): Thin bar that fills as you scroll the page or a container. Exports: ScrollProgress.
 - `search-input` (Inputs): Search field with a clear button, Escape to clear and a slash shortcut to focus. Exports: SearchInput.
@@ -71,17 +75,21 @@
 - `spotlight-card` (Display): Card with a glow and border highlight that follow the cursor. Exports: SpotlightCard.
 - `stat-card` (Data): KPI tile with value, trend delta and a sparkline slot. Exports: StatCard.
 - `stepper` (Navigation): Horizontal steps for multi-step forms and onboarding. Exports: Stepper.
+- `stopwatch` (Time): Start, pause, lap and reset, down to hundredths of a second. Exports: Stopwatch.
 - `switch` (Inputs): On/off toggle for settings that apply immediately. Exports: Switch.
 - `table` (Display): Dense table parts with hover rows and a selected state. Exports: Table, TableHeader, TableBody, TableRow, TableHead, TableCell.
 - `tabs` (Navigation): Underline or pill tabs on Radix Tabs. Exports: Tabs, TabsList, TabsTrigger, TabsContent.
 - `tag-input` (Inputs): Type and press Enter to add chips. Backspace removes the last. Exports: TagInput.
 - `tilt-card` (Display): 3D card that tilts toward the cursor with a moving sheen. Exports: TiltCard.
+- `time-picker` (Time): Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour. Exports: TimePicker.
 - `timeline` (Display): Vertical activity feed with tone-colored markers. Exports: Timeline.
+- `timer` (Time): Countdown with a ring that drains smoothly, presets and an onDone callback. Exports: Timer.
 - `toast` (Feedback): Call toast.success() from anywhere. No provider needed. Exports: toast, Toaster.
 - `toggle` (Inputs): Two-state button for favourite, bold or mute. Announces its state to screen readers. Exports: Toggle.
 - `tooltip` (Overlays): One-line hint on hover and focus. Exports: TooltipProvider, Tooltip.
 - `tree-view` (Navigation): Nested expandable list with animated open and close. Exports: TreeView.
 - `typewriter` (Display): Types, holds and deletes phrases in a loop. Static for reduced motion. Exports: Typewriter.
+- `world-clock` (Time): Cities with live local time, a day or night icon and the hour difference from you. Exports: WorldClock.
 
 ## Blocks
 - `block:admin-shell` (Layout): Full app frame: grouped sidebar with nested links, topbar with search, alerts and user menu, and a dashboard page. Uses: app-shell, avatar, breadcrumb, button, calendar, card, charts, date-picker, dropdown-menu, kbd, sidebar, stat-card, timeline.
