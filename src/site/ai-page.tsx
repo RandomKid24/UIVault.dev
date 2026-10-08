@@ -37,9 +37,18 @@ export function AiPage() {
       </Reveal>
 
       <h2 className={h2}>1. Run init once</h2>
-      <p className="mb-3 text-[13px] text-muted-foreground">Adds the theme and helper, and writes the befui rules into <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">AGENTS.md</code> so every agent that opens the project knows how to use the library.</p>
+      <p className="mb-3 text-[13px] text-muted-foreground">Adds the theme and helper, writes the befui rules into <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">AGENTS.md</code>, and registers the befui MCP server in <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">.mcp.json</code>. Restart your AI tool afterwards so it picks the server up.</p>
       <Command>npx github:RandomKid24/befui init</Command>
       <p className="mt-3 text-[13px] text-muted-foreground">Claude Code reads <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">CLAUDE.md</code>, so put <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">@AGENTS.md</code> in it. Cursor and Copilot pick up <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">AGENTS.md</code> directly.</p>
+
+      <h2 className={h2}>The MCP server</h2>
+      <p className="mb-3 text-[13px] text-muted-foreground">Connected agents get three tools, so they read the real source instead of guessing props. Add <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">add_components</code> with <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">all</code> to copy the whole library.</p>
+      <div className="grid gap-2 text-sm">
+        {[['list_components', 'Browse or search every component and block.'], ['get_component', 'Exact source, import path, npm packages and a working example.'], ['add_components', 'Copy components (and what they need) into the project and install packages.']].map(([n, d]) => (
+          <div key={n} className="rounded-lg border bg-card px-3 py-2"><code className="font-mono text-[12.5px]">{n}</code><span className="text-muted-foreground"> · {d}</span></div>
+        ))}
+      </div>
+      <p className="mt-3 text-[13px] text-muted-foreground">Not using <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">init</code>? Run <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">claude mcp add befui -- npx -y github:RandomKid24/befui mcp</code>, or add the same command to your tool's MCP config.</p>
 
       <h2 className={h2}>2. Just ask</h2>
       <p className="mb-3 text-[13px] text-muted-foreground">With the rules in place, plain requests work. A few to start with:</p>
