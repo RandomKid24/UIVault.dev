@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-110 copy-paste React components, 73 hand-drawn icons and 8 full-page blocks.<br/>
+110 copy-paste React components, 73 hand-drawn icons and 9 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -171,7 +171,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 Browse them live with search at the docs site, or run `npx github:RandomKid24/befui list`.
 
-### Blocks (8)
+### Blocks (9)
 
 Full screens built from the components, with mock data you swap for your own API.
 
@@ -180,6 +180,7 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:admin-shell` | Layout | Full app frame: grouped sidebar with nested links, topbar with search, alerts and user menu, and a dashboard page. |
 | `block:hrms-overview` | HRMS | Headcount, attendance, department split and activity feed. |
 | `block:employee-directory` | HRMS | Searchable table with status filter, row selection, actions and pagination. |
+| `block:reports-table` | Reports | Searchable, filterable, sortable reports table with row action menus and a details drawer. |
 | `block:leave-approvals` | HRMS | Manager inbox with tabs, balance bars and approve or reject toasts. |
 | `block:leave-request-form` | HRMS | Date range, approver combobox, multi-select notify list, working-day count and field validation. |
 | `block:campaign-performance` | Marketing | Channel KPIs, weekly leads chart and a campaign budget table. |

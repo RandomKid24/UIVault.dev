@@ -21,7 +21,7 @@ export interface Column<T> {
 /**
  * Table with click-to-sort headers, a filter box and pagination. You pass rows and columns; it holds the rest of the state.
  * Optional: `selectable` adds row checkboxes (with `bulkActions` shown while rows are picked), `columnMenu` lets people hide columns,
- * `maxHeight` scrolls the body under a sticky header.
+ * `maxHeight` scrolls the body under a sticky header, `toolbar` adds controls next to search, `rowActions` adds a trailing actions cell, `onRowClick` makes rows clickable.
  */
 export function DataTable<T>({
   rows,
@@ -33,6 +33,9 @@ export function DataTable<T>({
   bulkActions,
   columnMenu = false,
   maxHeight,
+  toolbar,
+  rowActions,
+  onRowClick,
   className,
 }: {
   rows: T[];
@@ -46,6 +49,12 @@ export function DataTable<T>({
   columnMenu?: boolean;
   /** CSS height, e.g. '20rem'. Body scrolls, header stays put. */
   maxHeight?: string;
+  /** Extra controls beside the search box, e.g. a FilterBar. */
+  toolbar?: React.ReactNode;
+  /** Trailing cell for each row, e.g. a menu of actions. Clicks inside it do not trigger onRowClick. */
+  rowActions?: (row: T) => React.ReactNode;
+  /** Makes rows clickable (and keyboard focusable), e.g. to open a drawer. */
+  onRowClick?: (row: T) => void;
   className?: string;
 }) {
   const [q, setQ] = React.useState('');
@@ -82,6 +91,7 @@ export function DataTable<T>({
           <SearchIcon className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <input value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} placeholder={filterPlaceholder} className="h-9 w-full rounded-md border bg-background pl-9 pr-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-ring/15" />
         </div>
+        {toolbar}
         {selectable && bulkActions && selectedRows.length > 0 && (
           <div className="flex items-center gap-2 rounded-md bg-accent px-3 py-1 text-xs font-medium animate-in">
             {selectedRows.length} selected
@@ -121,20 +131,29 @@ export function DataTable<T>({
                   </TableHead>
                 );
               })}
+              {rowActions && <TableHead className="w-10"><span className="sr-only">Actions</span></TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
             {slice.map((r) => (
-              <TableRow key={rowKey(r)} className="animate-in" data-state={picked.has(rowKey(r)) ? 'selected' : undefined}>
+              <TableRow
+                key={rowKey(r)}
+                className={cn('animate-in', onRowClick && 'cursor-pointer')}
+                data-state={picked.has(rowKey(r)) ? 'selected' : undefined}
+                tabIndex={onRowClick ? 0 : undefined}
+                onClick={onRowClick ? () => onRowClick(r) : undefined}
+                onKeyDown={onRowClick ? (e) => { if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onRowClick(r); } } : undefined}
+              >
                 {selectable && (
                   <TableCell className="w-10 pr-0">
                     <Checkbox aria-label="Select row" checked={picked.has(rowKey(r))} onCheckedChange={(on) => setPicked((s) => flip(s, [rowKey(r)], !!on))} />
                   </TableCell>
                 )}
                 {cols.map((c) => <TableCell key={c.key} className={c.align === 'right' ? 'text-right tabular-nums' : undefined}>{c.render ? c.render(r) : c.value(r)}</TableCell>)}
+                {rowActions && <TableCell className="w-10 pr-3 text-right" onClick={(e) => e.stopPropagation()}>{rowActions(r)}</TableCell>}
               </TableRow>
             ))}
-            {slice.length === 0 && <TableRow><TableCell colSpan={cols.length + (selectable ? 1 : 0)} className="py-10 text-center text-muted-foreground">No rows match.</TableCell></TableRow>}
+            {slice.length === 0 && <TableRow><TableCell colSpan={cols.length + (selectable ? 1 : 0) + (rowActions ? 1 : 0)} className="py-10 text-center text-muted-foreground">No rows match.</TableCell></TableRow>}
           </TableBody>
         </Table>
       </div>

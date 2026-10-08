@@ -79,7 +79,7 @@ const metas: Meta[] = [
   m('color-picker', 'Color picker', 'Inputs', 'Swatches, hex field and the native picker. Always returns a six-digit hex.', { requires: ['icons'], keywords: ['hex', 'swatch', 'theme', 'brand'] }),
   m('collapsible', 'Collapsible', 'Display', 'One section that opens with a smooth height animation.', { requires: ['icons'], keywords: ['expand', 'show more', 'details', 'disclosure'] }),
   m('dock', 'Dock', 'Navigation', 'Icons that grow toward the pointer, like the macOS dock.', { keywords: ['magnify', 'toolbar', 'apps', 'launcher'] }),
-  m('data-table', 'Data table', 'Data', 'Sortable columns, a filter box and pagination, with optional row selection and bulk actions, a column visibility menu and a sticky header. You pass rows and column definitions.', { requires: ['button', 'checkbox', 'dropdown-menu', 'icons', 'pagination', 'table'], keywords: ['sort', 'filter', 'grid', 'list', 'rows', 'select', 'bulk', 'columns', 'sticky'] }),
+  m('data-table', 'Data table', 'Data', 'Sortable columns, a search box and pagination, with optional row selection and bulk actions, column visibility menu, sticky header, toolbar slot, row action menus and clickable rows. You pass rows and column definitions.', { requires: ['button', 'checkbox', 'dropdown-menu', 'icons', 'pagination', 'table'], keywords: ['sort', 'filter', 'grid', 'list', 'rows', 'select', 'bulk', 'columns', 'sticky'] }),
   m('gauge', 'Gauge', 'Data', 'Half-circle meter with a needle that swings to the value.', { keywords: ['meter', 'speedometer', 'score', 'dial'] }),
   m('typewriter', 'Typewriter', 'Display', 'Types, holds and deletes phrases in a loop. Static for reduced motion.', { keywords: ['text', 'hero', 'rotating', 'headline', 'animated text'] }),
   m('confetti', 'Confetti', 'Feedback', 'Burst of confetti from any button, or call fireConfetti(x, y) yourself.', { keywords: ['celebrate', 'success', 'party', 'delight'] }),
@@ -181,7 +181,7 @@ export const categories: Category[] = ['Layout', 'Inputs', 'Time', 'Display', 'D
 export interface Block {
   slug: string;
   name: string;
-  module: 'HRMS' | 'Marketing' | 'Auth' | 'Layout';
+  module: 'HRMS' | 'Marketing' | 'Auth' | 'Layout' | 'Reports';
   description: string;
   uses: string[];
   Demo: ComponentType;
@@ -193,6 +193,7 @@ const bMeta: Omit<Block, 'Demo' | 'source' | 'path'>[] = [
   { slug: 'admin-shell', name: 'Admin shell', module: 'Layout', description: 'Full app frame: grouped sidebar with nested links, topbar with search, alerts and user menu, and a dashboard page.', uses: ['app-shell', 'sidebar', 'date-picker', 'stat-card', 'dropdown-menu', 'breadcrumb', 'timeline'] },
   { slug: 'hrms-overview', name: 'People overview', module: 'HRMS', description: 'Headcount, attendance, department split and activity feed.', uses: ['stat-card', 'charts', 'card', 'timeline', 'avatar'] },
   { slug: 'employee-directory', name: 'Employee directory', module: 'HRMS', description: 'Searchable table with status filter, row selection, actions and pagination.', uses: ['table', 'checkbox', 'segmented', 'dropdown-menu', 'pagination', 'badge', 'avatar'] },
+  { slug: 'reports-table', name: 'Reports table', module: 'Reports', description: 'Searchable, filterable, sortable reports table with row action menus and a details drawer.', uses: ['data-table', 'filter-bar', 'dropdown-menu', 'dialog', 'charts', 'badge', 'toast'] },
   { slug: 'leave-approvals', name: 'Leave approvals', module: 'HRMS', description: 'Manager inbox with tabs, balance bars and approve or reject toasts.', uses: ['tabs', 'card', 'progress', 'badge', 'toast', 'empty-state'] },
   { slug: 'leave-request-form', name: 'Leave request form', module: 'HRMS', description: 'Date range, approver combobox, multi-select notify list, working-day count and field validation.', uses: ['date-picker', 'combobox', 'select', 'input', 'label', 'alert', 'toast', 'card'] },
   { slug: 'campaign-performance', name: 'Campaign performance', module: 'Marketing', description: 'Channel KPIs, weekly leads chart and a campaign budget table.', uses: ['stat-card', 'charts', 'table', 'progress', 'badge'] },
