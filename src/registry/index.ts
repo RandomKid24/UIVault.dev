@@ -25,7 +25,7 @@ export interface Entry {
 type Meta = Omit<Entry, 'Demo' | 'demoSource' | 'source' | 'path' | 'isNew'>;
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['kanban', 'date-picker', 'context-menu', 'activity-feed', 'loader', 'permission-matrix', 'data-table', 'tooltip', 'changelog', 'testimonial-card', 'comment-thread', 'code-block', 'status-dot', 'search-bar', 'currency-input', 'inline-edit', 'filter-bar', 'notification-center', 'cookie-consent', 'table-of-contents']);
+export const NEW_SLUGS = new Set(['product-card', 'coupon-input', 'order-summary', 'split-pane', 'sortable-list', 'chat', 'mention-input', 'profile-card', 'terminal', 'navbar', 'bottom-nav', 'fab', 'error-state', 'image-viewer', 'kanban', 'date-picker', 'context-menu', 'activity-feed', 'loader', 'permission-matrix', 'data-table', 'tooltip']);
 
 const m = (
   slug: string,
@@ -109,6 +109,21 @@ const metas: Meta[] = [
   m('notification-center', 'Notification center', 'Feedback', 'Bell with an unread count and a popover list. Click marks read, Mark all read clears it.', { requires: ['icons', 'button', 'popover'], keywords: ['bell', 'inbox', 'alerts', 'unread', 'notifications'] }),
   m('cookie-consent', 'Cookie consent', 'Feedback', 'Bottom-left consent card that remembers Accept or Decline.', { requires: ['button'], keywords: ['gdpr', 'privacy', 'banner', 'cookies'] }),
   m('table-of-contents', 'Table of contents', 'Navigation', 'On this page list that highlights the section currently in view.', { keywords: ['scrollspy', 'headings', 'docs', 'anchor', 'outline'] }),
+
+  m('product-card', 'Product card', 'Display', 'Product tile with image, rating, price with strike-through, discount tag, wishlist heart and Add button. Also exports Price.', { requires: ['button', 'icons', 'rating'], keywords: ['ecommerce', 'shop', 'store', 'price', 'wishlist', 'catalog', 'cart'] }),
+  m('coupon-input', 'Coupon input', 'Inputs', 'Promo code field with async validation, an error message and a removable applied chip.', { requires: ['button', 'icons', 'input'], keywords: ['promo', 'discount', 'voucher', 'code', 'checkout'] }),
+  m('order-summary', 'Order summary', 'Display', 'Cart lines with subtotal, discount, shipping, tax and total computed for you. Slots for a coupon field and a checkout button.', { keywords: ['cart', 'checkout', 'invoice', 'totals', 'receipt', 'ecommerce'] }),
+  m('split-pane', 'Split pane', 'Layout', 'Two resizable panels with a draggable divider. Keyboard resizable. Horizontal or vertical.', { keywords: ['resizable', 'panels', 'divider', 'layout', 'ide', 'master detail'], wide: true }),
+  m('sortable-list', 'Sortable list', 'Display', 'Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library.', { keywords: ['drag', 'drop', 'reorder', 'priority', 'checklist', 'rank'] }),
+  m('chat', 'Chat', 'Display', 'Message bubbles with avatars, timestamps, a typing indicator and a composer. Enter sends.', { requires: ['avatar', 'icons'], keywords: ['messages', 'conversation', 'support', 'inbox', 'dm'] }),
+  m('mention-input', 'Mention input', 'Inputs', 'Textarea that suggests people when you type @. Arrow keys and Enter pick.', { requires: ['avatar'], keywords: ['at', 'tag', 'people', 'comment', 'autocomplete'] }),
+  m('profile-card', 'Profile card', 'Display', 'Person card with banner, avatar, role, stats and an actions slot.', { requires: ['avatar'], keywords: ['user', 'employee', 'team', 'member', 'bio'] }),
+  m('terminal', 'Terminal', 'Display', 'Dark terminal window with prompt lines and output. Optional typing animation.', { keywords: ['console', 'shell', 'cli', 'command', 'code', 'bash'] }),
+  m('navbar', 'Navbar', 'Navigation', 'Top bar with brand, links and actions that folds into a menu on small screens.', { requires: ['icons'], keywords: ['header', 'nav', 'menu', 'topbar', 'marketing'], wide: true }),
+  m('bottom-nav', 'Bottom navigation', 'Navigation', 'Mobile tab bar with icons, labels, an active pill and count badges.', { keywords: ['mobile', 'tab bar', 'app', 'footer nav'] }),
+  m('fab', 'Floating action button', 'Inputs', 'Round primary action, extended with a label, or a speed dial that fans out actions.', { requires: ['icons'], keywords: ['speed dial', 'mobile', 'create', 'compose', 'floating'] }),
+  m('error-state', 'Error state', 'Feedback', 'Full-section error or not found screen with a code or icon, explanation and retry actions.', { requires: ['icons'], keywords: ['404', '500', 'failed', 'offline', 'not found', 'empty'] }),
+  m('image-viewer', 'Image viewer', 'Overlays', 'Lightbox with arrows, click to zoom and keyboard control.', { deps: ['@radix-ui/react-dialog'], requires: ['icons'], keywords: ['gallery', 'lightbox', 'photo', 'zoom', 'preview'] }),
 
   m('card', 'Card', 'Display', 'Bordered surface with header, content and footer parts.', { keywords: ['panel', 'container', 'surface'] }),
   m('badge', 'Badge', 'Display', 'Status pill with semantic colors and an optional dot.', { keywords: ['status', 'tag', 'chip', 'label'] }),

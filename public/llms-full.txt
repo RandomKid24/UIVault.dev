@@ -19,15 +19,18 @@
 - Merge classes with `cn` from `@/lib/utils`. Edit copied files freely; `add <name> --force` overwrites local edits.
 
 ## Which component for what
-- Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), heatmap, charts
+- Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts
 - Hint or explain on hover: tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content
 - Pick a value: select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker
-- Type text or numbers: input, search-input, search-bar, password-input, otp-input, currency-input, number-stepper, tag-input, inline-edit
-- Confirm, ask, or show a form on top: dialog, alert-dialog (destructive), dialog's Sheet (side drawer), popover
+- Type text or numbers: input, search-input, search-bar, password-input, otp-input, currency-input, number-stepper, tag-input, inline-edit, mention-input (@ people), coupon-input
+- Confirm, ask, or show a form on top: dialog, alert-dialog (destructive), dialog's Sheet (side drawer), popover, context-menu (right click), image-viewer (lightbox)
+- Loading and failure states: loader (ring/dots/bars/pulse/orbit/dual, BarLoader, LoadingOverlay), skeleton, spinner, empty-state, error-state (404/500)
+- Online shop and checkout: product-card (and Price), order-summary, coupon-input, number-stepper (quantity), rating
+- Reorder or resize: sortable-list (rows), kanban (cards across columns), split-pane (resizable panels)
 - Tell the user something: toast (transient), alert (inline), banner (page-wide), notification-center (inbox), cookie-consent
-- Navigate: sidebar, app-shell, tabs, breadcrumb, pagination, stepper, command (Ctrl K), table-of-contents
+- Navigate: sidebar, app-shell, navbar (marketing top bar), bottom-nav (mobile), tabs, breadcrumb, pagination, stepper, command (Ctrl K), table-of-contents, fab
 - Show KPIs and status: stat-card, gauge, progress, progress-ring, number-ticker, badge, status-dot, charts (Sparkline, BarChart, DonutChart)
-- Show people and activity: avatar, timeline, comment-thread, changelog, testimonial-card, rating
+- Show people and activity: avatar, profile-card, activity-feed, timeline, chat, comment-thread, changelog, testimonial-card, rating, terminal (CLI output)
 - Time: time-picker, analog-clock, world-clock, stopwatch, timer, countdown, relative-time
 - Whole pages: blocks: admin-shell, hrms-overview, employee-directory, leave-approvals, leave-request-form, lead-pipeline, campaign-performance, sign-in
 
@@ -144,6 +147,71 @@ export default function SidebarDemo() {
 }
 ```
 
+## Split pane (`split-pane`)
+Two resizable panels with a draggable divider. Keyboard resizable. Horizontal or vertical.
+- Group: Layout
+- Add: `npx github:RandomKid24/befui add split-pane`
+- Import: `import { SplitPane } from '@/components/ui/split-pane'`
+
+Example:
+
+```tsx
+import { Badge } from '@/components/ui/badge';
+import { SplitPane } from '@/components/ui/split-pane';
+
+const files = ['invoice-template.tsx', 'payroll-run.tsx', 'leave-policy.md', 'org-chart.json', 'holidays-2026.csv'];
+
+export default function SplitPaneDemo() {
+  return (
+    <SplitPane className="h-72 w-full max-w-2xl" defaultSize={34} min={20} max={70}>
+      {[
+        <ul key="a" className="p-2">
+          {files.map((f, i) => <li key={f} className={`rounded-md px-2.5 py-1.5 text-[13px] ${i === 1 ? 'bg-accent font-medium' : 'text-muted-foreground'}`}>{f}</li>)}
+        </ul>,
+        <div key="b" className="grid gap-3 p-5 text-[13px]">
+          <div className="flex items-center gap-2"><h3 className="text-sm font-semibold">payroll-run.tsx</h3><Badge variant="success" dot>Saved</Badge></div>
+          <p className="text-muted-foreground">Drag the divider, or focus it and use the arrow keys. Shift moves in bigger steps; Home and End jump to the limits.</p>
+          <pre className="rounded-lg bg-muted p-3 font-mono text-xs">{'export function runPayroll(month: string) {\n  return employees.map(pay);\n}'}</pre>
+        </div>,
+      ]}
+    </SplitPane>
+  );
+}
+```
+
+## Bottom navigation (`bottom-nav`)
+Mobile tab bar with icons, labels, an active pill and count badges.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add bottom-nav`
+- Import: `import { BottomNav } from '@/components/ui/bottom-nav'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { BellIcon, HomeIcon, SearchIcon, UserIcon } from '@/components/ui/icons';
+import { BottomNav } from '@/components/ui/bottom-nav';
+
+export default function BottomNavDemo() {
+  const [tab, setTab] = React.useState('home');
+  return (
+    <div className="grid h-64 w-72 grid-rows-[1fr_auto] overflow-hidden rounded-[1.75rem] border-4 border-foreground/80 bg-background">
+      <div className="grid place-items-center text-sm font-medium capitalize text-muted-foreground">{tab}</div>
+      <BottomNav
+        value={tab}
+        onValueChange={setTab}
+        items={[
+          { id: 'home', label: 'Home', icon: <HomeIcon /> },
+          { id: 'search', label: 'Search', icon: <SearchIcon /> },
+          { id: 'alerts', label: 'Alerts', icon: <BellIcon />, badge: 3 },
+          { id: 'profile', label: 'Profile', icon: <UserIcon /> },
+        ]}
+      />
+    </div>
+  );
+}
+```
+
 ## Breadcrumb (`breadcrumb`)
 Trail of parent pages.
 - Group: Navigation
@@ -185,6 +253,39 @@ export default function DockDemo() {
         { id: 'set', label: 'Settings', icon: <SettingsIcon /> },
       ]}
     />
+  );
+}
+```
+
+## Navbar (`navbar`)
+Top bar with brand, links and actions that folds into a menu on small screens.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add navbar`
+- Import: `import { Navbar } from '@/components/ui/navbar'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Navbar } from '@/components/ui/navbar';
+
+export default function NavbarDemo() {
+  return (
+    <div className="w-full overflow-hidden rounded-xl border bg-card">
+      <Navbar
+        className="static"
+        brand={<><span className="grid size-6 place-items-center rounded-md bg-primary text-xs text-primary-foreground">B</span>Beforth</>}
+        links={[
+          { label: 'Products', href: '#products', active: true },
+          { label: 'Solutions', href: '#solutions' },
+          { label: 'Pricing', href: '#pricing' },
+          { label: 'Docs', href: '#docs' },
+        ]}
+        actions={<><Button variant="ghost" size="sm">Sign in</Button><Button size="sm">Get started</Button></>}
+      />
+      <div className="grid h-24 place-items-center text-xs text-muted-foreground">Narrow the window to see the menu button.</div>
+    </div>
   );
 }
 ```
@@ -551,6 +652,37 @@ export default function CopyButtonDemo() {
 }
 ```
 
+## Coupon input (`coupon-input`)
+Promo code field with async validation, an error message and a removable applied chip.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add coupon-input`
+- Import: `import { CouponInput } from '@/components/ui/coupon-input'`
+- Also needs: button, icons, input
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { CouponInput } from '@/components/ui/coupon-input';
+
+const codes: Record<string, string> = { WELCOME10: 'You save 10% on this order', FESTIVE250: 'You save ₹250' };
+
+export default function CouponInputDemo() {
+  const [applied, setApplied] = React.useState<string>();
+  return (
+    <div className="w-full max-w-xs">
+      <CouponInput
+        applied={applied}
+        hint={applied && codes[applied]}
+        onApply={async (c) => { await new Promise((r) => setTimeout(r, 600)); if (!codes[c]) return false; setApplied(c); return true; }}
+        onRemove={() => setApplied(undefined)}
+      />
+      {!applied && <p className="mt-2 px-1 text-xs text-muted-foreground">Try WELCOME10 or FESTIVE250.</p>}
+    </div>
+  );
+}
+```
+
 ## Currency input (`currency-input`)
 Money field that groups digits as you type (1,25,000) and hands you a plain number.
 - Group: Inputs
@@ -628,6 +760,38 @@ import { Dropzone } from '@/components/ui/dropzone';
 export default function DropzoneDemo() {
   const [files, setFiles] = React.useState<File[]>([]);
   return <Dropzone className="w-full max-w-md" files={files} onFilesChange={setFiles} />;
+}
+```
+
+## Floating action button (`fab`)
+Round primary action, extended with a label, or a speed dial that fans out actions.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add fab`
+- Import: `import { Fab } from '@/components/ui/fab'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { toast } from '@/components/ui/toast';
+import { Fab } from '@/components/ui/fab';
+import { EditIcon, FileIcon, PlusIcon, UsersIcon } from '@/components/ui/icons';
+
+export default function FabDemo() {
+  return (
+    <div className="relative h-72 w-full max-w-sm overflow-hidden rounded-xl border bg-muted/40">
+      <p className="p-4 text-xs text-muted-foreground">Click the button for a speed dial. The second button is the extended form.</p>
+      <Fab
+        className="absolute bottom-4 right-4"
+        actions={[
+          { label: 'New employee', icon: <UsersIcon />, onClick: () => toast.info('New employee') },
+          { label: 'New document', icon: <FileIcon />, onClick: () => toast.info('New document') },
+          { label: 'Quick note', icon: <EditIcon />, onClick: () => toast.info('Quick note') },
+        ]}
+      />
+      <Fab className="absolute bottom-4 left-4" icon={<PlusIcon />} label="Compose" onClick={() => toast.success('Compose')} />
+    </div>
+  );
 }
 ```
 
@@ -711,6 +875,38 @@ export default function LabelDemo() {
       <Field label="Field wraps label, control and message" htmlFor="b" hint="Shown under the control.">
         <Input id="b" />
       </Field>
+    </div>
+  );
+}
+```
+
+## Mention input (`mention-input`)
+Textarea that suggests people when you type @. Arrow keys and Enter pick.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add mention-input`
+- Import: `import { MentionInput } from '@/components/ui/mention-input'`
+- Also needs: avatar
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { MentionInput } from '@/components/ui/mention-input';
+
+const people = [
+  { id: '1', name: 'Aarav', role: 'Engineering' },
+  { id: '2', name: 'Diya', role: 'Design' },
+  { id: '3', name: 'Rohan', role: 'Sales' },
+  { id: '4', name: 'Isha', role: 'People Ops' },
+  { id: '5', name: 'Kabir', role: 'Finance' },
+];
+
+export default function MentionInputDemo() {
+  const [text, setText] = React.useState('Looping in @');
+  return (
+    <div className="w-full max-w-sm pb-48">
+      <MentionInput value={text} onChange={setText} people={people} />
+      <p className="mt-2 px-1 text-xs text-muted-foreground">Type @ then a name. Arrow keys and Enter pick.</p>
     </div>
   );
 }
@@ -1276,6 +1472,41 @@ export default function ChangelogDemo() {
 }
 ```
 
+## Chat (`chat`)
+Message bubbles with avatars, timestamps, a typing indicator and a composer. Enter sends.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add chat`
+- Import: `import { Chat } from '@/components/ui/chat'`
+- Also needs: avatar, icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Chat, type ChatMessage } from '@/components/ui/chat';
+
+const m = (id: string, from: string, text: string, ago: number): ChatMessage => ({ id, from, text, at: Date.now() - ago * 60000 });
+
+export default function ChatDemo() {
+  const [messages, setMessages] = React.useState<ChatMessage[]>([
+    m('1', 'Diya Rao', 'Hey! Did the offer letter go out to Kabir?', 14),
+    m('2', 'Diya Rao', 'He is asking about the joining date.', 13),
+    m('3', 'You', 'Sent it this morning. Joining is 3 Nov.', 9),
+    m('4', 'Diya Rao', 'Perfect, I will update the onboarding board.', 8),
+  ]);
+  const [typing, setTyping] = React.useState<string>();
+  const send = (text: string) => {
+    setMessages((l) => [...l, { id: String(Date.now()), from: 'You', text, at: Date.now() }]);
+    setTyping('Diya Rao');
+    setTimeout(() => {
+      setTyping(undefined);
+      setMessages((l) => [...l, { id: String(Date.now()), from: 'Diya Rao', text: 'Got it, thanks!', at: Date.now() }]);
+    }, 1500);
+  };
+  return <Chat me="You" messages={messages} onSend={send} typing={typing} />;
+}
+```
+
 ## Code block (`code-block`)
 Code with a title, optional line numbers and a copy button. No highlighter dependency.
 - Group: Display
@@ -1435,6 +1666,42 @@ export default function MarqueeDemo() {
 }
 ```
 
+## Order summary (`order-summary`)
+Cart lines with subtotal, discount, shipping, tax and total computed for you. Slots for a coupon field and a checkout button.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add order-summary`
+- Import: `import { OrderSummary } from '@/components/ui/order-summary'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { CouponInput } from '@/components/ui/coupon-input';
+import { OrderSummary, type OrderLine } from '@/components/ui/order-summary';
+
+const lines: OrderLine[] = [
+  { id: '1', name: 'Wireless keyboard', detail: 'Graphite · UK layout', qty: 1, price: 3499 },
+  { id: '2', name: 'Noise-cancelling headphones', detail: 'Midnight blue', qty: 2, price: 8999 },
+  { id: '3', name: 'Standing desk mat', qty: 1, price: 1299 },
+];
+
+export default function OrderSummaryDemo() {
+  const [code, setCode] = React.useState<string>();
+  return (
+    <OrderSummary
+      lines={lines}
+      discount={code ? 250 : 0}
+      shipping={0}
+      taxRate={0.18}
+      action={<Button className="w-full" size="lg">Place order</Button>}
+    >
+      <CouponInput applied={code} hint={code && 'You save ₹250'} onApply={(c) => { const ok = c === 'FESTIVE250'; if (ok) setCode(c); return ok; }} onRemove={() => setCode(undefined)} />
+    </OrderSummary>
+  );
+}
+```
+
 ## Pricing card (`pricing-card`)
 Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam.
 - Group: Display
@@ -1460,6 +1727,65 @@ export default function PricingCardDemo() {
         <PricingCard highlighted name="Growth" description="Payroll included." price={y ? 399 : 499} features={['Everything in Starter', 'Payroll and payslips', 'Approvals workflow', 'Priority support']} />
       </div>
     </div>
+  );
+}
+```
+
+## Product card (`product-card`)
+Product tile with image, rating, price with strike-through, discount tag, wishlist heart and Add button. Also exports Price.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add product-card`
+- Import: `import { Price, ProductCard } from '@/components/ui/product-card'`
+- Also needs: button, icons, rating
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Price, ProductCard } from '@/components/ui/product-card';
+import { toast } from '@/components/ui/toast';
+
+const art = (a: string, b: string, glyph: string) =>
+  `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><rect width="240" height="240" fill="${a}"/><circle cx="120" cy="120" r="62" fill="${b}"/><text x="120" y="136" font-family="sans-serif" font-size="44" text-anchor="middle" fill="white">${glyph}</text></svg>`)}`;
+
+const products = [
+  { id: 'p1', name: 'Wireless keyboard', category: 'Accessories', price: 3499, compareAt: 4999, rating: 4.6, reviews: 128, image: art('#e0e7ff', '#4f46e5', 'K') },
+  { id: 'p2', name: 'Noise-cancelling headphones', category: 'Audio', price: 8999, rating: 4.8, reviews: 412, image: art('#fce7f3', '#db2777', 'H') },
+  { id: 'p3', name: 'Standing desk mat', category: 'Office', price: 1299, compareAt: 1599, rating: 4.2, reviews: 57, image: art('#dcfce7', '#16a34a', 'M') },
+];
+
+export default function ProductCardDemo() {
+  const [liked, setLiked] = React.useState<Record<string, boolean>>({ p2: true });
+  return (
+    <div className="flex flex-wrap justify-center gap-4">
+      {products.map(({ id, ...p }) => (
+        <ProductCard key={id} {...p} wishlisted={!!liked[id]} onWishlist={(v) => setLiked({ ...liked, [id]: v })} onAdd={() => toast.success('Added to cart', p.name)} />
+      ))}
+      <p className="w-full text-center text-xs text-muted-foreground">Standalone price: <Price amount={2499} compareAt={3299} /></p>
+    </div>
+  );
+}
+```
+
+## Profile card (`profile-card`)
+Person card with banner, avatar, role, stats and an actions slot.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add profile-card`
+- Import: `import { ProfileCard } from '@/components/ui/profile-card'`
+- Also needs: avatar
+
+Example:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { ProfileCard } from '@/components/ui/profile-card';
+
+export default function ProfileCardDemo() {
+  return (
+    <ProfileCard name="Aarav Mehta" role="Senior engineer, Platform" location="Pune, India" status="Online" stats={[{ label: 'Projects', value: 14 }, { label: 'Reports', value: 5 }, { label: 'Years', value: '4.5' }]}>
+      <Button variant="outline">Message</Button>
+      <Button>View profile</Button>
+    </ProfileCard>
   );
 }
 ```
@@ -1534,6 +1860,44 @@ import { ShimmerText } from '@/components/ui/shimmer-text';
 
 export default function ShimmerTextDemo() {
   return <ShimmerText className="text-2xl font-semibold">Generating your report…</ShimmerText>;
+}
+```
+
+## Sortable list (`sortable-list`)
+Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add sortable-list`
+- Import: `import { SortableList } from '@/components/ui/sortable-list'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Badge } from '@/components/ui/badge';
+import { SortableList } from '@/components/ui/sortable-list';
+
+interface Step { id: string; title: string; owner: string; tag: string }
+
+export default function SortableListDemo() {
+  const [steps, setSteps] = React.useState<Step[]>([
+    { id: 'a', title: 'Collect documents', owner: 'Isha Nair', tag: 'HR' },
+    { id: 'b', title: 'Create email and accounts', owner: 'Rohan Das', tag: 'IT' },
+    { id: 'c', title: 'Assign a buddy', owner: 'Aarav Mehta', tag: 'Team' },
+    { id: 'd', title: 'Schedule day-one orientation', owner: 'Meera Iyer', tag: 'HR' },
+    { id: 'e', title: 'Order laptop', owner: 'Vikram Joshi', tag: 'IT' },
+  ]);
+  return (
+    <div className="grid w-full max-w-md gap-2">
+      <SortableList items={steps} onChange={setSteps} renderItem={(s, i) => (
+        <div className="flex items-center gap-2">
+          <span className="w-4 text-xs tabular-nums text-muted-foreground">{i + 1}</span>
+          <div className="min-w-0 flex-1"><p className="truncate font-medium">{s.title}</p><p className="text-xs text-muted-foreground">{s.owner}</p></div>
+          <Badge>{s.tag}</Badge>
+        </div>
+      )} />
+      <p className="px-1 text-xs text-muted-foreground">Drag a row, or Tab to a grip and press the up and down arrows.</p>
+    </div>
+  );
 }
 ```
 
@@ -1661,6 +2025,41 @@ export default function TableDemo() {
         <TableCaption>October billing run, {rows.length} invoices</TableCaption>
       </Table>
     </Card>
+  );
+}
+```
+
+## Terminal (`terminal`)
+Dark terminal window with prompt lines and output. Optional typing animation.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add terminal`
+- Import: `import { Terminal } from '@/components/ui/terminal'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { Terminal } from '@/components/ui/terminal';
+
+export default function TerminalDemo() {
+  const [run, setRun] = React.useState(0);
+  return (
+    <div className="grid w-full max-w-xl justify-items-center gap-3">
+      <Terminal
+        key={run}
+        animate
+        title="~/projects/hrms"
+        lines={[
+          'npx github:RandomKid24/befui init',
+          { text: 'Wrote src/index.css and src/lib/utils.ts', kind: 'muted' },
+          'npx github:RandomKid24/befui add data-table kanban',
+          { text: 'Installed 2 components and 1 dependency', kind: 'output' },
+          { text: 'Done in 2.1s', kind: 'success' },
+        ]}
+      />
+      <Button size="xs" variant="outline" onClick={() => setRun(run + 1)}>Replay</Button>
+    </div>
   );
 }
 ```
@@ -2245,6 +2644,35 @@ export default function CookieConsentDemo() {
 }
 ```
 
+## Error state (`error-state`)
+Full-section error or not found screen with a code or icon, explanation and retry actions.
+- Group: Feedback
+- Add: `npx github:RandomKid24/befui add error-state`
+- Import: `import { ErrorState } from '@/components/ui/error-state'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { ErrorState } from '@/components/ui/error-state';
+import { RefreshIcon } from '@/components/ui/icons';
+
+export default function ErrorStateDemo() {
+  return (
+    <div className="grid w-full gap-2 sm:grid-cols-2">
+      <ErrorState code={404} title="Page not found" description="The page you are looking for was moved or never existed.">
+        <Button variant="outline">Go back</Button>
+        <Button>Home</Button>
+      </ErrorState>
+      <ErrorState title="We could not load payroll" description="The server did not respond. Your data is safe. Try again in a moment.">
+        <Button variant="outline"><RefreshIcon /> Try again</Button>
+      </ErrorState>
+    </div>
+  );
+}
+```
+
 ## Loader (`loader`)
 Six loading animations (ring, dots, bars, pulse, orbit, dual), an indeterminate or determinate bar loader, and a loading overlay.
 - Group: Feedback
@@ -2609,6 +3037,47 @@ export default function DropdownMenuDemo() {
         <DropdownMenuItem destructive><LogOut /> Sign out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  );
+}
+```
+
+## Image viewer (`image-viewer`)
+Lightbox with arrows, click to zoom and keyboard control.
+- Group: Overlays
+- Add: `npx github:RandomKid24/befui add image-viewer`
+- Import: `import { ImageViewer } from '@/components/ui/image-viewer'`
+- Also needs: icons
+- npm packages: @radix-ui/react-dialog
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { ImageViewer, type ViewerImage } from '@/components/ui/image-viewer';
+
+const art = (bg: string, fg: string, label: string) =>
+  `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="${bg}"/><circle cx="820" cy="300" r="190" fill="${fg}" opacity=".85"/><rect x="180" y="420" width="520" height="220" rx="24" fill="${fg}" opacity=".55"/><text x="60" y="110" font-family="sans-serif" font-size="56" fill="${fg}">${label}</text></svg>`)}`;
+
+const images: ViewerImage[] = [
+  { src: art('#e0e7ff', '#4338ca', 'Office floor plan'), alt: 'Office floor plan' },
+  { src: art('#fce7f3', '#be185d', 'Brand moodboard'), alt: 'Brand moodboard' },
+  { src: art('#dcfce7', '#15803d', 'Event photos'), alt: 'Event photos' },
+  { src: art('#fef3c7', '#b45309', 'Product shots'), alt: 'Product shots' },
+];
+
+export default function ImageViewerDemo() {
+  const [index, setIndex] = React.useState<number | null>(null);
+  return (
+    <>
+      <div className="grid grid-cols-4 gap-2">
+        {images.map((im, i) => (
+          <button key={im.alt} type="button" onClick={() => setIndex(i)} className="aspect-square w-24 overflow-hidden rounded-lg border outline-none transition-transform hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-ring/50">
+            <img src={im.src} alt={im.alt} className="size-full object-cover" />
+          </button>
+        ))}
+      </div>
+      <ImageViewer images={images} index={index} onIndexChange={setIndex} />
+    </>
   );
 }
 ```

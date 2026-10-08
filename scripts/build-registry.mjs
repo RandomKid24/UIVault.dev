@@ -88,15 +88,18 @@ const head = `# befui
 
 ## Which component for what
 ${[
-  ['Show tabular data', 'table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), heatmap, charts'],
+  ['Show tabular data', 'table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts'],
   ['Hint or explain on hover', 'tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content'],
   ['Pick a value', 'select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker'],
-  ['Type text or numbers', 'input, search-input, search-bar, password-input, otp-input, currency-input, number-stepper, tag-input, inline-edit'],
-  ['Confirm, ask, or show a form on top', 'dialog, alert-dialog (destructive), dialog\'s Sheet (side drawer), popover'],
+  ['Type text or numbers', 'input, search-input, search-bar, password-input, otp-input, currency-input, number-stepper, tag-input, inline-edit, mention-input (@ people), coupon-input'],
+  ['Confirm, ask, or show a form on top', 'dialog, alert-dialog (destructive), dialog\'s Sheet (side drawer), popover, context-menu (right click), image-viewer (lightbox)'],
+  ['Loading and failure states', 'loader (ring/dots/bars/pulse/orbit/dual, BarLoader, LoadingOverlay), skeleton, spinner, empty-state, error-state (404/500)'],
+  ['Online shop and checkout', 'product-card (and Price), order-summary, coupon-input, number-stepper (quantity), rating'],
+  ['Reorder or resize', 'sortable-list (rows), kanban (cards across columns), split-pane (resizable panels)'],
   ['Tell the user something', 'toast (transient), alert (inline), banner (page-wide), notification-center (inbox), cookie-consent'],
-  ['Navigate', 'sidebar, app-shell, tabs, breadcrumb, pagination, stepper, command (Ctrl K), table-of-contents'],
+  ['Navigate', 'sidebar, app-shell, navbar (marketing top bar), bottom-nav (mobile), tabs, breadcrumb, pagination, stepper, command (Ctrl K), table-of-contents, fab'],
   ['Show KPIs and status', 'stat-card, gauge, progress, progress-ring, number-ticker, badge, status-dot, charts (Sparkline, BarChart, DonutChart)'],
-  ['Show people and activity', 'avatar, timeline, comment-thread, changelog, testimonial-card, rating'],
+  ['Show people and activity', 'avatar, profile-card, activity-feed, timeline, chat, comment-thread, changelog, testimonial-card, rating, terminal (CLI output)'],
   ['Time', 'time-picker, analog-clock, world-clock, stopwatch, timer, countdown, relative-time'],
   ['Whole pages', 'blocks: admin-shell, hrms-overview, employee-directory, leave-approvals, leave-request-form, lead-pipeline, campaign-performance, sign-in'],
 ].map(([task, use]) => `- ${task}: ${use}`).join('\n')}
