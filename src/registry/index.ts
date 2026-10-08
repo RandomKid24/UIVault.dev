@@ -25,7 +25,7 @@ export interface Entry {
 type Meta = Omit<Entry, 'Demo' | 'demoSource' | 'source' | 'path' | 'isNew'>;
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['product-card', 'coupon-input', 'order-summary', 'split-pane', 'sortable-list', 'chat', 'mention-input', 'profile-card', 'terminal', 'navbar', 'bottom-nav', 'fab', 'error-state', 'image-viewer', 'kanban', 'date-picker', 'context-menu', 'activity-feed', 'loader', 'permission-matrix', 'data-table', 'tooltip']);
+export const NEW_SLUGS = new Set(['line-chart', 'radar-chart', 'swipe-actions', 'pull-to-refresh', 'datetime-picker', 'image-upload', 'audit-log', 'file-manager', 'bottom-sheet', 'kanban', 'date-picker', 'context-menu', 'activity-feed', 'loader', 'permission-matrix', 'data-table', 'tooltip']);
 
 const m = (
   slug: string,
@@ -124,6 +124,16 @@ const metas: Meta[] = [
   m('fab', 'Floating action button', 'Inputs', 'Round primary action, extended with a label, or a speed dial that fans out actions.', { requires: ['icons'], keywords: ['speed dial', 'mobile', 'create', 'compose', 'floating'] }),
   m('error-state', 'Error state', 'Feedback', 'Full-section error or not found screen with a code or icon, explanation and retry actions.', { requires: ['icons'], keywords: ['404', '500', 'failed', 'offline', 'not found', 'empty'] }),
   m('image-viewer', 'Image viewer', 'Overlays', 'Lightbox with arrows, click to zoom and keyboard control.', { deps: ['@radix-ui/react-dialog'], requires: ['icons'], keywords: ['gallery', 'lightbox', 'photo', 'zoom', 'preview'] }),
+
+  m('line-chart', 'Line chart', 'Data', 'Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout.', { keywords: ['trend', 'graph', 'area', 'timeseries', 'analytics', 'revenue'] }),
+  m('radar-chart', 'Radar chart', 'Data', 'Spider chart for comparing several scores across the same axes. Hover a legend name to highlight a series.', { keywords: ['spider', 'skills', 'performance', 'compare', 'review'] }),
+  m('audit-log', 'Audit log', 'Data', 'Who changed what and when, with expandable before and after values.', { requires: ['avatar', 'badge', 'icons'], keywords: ['history', 'changes', 'compliance', 'activity', 'diff', 'security'] }),
+  m('file-manager', 'File manager', 'Data', 'Folder browser with breadcrumb, list and grid views, selection and double-click or Enter to open.', { requires: ['icons'], keywords: ['files', 'folders', 'documents', 'drive', 'explorer'] }),
+  m('swipe-actions', 'Swipe actions', 'Display', 'List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard.', { keywords: ['mobile', 'list', 'archive', 'delete', 'gesture', 'row'] }),
+  m('pull-to-refresh', 'Pull to refresh', 'Feedback', 'Scroll area you pull down from the top to refresh, with a spinner until your promise settles.', { requires: ['icons'], keywords: ['mobile', 'reload', 'gesture', 'refresh', 'feed'] }),
+  m('datetime-picker', 'Date and time picker', 'Inputs', 'One field for a day and a time: calendar on top, time picker below.', { requires: ['calendar', 'icons', 'popover', 'time-picker'], keywords: ['schedule', 'appointment', 'meeting', 'slot', 'datetime'] }),
+  m('image-upload', 'Image upload', 'Inputs', 'Thumbnail grid with remove buttons, a cover label and a drop tile. Limits count, type and size.', { requires: ['icons'], keywords: ['photos', 'gallery', 'product images', 'avatar', 'upload', 'preview'] }),
+  m('bottom-sheet', 'Bottom sheet', 'Overlays', 'Sheet that rises from the bottom, with a drag handle to dismiss. Radix Dialog underneath.', { deps: ['@radix-ui/react-dialog'], keywords: ['mobile', 'drawer', 'modal', 'action sheet', 'picker'] }),
 
   m('card', 'Card', 'Display', 'Bordered surface with header, content and footer parts.', { keywords: ['panel', 'container', 'surface'] }),
   m('badge', 'Badge', 'Display', 'Status pill with semantic colors and an optional dot.', { keywords: ['status', 'tag', 'chip', 'label'] }),

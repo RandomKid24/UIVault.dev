@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-110 copy-paste React components, 73 hand-drawn icons and 9 full-page blocks.<br/>
+119 copy-paste React components, 73 hand-drawn icons and 9 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -111,7 +111,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ## What is inside
 
-### Components (110)
+### Components (119)
 
 <details>
 <summary><b>Layout</b> (3)</summary>
@@ -121,9 +121,9 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </details>
 
 <details>
-<summary><b>Inputs</b> (29)</summary>
+<summary><b>Inputs</b> (31)</summary>
 
-`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker` · `search-bar` · `currency-input` · `inline-edit` · `coupon-input` · `mention-input` · `fab`
+`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker` · `search-bar` · `currency-input` · `inline-edit` · `coupon-input` · `mention-input` · `fab` · `datetime-picker` · `image-upload`
 
 </details>
 
@@ -135,30 +135,30 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </details>
 
 <details>
-<summary><b>Display</b> (32)</summary>
+<summary><b>Display</b> (33)</summary>
 
-`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `pricing-card` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline` · `changelog` · `testimonial-card` · `comment-thread` · `code-block` · `status-dot` · `activity-feed` · `product-card` · `order-summary` · `sortable-list` · `chat` · `profile-card` · `terminal`
-
-</details>
-
-<details>
-<summary><b>Data</b> (12)</summary>
-
-`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar` · `permission-matrix` · `kanban`
+`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `pricing-card` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline` · `changelog` · `testimonial-card` · `comment-thread` · `code-block` · `status-dot` · `activity-feed` · `product-card` · `order-summary` · `sortable-list` · `chat` · `profile-card` · `terminal` · `swipe-actions`
 
 </details>
 
 <details>
-<summary><b>Feedback</b> (10)</summary>
+<summary><b>Data</b> (16)</summary>
 
-`banner` · `confetti` · `alert` · `toast` · `skeleton` · `spinner` · `notification-center` · `cookie-consent` · `loader` · `error-state`
+`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar` · `permission-matrix` · `kanban` · `line-chart` · `radar-chart` · `audit-log` · `file-manager`
 
 </details>
 
 <details>
-<summary><b>Overlays</b> (8)</summary>
+<summary><b>Feedback</b> (11)</summary>
 
-`alert-dialog` · `dialog` · `dropdown-menu` · `popover` · `tooltip` · `command` · `context-menu` · `image-viewer`
+`banner` · `confetti` · `alert` · `toast` · `skeleton` · `spinner` · `notification-center` · `cookie-consent` · `loader` · `error-state` · `pull-to-refresh`
+
+</details>
+
+<details>
+<summary><b>Overlays</b> (9)</summary>
+
+`alert-dialog` · `dialog` · `dropdown-menu` · `popover` · `tooltip` · `command` · `context-menu` · `image-viewer` · `bottom-sheet`
 
 </details>
 

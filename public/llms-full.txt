@@ -19,16 +19,16 @@
 - Merge classes with `cn` from `@/lib/utils`. Edit copied files freely; `add <name> --force` overwrites local edits.
 
 ## Which component for what
-- Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts
+- Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts, line-chart, radar-chart, audit-log (who changed what), file-manager
 - Hint or explain on hover: tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content
 - Pick a value: select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker
-- Type text or numbers: input, search-input, search-bar, password-input, otp-input, currency-input, number-stepper, tag-input, inline-edit, mention-input (@ people), coupon-input
-- Confirm, ask, or show a form on top: dialog, alert-dialog (destructive), dialog's Sheet (side drawer), popover, context-menu (right click), image-viewer (lightbox)
-- Loading and failure states: loader (ring/dots/bars/pulse/orbit/dual, BarLoader, LoadingOverlay), skeleton, spinner, empty-state, error-state (404/500)
+- Type text or numbers: input, search-input, search-bar, password-input, otp-input, currency-input, number-stepper, tag-input, inline-edit, datetime-picker, image-upload, mention-input (@ people), coupon-input
+- Confirm, ask, or show a form on top: dialog, alert-dialog (destructive), dialog's Sheet (side drawer), popover, context-menu (right click), image-viewer (lightbox), bottom-sheet (mobile)
+- Loading and failure states: loader (ring/dots/bars/pulse/orbit/dual, BarLoader, LoadingOverlay), skeleton, spinner, empty-state, error-state (404/500), pull-to-refresh
 - Online shop and checkout: product-card (and Price), order-summary, coupon-input, number-stepper (quantity), rating
 - Reorder or resize: sortable-list (rows), kanban (cards across columns), split-pane (resizable panels)
 - Tell the user something: toast (transient), alert (inline), banner (page-wide), notification-center (inbox), cookie-consent
-- Navigate: sidebar, app-shell, navbar (marketing top bar), bottom-nav (mobile), tabs, breadcrumb, pagination, stepper, command (Ctrl K), table-of-contents, fab
+- Navigate: sidebar, app-shell, navbar (marketing top bar), bottom-nav (mobile), swipe-actions (row gestures), tabs, breadcrumb, pagination, stepper, command (Ctrl K), table-of-contents, fab
 - Show KPIs and status: stat-card, gauge, progress, progress-ring, number-ticker, badge, status-dot, charts (Sparkline, BarChart, DonutChart)
 - Show people and activity: avatar, profile-card, activity-feed, timeline, chat, comment-thread, changelog, testimonial-card, rating, terminal (CLI output)
 - Time: time-picker, analog-clock, world-clock, stopwatch, timer, countdown, relative-time
@@ -744,6 +744,34 @@ export default function DatePickerDemo() {
 }
 ```
 
+## Date and time picker (`datetime-picker`)
+One field for a day and a time: calendar on top, time picker below.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add datetime-picker`
+- Import: `import { DateTimePicker } from '@/components/ui/datetime-picker'`
+- Also needs: calendar, icons, popover, time-picker
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { DateTimePicker } from '@/components/ui/datetime-picker';
+import { Field } from '@/components/ui/label';
+import { addDays, startOfDay } from '@/components/ui/calendar';
+
+export default function DateTimePickerDemo() {
+  const [at, setAt] = React.useState<Date>();
+  const today = startOfDay(new Date());
+  return (
+    <div className="w-full max-w-xs">
+      <Field label="Interview slot" htmlFor="slot" hint={at ? at.toISOString() : 'Pick a day, then set the time.'}>
+        <DateTimePicker id="slot" value={at} onChange={setAt} disabledDays={(d) => d < addDays(today, 0)} />
+      </Field>
+    </div>
+  );
+}
+```
+
 ## Dropzone (`dropzone`)
 Drag and drop file area with size check and removable file list.
 - Group: Inputs
@@ -792,6 +820,25 @@ export default function FabDemo() {
       <Fab className="absolute bottom-4 left-4" icon={<PlusIcon />} label="Compose" onClick={() => toast.success('Compose')} />
     </div>
   );
+}
+```
+
+## Image upload (`image-upload`)
+Thumbnail grid with remove buttons, a cover label and a drop tile. Limits count, type and size.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add image-upload`
+- Import: `import { ImageUpload } from '@/components/ui/image-upload'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { ImageUpload } from '@/components/ui/image-upload';
+
+export default function ImageUploadDemo() {
+  const [files, setFiles] = React.useState<File[]>([]);
+  return <ImageUpload className="w-full max-w-md" files={files} onFilesChange={setFiles} max={6} />;
 }
 ```
 
@@ -1957,6 +2004,50 @@ export default function StatusDotDemo() {
 }
 ```
 
+## Swipe actions (`swipe-actions`)
+List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add swipe-actions`
+- Import: `import { SwipeActions } from '@/components/ui/swipe-actions'`
+
+Example:
+
+```tsx
+import { Archive, Star, Trash2 } from 'lucide-react';
+import { Avatar } from '@/components/ui/avatar';
+import { SwipeActions } from '@/components/ui/swipe-actions';
+import { toast } from '@/components/ui/toast';
+
+const mails = [
+  { name: 'Diya Rao', subject: 'Offer letter for Kabir', preview: 'Sent it this morning, joining is 3 Nov.' },
+  { name: 'Finance', subject: 'September payroll is ready', preview: 'Please review and approve before Friday.' },
+  { name: 'Rohan Das', subject: 'Laptop request', preview: 'Need a 16 GB machine for the new hire.' },
+];
+
+export default function SwipeActionsDemo() {
+  return (
+    <div className="grid w-full max-w-sm gap-2">
+      {mails.map((m) => (
+        <SwipeActions
+          key={m.subject}
+          actions={[
+            { label: 'Star', icon: <Star />, tone: 'warning', onClick: () => toast.info('Starred', m.subject) },
+            { label: 'Archive', icon: <Archive />, tone: 'primary', onClick: () => toast.success('Archived', m.subject) },
+            { label: 'Delete', icon: <Trash2 />, tone: 'danger', onClick: () => toast.error('Deleted', m.subject) },
+          ]}
+        >
+          <div className="flex items-center gap-3 p-3">
+            <Avatar name={m.name} />
+            <div className="min-w-0"><p className="truncate text-[13px] font-medium">{m.subject}</p><p className="truncate text-xs text-muted-foreground">{m.name} · {m.preview}</p></div>
+          </div>
+        </SwipeActions>
+      ))}
+      <p className="px-1 text-xs text-muted-foreground">Swipe or drag a row left. Keyboard: focus a row, press Left.</p>
+    </div>
+  );
+}
+```
+
 ## Table (`table`)
 Dense table parts with hover rows, a selected state, footer and caption.
 - Group: Display
@@ -2150,6 +2241,32 @@ export default function TypewriterDemo() {
 }
 ```
 
+## Audit log (`audit-log`)
+Who changed what and when, with expandable before and after values.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add audit-log`
+- Import: `import { AuditLog } from '@/components/ui/audit-log'`
+- Also needs: avatar, badge, icons
+
+Example:
+
+```tsx
+import { AuditLog, type AuditEntry } from '@/components/ui/audit-log';
+
+const h = 3600000;
+const entries: AuditEntry[] = [
+  { id: '1', actor: 'Meera Iyer', action: 'updated', target: 'Salary structure, Engineering', at: Date.now() - 0.5 * h, ip: '10.0.4.21', changes: [{ field: 'Basic', from: '₹60,000', to: '₹64,000' }, { field: 'HRA', from: '₹24,000', to: '₹25,600' }, { field: 'Effective from', from: '', to: '01 Nov 2026' }] },
+  { id: '2', actor: 'Isha Nair', action: 'created', target: 'Employee EMP-0412', at: Date.now() - 3 * h, ip: '10.0.4.18', changes: [{ field: 'Name', to: 'Ananya Kulkarni' }, { field: 'Department', to: 'Engineering' }] },
+  { id: '3', actor: 'Kabir Shah', action: 'exported', target: 'Payroll report, September', at: Date.now() - 20 * h, ip: '10.0.7.5' },
+  { id: '4', actor: 'Rohan Das', action: 'deleted', target: 'Draft offer letter v1', at: Date.now() - 30 * h, ip: '10.0.4.33' },
+  { id: '5', actor: 'Aarav Mehta', action: 'updated', target: 'Leave policy 2026', at: Date.now() - 52 * h, ip: '10.0.4.2', changes: [{ field: 'Carry-forward cap', from: '10 days', to: '12 days' }] },
+];
+
+export default function AuditLogDemo() {
+  return <AuditLog className="w-full max-w-xl" entries={entries} />;
+}
+```
+
 ## Charts (`charts`)
 Sparkline, bar chart and donut in plain SVG. No chart library.
 - Group: Data
@@ -2268,6 +2385,57 @@ export default function DataTableDemo() {
         )}
       />
     </TooltipProvider>
+  );
+}
+```
+
+## File manager (`file-manager`)
+Folder browser with breadcrumb, list and grid views, selection and double-click or Enter to open.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add file-manager`
+- Import: `import { FileManager } from '@/components/ui/file-manager'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { FileManager, type FileItem } from '@/components/ui/file-manager';
+
+const tree: Record<string, FileItem[]> = {
+  '': [
+    { id: 'hr', name: 'HR', type: 'folder', modified: '07 Oct' },
+    { id: 'fin', name: 'Finance', type: 'folder', modified: '05 Oct' },
+    { id: 'brand', name: 'Brand assets', type: 'folder', modified: '28 Sep' },
+    { id: 'readme', name: 'Welcome.pdf', type: 'file', size: 482000, modified: '01 Sep' },
+  ],
+  hr: [
+    { id: 'policy', name: 'Leave policy 2026.pdf', type: 'file', size: 910000, modified: '06 Oct' },
+    { id: 'offer', name: 'Offer letter template.docx', type: 'file', size: 64000, modified: '02 Oct' },
+    { id: 'org', name: 'Org chart.png', type: 'image', size: 1840000, modified: '30 Sep' },
+  ],
+  fin: [
+    { id: 'p', name: 'Payroll September.xlsx', type: 'file', size: 233000, modified: '05 Oct' },
+    { id: 'inv', name: 'Invoices', type: 'folder', modified: '03 Oct' },
+  ],
+  brand: [
+    { id: 'logo', name: 'Logo.png', type: 'image', size: 54000, modified: '12 Sep' },
+    { id: 'guide', name: 'Brand guide.pdf', type: 'file', size: 5200000, modified: '12 Sep' },
+  ],
+  inv: [{ id: 'i1', name: 'INV-204.pdf', type: 'file', size: 88000, modified: '03 Oct' }],
+};
+
+export default function FileManagerDemo() {
+  const [trail, setTrail] = React.useState<{ id: string; name: string }[]>([]);
+  const here = trail.length ? trail[trail.length - 1].id : '';
+  return (
+    <FileManager
+      className="max-w-xl"
+      path={['Files', ...trail.map((t) => t.name)]}
+      items={tree[here] ?? []}
+      onNavigate={(d) => setTrail(trail.slice(0, d))}
+      onOpen={(it) => it.type === 'folder' && setTrail([...trail, { id: it.id, name: it.name }])}
+    />
   );
 }
 ```
@@ -2410,6 +2578,37 @@ export default function KanbanDemo() {
 }
 ```
 
+## Line chart (`line-chart`)
+Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add line-chart`
+- Import: `import { LineChart } from '@/components/ui/line-chart'`
+
+Example:
+
+```tsx
+import { LineChart } from '@/components/ui/line-chart';
+
+const months = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
+
+export default function LineChartDemo() {
+  return (
+    <div className="grid w-full max-w-2xl gap-8">
+      <LineChart
+        area
+        labels={months}
+        format={(n) => `₹${n}L`}
+        series={[
+          { name: 'Revenue', data: [42, 48, 45, 58, 63, 61, 72] },
+          { name: 'Payroll', data: [30, 31, 31, 34, 36, 36, 38], color: 'text-warning' },
+          { name: 'Profit', data: [12, 17, 14, 24, 27, 25, 34], color: 'text-success' },
+        ]}
+      />
+    </div>
+  );
+}
+```
+
 ## Number ticker (`number-ticker`)
 Counts up to a value with easing once it scrolls into view.
 - Group: Data
@@ -2528,6 +2727,30 @@ export default function ProgressRingDemo() {
       <ProgressRing value={v / 2} size={72} stroke={6} className="text-success" />
       <button className="text-sm text-primary hover:underline" onClick={() => setV((x) => (x === 72 ? 30 : 72))}>Animate</button>
     </div>
+  );
+}
+```
+
+## Radar chart (`radar-chart`)
+Spider chart for comparing several scores across the same axes. Hover a legend name to highlight a series.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add radar-chart`
+- Import: `import { RadarChart } from '@/components/ui/radar-chart'`
+
+Example:
+
+```tsx
+import { RadarChart } from '@/components/ui/radar-chart';
+
+export default function RadarChartDemo() {
+  return (
+    <RadarChart
+      axes={['Delivery', 'Quality', 'Communication', 'Ownership', 'Teamwork', 'Learning']}
+      series={[
+        { name: 'Aarav', values: [88, 82, 70, 90, 76, 84] },
+        { name: 'Team average', values: [72, 74, 78, 68, 80, 70] },
+      ]}
+    />
   );
 }
 ```
@@ -2747,6 +2970,36 @@ export default function NotificationCenterDemo() {
 }
 ```
 
+## Pull to refresh (`pull-to-refresh`)
+Scroll area you pull down from the top to refresh, with a spinner until your promise settles.
+- Group: Feedback
+- Add: `npx github:RandomKid24/befui add pull-to-refresh`
+- Import: `import { PullToRefresh } from '@/components/ui/pull-to-refresh'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { PullToRefresh } from '@/components/ui/pull-to-refresh';
+
+export default function PullToRefreshDemo() {
+  const [items, setItems] = React.useState(['Aarav punched in', 'Diya applied for leave', 'Payroll draft created']);
+  const refresh = async () => {
+    await new Promise((r) => setTimeout(r, 1200));
+    setItems((l) => [`New update at ${new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })}`, ...l]);
+  };
+  return (
+    <div className="w-full max-w-xs">
+      <PullToRefresh onRefresh={refresh} className="h-64 rounded-xl border bg-card">
+        <ul className="divide-y">{items.map((t, i) => <li key={t + i} className="px-4 py-3 text-[13px]">{t}</li>)}</ul>
+      </PullToRefresh>
+      <p className="mt-2 px-1 text-xs text-muted-foreground">Drag down from the top (touch or mouse).</p>
+    </div>
+  );
+}
+```
+
 ## Skeleton (`skeleton`)
 Shimmering placeholder for content that is loading.
 - Group: Feedback
@@ -2847,6 +3100,40 @@ export default function AlertDialogDemo() {
         confirmLabel="Delete"
         onConfirm={() => toast.success('Employee deleted')}
       />
+    </>
+  );
+}
+```
+
+## Bottom sheet (`bottom-sheet`)
+Sheet that rises from the bottom, with a drag handle to dismiss. Radix Dialog underneath.
+- Group: Overlays
+- Add: `npx github:RandomKid24/befui add bottom-sheet`
+- Import: `import { BottomSheet } from '@/components/ui/bottom-sheet'`
+- npm packages: @radix-ui/react-dialog
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { BottomSheet } from '@/components/ui/bottom-sheet';
+import { toast } from '@/components/ui/toast';
+
+const options = ['Casual leave', 'Sick leave', 'Earned leave', 'Work from home'];
+
+export default function BottomSheetDemo() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <>
+      <Button variant="outline" onClick={() => setOpen(true)}>Apply for leave</Button>
+      <BottomSheet open={open} onOpenChange={setOpen} title="Apply for" description="Drag the handle down to dismiss.">
+        <ul className="grid gap-1 pb-2">
+          {options.map((o) => (
+            <li key={o}><button type="button" onClick={() => { setOpen(false); toast.success('Selected', o); }} className="w-full rounded-lg px-3 py-3 text-left text-sm font-medium outline-none hover:bg-secondary focus-visible:bg-secondary">{o}</button></li>
+          ))}
+        </ul>
+      </BottomSheet>
     </>
   );
 }
