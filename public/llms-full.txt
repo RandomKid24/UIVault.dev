@@ -824,17 +824,18 @@ export default function CurrencyInputDemo() {
 ```
 
 ## Data table (`data-table`)
-Sortable columns, a filter box and pagination. You pass rows and column definitions.
+Sortable columns, a filter box and pagination, with optional row selection and bulk actions, a column visibility menu and a sticky header. You pass rows and column definitions.
 - Group: Data
 - Add: `npx github:RandomKid24/befui add data-table`
 - Import: `import { DataTable } from '@/components/ui/data-table'`
-- Also needs: icons, pagination, table
+- Also needs: button, checkbox, dropdown-menu, icons, pagination, table
 
 Example:
 
 ```tsx
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { DataTable, type Column } from '@/components/ui/data-table';
 
 interface Person { id: string; name: string; team: string; salary: number; status: 'Active' | 'On leave' | 'Notice' }
@@ -859,7 +860,19 @@ const columns: Column<Person>[] = [
 ];
 
 export default function DataTableDemo() {
-  return <DataTable className="w-full" rows={people} columns={columns} rowKey={(p) => p.id} pageSize={4} filterPlaceholder="Filter people" />;
+  return (
+    <DataTable
+      className="w-full"
+      rows={people}
+      columns={columns}
+      rowKey={(p) => p.id}
+      pageSize={4}
+      filterPlaceholder="Filter people"
+      selectable
+      columnMenu
+      bulkActions={(rows, clear) => <Button size="sm" variant="outline" onClick={clear}>Export {rows.length}</Button>}
+    />
+  );
 }
 ```
 
@@ -1431,6 +1444,44 @@ import { PasswordInput } from '@/components/ui/password-input';
 export default function PasswordInputDemo() {
   const [v, setV] = React.useState('');
   return <PasswordInput meter className="w-72" placeholder="Choose a password" value={v} onChange={(e) => setV(e.target.value)} />;
+}
+```
+
+## Permission matrix (`permission-matrix`)
+Roles by permissions grid of checkboxes with per-column toggle and locked roles.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add permission-matrix`
+- Import: `import { PermissionMatrix } from '@/components/ui/permission-matrix'`
+- Also needs: checkbox, table
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { PermissionMatrix, type Grants } from '@/components/ui/permission-matrix';
+
+const roles = [
+  { id: 'owner', label: 'Owner', hint: 'Always full access' },
+  { id: 'admin', label: 'Admin' },
+  { id: 'manager', label: 'Manager' },
+  { id: 'viewer', label: 'Viewer' },
+];
+const permissions = [
+  { id: 'view', label: 'View' },
+  { id: 'create', label: 'Create' },
+  { id: 'edit', label: 'Edit' },
+  { id: 'delete', label: 'Delete' },
+  { id: 'export', label: 'Export' },
+];
+
+export default function PermissionMatrixDemo() {
+  const [grants, setGrants] = React.useState<Grants>({
+    owner: ['view', 'create', 'edit', 'delete', 'export'],
+    admin: ['view', 'create', 'edit', 'delete'],
+    manager: ['view', 'create', 'edit'],
+    viewer: ['view'],
+  });
+  return <PermissionMatrix className="w-full max-w-2xl" roles={roles} permissions={permissions} value={grants} onChange={setGrants} locked={['owner']} />;
 }
 ```
 
@@ -2151,10 +2202,10 @@ export default function TableOfContentsDemo() {
 ```
 
 ## Table (`table`)
-Dense table parts with hover rows and a selected state.
+Dense table parts with hover rows, a selected state, footer and caption.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add table`
-- Import: `import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'`
+- Import: `import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, TableCaption } from '@/components/ui/table'`
 
 Example:
 
@@ -2419,26 +2470,37 @@ export default function ToggleDemo() {
 ```
 
 ## Tooltip (`tooltip`)
-One-line hint on hover and focus.
+Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off.
 - Group: Overlays
 - Add: `npx github:RandomKid24/befui add tooltip`
-- Import: `import { TooltipProvider, Tooltip } from '@/components/ui/tooltip'`
+- Import: `import { TooltipProvider, Tooltip, InfoTip, TruncatedText } from '@/components/ui/tooltip'`
+- Also needs: icons, kbd
 - npm packages: @radix-ui/react-tooltip
 
 Example:
 
 ```tsx
-import { Bell, Pencil, Share2 } from 'lucide-react';
+import { Bell, Pencil, Save, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipProvider } from '@/components/ui/tooltip';
+import { InfoTip, Tooltip, TooltipProvider, TruncatedText } from '@/components/ui/tooltip';
 
 export default function TooltipDemo() {
   return (
     <TooltipProvider>
-      <div className="flex gap-2">
-        <Tooltip content="Edit"><Button variant="outline" size="icon"><Pencil /></Button></Tooltip>
-        <Tooltip content="Share" side="bottom"><Button variant="outline" size="icon"><Share2 /></Button></Tooltip>
-        <Tooltip content="Notifications" side="right"><Button variant="outline" size="icon"><Bell /></Button></Tooltip>
+      <div className="grid justify-items-center gap-5">
+        <div className="flex gap-2">
+          <Tooltip content="Edit"><Button variant="outline" size="icon"><Pencil /></Button></Tooltip>
+          <Tooltip content="Share" side="bottom" arrow><Button variant="outline" size="icon"><Share2 /></Button></Tooltip>
+          <Tooltip content="Notifications" side="right"><Button variant="outline" size="icon"><Bell /></Button></Tooltip>
+          <Tooltip content="Save changes" shortcut={['⌘', 'S']}><Button variant="outline" size="icon"><Save /></Button></Tooltip>
+        </div>
+        <div className="flex items-center gap-1.5 text-sm font-medium">
+          Net 30 terms
+          <InfoTip title="Payment terms" content="Invoice is due 30 days after it is issued. Late fees start on day 31." />
+        </div>
+        <div className="w-44 rounded-md border px-3 py-2 text-sm">
+          <TruncatedText>Quarterly vendor reconciliation report, final draft</TruncatedText>
+        </div>
       </div>
     </TooltipProvider>
   );

@@ -1,5 +1,6 @@
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { DataTable, type Column } from '@/components/ui/data-table';
 
 interface Person { id: string; name: string; team: string; salary: number; status: 'Active' | 'On leave' | 'Notice' }
@@ -24,5 +25,17 @@ const columns: Column<Person>[] = [
 ];
 
 export default function DataTableDemo() {
-  return <DataTable className="w-full" rows={people} columns={columns} rowKey={(p) => p.id} pageSize={4} filterPlaceholder="Filter people" />;
+  return (
+    <DataTable
+      className="w-full"
+      rows={people}
+      columns={columns}
+      rowKey={(p) => p.id}
+      pageSize={4}
+      filterPlaceholder="Filter people"
+      selectable
+      columnMenu
+      bulkActions={(rows, clear) => <Button size="sm" variant="outline" onClick={clear}>Export {rows.length}</Button>}
+    />
+  );
 }

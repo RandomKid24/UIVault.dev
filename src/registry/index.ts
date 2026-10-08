@@ -25,7 +25,7 @@ export interface Entry {
 type Meta = Omit<Entry, 'Demo' | 'demoSource' | 'source' | 'path' | 'isNew'>;
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['changelog', 'testimonial-card', 'comment-thread', 'code-block', 'status-dot', 'search-bar', 'currency-input', 'inline-edit', 'filter-bar', 'notification-center', 'cookie-consent', 'table-of-contents']);
+export const NEW_SLUGS = new Set(['permission-matrix', 'data-table', 'tooltip', 'changelog', 'testimonial-card', 'comment-thread', 'code-block', 'status-dot', 'search-bar', 'currency-input', 'inline-edit', 'filter-bar', 'notification-center', 'cookie-consent', 'table-of-contents']);
 
 const m = (
   slug: string,
@@ -79,7 +79,7 @@ const metas: Meta[] = [
   m('color-picker', 'Color picker', 'Inputs', 'Swatches, hex field and the native picker. Always returns a six-digit hex.', { requires: ['icons'], keywords: ['hex', 'swatch', 'theme', 'brand'] }),
   m('collapsible', 'Collapsible', 'Display', 'One section that opens with a smooth height animation.', { requires: ['icons'], keywords: ['expand', 'show more', 'details', 'disclosure'] }),
   m('dock', 'Dock', 'Navigation', 'Icons that grow toward the pointer, like the macOS dock.', { keywords: ['magnify', 'toolbar', 'apps', 'launcher'] }),
-  m('data-table', 'Data table', 'Data', 'Sortable columns, a filter box and pagination. You pass rows and column definitions.', { requires: ['icons', 'pagination', 'table'], keywords: ['sort', 'filter', 'grid', 'list', 'rows'] }),
+  m('data-table', 'Data table', 'Data', 'Sortable columns, a filter box and pagination, with optional row selection and bulk actions, a column visibility menu and a sticky header. You pass rows and column definitions.', { requires: ['button', 'checkbox', 'dropdown-menu', 'icons', 'pagination', 'table'], keywords: ['sort', 'filter', 'grid', 'list', 'rows', 'select', 'bulk', 'columns', 'sticky'] }),
   m('gauge', 'Gauge', 'Data', 'Half-circle meter with a needle that swings to the value.', { keywords: ['meter', 'speedometer', 'score', 'dial'] }),
   m('typewriter', 'Typewriter', 'Display', 'Types, holds and deletes phrases in a loop. Static for reduced motion.', { keywords: ['text', 'hero', 'rotating', 'headline', 'animated text'] }),
   m('confetti', 'Confetti', 'Feedback', 'Burst of confetti from any button, or call fireConfetti(x, y) yourself.', { keywords: ['celebrate', 'success', 'party', 'delight'] }),
@@ -102,6 +102,7 @@ const metas: Meta[] = [
   m('search-bar', 'Search bar', 'Inputs', 'Search field with live results, highlighted matches, recent searches and full keyboard control.', { requires: ['icons'], keywords: ['autocomplete', 'suggest', 'find', 'typeahead', 'lookup'] }),
   m('currency-input', 'Currency input', 'Inputs', 'Money field that groups digits as you type (1,25,000) and hands you a plain number.', { keywords: ['money', 'amount', 'price', 'salary', 'rupee', 'number'] }),
   m('inline-edit', 'Inline edit', 'Inputs', 'Text that becomes a field on click. Enter saves, Escape cancels.', { requires: ['icons'], keywords: ['rename', 'edit in place', 'title'] }),
+  m('permission-matrix', 'Permission matrix', 'Data', 'Roles by permissions grid of checkboxes with per-column toggle and locked roles.', { requires: ['checkbox', 'table'], keywords: ['roles', 'access', 'rbac', 'acl', 'admin', 'permissions'] }),
   m('filter-bar', 'Filter bar', 'Data', 'Removable filter chips with an Add filter menu: pick a field, then a value.', { requires: ['icons', 'button', 'popover'], keywords: ['filters', 'facets', 'refine', 'table', 'chips'] }),
   m('notification-center', 'Notification center', 'Feedback', 'Bell with an unread count and a popover list. Click marks read, Mark all read clears it.', { requires: ['icons', 'button', 'popover'], keywords: ['bell', 'inbox', 'alerts', 'unread', 'notifications'] }),
   m('cookie-consent', 'Cookie consent', 'Feedback', 'Bottom-left consent card that remembers Accept or Decline.', { requires: ['button'], keywords: ['gdpr', 'privacy', 'banner', 'cookies'] }),
@@ -110,7 +111,7 @@ const metas: Meta[] = [
   m('card', 'Card', 'Display', 'Bordered surface with header, content and footer parts.', { keywords: ['panel', 'container', 'surface'] }),
   m('badge', 'Badge', 'Display', 'Status pill with semantic colors and an optional dot.', { keywords: ['status', 'tag', 'chip', 'label'] }),
   m('avatar', 'Avatar', 'Display', 'Image with initials fallback in a stable color, plus a stacked group.', { deps: ['@radix-ui/react-avatar'], keywords: ['user', 'profile', 'people'] }),
-  m('table', 'Table', 'Display', 'Dense table parts with hover rows and a selected state.', { keywords: ['grid', 'list', 'rows', 'data'] }),
+  m('table', 'Table', 'Display', 'Dense table parts with hover rows, a selected state, footer and caption.', { keywords: ['grid', 'list', 'rows', 'data'] }),
   m('separator', 'Separator', 'Display', 'Horizontal or vertical divider.', { deps: ['@radix-ui/react-separator'], keywords: ['divider', 'line'] }),
   m('kbd', 'Kbd', 'Display', 'Keyboard key hint.', { keywords: ['shortcut', 'key'] }),
   m('empty-state', 'Empty state', 'Display', 'Dashed placeholder with icon, text and an action.', { keywords: ['blank', 'no data', 'zero'] }),
@@ -128,7 +129,7 @@ const metas: Meta[] = [
   m('dialog', 'Dialog and Sheet', 'Overlays', 'Centered modal and edge-docked sheet on Radix Dialog.', { deps: ['@radix-ui/react-dialog', 'lucide-react'], keywords: ['modal', 'drawer', 'popup'] }),
   m('dropdown-menu', 'Dropdown menu', 'Overlays', 'Action menu with checkbox items, shortcuts and destructive items.', { deps: ['@radix-ui/react-dropdown-menu', 'lucide-react'], keywords: ['menu', 'actions', 'context'] }),
   m('popover', 'Popover', 'Overlays', 'Floating panel anchored to a trigger.', { deps: ['@radix-ui/react-popover'], keywords: ['floating', 'quick'] }),
-  m('tooltip', 'Tooltip', 'Overlays', 'One-line hint on hover and focus.', { deps: ['@radix-ui/react-tooltip'], keywords: ['hint', 'hover'] }),
+  m('tooltip', 'Tooltip', 'Overlays', 'Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off.', { deps: ['@radix-ui/react-tooltip'], requires: ['icons', 'kbd'], keywords: ['hint', 'hover', 'info', 'help', 'truncate', 'shortcut'] }),
   m('command', 'Command palette', 'Overlays', 'Searchable palette on cmdk. Bind it to Ctrl or Cmd K.', { deps: ['cmdk', '@radix-ui/react-dialog', 'lucide-react'], keywords: ['search', 'spotlight', 'cmdk'] }),
 
   m('tabs', 'Tabs', 'Navigation', 'Underline or pill tabs on Radix Tabs.', { deps: ['@radix-ui/react-tabs'], keywords: ['sections', 'switch'] }),

@@ -40,7 +40,7 @@
 - `copy-button` (Inputs): Copies text and morphs to a check. Exports: CopyButton.
 - `countdown` (Data): Live countdown with flipping digits. Exports: Countdown.
 - `currency-input` (Inputs): Money field that groups digits as you type (1,25,000) and hands you a plain number. Exports: CurrencyInput.
-- `data-table` (Data): Sortable columns, a filter box and pagination. You pass rows and column definitions. Exports: DataTable.
+- `data-table` (Data): Sortable columns, a filter box and pagination, with optional row selection and bulk actions, a column visibility menu and a sticky header. You pass rows and column definitions. Exports: DataTable.
 - `date-picker` (Inputs): Date and date range fields that open a calendar. Closes on pick. Exports: formatDate, DatePicker, DateRangePicker.
 - `dialog` (Overlays): Centered modal and edge-docked sheet on Radix Dialog. Exports: Dialog, DialogTrigger, DialogClose, DialogContent, SheetContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, Sheet, SheetTrigger, SheetClose, SheetHeader, SheetFooter, SheetTitle, SheetDescription.
 - `dock` (Navigation): Icons that grow toward the pointer, like the macOS dock. Exports: Dock.
@@ -62,6 +62,7 @@
 - `otp-input` (Inputs): Code boxes with paste, backspace, arrow keys, autofill and a shake on error. Exports: OtpInput.
 - `pagination` (Navigation): Page buttons with ellipsis for long ranges. Exports: Pagination.
 - `password-input` (Inputs): Show and hide toggle with an optional strength meter. Exports: passwordScore, PasswordInput.
+- `permission-matrix` (Data): Roles by permissions grid of checkboxes with per-column toggle and locked roles. Exports: PermissionMatrix.
 - `popover` (Overlays): Floating panel anchored to a trigger. Exports: Popover, PopoverTrigger, PopoverAnchor, PopoverContent.
 - `pricing-card` (Display): Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam. Exports: PricingCard.
 - `progress-ring` (Data): Circular progress with an eased stroke animation. Exports: ProgressRing.
@@ -88,7 +89,7 @@
 - `stopwatch` (Time): Start, pause, lap and reset, down to hundredths of a second. Exports: Stopwatch.
 - `switch` (Inputs): On/off toggle for settings that apply immediately. Exports: Switch.
 - `table-of-contents` (Navigation): On this page list that highlights the section currently in view. Exports: TableOfContents.
-- `table` (Display): Dense table parts with hover rows and a selected state. Exports: Table, TableHeader, TableBody, TableRow, TableHead, TableCell.
+- `table` (Display): Dense table parts with hover rows, a selected state, footer and caption. Exports: Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, TableCaption.
 - `tabs` (Navigation): Underline or pill tabs on Radix Tabs. Exports: Tabs, TabsList, TabsTrigger, TabsContent.
 - `tag-input` (Inputs): Type and press Enter to add chips. Backspace removes the last. Exports: TagInput.
 - `testimonial-card` (Display): Customer quote with avatar, role and optional star rating. Exports: TestimonialCard.
@@ -98,7 +99,7 @@
 - `timer` (Time): Countdown with a ring that drains smoothly, presets and an onDone callback. Exports: Timer.
 - `toast` (Feedback): Call toast.success() from anywhere. No provider needed. Exports: toast, Toaster.
 - `toggle` (Inputs): Two-state button for favourite, bold or mute. Announces its state to screen readers. Exports: Toggle.
-- `tooltip` (Overlays): One-line hint on hover and focus. Exports: TooltipProvider, Tooltip.
+- `tooltip` (Overlays): Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off. Exports: TooltipProvider, Tooltip, InfoTip, TruncatedText.
 - `tree-view` (Navigation): Nested expandable list with animated open and close. Exports: TreeView.
 - `typewriter` (Display): Types, holds and deletes phrases in a loop. Static for reduced motion. Exports: Typewriter.
 - `world-clock` (Time): Cities with live local time, a day or night icon and the hour difference from you. Exports: WorldClock.

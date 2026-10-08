@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-91 copy-paste React components, 73 hand-drawn icons and 8 full-page blocks.<br/>
+92 copy-paste React components, 73 hand-drawn icons and 8 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -111,7 +111,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ## What is inside
 
-### Components (91)
+### Components (92)
 
 <details>
 <summary><b>Layout</b> (2)</summary>
@@ -142,9 +142,9 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </details>
 
 <details>
-<summary><b>Data</b> (10)</summary>
+<summary><b>Data</b> (11)</summary>
 
-`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar`
+`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar` · `permission-matrix`
 
 </details>
 

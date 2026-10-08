@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
-export const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
-  ({ className, ...props }, ref) => (
-    <div className="relative w-full overflow-x-auto">
+export const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement> & { wrapperClassName?: string; wrapperStyle?: React.CSSProperties }>(
+  ({ className, wrapperClassName, wrapperStyle, ...props }, ref) => (
+    <div className={cn('relative w-full overflow-x-auto', wrapperClassName)} style={wrapperStyle}>
       <table ref={ref} className={cn('w-full caption-bottom text-[13px]', className)} {...props} />
     </div>
   ),
@@ -30,4 +30,10 @@ export const TableHead = ({ className, ...props }: React.ThHTMLAttributes<HTMLTa
 );
 export const TableCell = ({ className, ...props }: React.TdHTMLAttributes<HTMLTableCellElement>) => (
   <td className={cn('px-4 py-3 align-middle', className)} {...props} />
+);
+export const TableFooter = ({ className, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) => (
+  <tfoot className={cn('border-t bg-muted/50 font-medium [&_td]:py-2', className)} {...props} />
+);
+export const TableCaption = ({ className, ...props }: React.HTMLAttributes<HTMLTableCaptionElement>) => (
+  <caption className={cn('mt-3 text-xs text-muted-foreground', className)} {...props} />
 );

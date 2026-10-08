@@ -50,6 +50,7 @@ export * from './number-ticker';
 export * from './otp-input';
 export * from './pagination';
 export * from './password-input';
+export * from './permission-matrix';
 export * from './popover';
 export * from './pricing-card';
 export * from './progress';
