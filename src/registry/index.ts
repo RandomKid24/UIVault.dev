@@ -25,7 +25,7 @@ export interface Entry {
 type Meta = Omit<Entry, 'Demo' | 'demoSource' | 'source' | 'path' | 'isNew'>;
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['line-chart', 'radar-chart', 'swipe-actions', 'pull-to-refresh', 'datetime-picker', 'image-upload', 'audit-log', 'file-manager', 'bottom-sheet', 'kanban', 'date-picker', 'context-menu', 'activity-feed', 'loader', 'permission-matrix', 'data-table', 'tooltip']);
+export const NEW_SLUGS = new Set(['avatar', 'avatar-upload', 'line-chart', 'radar-chart', 'swipe-actions', 'pull-to-refresh', 'datetime-picker', 'image-upload', 'audit-log', 'file-manager', 'bottom-sheet', 'kanban', 'date-picker', 'context-menu', 'activity-feed', 'loader', 'permission-matrix', 'data-table', 'tooltip']);
 
 const m = (
   slug: string,
@@ -135,9 +135,10 @@ const metas: Meta[] = [
   m('image-upload', 'Image upload', 'Inputs', 'Thumbnail grid with remove buttons, a cover label and a drop tile. Limits count, type and size.', { requires: ['icons'], keywords: ['photos', 'gallery', 'product images', 'avatar', 'upload', 'preview'] }),
   m('bottom-sheet', 'Bottom sheet', 'Overlays', 'Sheet that rises from the bottom, with a drag handle to dismiss. Radix Dialog underneath.', { deps: ['@radix-ui/react-dialog'], keywords: ['mobile', 'drawer', 'modal', 'action sheet', 'picker'] }),
 
+  m('avatar-upload', 'Avatar upload', 'Inputs', 'Click-to-change profile picture with instant preview, size and type checks, and a Remove link.', { requires: ['avatar', 'icons'], keywords: ['profile', 'photo', 'picture', 'account', 'settings'] }),
   m('card', 'Card', 'Display', 'Bordered surface with header, content and footer parts.', { keywords: ['panel', 'container', 'surface'] }),
   m('badge', 'Badge', 'Display', 'Status pill with semantic colors and an optional dot.', { keywords: ['status', 'tag', 'chip', 'label'] }),
-  m('avatar', 'Avatar', 'Display', 'Image with initials fallback in a stable color, plus a stacked group.', { deps: ['@radix-ui/react-avatar'], keywords: ['user', 'profile', 'people'] }),
+  m('avatar', 'Avatar', 'Display', 'Image with initials fallback in a stable color. Five sizes, circle or square, presence dot (online, away, busy, offline), a stacked group with hover names, and UserInfo for avatar plus name and subtitle.', { deps: ['@radix-ui/react-avatar'], keywords: ['user', 'profile', 'people', 'presence', 'status', 'initials', 'team'] }),
   m('table', 'Table', 'Display', 'Dense table parts with hover rows, a selected state, footer and caption.', { keywords: ['grid', 'list', 'rows', 'data'] }),
   m('separator', 'Separator', 'Display', 'Horizontal or vertical divider.', { deps: ['@radix-ui/react-separator'], keywords: ['divider', 'line'] }),
   m('kbd', 'Kbd', 'Display', 'Keyboard key hint.', { keywords: ['shortcut', 'key'] }),

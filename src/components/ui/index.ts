@@ -6,6 +6,7 @@ export * from './analog-clock';
 export * from './app-shell';
 export * from './audit-log';
 export * from './avatar';
+export * from './avatar-upload';
 export * from './badge';
 export * from './banner';
 export * from './border-beam';

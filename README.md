@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-119 copy-paste React components, 73 hand-drawn icons and 9 full-page blocks.<br/>
+120 copy-paste React components, 73 hand-drawn icons and 9 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -111,7 +111,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ## What is inside
 
-### Components (119)
+### Components (120)
 
 <details>
 <summary><b>Layout</b> (3)</summary>
@@ -121,9 +121,9 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </details>
 
 <details>
-<summary><b>Inputs</b> (31)</summary>
+<summary><b>Inputs</b> (32)</summary>
 
-`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker` · `search-bar` · `currency-input` · `inline-edit` · `coupon-input` · `mention-input` · `fab` · `datetime-picker` · `image-upload`
+`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker` · `search-bar` · `currency-input` · `inline-edit` · `coupon-input` · `mention-input` · `fab` · `datetime-picker` · `image-upload` · `avatar-upload`
 
 </details>
 

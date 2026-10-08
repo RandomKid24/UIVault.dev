@@ -34,7 +34,7 @@
 - Time: time-picker, analog-clock, world-clock, stopwatch, timer, countdown, relative-time
 - Whole pages: blocks: admin-shell, hrms-overview, employee-directory, leave-approvals, leave-request-form, lead-pipeline, campaign-performance, sign-in
 
-## Components (120)
+## Components (121)
 
 ### Layout (3)
 - [app-shell](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/app-shell.json): Sidebar, topbar and scrolling content area, plus a page header. Import: AppShell, Topbar, AppContent, PageHeader. Needs befui: sidebar.
@@ -53,7 +53,8 @@
 - [tabs](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/tabs.json): Underline or pill tabs on Radix Tabs. Import: Tabs, TabsList, TabsTrigger, TabsContent. npm: @radix-ui/react-tabs.
 - [tree-view](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/tree-view.json): Nested expandable list with animated open and close. Import: TreeView. npm: lucide-react.
 
-### Inputs (31)
+### Inputs (32)
+- [avatar-upload](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/avatar-upload.json): Click-to-change profile picture with instant preview, size and type checks, and a Remove link. Import: AvatarUpload. Needs befui: avatar, icons.
 - [button](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/button.json): Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links. Import: Button. npm: @radix-ui/react-slot, lucide-react.
 - [calendar](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/calendar.json): Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work. Import: startOfDay, addDays, addMonths, isSameDay, Calendar. npm: lucide-react.
 - [checkbox](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/checkbox.json): Checked, unchecked and indeterminate. Works for select-all rows. Import: Checkbox. npm: @radix-ui/react-checkbox, lucide-react.
@@ -89,7 +90,7 @@
 ### Display (33)
 - [accordion](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/accordion.json): Collapsible sections with a smooth height animation. Single or multiple open. Import: Accordion. npm: lucide-react.
 - [activity-feed](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/activity-feed.json): Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail. Import: ActivityFeed. Needs befui: avatar, relative-time.
-- [avatar](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/avatar.json): Image with initials fallback in a stable color, plus a stacked group. Import: Avatar, AvatarGroup. npm: @radix-ui/react-avatar.
+- [avatar](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/avatar.json): Image with initials fallback in a stable color. Five sizes, circle or square, presence dot (online, away, busy, offline), a stacked group with hover names, and UserInfo for avatar plus name and subtitle. Import: Avatar, AvatarGroup, UserInfo. npm: @radix-ui/react-avatar.
 - [badge](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/badge.json): Status pill with semantic colors and an optional dot. Import: Badge.
 - [border-beam](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/border-beam.json): A light beam that circles the border. For pricing cards and featured content. Import: BorderBeam.
 - [card](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/card.json): Bordered surface with header, content and footer parts. Import: Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter.
