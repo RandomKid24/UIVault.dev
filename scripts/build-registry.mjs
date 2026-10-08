@@ -11,6 +11,17 @@ const info = {};
 for (const [, slug, name, cat, desc] of reg.matchAll(/^\s*m\('([^']+)', '([^']+)', '([^']+)', '((?:[^'\\]|\\.)*)'/gm)) info[`ui/${slug}`] = { name, group: cat, description: desc.replace(/\\'/g, "'") };
 for (const [, slug, name, module, desc] of reg.matchAll(/slug: '([^']+)', name: '([^']+)', module: '([^']+)', description: '((?:[^'\\]|\\.)*)'/g)) info[`blocks/${slug}`] = { name, group: module, description: desc.replace(/\\'/g, "'") };
 
+// Changelog: src/registry/changelog.json is the source for the docs page and CHANGELOG.md. Every slug must exist.
+const releases = JSON.parse(readFileSync('src/registry/changelog.json', 'utf8'));
+const nameOf = (slug) => (slug.startsWith('block:') ? info[`blocks/${slug.slice(6)}`] : info[`ui/${slug}`])?.name;
+for (const r of releases) for (const e of r.entries) for (const slug of e.slugs ?? []) if (!nameOf(slug)) throw new Error(`changelog ${r.version}: unknown component "${slug}"`);
+writeFileSync('CHANGELOG.md', `# Changelog
+
+All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
+(Generated from src/registry/changelog.json by \`npm run registry:build\`. Edit the JSON, not this file.)
+
+${releases.map((r) => `## ${r.version} - ${r.date}\n\n${r.title}\n\n${r.entries.map((e) => `- **${e.kind[0].toUpperCase()}${e.kind.slice(1)}:** ${e.text}${e.slugs?.length ? ` (${e.slugs.map(nameOf).join(', ')})` : ''}`).join('\n')}\n`).join('\n')}`);
+
 const HELPERS = new Set(['react', 'react-dom', 'clsx', 'tailwind-merge', 'class-variance-authority']);
 
 function analyse(src) {

@@ -1,0 +1,63 @@
+[
+  {
+    "version": "1.2.0",
+    "date": "2026-10-08",
+    "title": "Changelog page and 95 more icons",
+    "entries": [
+      { "kind": "added", "text": "A changelog page on the docs site. Click any component name to open it." },
+      { "kind": "added", "text": "95 new icons (189 in total): devices and media, commerce, charts, text formatting, files, map and travel, status, playback and more. Find them on the Icons page." }
+    ]
+  },
+  {
+    "version": "1.1.0",
+    "date": "2026-10-08",
+    "title": "Sixty new components, blocks and a smarter CLI",
+    "entries": [
+      { "kind": "added", "text": "Page furniture and content: changelog, testimonial card, comment thread, code block, status dot, table of contents.", "slugs": ["changelog", "testimonial-card", "comment-thread", "code-block", "status-dot", "table-of-contents"] },
+      { "kind": "added", "text": "Search and input helpers: search bar with live results, currency input, inline edit, filter bar, notification center, cookie consent.", "slugs": ["search-bar", "currency-input", "inline-edit", "filter-bar", "notification-center", "cookie-consent"] },
+      { "kind": "added", "text": "Roles and access grid: permission matrix with per-column toggles and locked roles.", "slugs": ["permission-matrix"] },
+      { "kind": "changed", "text": "Tooltip gets a title, keyboard shortcut, light style and arrow, plus InfoTip and TruncatedText.", "slugs": ["tooltip"] },
+      { "kind": "changed", "text": "Data table gets row selection with bulk actions, a column menu, sticky header, toolbar slot, row action menus and clickable rows. Table gets a footer and caption.", "slugs": ["data-table", "table"] },
+      { "kind": "added", "text": "Boards, feeds and menus: kanban, activity feed, context menu.", "slugs": ["kanban", "activity-feed", "context-menu"] },
+      { "kind": "added", "text": "Loader with six animations, a bar and an overlay.", "slugs": ["loader"] },
+      { "kind": "changed", "text": "Date range picker gets quick presets (Last 7 days, This month and more) and a day count.", "slugs": ["date-picker"] },
+      { "kind": "added", "text": "Reports table block: search, filters, sorting, row actions and a details drawer.", "slugs": ["block:reports-table"] },
+      { "kind": "added", "text": "Online shop pieces: product card, coupon input, order summary.", "slugs": ["product-card", "coupon-input", "order-summary"] },
+      { "kind": "added", "text": "Layout and lists: split pane, sortable list, navbar, bottom navigation, floating action button.", "slugs": ["split-pane", "sortable-list", "navbar", "bottom-nav", "fab"] },
+      { "kind": "added", "text": "People and conversation: chat, mention input, profile card, terminal, error state, image viewer.", "slugs": ["chat", "mention-input", "profile-card", "terminal", "error-state", "image-viewer"] },
+      { "kind": "added", "text": "Charts and files: line chart, radar chart, audit log, file manager.", "slugs": ["line-chart", "radar-chart", "audit-log", "file-manager"] },
+      { "kind": "added", "text": "Mobile and uploads: swipe actions, pull to refresh, bottom sheet, date and time picker, image upload.", "slugs": ["swipe-actions", "pull-to-refresh", "bottom-sheet", "datetime-picker", "image-upload"] },
+      { "kind": "changed", "text": "Avatar gets presence dots, square shape, an extra-large size, hover names on groups and UserInfo.", "slugs": ["avatar"] },
+      { "kind": "added", "text": "Avatar upload with instant preview.", "slugs": ["avatar-upload"] },
+      { "kind": "added", "text": "Forms and settings: schema form (multi-step wizard), rich text editor, notification preferences, saved views.", "slugs": ["schema-form", "rich-text-editor", "notification-preferences", "saved-views"] },
+      { "kind": "added", "text": "Planning and flow: funnel chart, gantt chart, org chart, approval flow, onboarding checklist, tag manager.", "slugs": ["funnel-chart", "gantt", "org-chart", "approval-flow", "onboarding-checklist", "tag-manager"] },
+      { "kind": "added", "text": "Shortcuts dialog (press ?) and number formatting helpers.", "slugs": ["shortcuts-dialog", "format"] },
+      { "kind": "added", "text": "Sales dashboard block: KPI cards, revenue line chart, funnel and top deals.", "slugs": ["block:sales-dashboard"] },
+      { "kind": "added", "text": "befui update command adds missing animations to your index.css; befui add warns when one is missing. befui mcp runs an MCP server for AI tools." },
+      { "kind": "changed", "text": "Every component now uses the built-in icon set. lucide-react is no longer installed by init." },
+      { "kind": "changed", "text": "The docs site loads demos on demand (main bundle 1.4 MB down to 0.58 MB), and llms.txt is grouped by category with rules and a task map." }
+    ]
+  },
+  {
+    "version": "1.0.1",
+    "date": "2026-10-07",
+    "title": "Time components and AI-friendly docs",
+    "entries": [
+      { "kind": "added", "text": "Time category: time picker, analog clock, world clock, stopwatch, timer, countdown and relative time.", "slugs": ["time-picker", "analog-clock", "world-clock", "stopwatch", "timer", "countdown", "relative-time"] },
+      { "kind": "added", "text": "Heatmap and pricing card.", "slugs": ["heatmap", "pricing-card"] },
+      { "kind": "added", "text": "llms.txt and llms-full.txt, AGENTS.md rules written by init, a Use with AI page, and befui add all." }
+    ]
+  },
+  {
+    "version": "1.0.0",
+    "date": "2026-10-06",
+    "title": "First release",
+    "entries": [
+      { "kind": "added", "text": "Inputs and forms: button, input, label and field, checkbox, switch, select, combobox, calendar, date picker, segmented, slider, radio group, rating, OTP input, tag input, number stepper, chip, color picker.", "slugs": ["button", "input", "label", "checkbox", "switch", "select", "combobox", "calendar", "segmented", "slider", "radio-group", "rating", "otp-input", "tag-input", "number-stepper", "chip", "color-picker"] },
+      { "kind": "added", "text": "Display and motion: accordion, spotlight card, border beam, marquee, carousel, compare, tilt card, shimmer text, typewriter, confetti, dock, collapsible, tree view.", "slugs": ["accordion", "spotlight-card", "border-beam", "marquee", "carousel", "compare", "tilt-card", "shimmer-text", "typewriter", "confetti", "dock", "collapsible", "tree-view"] },
+      { "kind": "added", "text": "Data and layout: data table, gauge, progress ring, number ticker, stat card, charts, sidebar, app shell.", "slugs": ["data-table", "gauge", "progress-ring", "number-ticker", "stat-card", "charts", "sidebar", "app-shell"] },
+      { "kind": "added", "text": "Feedback and overlays: banner, alert, toast, skeleton, dialog and sheet, alert dialog, dropdown menu, popover, tooltip, command palette.", "slugs": ["banner", "alert", "toast", "skeleton", "dialog", "alert-dialog", "dropdown-menu", "popover", "tooltip", "command"] },
+      { "kind": "added", "text": "A built-in icon set, Storybook, the befui CLI (init, add, list), and HRMS and marketing blocks.", "slugs": ["block:admin-shell", "block:employee-directory", "block:leave-approvals", "block:lead-pipeline", "block:sign-in"] }
+    ]
+  }
+]
