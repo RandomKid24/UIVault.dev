@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as M from '@radix-ui/react-dropdown-menu';
-import { Check } from 'lucide-react';
+import { CheckIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 export const DropdownMenu = M.Root;
@@ -52,7 +52,7 @@ export const DropdownMenuCheckboxItem = React.forwardRef<
   >
     <span className="absolute left-2 grid size-4 place-items-center">
       <M.ItemIndicator>
-        <Check className="size-3.5 text-primary" strokeWidth={3} />
+        <CheckIcon className="size-3.5 text-primary" strokeWidth={3} />
       </M.ItemIndicator>
     </span>
     {children}

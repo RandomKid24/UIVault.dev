@@ -30,7 +30,6 @@ const columns: Column<Person>[] = [
   { key: 'name', header: 'Name', sortable: true, value: (p) => p.name, render: (p) => <span className="flex items-center gap-2 whitespace-nowrap"><Avatar name={p.name} size="sm" />{p.name}</span> },
   { key: 'email', header: 'Email', value: (p) => p.email, render: (p) => <TruncatedText className="w-36 text-muted-foreground">{p.email}</TruncatedText> },
   { key: 'team', header: 'Team', sortable: true, value: (p) => p.team },
-  { key: 'city', header: 'City', sortable: true, value: (p) => p.city },
   { key: 'joined', header: 'Joined', sortable: true, value: (p) => p.joined, render: (p) => <span className="whitespace-nowrap text-muted-foreground">{date(p.joined)}</span> },
   { key: 'salary', header: 'Salary', sortable: true, align: 'right', value: (p) => p.salary, render: (p) => `₹${(p.salary / 100000).toFixed(1)}L` },
   { key: 'status', header: 'Status', value: (p) => p.status, render: (p) => <Badge variant={tone[p.status]} dot>{p.status}</Badge> },

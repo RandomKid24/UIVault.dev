@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Check } from 'lucide-react';
+import { CheckIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 /** Horizontal progress steps. `current` is the zero-based active step. */
@@ -29,7 +29,7 @@ export function Stepper({
                   !done && !active && 'bg-background text-muted-foreground',
                 )}
               >
-                {done ? <Check className="size-3.5" strokeWidth={3} /> : i + 1}
+                {done ? <CheckIcon className="size-3.5" strokeWidth={3} /> : i + 1}
               </span>
               <span className="text-center">
                 <span className={cn('block text-xs font-medium', !done && !active && 'text-muted-foreground')}>{s.title}</span>

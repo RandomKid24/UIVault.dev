@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Copy, Download, FolderInput, Link2, Pencil, Trash2 } from 'lucide-react';
+import { CopyIcon, DownloadIcon, FolderInputIcon, LinkIcon, EditIcon, TrashIcon } from '@/components/ui/icons';
 import { ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuShortcut, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger } from '@/components/ui/context-menu';
 import { toast } from '@/components/ui/toast';
 
@@ -17,10 +17,10 @@ export default function ContextMenuDemo() {
         </ContextMenuTrigger>
         <ContextMenuContent className="w-56">
           <ContextMenuLabel>Q3-budget.xlsx</ContextMenuLabel>
-          <ContextMenuItem onSelect={() => toast.info('Renaming')}><Pencil /> Rename <ContextMenuShortcut>F2</ContextMenuShortcut></ContextMenuItem>
-          <ContextMenuItem onSelect={() => toast.success('Copied')}><Copy /> Duplicate <ContextMenuShortcut>⌘D</ContextMenuShortcut></ContextMenuItem>
+          <ContextMenuItem onSelect={() => toast.info('Renaming')}><EditIcon /> Rename <ContextMenuShortcut>F2</ContextMenuShortcut></ContextMenuItem>
+          <ContextMenuItem onSelect={() => toast.success('Copied')}><CopyIcon /> Duplicate <ContextMenuShortcut>⌘D</ContextMenuShortcut></ContextMenuItem>
           <ContextMenuSub>
-            <ContextMenuSubTrigger><FolderInput /> Move to</ContextMenuSubTrigger>
+            <ContextMenuSubTrigger><FolderInputIcon /> Move to</ContextMenuSubTrigger>
             <ContextMenuSubContent className="w-44">
               <ContextMenuItem>Finance</ContextMenuItem>
               <ContextMenuItem>Archive</ContextMenuItem>
@@ -29,10 +29,10 @@ export default function ContextMenuDemo() {
           </ContextMenuSub>
           <ContextMenuCheckboxItem checked={starred} onCheckedChange={setStarred}>Starred</ContextMenuCheckboxItem>
           <ContextMenuSeparator />
-          <ContextMenuItem onSelect={() => toast.success('Link copied')}><Link2 /> Copy link</ContextMenuItem>
-          <ContextMenuItem><Download /> Download</ContextMenuItem>
+          <ContextMenuItem onSelect={() => toast.success('Link copied')}><LinkIcon /> Copy link</ContextMenuItem>
+          <ContextMenuItem><DownloadIcon /> Download</ContextMenuItem>
           <ContextMenuSeparator />
-          <ContextMenuItem destructive><Trash2 /> Delete <ContextMenuShortcut>⌫</ContextMenuShortcut></ContextMenuItem>
+          <ContextMenuItem destructive><TrashIcon /> Delete <ContextMenuShortcut>⌫</ContextMenuShortcut></ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
   );

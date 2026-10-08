@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IndianRupee, Plus } from 'lucide-react';
+import { IndianRupeeIcon, PlusIcon } from '@/components/ui/icons';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -39,7 +39,7 @@ export default function LeadPipeline() {
           <h2 className="text-lg font-semibold tracking-tight">Lead pipeline</h2>
           <p className="text-[13px] text-muted-foreground">{leads.length} open leads worth {lakh(leads.reduce((s, l) => s + l.value, 0))}</p>
         </div>
-        <Button size="sm"><Plus /> New lead</Button>
+        <Button size="sm"><PlusIcon /> New lead</Button>
       </div>
 
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
@@ -70,7 +70,7 @@ export default function LeadPipeline() {
                     {l.hot && <Badge variant="danger">Hot</Badge>}
                   </div>
                   <div className="mt-3 flex items-center justify-between">
-                    <span className="flex items-center text-xs font-medium tabular-nums"><IndianRupee className="size-3 text-muted-foreground" />{(l.value / 100000).toFixed(1)}L</span>
+                    <span className="flex items-center text-xs font-medium tabular-nums"><IndianRupeeIcon className="size-3 text-muted-foreground" />{(l.value / 100000).toFixed(1)}L</span>
                     <div className="flex items-center gap-1.5">
                       <Avatar name={l.owner} size="xs" />
                       {si < stages.length - 1 && (

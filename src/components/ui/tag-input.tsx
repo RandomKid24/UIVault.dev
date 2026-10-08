@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { X } from 'lucide-react';
+import { XIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 /** Type and press Enter or comma to add a tag. Backspace on empty input removes the last one. */
@@ -26,7 +26,7 @@ export function TagInput({
         <span key={t} className="inline-flex animate-pop items-center gap-1 rounded-full bg-secondary py-0.5 pl-2.5 pr-1 text-xs font-medium">
           {t}
           <button type="button" aria-label={`Remove ${t}`} onClick={() => onValueChange(value.filter((x) => x !== t))} className="grid size-4 place-items-center rounded-full hover:bg-foreground/10">
-            <X className="size-3" />
+            <XIcon className="size-3" />
           </button>
         </span>
       ))}

@@ -131,7 +131,53 @@ export const TerminalIcon = make('TerminalIcon', [['rect', 3, 4, 18, 16, 2.5], p
 
 
 /** Everything above by name, for galleries and pickers. */
+export const ArchiveIcon = make('ArchiveIcon', [['rect', 3, 4, 18, 4, 1], p('M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8M10 12h4')]);
+export const CakeIcon = make('CakeIcon', [p('M4 20h16M5 20v-7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v7M12 12V8M12 5.5v.01M5 16c2 1.5 3.5 1.5 5 0s3.5-1.5 5 0 2.5 1.2 4 .3')]);
+export const CreditCardIcon = make('CreditCardIcon', [['rect', 2, 5, 20, 14, 2.5], p('M2 10h20M6 15h3')]);
+export const FolderInputIcon = make('FolderInputIcon', [p('M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 13h6M12.5 10.5L15 13l-2.5 2.5')]);
+export const GitMergeIcon = make('GitMergeIcon', [['circle', 6, 5, 2], ['circle', 6, 19, 2], ['circle', 18, 12, 2], p('M6 7v10M8 5c6 0 10 2 10 5')]);
+export const InboxIcon = make('InboxIcon', [p('M3 13l3-8h12l3 8v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zM3 13h5l1 3h6l1-3h5')]);
+export const IndianRupeeIcon = make('IndianRupeeIcon', [p('M7 5h10M7 9.5h10M8 5c4.5 0 6.5 1.5 6.5 4.5S12.5 14 8 14l7 6')]);
+export const LayoutDashboardIcon = make('LayoutDashboardIcon', [['rect', 3, 3, 7, 9, 1.5], ['rect', 14, 3, 7, 5, 1.5], ['rect', 14, 12, 7, 9, 1.5], ['rect', 3, 16, 7, 5, 1.5]]);
+export const LayoutGridIcon = make('LayoutGridIcon', [['rect', 3, 3, 7, 7, 1.5], ['rect', 14, 3, 7, 7, 1.5], ['rect', 3, 14, 7, 7, 1.5], ['rect', 14, 14, 7, 7, 1.5]]);
+export const MegaphoneIcon = make('MegaphoneIcon', [p('M4 10v4a1 1 0 0 0 1 1h2l8 4V5L7 9H5a1 1 0 0 0-1 1zM18 9a4 4 0 0 1 0 6')]);
+export const MessageSquareIcon = make('MessageSquareIcon', [p('M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z')]);
+export const MousePointerClickIcon = make('MousePointerClickIcon', [p('M9 9l5 12 2-5 5-2zM5 3.5L6 6M3.5 8L6 8.5M8 3l-.5 2.5')]);
+export const PanelLeftIcon = make('PanelLeftIcon', [['rect', 3, 4, 18, 16, 2.5], p('M9 4v16')]);
+export const SaveIcon = make('SaveIcon', [p('M5 4h11l3 3v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1zM8 4v5h7V4M8 20v-6h8v6')]);
+export const Share2Icon = make('Share2Icon', [['circle', 18, 5, 2.5], ['circle', 6, 12, 2.5], ['circle', 18, 19, 2.5], p('M8.2 10.8l7.6-4.6M8.2 13.2l7.6 4.6')]);
+export const TargetIcon = make('TargetIcon', [['circle', 12, 12, 9], ['circle', 12, 12, 5], ['circle', 12, 12, 1]]);
+export const UserCircleIcon = make('UserCircleIcon', [['circle', 12, 12, 9], ['circle', 12, 10, 3], p('M6.5 18.5c1.5-2.5 3.2-3.5 5.5-3.5s4 1 5.5 3.5')]);
+export const UserMinusIcon = make('UserMinusIcon', [['circle', 9, 8, 3.5], p('M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M17 11h5')]);
+export const UserPlusIcon = make('UserPlusIcon', [['circle', 9, 8, 3.5], p('M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M19.5 8.5v5M17 11h5')]);
+export const WalletIcon = make('WalletIcon', [p('M4 7a2 2 0 0 1 2-2h12v4M4 7v10a2 2 0 0 0 2 2h14V9H6a2 2 0 0 1-2-2zM16 14h.01')]);
+export const ArrowUpRightIcon = make('ArrowUpRightIcon', [p('M7 17L17 7M8 7h9v9')]);
+export const ArrowDownRightIcon = make('ArrowDownRightIcon', [p('M7 7l10 10M17 8v9H8')]);
+
 export const icons = {
+  ArchiveIcon,
+  CakeIcon,
+  CreditCardIcon,
+  FolderInputIcon,
+  GitMergeIcon,
+  InboxIcon,
+  IndianRupeeIcon,
+  LayoutDashboardIcon,
+  LayoutGridIcon,
+  MegaphoneIcon,
+  MessageSquareIcon,
+  MousePointerClickIcon,
+  PanelLeftIcon,
+  SaveIcon,
+  Share2Icon,
+  TargetIcon,
+  UserCircleIcon,
+  UserMinusIcon,
+  UserPlusIcon,
+  WalletIcon,
+  ArrowUpRightIcon,
+  ArrowDownRightIcon,
+
   BefMark,
   SearchIcon,
   CopyIcon,

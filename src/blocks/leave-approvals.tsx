@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Check, X } from 'lucide-react';
+import { CheckIcon, XIcon } from '@/components/ui/icons';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -48,8 +48,8 @@ export default function LeaveApprovals() {
             </div>
             {s === 'pending' ? (
               <div className="flex gap-2">
-                <Button size="sm" variant="outline" onClick={() => decide(r.id, 'rejected')}><X /> Reject</Button>
-                <Button size="sm" onClick={() => decide(r.id, 'approved')}><Check /> Approve</Button>
+                <Button size="sm" variant="outline" onClick={() => decide(r.id, 'rejected')}><XIcon /> Reject</Button>
+                <Button size="sm" onClick={() => decide(r.id, 'approved')}><CheckIcon /> Approve</Button>
               </div>
             ) : (
               <Badge variant={s === 'approved' ? 'success' : 'danger'} dot className="capitalize">{s}</Badge>

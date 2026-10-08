@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeftIcon, ChevronRightIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 function pages(page: number, total: number): (number | '…')[] {
@@ -28,7 +28,7 @@ export function Pagination({
   return (
     <nav aria-label="Pagination" className={cn('flex items-center gap-1', className)}>
       <button className={btn} disabled={page <= 1} onClick={() => onPageChange(page - 1)} aria-label="Previous page">
-        <ChevronLeft className="size-4" />
+        <ChevronLeftIcon className="size-4" />
       </button>
       {pages(page, pageCount).map((p, i) =>
         p === '…' ? (
@@ -47,7 +47,7 @@ export function Pagination({
         ),
       )}
       <button className={btn} disabled={page >= pageCount} onClick={() => onPageChange(page + 1)} aria-label="Next page">
-        <ChevronRight className="size-4" />
+        <ChevronRightIcon className="size-4" />
       </button>
     </nav>
   );

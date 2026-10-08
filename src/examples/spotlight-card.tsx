@@ -1,10 +1,10 @@
-import { BarChart3, ShieldCheck, Zap } from 'lucide-react';
+import { BarChartIcon, ShieldIcon, ZapIcon } from '@/components/ui/icons';
 import { SpotlightCard } from '@/components/ui/spotlight-card';
 
 const items = [
-  { icon: Zap, t: 'Fast', d: 'Approvals in one click.' },
-  { icon: ShieldCheck, t: 'Secure', d: 'Role-based access everywhere.' },
-  { icon: BarChart3, t: 'Insightful', d: 'Reports without a spreadsheet.' },
+  { icon: ZapIcon, t: 'Fast', d: 'Approvals in one click.' },
+  { icon: ShieldIcon, t: 'Secure', d: 'Role-based access everywhere.' },
+  { icon: BarChartIcon, t: 'Insightful', d: 'Reports without a spreadsheet.' },
 ];
 
 export default function SpotlightCardDemo() {

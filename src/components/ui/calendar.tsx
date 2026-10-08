@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeftIcon, ChevronRightIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 export interface DateRange {
@@ -98,11 +98,11 @@ export function Calendar(props: CalendarProps) {
     <div className={cn('w-fit select-none', className)}>
       <div className="mb-2 flex items-center justify-between">
         <button type="button" className={nav} onClick={() => setMonth(addMonths(month, -1))} aria-label="Previous month">
-          <ChevronLeft className="size-4" />
+          <ChevronLeftIcon className="size-4" />
         </button>
         <span className="text-[13px] font-semibold" aria-live="polite">{monthFmt.format(month)}</span>
         <button type="button" className={nav} onClick={() => setMonth(addMonths(month, 1))} aria-label="Next month">
-          <ChevronRight className="size-4" />
+          <ChevronRightIcon className="size-4" />
         </button>
       </div>
       <div className="grid grid-cols-7">

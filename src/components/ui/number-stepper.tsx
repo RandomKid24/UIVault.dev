@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Minus, Plus } from 'lucide-react';
+import { MinusIcon, PlusIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 /** Number field with minus and plus buttons. Holds the value inside min and max. */
@@ -22,7 +22,7 @@ export function NumberStepper({
   const btn = 'grid size-9 place-items-center text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground active:scale-90 disabled:pointer-events-none disabled:opacity-40';
   return (
     <div className={cn('inline-flex items-center overflow-hidden rounded-md border bg-background', className)}>
-      <button type="button" aria-label="Decrease" className={btn} disabled={value <= min} onClick={() => set(value - step)}><Minus className="size-4" /></button>
+      <button type="button" aria-label="Decrease" className={btn} disabled={value <= min} onClick={() => set(value - step)}><MinusIcon className="size-4" /></button>
       <input
         value={value}
         inputMode="numeric"
@@ -31,7 +31,7 @@ export function NumberStepper({
         onKeyDown={(e) => { if (e.key === 'ArrowUp') { e.preventDefault(); set(value + step); } if (e.key === 'ArrowDown') { e.preventDefault(); set(value - step); } }}
         className="h-9 w-12 border-x bg-transparent text-center text-sm font-medium tabular-nums outline-none focus:bg-muted"
       />
-      <button type="button" aria-label="Increase" className={btn} disabled={value >= max} onClick={() => set(value + step)}><Plus className="size-4" /></button>
+      <button type="button" aria-label="Increase" className={btn} disabled={value >= max} onClick={() => set(value + step)}><PlusIcon className="size-4" /></button>
     </div>
   );
 }

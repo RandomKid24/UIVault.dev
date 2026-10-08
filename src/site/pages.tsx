@@ -16,7 +16,7 @@ import { StatCard } from '@/components/ui/stat-card';
 import { Avatar } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { Users, IndianRupee } from 'lucide-react';
-import { blocks, categories, components, globalCss, utilsSource } from '@/registry';
+import { blocks, categories, components, globalCss, useSource, utilsSource } from '@/registry';
 import { cn } from '@/lib/utils';
 import { Command, CodeBlock } from './code';
 import { Link } from './router';
@@ -226,6 +226,16 @@ export function ComponentsIndex() {
   );
 }
 
+const demoFallback = <div className="h-24 w-full animate-pulse rounded-lg bg-muted/60" aria-label="Loading example" />;
+
+/** Preview whose code text loads on demand. */
+function LazyPreview({ load, ...rest }: Omit<React.ComponentProps<typeof Preview>, 'code'> & { load: () => Promise<string> }) {
+  return <Preview {...rest} code={useSource(load)} />;
+}
+function LazyCode({ load, title, maxHeight }: { load: () => Promise<string>; title: string; maxHeight?: number }) {
+  return <CodeBlock code={useSource(load)} title={title} maxHeight={maxHeight} />;
+}
+
 function PrevNext<T extends { slug: string; name: string }>({ list, slug, base }: { list: T[]; slug: string; base: string }) {
   const i = list.findIndex((x) => x.slug === slug);
   const prev = list[i - 1];
@@ -256,7 +266,7 @@ export function ComponentPage({ slug }: { slug: string }) {
             <Gallery slug={slug} />
           </div>
         ) : (
-          <Preview bleed={c.wide} title={`examples/${c.slug}.tsx`} code={c.demoSource} playground={hasPlayground(c.slug) ? <Playground slug={c.slug} /> : undefined}><c.Demo /></Preview>
+          <LazyPreview bleed={c.wide} title={`examples/${c.slug}.tsx`} load={c.loadDemoSource} playground={hasPlayground(c.slug) ? <Playground slug={c.slug} /> : undefined}><React.Suspense fallback={demoFallback}><c.Demo /></React.Suspense></LazyPreview>
         )}
       </div>
 
@@ -275,7 +285,7 @@ export function ComponentPage({ slug }: { slug: string }) {
         .
       </p>
       <h2 className={h2}>Source</h2>
-      <CodeBlock code={c.source} title={c.path} maxHeight={420} />
+      <LazyCode load={c.loadSource} title={c.path} maxHeight={420} />
 
       <PrevNext list={components} slug={slug} base="/components" />
     </article>
@@ -291,7 +301,7 @@ export function BlockGrid({ items }: { items: typeof blocks }) {
         <Link key={b.slug} to={`/blocks/${b.slug}`} className="group rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
           <Card hoverable className="overflow-hidden">
             <div className="pointer-events-none relative h-56 overflow-hidden border-b bg-muted/50" aria-hidden>
-              <div className="absolute left-0 top-0 w-[200%] origin-top-left scale-50 p-6"><b.Demo /></div>
+              <div className="absolute left-0 top-0 w-[200%] origin-top-left scale-50 p-6"><React.Suspense fallback={null}><b.Demo /></React.Suspense></div>
               <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card to-transparent" />
             </div>
             <div className="flex items-start justify-between gap-3 p-4">
@@ -326,7 +336,7 @@ export function BlockPage({ slug }: { slug: string }) {
       <Breadcrumb className="mb-4" items={[{ label: 'Blocks', href: '#/blocks' }, { label: b.module }, { label: b.name }]} />
       <h1 className={h1}>{b.name}</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">{b.description}</p>
-      <div className="mt-8"><Preview bleed title={b.path} code={b.source}><b.Demo /></Preview></div>
+      <div className="mt-8"><LazyPreview bleed title={b.path} load={b.loadSource}><React.Suspense fallback={demoFallback}><b.Demo /></React.Suspense></LazyPreview></div>
 
       <h2 className={h2}>Uses</h2>
       <p className="mb-3 text-[13px] text-muted-foreground">Copy these components first, then paste the block.</p>

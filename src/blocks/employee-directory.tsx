@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Download, MoreHorizontal, Plus, Search } from 'lucide-react';
+import { DownloadIcon, MoreIcon, PlusIcon, SearchIcon } from '@/components/ui/icons';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -46,15 +46,15 @@ export default function EmployeeDirectory() {
           <p className="text-[13px] text-muted-foreground">{people.length} people across 6 departments</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm"><Download /> Export</Button>
-          <Button size="sm"><Plus /> Add employee</Button>
+          <Button variant="outline" size="sm"><DownloadIcon /> Export</Button>
+          <Button size="sm"><PlusIcon /> Add employee</Button>
         </div>
       </div>
 
       <Card className="overflow-hidden">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b p-3">
           <div className="w-full sm:w-64">
-            <Input leftIcon={<Search />} placeholder="Search name, role, team" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} className="h-8" />
+            <Input leftIcon={<SearchIcon />} placeholder="Search name, role, team" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} className="h-8" />
           </div>
           <Segmented
             value={filter}
@@ -112,7 +112,7 @@ export default function EmployeeDirectory() {
                 <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon-sm" aria-label="Row actions"><MoreHorizontal /></Button>
+                      <Button variant="ghost" size="icon-sm" aria-label="Row actions"><MoreIcon /></Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem>View profile</DropdownMenuItem>

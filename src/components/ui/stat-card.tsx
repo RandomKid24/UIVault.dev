@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
+import { ArrowDownRightIcon, ArrowUpRightIcon } from './icons';
 import { cn } from '@/lib/utils';
 import { Card } from './card';
 
@@ -34,7 +34,7 @@ export function StatCard({
           {delta !== undefined && (
             <span className="flex items-center gap-1 text-xs text-muted-foreground">
               <span className={cn('inline-flex items-center font-medium', up ? 'text-success' : 'text-destructive')}>
-                {up ? <ArrowUpRight className="size-3.5" /> : <ArrowDownRight className="size-3.5" />}
+                {up ? <ArrowUpRightIcon className="size-3.5" /> : <ArrowDownRightIcon className="size-3.5" />}
                 {Math.abs(delta)}%
               </span>
               {deltaLabel}

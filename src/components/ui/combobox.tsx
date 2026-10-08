@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Check, ChevronsUpDown } from 'lucide-react';
+import { CheckIcon, SortIcon } from './icons';
 import { cn } from '@/lib/utils';
 import { Badge } from './badge';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './command';
@@ -38,7 +38,7 @@ function List({ options, isSelected, toggle, searchPlaceholder, emptyText }: Pic
                 <span className="truncate">{o.label}</span>
                 {o.description && <span className="truncate text-xs text-muted-foreground">{o.description}</span>}
               </span>
-              <Check className={cn('!text-primary', isSelected(o.value) ? 'opacity-100' : 'opacity-0')} />
+              <CheckIcon className={cn('!text-primary', isSelected(o.value) ? 'opacity-100' : 'opacity-0')} />
             </CommandItem>
           ))}
         </CommandGroup>
@@ -68,7 +68,7 @@ export function Combobox({
       <PopoverTrigger asChild>
         <button id={id} type="button" role="combobox" aria-expanded={open} disabled={disabled} className={cn(trigger, className)}>
           <span className={cn('truncate', !current && 'text-muted-foreground/70')}>{current?.label ?? placeholder}</span>
-          <ChevronsUpDown className="size-4 shrink-0 text-muted-foreground" />
+          <SortIcon className="size-4 shrink-0 text-muted-foreground" />
         </button>
       </PopoverTrigger>
       <PopoverContent align="start" className={content}>
@@ -112,7 +112,7 @@ export function MultiCombobox({
             ))}
             {picked.length > maxBadges && <Badge variant="outline">+{picked.length - maxBadges}</Badge>}
           </span>
-          <ChevronsUpDown className="size-4 shrink-0 text-muted-foreground" />
+          <SortIcon className="size-4 shrink-0 text-muted-foreground" />
         </button>
       </PopoverTrigger>
       <PopoverContent align="start" className={content}>

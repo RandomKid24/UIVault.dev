@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-132 copy-paste React components, 73 hand-drawn icons and 10 full-page blocks.<br/>
+132 copy-paste React components, 94 hand-drawn icons and 10 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -25,7 +25,7 @@ Built on Radix, Tailwind 4 and CSS variables. You own every file.
 - **Real motion, tastefully.** Smooth height animations, a cursor spotlight, a 3D tilt card, a magnifying dock, confetti, a circular theme reveal. All plain CSS and pointer events, all switched off for people who ask for reduced motion.
 - **Accessible by default.** Radix handles focus, keyboard and ARIA for dialogs, menus, selects and tabs. The rest follow the same rules.
 - **One variable rebrands everything.** Change `--primary` once. Light and dark both follow.
-- **Our own icon set.** 73 icons on one grid with an opt-in draw animation. No icon package.
+- **Our own icon set.** 94 icons on one grid with an opt-in draw animation. No icon package.
 - **Built for AI coding tools.** `befui init` writes rules into your `AGENTS.md`, and the whole library is described in an `llms.txt` catalog, so an agent reuses components instead of retyping them.
 
 ## Quick start
@@ -73,9 +73,21 @@ Every component page has a live preview, a Code tab, width and light/dark switch
 
 <img src="docs/images/data-table.png" alt="Data table component in light mode" width="900"/>
 
-### 73 icons, drawn by us
+### A kanban board you can drag, or move with the keyboard
 
-<img src="docs/images/icons.png" alt="Icons page with 73 icons, size, color and animation controls" width="900"/>
+<img src="docs/images/kanban.png" alt="Kanban board with four columns" width="900"/>
+
+### A reports table with search, filters, sorting, row actions and a details drawer
+
+<img src="docs/images/reports-table.png" alt="Reports table block" width="900"/>
+
+### A sales dashboard from stat cards, line chart, funnel and table
+
+<img src="docs/images/sales-dashboard.png" alt="Sales dashboard block" width="900"/>
+
+### 94 icons, drawn by us
+
+<img src="docs/images/icons.png" alt="Icons page with 94 icons, size, color and animation controls" width="900"/>
 
 ```tsx
 import { SearchIcon, ArrowRightIcon } from '@/components/ui/icons';
@@ -110,6 +122,21 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </table>
 
 ## What is inside
+
+### Theming notes
+
+Everything follows the CSS variables in `index.css` (`--primary`, `--ring`, `--accent`...) and the `dark` class on `<html>`. A few pieces use fixed colors on purpose:
+- `terminal` is always dark, like a real terminal, in both themes.
+- `avatar` and `tag-manager` use fixed tint names (blue, green, violet, amber, rose) so a given name keeps the same color. Edit the `tones` list at the top of each file to match your brand.
+- `product-card` discount tags use `destructive`, and `gantt`, `line-chart`, `radar-chart` use the semantic tokens (`primary`, `success`, `warning`, `info`).
+
+### Releasing
+
+Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the changelog), `git push --follow-tags` and `npm publish` (needs `npm login`; the package name `befui` is free on npm). `prepublishOnly` rebuilds the registry first.
+
+### Keeping animations in sync
+
+Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
 ### Components (132)
 
@@ -188,7 +215,7 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:lead-pipeline` | Marketing | Drag-and-drop board with column totals and a keyboard-friendly move button. |
 | `block:sign-in` | Auth | Login card with validation, loading button and an error alert. |
 
-### Icons (73)
+### Icons (94)
 
 Arrows, status, people, files, media and actions on a 24px grid, round strokes, one file. See them all on the Icons page of the site.
 

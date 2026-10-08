@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as M from '@radix-ui/react-context-menu';
-import { Check, ChevronRight } from 'lucide-react';
+import { CheckIcon, ChevronRightIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 /** Right-click (or long-press on touch) menu. Wrap any element in ContextMenuTrigger asChild. */
@@ -32,7 +32,7 @@ export const ContextMenuCheckboxItem = React.forwardRef<React.ElementRef<typeof 
   ({ className, children, ...props }, ref) => (
     <M.CheckboxItem ref={ref} className={cn(row, 'pl-8', className)} {...props}>
       <span className="absolute left-2 grid size-4 place-items-center">
-        <M.ItemIndicator><Check className="size-3.5 text-primary" strokeWidth={3} /></M.ItemIndicator>
+        <M.ItemIndicator><CheckIcon className="size-3.5 text-primary" strokeWidth={3} /></M.ItemIndicator>
       </span>
       {children}
     </M.CheckboxItem>
@@ -44,7 +44,7 @@ export const ContextMenuSubTrigger = React.forwardRef<React.ElementRef<typeof M.
   ({ className, children, ...props }, ref) => (
     <M.SubTrigger ref={ref} className={cn(row, 'data-[state=open]:bg-secondary', className)} {...props}>
       {children}
-      <ChevronRight className="ml-auto" />
+      <ChevronRightIcon className="ml-auto" />
     </M.SubTrigger>
   ),
 );

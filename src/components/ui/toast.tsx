@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CheckCircle2, CircleAlert, Info, X } from 'lucide-react';
+import { CheckCircleIcon, AlertCircleIcon, InfoIcon, XIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 type ToastType = 'success' | 'error' | 'info';
@@ -36,9 +36,9 @@ export const toast = {
 };
 
 const icons = {
-  success: <CheckCircle2 className="size-4 text-success" />,
-  error: <CircleAlert className="size-4 text-destructive" />,
-  info: <Info className="size-4 text-info" />,
+  success: <CheckCircleIcon className="size-4 text-success" />,
+  error: <AlertCircleIcon className="size-4 text-destructive" />,
+  info: <InfoIcon className="size-4 text-info" />,
 };
 
 export function Toaster() {
@@ -63,7 +63,7 @@ export function Toaster() {
             {t.description && <p className="text-xs text-muted-foreground">{t.description}</p>}
           </div>
           <button onClick={() => dismiss(t.id)} className="text-muted-foreground transition-colors hover:text-foreground" aria-label="Dismiss">
-            <X className="size-3.5" />
+            <XIcon className="size-3.5" />
           </button>
         </div>
       ))}

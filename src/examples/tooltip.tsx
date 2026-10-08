@@ -1,4 +1,4 @@
-import { Bell, Pencil, Save, Share2 } from 'lucide-react';
+import { BellIcon, EditIcon, SaveIcon, Share2Icon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { InfoTip, Tooltip, TooltipProvider, TruncatedText } from '@/components/ui/tooltip';
 
@@ -7,10 +7,10 @@ export default function TooltipDemo() {
     <TooltipProvider>
       <div className="grid justify-items-center gap-5">
         <div className="flex gap-2">
-          <Tooltip content="Edit"><Button variant="outline" size="icon"><Pencil /></Button></Tooltip>
-          <Tooltip content="Share" side="bottom" arrow><Button variant="outline" size="icon"><Share2 /></Button></Tooltip>
-          <Tooltip content="Notifications" side="right"><Button variant="outline" size="icon"><Bell /></Button></Tooltip>
-          <Tooltip content="Save changes" shortcut={['⌘', 'S']}><Button variant="outline" size="icon"><Save /></Button></Tooltip>
+          <Tooltip content="Edit"><Button variant="outline" size="icon"><EditIcon /></Button></Tooltip>
+          <Tooltip content="Share" side="bottom" arrow><Button variant="outline" size="icon"><Share2Icon /></Button></Tooltip>
+          <Tooltip content="Notifications" side="right"><Button variant="outline" size="icon"><BellIcon /></Button></Tooltip>
+          <Tooltip content="Save changes" shortcut={['⌘', 'S']}><Button variant="outline" size="icon"><SaveIcon /></Button></Tooltip>
         </div>
         <div className="flex items-center gap-1.5 text-sm font-medium">
           Net 30 terms

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Check } from 'lucide-react';
+import { CheckIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 /** Toggleable filter chip. Use `ChipGroup` for single or multi select. */
@@ -15,7 +15,7 @@ export function Chip({ selected, className, children, ...props }: React.ButtonHT
       )}
       {...props}
     >
-      <span className={cn('grid overflow-hidden transition-all duration-200', selected ? 'w-3.5 opacity-100' : 'w-0 opacity-0')}><Check className="size-3.5" /></span>
+      <span className={cn('grid overflow-hidden transition-all duration-200', selected ? 'w-3.5 opacity-100' : 'w-0 opacity-0')}><CheckIcon className="size-3.5" /></span>
       {children}
     </button>
   );

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDownIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 export interface AccordionItem {
@@ -37,7 +37,7 @@ export function Accordion({
               className="group flex w-full items-center justify-between gap-4 px-4 py-3.5 text-left text-sm font-medium outline-none transition-colors hover:bg-muted focus-visible:bg-muted"
             >
               {it.title}
-              <ChevronDown className={cn('size-4 shrink-0 text-muted-foreground transition-transform duration-300 ease-out', isOpen && 'rotate-180 text-foreground')} />
+              <ChevronDownIcon className={cn('size-4 shrink-0 text-muted-foreground transition-transform duration-300 ease-out', isOpen && 'rotate-180 text-foreground')} />
             </button>
             <div
               id={`acc-${it.id}`}

@@ -1,4 +1,4 @@
-import { Eye, IndianRupee, MousePointerClick, Target } from 'lucide-react';
+import { EyeIcon, IndianRupeeIcon, MousePointerClickIcon, TargetIcon } from '@/components/ui/icons';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Sparkline } from '@/components/ui/charts';
@@ -24,10 +24,10 @@ export default function CampaignPerformance() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard label="Impressions" value="1.2M" delta={8.4} icon={<Eye />} chart={<Sparkline data={[4, 5, 5, 7, 6, 8, 9, 11]} />} />
-        <StatCard label="Clicks" value="38.4K" delta={5.1} icon={<MousePointerClick />} chart={<Sparkline data={[3, 4, 3.5, 5, 5.5, 6, 6.4, 7]} />} />
-        <StatCard label="Leads" value="691" delta={14.2} icon={<Target />} chart={<Sparkline data={[2, 3, 4, 3.6, 5, 6, 7, 9]} className="text-success" />} />
-        <StatCard label="Cost per lead" value="₹356" delta={-6.3} icon={<IndianRupee />} chart={<Sparkline data={[9, 8, 8.4, 7, 7.2, 6, 5.8, 5]} className="text-success" />} />
+        <StatCard label="Impressions" value="1.2M" delta={8.4} icon={<EyeIcon />} chart={<Sparkline data={[4, 5, 5, 7, 6, 8, 9, 11]} />} />
+        <StatCard label="Clicks" value="38.4K" delta={5.1} icon={<MousePointerClickIcon />} chart={<Sparkline data={[3, 4, 3.5, 5, 5.5, 6, 6.4, 7]} />} />
+        <StatCard label="Leads" value="691" delta={14.2} icon={<TargetIcon />} chart={<Sparkline data={[2, 3, 4, 3.6, 5, 6, 7, 9]} className="text-success" />} />
+        <StatCard label="Cost per lead" value="₹356" delta={-6.3} icon={<IndianRupeeIcon />} chart={<Sparkline data={[9, 8, 8.4, 7, 7.2, 6, 5.8, 5]} className="text-success" />} />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">

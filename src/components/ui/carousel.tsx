@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeftIcon, ChevronRightIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 /** Scroll-snap carousel. Swipe, trackpad and keyboard scroll work natively; arrows and dots are extras. */
@@ -17,8 +17,8 @@ export function Carousel({ children, className }: { children: React.ReactNode; c
       <div ref={ref} tabIndex={0} onScroll={(e) => setI(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))} className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth rounded-xl outline-none [scrollbar-width:none] focus-visible:ring-2 focus-visible:ring-ring/50 [&::-webkit-scrollbar]:hidden">
         {slides.map((s, n) => <div key={n} className="w-full shrink-0 snap-center">{s}</div>)}
       </div>
-      <button type="button" aria-label="Previous" disabled={i === 0} onClick={() => go(i - 1)} className={cn(arrow, 'left-2')}><ChevronLeft className="size-4" /></button>
-      <button type="button" aria-label="Next" disabled={i === slides.length - 1} onClick={() => go(i + 1)} className={cn(arrow, 'right-2')}><ChevronRight className="size-4" /></button>
+      <button type="button" aria-label="Previous" disabled={i === 0} onClick={() => go(i - 1)} className={cn(arrow, 'left-2')}><ChevronLeftIcon className="size-4" /></button>
+      <button type="button" aria-label="Next" disabled={i === slides.length - 1} onClick={() => go(i + 1)} className={cn(arrow, 'right-2')}><ChevronRightIcon className="size-4" /></button>
       <div className="mt-3 flex justify-center gap-1.5">
         {slides.map((_, n) => <button key={n} type="button" aria-label={`Slide ${n + 1}`} onClick={() => go(n)} className={cn('h-1.5 rounded-full bg-border transition-all duration-300', n === i ? 'w-5 bg-primary' : 'w-1.5 hover:bg-muted-foreground')} />)}
       </div>

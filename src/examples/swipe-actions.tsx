@@ -1,4 +1,4 @@
-import { Archive, Star, Trash2 } from 'lucide-react';
+import { ArchiveIcon, StarIcon, TrashIcon } from '@/components/ui/icons';
 import { Avatar } from '@/components/ui/avatar';
 import { SwipeActions } from '@/components/ui/swipe-actions';
 import { toast } from '@/components/ui/toast';
@@ -16,9 +16,9 @@ export default function SwipeActionsDemo() {
         <SwipeActions
           key={m.subject}
           actions={[
-            { label: 'Star', icon: <Star />, tone: 'warning', onClick: () => toast.info('Starred', m.subject) },
-            { label: 'Archive', icon: <Archive />, tone: 'primary', onClick: () => toast.success('Archived', m.subject) },
-            { label: 'Delete', icon: <Trash2 />, tone: 'danger', onClick: () => toast.error('Deleted', m.subject) },
+            { label: 'Star', icon: <StarIcon />, tone: 'warning', onClick: () => toast.info('Starred', m.subject) },
+            { label: 'Archive', icon: <ArchiveIcon />, tone: 'primary', onClick: () => toast.success('Archived', m.subject) },
+            { label: 'Delete', icon: <TrashIcon />, tone: 'danger', onClick: () => toast.error('Deleted', m.subject) },
           ]}
         >
           <div className="flex items-center gap-3 p-3">

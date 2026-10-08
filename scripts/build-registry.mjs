@@ -55,7 +55,7 @@ for (const [kind, dir, prefix] of [['ui', 'src/components/ui', ''], ['blocks', '
 writeFileSync(`${out}/index.json`, JSON.stringify(items));
 writeFileSync(`${out}/init.json`, JSON.stringify({
   name: 'init',
-  deps: ['clsx', 'tailwind-merge', 'class-variance-authority', 'lucide-react', 'tailwindcss', '@tailwindcss/vite'],
+  deps: ['clsx', 'tailwind-merge', 'class-variance-authority', 'tailwindcss', '@tailwindcss/vite'],
   files: [
     { path: 'lib/utils.ts', content: readFileSync('src/lib/utils.ts', 'utf8') },
     { path: 'index.css', content: readFileSync('src/index.css', 'utf8') },
@@ -73,7 +73,7 @@ const head = `# befui
 ## Setup
 - One time: \`npx github:RandomKid24/befui init\` (theme CSS, cn helper, AGENTS.md rules, .mcp.json)
 - Add: \`npx github:RandomKid24/befui add <name> [name...]\` or \`add all\`; blocks are \`block:<name>\`. It also installs npm packages and any befui files a component imports.
-- Exact source of any component as JSON (files, deps, requires, example): ${RAW}/r/<name>.json
+- Exact source of any component as JSON (files, npm deps, requires, example): ${RAW}/r/<name>.json (blocks: block-<name>.json). Every name below works in that URL.
 - MCP: \`npx github:RandomKid24/befui mcp\` gives tools list_components, get_component, add_components
 - Icons: our own set in \`@/components/ui/icons\`, e.g. \`import { SearchIcon } from '@/components/ui/icons'\`; no icon package needed
 - Theme: CSS variables in index.css (--primary, --ring, --accent...). Dark mode = \`dark\` class on <html>. Use tokens (\`bg-primary\`, \`text-muted-foreground\`, \`border\`), never hard-coded colors.
@@ -84,6 +84,8 @@ const head = `# befui
 - Sidebar, AppShell: put \`SidebarProvider\` above them. Dialog and Sheet are the same primitive; use \`SheetContent\` for a side drawer.
 - Stateful inputs are controlled: pass \`value\` and \`onChange\` (or \`checked\` / \`onCheckedChange\` for checkbox and switch).
 - Tables: \`table\` is bare parts for static layouts. \`data-table\` adds sort, filter, pagination, row selection (\`selectable\`, \`bulkActions\`), a column menu (\`columnMenu\`) and a sticky header (\`maxHeight\`); you pass rows and \`Column[]\`.
+- Animated components need keyframes from index.css: run \`npx github:RandomKid24/befui update\` after adding (\`--check\` to only report).
+- Fixed colors on purpose: terminal (always dark), avatar and tag-manager (per-name tints). Everything else follows theme tokens.
 - Merge classes with \`cn\` from \`@/lib/utils\`. Edit copied files freely; \`add <name> --force\` overwrites local edits.
 
 ## Which component for what
@@ -110,13 +112,13 @@ const ORDER = ['Layout', 'Navigation', 'Inputs', 'Display', 'Data', 'Feedback', 
 const rank = (g) => (ORDER.includes(g) ? ORDER.indexOf(g) : ORDER.length);
 const byGroup = [...ui].sort((x, y) => rank(x.group) - rank(y.group) || x.name.localeCompare(y.name));
 const importOf = (d) => d.exports.filter((e) => !/Variants$/.test(e));
-const line = (d) => `- [${d.name}](${RAW}/r/${d.name}.json): ${d.description} Import: ${importOf(d).join(', ')}.${d.requires.length ? ` Needs befui: ${d.requires.join(', ')}.` : ''}${d.deps.length ? ` npm: ${d.deps.join(', ')}.` : ''}`;
+const line = (d) => `- \`${d.name}\`: ${d.description} Exports: ${importOf(d).slice(0, 8).join(', ')}${importOf(d).length > 8 ? ', ...' : ''}.${d.requires.length ? ` Needs: ${d.requires.join(', ')}.` : ''}`;
 const sections = ORDER.concat([...new Set(ui.map((d) => d.group))].filter((g) => !ORDER.includes(g)))
   .map((g) => ({ g, list: byGroup.filter((d) => d.group === g) }))
   .filter((x) => x.list.length)
   .map((x) => `### ${x.g} (${x.list.length})\n${x.list.map(line).join('\n')}`)
   .join('\n\n');
-writeFileSync('public/llms.txt', `${head}\n## Components (${ui.length})\n\n${sections}\n\n## Blocks\n${bl.map((d) => `- [${d.name}](${RAW}/r/${d.name.replace(':', '-')}.json): ${d.description} Uses: ${d.requires.join(', ')}.`).join('\n')}\n`);
+writeFileSync('public/llms.txt', `${head}\n## Components (${ui.length})\n\n${sections}\n\n## Blocks\n${bl.map((d) => `- \`${d.name}\`: ${d.description} Uses: ${d.requires.join(', ')}.`).join('\n')}\n`);
 const full = byGroup.map((d) => `## ${d.title} (\`${d.name}\`)\n${d.description}\n- Group: ${d.group}\n- Add: \`npx github:RandomKid24/befui add ${d.name}\`\n- Import: \`import { ${importOf(d).join(', ')} } from '@/components/ui/${d.name}'\`\n${d.requires.length ? `- Also needs: ${d.requires.join(', ')}\n` : ''}${d.deps.length ? `- npm packages: ${d.deps.join(', ')}\n` : ''}\nExample:\n\n\`\`\`tsx\n${d.example.trim()}\n\`\`\`\n`).join('\n');
 writeFileSync('public/llms-full.txt', `${head}\n# Components\n\n${full}`);
 writeFileSync(`${out}/agents.md`, readFileSync('scripts/agents-snippet.md', 'utf8'));

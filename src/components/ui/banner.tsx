@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { X } from 'lucide-react';
+import { XIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 /** Full-width announcement bar that collapses smoothly when dismissed. */
@@ -12,7 +12,7 @@ export function Banner({ children, action, onDismiss, className }: { children: R
           <span>{children}</span>
           {action}
           <button type="button" aria-label="Dismiss" onClick={() => { setOpen(false); onDismiss?.(); }} className="absolute right-3 rounded p-1 hover:bg-primary-foreground/20">
-            <X className="size-3.5" />
+            <XIcon className="size-3.5" />
           </button>
         </div>
       </div>

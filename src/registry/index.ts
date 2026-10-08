@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react';
+import { lazy, useEffect, useState, type ComponentType } from 'react';
 
 export type Category = 'Inputs' | 'Display' | 'Feedback' | 'Overlays' | 'Navigation' | 'Data' | 'Layout' | 'Time';
 
@@ -16,13 +16,26 @@ export interface Entry {
   isNew: boolean;
   /** Example needs the full page width, so skip the centered dotted frame. */
   wide: boolean;
+  /** Lazy: render it inside a Suspense boundary. */
   Demo: ComponentType;
-  demoSource: string;
-  source: string;
+  loadDemoSource: () => Promise<string>;
+  loadSource: () => Promise<string>;
   path: string;
 }
 
-type Meta = Omit<Entry, 'Demo' | 'demoSource' | 'source' | 'path' | 'isNew'>;
+type Meta = Omit<Entry, 'Demo' | 'loadDemoSource' | 'loadSource' | 'path' | 'isNew'>;
+
+/** Resolves a lazy source loader to its text ('' while loading). */
+export function useSource(load: () => Promise<string>): string {
+  const [text, setText] = useState('');
+  useEffect(() => {
+    let live = true;
+    setText('');
+    load().then((t) => live && setText(t));
+    return () => { live = false; };
+  }, [load]);
+  return text;
+}
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
 export const NEW_SLUGS = new Set(['schema-form', 'rich-text-editor', 'org-chart', 'gantt', 'approval-flow', 'notification-preferences', 'funnel-chart', 'onboarding-checklist', 'shortcuts-dialog', 'tag-manager', 'saved-views', 'format', 'avatar', 'avatar-upload', 'date-picker', 'data-table', 'tooltip']);
@@ -36,42 +49,42 @@ const m = (
 ): Meta => ({ slug, name, category, description, deps: extra.deps ?? [], requires: extra.requires ?? [], keywords: extra.keywords ?? [], wide: extra.wide ?? false });
 
 const metas: Meta[] = [
-  m('button', 'Button', 'Inputs', 'Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links.', { deps: ['@radix-ui/react-slot', 'lucide-react'], keywords: ['cta', 'action', 'submit'] }),
+  m('button', 'Button', 'Inputs', 'Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links.', { deps: ['@radix-ui/react-slot'], keywords: ['cta', 'action', 'submit'] }),
   m('input', 'Input', 'Inputs', 'Text input and textarea with icon, trailing slot, and invalid state.', { keywords: ['text', 'field', 'form', 'textarea', 'search'] }),
   m('label', 'Label and Field', 'Inputs', 'Label with required marker, plus Field for label, control and hint or error.', { deps: ['@radix-ui/react-label'], keywords: ['form', 'error', 'hint'] }),
-  m('checkbox', 'Checkbox', 'Inputs', 'Checked, unchecked and indeterminate. Works for select-all rows.', { deps: ['@radix-ui/react-checkbox', 'lucide-react'], keywords: ['select', 'check', 'form'] }),
+  m('checkbox', 'Checkbox', 'Inputs', 'Checked, unchecked and indeterminate. Works for select-all rows.', { deps: ['@radix-ui/react-checkbox'], keywords: ['select', 'check', 'form'] }),
   m('switch', 'Switch', 'Inputs', 'On/off toggle for settings that apply immediately.', { deps: ['@radix-ui/react-switch'], keywords: ['toggle', 'setting'] }),
-  m('select', 'Select', 'Inputs', 'Styled dropdown with groups, built on Radix Select.', { deps: ['@radix-ui/react-select', 'lucide-react'], keywords: ['dropdown', 'picker', 'form'] }),
-  m('combobox', 'Combobox', 'Inputs', 'Searchable select, single or multiple, with descriptions under each option.', { deps: ['cmdk', '@radix-ui/react-popover', 'lucide-react'], requires: ['badge', 'command', 'popover'], keywords: ['autocomplete', 'search select', 'typeahead', 'multi'] }),
-  m('calendar', 'Calendar', 'Inputs', 'Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work.', { deps: ['lucide-react'], keywords: ['date', 'month', 'range', 'schedule'] }),
-  m('date-picker', 'Date picker', 'Inputs', 'Date and date range fields that open a calendar. The range picker has optional quick presets (Last 7 days, This month...) and a day count. Closes on pick.', { deps: ['@radix-ui/react-popover', 'lucide-react'], requires: ['calendar', 'popover'], keywords: ['date', 'range', 'leave', 'schedule', 'calendar'] }),
+  m('select', 'Select', 'Inputs', 'Styled dropdown with groups, built on Radix Select.', { deps: ['@radix-ui/react-select'], keywords: ['dropdown', 'picker', 'form'] }),
+  m('combobox', 'Combobox', 'Inputs', 'Searchable select, single or multiple, with descriptions under each option.', { deps: ['cmdk', '@radix-ui/react-popover'], requires: ['badge', 'command', 'popover'], keywords: ['autocomplete', 'search select', 'typeahead', 'multi'] }),
+  m('calendar', 'Calendar', 'Inputs', 'Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work.', { deps: [], keywords: ['date', 'month', 'range', 'schedule'] }),
+  m('date-picker', 'Date picker', 'Inputs', 'Date and date range fields that open a calendar. The range picker has optional quick presets (Last 7 days, This month...) and a day count. Closes on pick.', { deps: ['@radix-ui/react-popover'], requires: ['calendar', 'popover'], keywords: ['date', 'range', 'leave', 'schedule', 'calendar'] }),
   m('segmented', 'Segmented control', 'Inputs', 'Pick one of a few views or ranges. Smaller than tabs.', { deps: ['@radix-ui/react-toggle-group'], keywords: ['toggle', 'filter', 'range'] }),
 
-  m('accordion', 'Accordion', 'Display', 'Collapsible sections with a smooth height animation. Single or multiple open.', { deps: ['lucide-react'], keywords: ['faq', 'collapse', 'expand'] }),
+  m('accordion', 'Accordion', 'Display', 'Collapsible sections with a smooth height animation. Single or multiple open.', { deps: [], keywords: ['faq', 'collapse', 'expand'] }),
   m('spotlight-card', 'Spotlight card', 'Display', 'Card with a glow and border highlight that follow the cursor.', { keywords: ['hover', 'glow', 'feature', 'marketing'] }),
   m('border-beam', 'Border beam', 'Display', 'A light beam that circles the border. For pricing cards and featured content.', { keywords: ['glow', 'pricing', 'highlight', 'animated border'] }),
   m('marquee', 'Marquee', 'Display', 'Endless logo or tag scroll with edge fade. Pauses on hover.', { keywords: ['logos', 'ticker', 'scroll', 'carousel', 'social proof'] }),
   m('number-ticker', 'Number ticker', 'Data', 'Counts up to a value with easing once it scrolls into view.', { keywords: ['count', 'animate', 'stat', 'kpi'] }),
   m('reveal', 'Reveal', 'Display', 'Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each.', { keywords: ['scroll', 'animation', 'stagger', 'headline', 'text'] }),
-  m('copy-button', 'Copy button', 'Inputs', 'Copies text and morphs to a check.', { deps: ['lucide-react'], keywords: ['clipboard', 'code', 'share'] }),
+  m('copy-button', 'Copy button', 'Inputs', 'Copies text and morphs to a check.', { deps: [], keywords: ['clipboard', 'code', 'share'] }),
   m('otp-input', 'OTP input', 'Inputs', 'Code boxes with paste, backspace, arrow keys, autofill and a shake on error.', { keywords: ['verification', 'pin', 'code', '2fa', 'login'] }),
   m('slider', 'Slider', 'Inputs', 'Native range input with a filled track and floating value bubble.', { keywords: ['range', 'budget', 'volume'] }),
-  m('dropzone', 'Dropzone', 'Inputs', 'Drag and drop file area with size check and removable file list.', { deps: ['lucide-react'], keywords: ['upload', 'file', 'attachment', 'drag'] }),
+  m('dropzone', 'Dropzone', 'Inputs', 'Drag and drop file area with size check and removable file list.', { deps: [], keywords: ['upload', 'file', 'attachment', 'drag'] }),
 
   m('radio-group', 'Radio group', 'Inputs', 'Native radios as selectable cards with descriptions.', { keywords: ['option', 'plan', 'choice', 'form'] }),
-  m('rating', 'Rating', 'Inputs', 'Star rating with hover preview. Read-only when no handler is given.', { deps: ['lucide-react'], keywords: ['stars', 'review', 'feedback'] }),
-  m('tag-input', 'Tag input', 'Inputs', 'Type and press Enter to add chips. Backspace removes the last.', { deps: ['lucide-react'], keywords: ['chips', 'tags', 'skills', 'multi'] }),
-  m('number-stepper', 'Number stepper', 'Inputs', 'Number field with plus and minus buttons and arrow keys.', { deps: ['lucide-react'], keywords: ['quantity', 'counter', 'increment'] }),
-  m('chip', 'Chip', 'Inputs', 'Toggleable filter chips, single or multi select.', { deps: ['lucide-react'], keywords: ['filter', 'tag', 'toggle', 'pill'] }),
-  m('carousel', 'Carousel', 'Display', 'Scroll-snap slides with arrows and animated dots.', { deps: ['lucide-react'], keywords: ['slider', 'gallery', 'swipe', 'slides'] }),
+  m('rating', 'Rating', 'Inputs', 'Star rating with hover preview. Read-only when no handler is given.', { deps: [], keywords: ['stars', 'review', 'feedback'] }),
+  m('tag-input', 'Tag input', 'Inputs', 'Type and press Enter to add chips. Backspace removes the last.', { deps: [], keywords: ['chips', 'tags', 'skills', 'multi'] }),
+  m('number-stepper', 'Number stepper', 'Inputs', 'Number field with plus and minus buttons and arrow keys.', { deps: [], keywords: ['quantity', 'counter', 'increment'] }),
+  m('chip', 'Chip', 'Inputs', 'Toggleable filter chips, single or multi select.', { deps: [], keywords: ['filter', 'tag', 'toggle', 'pill'] }),
+  m('carousel', 'Carousel', 'Display', 'Scroll-snap slides with arrows and animated dots.', { deps: [], keywords: ['slider', 'gallery', 'swipe', 'slides'] }),
   m('compare', 'Image compare', 'Display', 'Before and after slider. Drag or use arrow keys.', { keywords: ['before after', 'image', 'diff'] }),
   m('tilt-card', 'Tilt card', 'Display', '3D card that tilts toward the cursor with a moving sheen.', { keywords: ['3d', 'hover', 'perspective', 'id card'] }),
   m('shimmer-text', 'Shimmer text', 'Display', 'Text with a light sweep passing over it.', { keywords: ['heading', 'hero', 'loading text', 'animated text'] }),
   m('countdown', 'Countdown', 'Data', 'Live countdown with flipping digits.', { keywords: ['timer', 'deadline', 'launch', 'clock'] }),
   m('progress-ring', 'Progress ring', 'Data', 'Circular progress with an eased stroke animation.', { keywords: ['circle', 'gauge', 'radial', 'completion'] }),
-  m('banner', 'Banner', 'Feedback', 'Announcement bar that collapses smoothly when dismissed.', { deps: ['lucide-react'], keywords: ['announcement', 'promo', 'notice'] }),
+  m('banner', 'Banner', 'Feedback', 'Announcement bar that collapses smoothly when dismissed.', { deps: [], keywords: ['announcement', 'promo', 'notice'] }),
   m('scroll-progress', 'Scroll progress', 'Navigation', 'Thin bar that fills as you scroll the page or a container.', { keywords: ['reading', 'indicator', 'article'] }),
-  m('tree-view', 'Tree view', 'Navigation', 'Nested expandable list with animated open and close.', { deps: ['lucide-react'], keywords: ['files', 'folders', 'hierarchy', 'org chart', 'nested'] }),
+  m('tree-view', 'Tree view', 'Navigation', 'Nested expandable list with animated open and close.', { deps: [], keywords: ['files', 'folders', 'hierarchy', 'org chart', 'nested'] }),
 
   m('toggle', 'Toggle', 'Inputs', 'Two-state button for favourite, bold or mute. Announces its state to screen readers.', { requires: [], keywords: ['pressed', 'favourite', 'like', 'bold', 'button'] }),
   m('search-input', 'Search input', 'Inputs', 'Search field with a clear button, Escape to clear and a slash shortcut to focus.', { requires: ['icons'], keywords: ['filter', 'find', 'query', 'shortcut'] }),
@@ -158,44 +171,46 @@ const metas: Meta[] = [
   m('empty-state', 'Empty state', 'Display', 'Dashed placeholder with icon, text and an action.', { keywords: ['blank', 'no data', 'zero'] }),
   m('timeline', 'Timeline', 'Display', 'Vertical activity feed with tone-colored markers.', { keywords: ['activity', 'history', 'log', 'feed'] }),
 
-  m('stat-card', 'Stat card', 'Data', 'KPI tile with value, trend delta and a sparkline slot.', { deps: ['lucide-react'], requires: ['card'], keywords: ['kpi', 'metric', 'number', 'dashboard'] }),
+  m('stat-card', 'Stat card', 'Data', 'KPI tile with value, trend delta and a sparkline slot.', { deps: [], requires: ['card'], keywords: ['kpi', 'metric', 'number', 'dashboard'] }),
   m('charts', 'Charts', 'Data', 'Sparkline, bar chart and donut in plain SVG. No chart library.', { keywords: ['graph', 'bar', 'donut', 'sparkline', 'plot'] }),
   m('progress', 'Progress', 'Data', 'Thin progress bar with four tones.', { deps: ['@radix-ui/react-progress'], keywords: ['bar', 'loading', 'budget'] }),
 
-  m('alert', 'Alert', 'Feedback', 'Inline message in info, success, warning and danger.', { deps: ['lucide-react'], keywords: ['banner', 'notice', 'message'] }),
-  m('toast', 'Toast', 'Feedback', 'Call toast.success() from anywhere. No provider needed.', { deps: ['lucide-react'], keywords: ['notification', 'snackbar'] }),
+  m('alert', 'Alert', 'Feedback', 'Inline message in info, success, warning and danger.', { deps: [], keywords: ['banner', 'notice', 'message'] }),
+  m('toast', 'Toast', 'Feedback', 'Call toast.success() from anywhere. No provider needed.', { deps: [], keywords: ['notification', 'snackbar'] }),
   m('skeleton', 'Skeleton', 'Feedback', 'Shimmering placeholder for content that is loading.', { keywords: ['loading', 'placeholder'] }),
   m('loader', 'Loader', 'Feedback', 'Six loading animations (ring, dots, bars, pulse, orbit, dual), an indeterminate or determinate bar loader, and a loading overlay.', { keywords: ['loading', 'spinner', 'wait', 'busy', 'progress', 'overlay', 'bar'] }),
   m('spinner', 'Spinner', 'Feedback', 'Tiny CSS spinner that inherits text color.', { keywords: ['loading', 'wait'] }),
 
-  m('dialog', 'Dialog and Sheet', 'Overlays', 'Centered modal and edge-docked sheet on Radix Dialog.', { deps: ['@radix-ui/react-dialog', 'lucide-react'], keywords: ['modal', 'drawer', 'popup'] }),
-  m('dropdown-menu', 'Dropdown menu', 'Overlays', 'Action menu with checkbox items, shortcuts and destructive items.', { deps: ['@radix-ui/react-dropdown-menu', 'lucide-react'], keywords: ['menu', 'actions', 'context'] }),
+  m('dialog', 'Dialog and Sheet', 'Overlays', 'Centered modal and edge-docked sheet on Radix Dialog.', { deps: ['@radix-ui/react-dialog'], keywords: ['modal', 'drawer', 'popup'] }),
+  m('dropdown-menu', 'Dropdown menu', 'Overlays', 'Action menu with checkbox items, shortcuts and destructive items.', { deps: ['@radix-ui/react-dropdown-menu'], keywords: ['menu', 'actions', 'context'] }),
   m('popover', 'Popover', 'Overlays', 'Floating panel anchored to a trigger.', { deps: ['@radix-ui/react-popover'], keywords: ['floating', 'quick'] }),
-  m('context-menu', 'Context menu', 'Overlays', 'Right-click menu with items, shortcuts, checkbox items, labels and nested submenus.', { deps: ['@radix-ui/react-context-menu', 'lucide-react'], keywords: ['right click', 'menu', 'actions', 'popup'] }),
+  m('context-menu', 'Context menu', 'Overlays', 'Right-click menu with items, shortcuts, checkbox items, labels and nested submenus.', { deps: ['@radix-ui/react-context-menu'], keywords: ['right click', 'menu', 'actions', 'popup'] }),
   m('tooltip', 'Tooltip', 'Overlays', 'Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off.', { deps: ['@radix-ui/react-tooltip'], requires: ['icons', 'kbd'], keywords: ['hint', 'hover', 'info', 'help', 'truncate', 'shortcut'] }),
-  m('command', 'Command palette', 'Overlays', 'Searchable palette on cmdk. Bind it to Ctrl or Cmd K.', { deps: ['cmdk', '@radix-ui/react-dialog', 'lucide-react'], keywords: ['search', 'spotlight', 'cmdk'] }),
+  m('command', 'Command palette', 'Overlays', 'Searchable palette on cmdk. Bind it to Ctrl or Cmd K.', { deps: ['cmdk', '@radix-ui/react-dialog'], keywords: ['search', 'spotlight', 'cmdk'] }),
 
   m('tabs', 'Tabs', 'Navigation', 'Underline or pill tabs on Radix Tabs.', { deps: ['@radix-ui/react-tabs'], keywords: ['sections', 'switch'] }),
-  m('breadcrumb', 'Breadcrumb', 'Navigation', 'Trail of parent pages.', { deps: ['lucide-react'], keywords: ['path', 'trail'] }),
-  m('pagination', 'Pagination', 'Navigation', 'Page buttons with ellipsis for long ranges.', { deps: ['lucide-react'], keywords: ['pages', 'next', 'previous'] }),
-  m('stepper', 'Stepper', 'Navigation', 'Horizontal steps for multi-step forms and onboarding.', { deps: ['lucide-react'], keywords: ['wizard', 'steps', 'onboarding'] }),
+  m('breadcrumb', 'Breadcrumb', 'Navigation', 'Trail of parent pages.', { deps: [], keywords: ['path', 'trail'] }),
+  m('pagination', 'Pagination', 'Navigation', 'Page buttons with ellipsis for long ranges.', { deps: [], keywords: ['pages', 'next', 'previous'] }),
+  m('stepper', 'Stepper', 'Navigation', 'Horizontal steps for multi-step forms and onboarding.', { deps: [], keywords: ['wizard', 'steps', 'onboarding'] }),
 
-  m('sidebar', 'Sidebar', 'Layout', 'Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile.', { deps: ['@radix-ui/react-dialog', '@radix-ui/react-tooltip', 'lucide-react'], requires: ['dialog', 'tooltip'], keywords: ['nav', 'menu', 'navigation', 'drawer', 'rail'], wide: true }),
-  m('app-shell', 'App shell', 'Layout', 'Sidebar, topbar and scrolling content area, plus a page header.', { deps: ['lucide-react'], requires: ['sidebar'], keywords: ['layout', 'dashboard', 'frame', 'page', 'admin'], wide: true }),
+  m('sidebar', 'Sidebar', 'Layout', 'Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile.', { deps: ['@radix-ui/react-dialog', '@radix-ui/react-tooltip'], requires: ['dialog', 'tooltip'], keywords: ['nav', 'menu', 'navigation', 'drawer', 'rail'], wide: true }),
+  m('app-shell', 'App shell', 'Layout', 'Sidebar, topbar and scrolling content area, plus a page header.', { deps: [], requires: ['sidebar'], keywords: ['layout', 'dashboard', 'frame', 'page', 'admin'], wide: true }),
 ];
 
-const uiSrc = import.meta.glob('/src/components/ui/*.tsx', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
-const exMod = import.meta.glob('/src/examples/*.tsx', { eager: true }) as Record<string, { default: ComponentType }>;
-const exSrc = import.meta.glob('/src/examples/*.tsx', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+// Everything is loaded on demand, so the docs site opens fast even with 130+ components.
+type Loader<T> = Record<string, () => Promise<T>>;
+const uiSrc = import.meta.glob('/src/components/ui/*.tsx', { query: '?raw', import: 'default' }) as Loader<string>;
+const exMod = import.meta.glob('/src/examples/*.tsx') as Loader<{ default: ComponentType }>;
+const exSrc = import.meta.glob('/src/examples/*.tsx', { query: '?raw', import: 'default' }) as Loader<string>;
 
 export const components: Entry[] = metas.map((meta) => {
   const f = (dir: string, ext = '.tsx') => `/src/${dir}/${meta.slug}${ext}`;
   return {
     ...meta,
     isNew: NEW_SLUGS.has(meta.slug),
-    Demo: exMod[f('examples')].default,
-    demoSource: exSrc[f('examples')],
-    source: uiSrc[f('components/ui')],
+    Demo: lazy(exMod[f('examples')]),
+    loadDemoSource: exSrc[f('examples')],
+    loadSource: uiSrc[f('components/ui')],
     path: `components/ui/${meta.slug}.tsx`,
   };
 });
@@ -209,11 +224,11 @@ export interface Block {
   description: string;
   uses: string[];
   Demo: ComponentType;
-  source: string;
+  loadSource: () => Promise<string>;
   path: string;
 }
 
-const bMeta: Omit<Block, 'Demo' | 'source' | 'path'>[] = [
+const bMeta: Omit<Block, 'Demo' | 'loadSource' | 'path'>[] = [
   { slug: 'admin-shell', name: 'Admin shell', module: 'Layout', description: 'Full app frame: grouped sidebar with nested links, topbar with search, alerts and user menu, and a dashboard page.', uses: ['app-shell', 'sidebar', 'date-picker', 'stat-card', 'dropdown-menu', 'breadcrumb', 'timeline'] },
   { slug: 'hrms-overview', name: 'People overview', module: 'HRMS', description: 'Headcount, attendance, department split and activity feed.', uses: ['stat-card', 'charts', 'card', 'timeline', 'avatar'] },
   { slug: 'employee-directory', name: 'Employee directory', module: 'HRMS', description: 'Searchable table with status filter, row selection, actions and pagination.', uses: ['table', 'checkbox', 'segmented', 'dropdown-menu', 'pagination', 'badge', 'avatar'] },
@@ -226,13 +241,13 @@ const bMeta: Omit<Block, 'Demo' | 'source' | 'path'>[] = [
   { slug: 'sign-in', name: 'Sign in', module: 'Auth', description: 'Login card with validation, loading button and an error alert.', uses: ['card', 'input', 'label', 'checkbox', 'alert', 'button'] },
 ];
 
-const bMod = import.meta.glob('/src/blocks/*.tsx', { eager: true }) as Record<string, { default: ComponentType }>;
-const bSrc = import.meta.glob('/src/blocks/*.tsx', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const bMod = import.meta.glob('/src/blocks/*.tsx') as Loader<{ default: ComponentType }>;
+const bSrc = import.meta.glob('/src/blocks/*.tsx', { query: '?raw', import: 'default' }) as Loader<string>;
 
 export const blocks: Block[] = bMeta.map((b) => ({
   ...b,
-  Demo: bMod[`/src/blocks/${b.slug}.tsx`].default,
-  source: bSrc[`/src/blocks/${b.slug}.tsx`],
+  Demo: lazy(bMod[`/src/blocks/${b.slug}.tsx`]),
+  loadSource: bSrc[`/src/blocks/${b.slug}.tsx`],
   path: `blocks/${b.slug}.tsx`,
 }));
 

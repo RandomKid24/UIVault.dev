@@ -3,18 +3,20 @@
 // befui add all            copy every component
 // befui add block:sign-in copy a block
 // befui init             add the theme CSS and cn() helper
+// befui update           add animations (keyframes) that newer components need to your index.css; --check only reports
 // befui list             show everything available
 // befui mcp              run the MCP server (AI tools fetch exact component source)
-// Flags: --dir <src>  --from <url-or-folder>  --force  --no-install
+// Flags: --dir <src>  --from <url-or-folder>  --css <file>  --force  --no-install  --check
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 
+const VERSION = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version;
 const DEFAULT_FROM = 'https://raw.githubusercontent.com/RandomKid24/befui/main/public/r';
 const argv = process.argv.slice(2);
 const flag = (n, d) => { const i = argv.indexOf(`--${n}`); return i < 0 ? d : argv[i + 1]; };
 const has = (n) => argv.includes(`--${n}`);
-const valueFlags = new Set(['--dir', '--from']);
+const valueFlags = new Set(['--dir', '--from', '--css']);
 const pos = argv.filter((a, i) => !a.startsWith('--') && !valueFlags.has(argv[i - 1]));
 const [cmd, ...names] = pos;
 
@@ -59,6 +61,66 @@ function install(deps) {
   const pm = existsSync('pnpm-lock.yaml') ? ['pnpm', 'add'] : existsSync('yarn.lock') ? ['yarn', 'add'] : existsSync('bun.lockb') || existsSync('bun.lock') ? ['bun', 'add'] : ['npm', 'i'];
   console.log(`  ${pm.join(' ')} ${need.join(' ')}`);
   if (spawnSync(pm[0], [...pm.slice(1), ...need], { stdio: 'inherit' }).status !== 0) die('Dependency install failed.');
+}
+
+
+/** Pulls `--animate-*` theme lines and `@keyframes` blocks out of a stylesheet. */
+function animationsIn(css) {
+  const vars = new Map([...css.matchAll(/^\s*(--animate-([\w-]+)):[^;]+;/gm)].map((m) => [m[2], m[0].trim()]));
+  const frames = new Map();
+  for (const m of css.matchAll(/@keyframes\s+([\w-]+)\s*\{/g)) {
+    let i = m.index + m[0].length, depth = 1;
+    while (i < css.length && depth) depth += css[i] === '{' ? 1 : css[i] === '}' ? -1 : 0, i++;
+    frames.set(m[1], css.slice(m.index, i));
+  }
+  return { vars, frames };
+}
+
+/** Compares the project's CSS with befui's and returns the animations it is missing. */
+async function missingAnimations() {
+  const file = flag('css') ?? [join(dir, 'index.css'), join(dir, 'styles/globals.css'), 'src/index.css', 'app/globals.css'].find(existsSync);
+  const reg = (await load('init')).files.find((f) => f.path === 'index.css')?.content ?? '';
+  if (!file) return { file: null, missing: null, reg };
+  const mine = animationsIn(readFileSync(file, 'utf8'));
+  const want = animationsIn(reg);
+  return {
+    file,
+    reg,
+    missing: {
+      vars: [...want.vars].filter(([k]) => !mine.vars.has(k)),
+      frames: [...want.frames].filter(([k]) => !mine.frames.has(k)),
+    },
+  };
+}
+
+async function update() {
+  const { file, missing } = await missingAnimations();
+  if (!file) die('No index.css found. Run "befui init" first, or pass --css <file>.');
+  const n = missing.vars.length + missing.frames.length;
+  if (!n) return ok('Animations are up to date.');
+  console.log(`  ${file} is missing ${missing.vars.length} animation${missing.vars.length === 1 ? '' : 's'}: ${missing.vars.map(([k]) => k).join(', ') || '(keyframes only)'}`);
+  if (has('check')) { console.log('  Run "befui update" to add them.'); process.exit(1); }
+  let css = readFileSync(file, 'utf8');
+  if (missing.vars.length) {
+    const lines = missing.vars.map(([, l]) => `  ${l}`).join('\n');
+    const theme = /@theme[^{]*\{/.exec(css);
+    if (theme) {
+      let i = theme.index + theme[0].length, depth = 1;
+      while (i < css.length && depth) depth += css[i] === '{' ? 1 : css[i] === '}' ? -1 : 0, i++;
+      css = `${css.slice(0, i - 1).trimEnd()}\n${lines}\n${css.slice(i - 1)}`;
+    } else css += `\n@theme inline {\n${lines}\n}\n`;
+  }
+  if (missing.frames.length) css += `\n/* added by befui update */\n${missing.frames.map(([, f]) => f).join('\n')}\n`;
+  writeFileSync(file, css);
+  ok(`Added ${n} animation rule${n === 1 ? '' : 's'} to ${file}.`);
+}
+
+/** After "add": warn when a copied component uses an animate-* class the project's CSS does not define. */
+async function warnAnimations(items) {
+  const used = new Set(items.flatMap((i) => i.files.flatMap((f) => [...f.content.matchAll(/animate-([\w-]+)/g)].map((m) => m[1]))));
+  const { missing } = await missingAnimations().catch(() => ({ missing: null }));
+  const need = missing?.vars.map(([k]) => k).filter((k) => used.has(k));
+  if (need?.length) console.log(`\x1b[33m!\x1b[0m These components use animations your index.css does not have yet (${need.join(', ')}). Run "befui update".`);
 }
 
 /** Adds (or refreshes) a marked befui section in AGENTS.md so AI coding agents know how to use the library. */
@@ -125,7 +187,7 @@ async function mcp() {
       const { id, method, params } = JSON.parse(line);
       if (id === undefined) continue; // notifications
       try {
-        if (method === 'initialize') send({ id, result: { protocolVersion: params?.protocolVersion ?? '2024-11-05', capabilities: { tools: {} }, serverInfo: { name: 'befui', version: '1.0.0' } } });
+        if (method === 'initialize') send({ id, result: { protocolVersion: params?.protocolVersion ?? '2024-11-05', capabilities: { tools: {} }, serverInfo: { name: 'befui', version: VERSION } } });
         else if (method === 'tools/list') send({ id, result: { tools: Object.entries(tools).map(([name, t]) => ({ name, description: t.description, inputSchema: t.schema })) } });
         else if (method === 'tools/call') send({ id, result: await tools[params.name].run(params.arguments ?? {}) });
         else send({ id, result: {} });
@@ -136,7 +198,9 @@ async function mcp() {
   });
 }
 
-if (cmd === 'mcp') {
+if (has('version') || cmd === 'version') {
+  console.log(VERSION);
+} else if (cmd === 'mcp') {
   // load() calls die() (exit) on failure; keep the server alive instead
   process.exit = ((exit) => (c) => { if (c) throw new Error('component not found, call list_components'); exit(c); })(process.exit);
   console.error = () => {};
@@ -148,6 +212,8 @@ if (cmd === 'mcp') {
     if (i.group !== g) console.log(`\n\x1b[1m${(g = i.group)}\x1b[0m`);
     console.log(`  ${i.name.padEnd(22)} ${i.description}`);
   }
+} else if (cmd === 'update') {
+  await update();
 } else if (cmd === 'init') {
   const init = await load('init');
   write(init.files);
@@ -175,7 +241,8 @@ if (cmd === 'mcp') {
   if (!existsSync(join(dir, 'lib/utils.ts'))) write((await load('init')).files);
   for (const item of seen.values()) { const w = write(item.files); if (w.length) ok(`${item.name} → ${w[0]}`); }
   install(deps);
+  await warnAnimations([...seen.values()]);
   ok(`Done. ${seen.size} file${seen.size > 1 ? 's' : ''} added.`);
 } else {
-  console.log('Usage: befui <add|init|list|mcp> [names] [--dir src] [--from url-or-folder] [--force] [--no-install]');
+  console.log('Usage: befui <add|init|update|list|mcp> [names] [--dir src] [--from url-or-folder] [--force] [--no-install]');
 }

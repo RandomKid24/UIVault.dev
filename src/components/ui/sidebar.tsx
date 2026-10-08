@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChevronDown, PanelLeft } from 'lucide-react';
+import { ChevronDownIcon, PanelLeftIcon } from './icons';
 import { cn } from '@/lib/utils';
 import { Sheet, SheetContent, SheetTitle } from './dialog';
 import { Tooltip, TooltipProvider } from './tooltip';
@@ -56,7 +56,7 @@ export function SidebarTrigger({ className }: { className?: string }) {
       onClick={() => (isDesktop ? setCollapsed(!collapsed) : setMobileOpen(true))}
       className={cn('grid size-8 place-items-center rounded-md text-muted-foreground outline-none transition-colors hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40', className)}
     >
-      <PanelLeft className="size-4" />
+      <PanelLeftIcon className="size-4" />
     </button>
   );
 }
@@ -173,7 +173,7 @@ export function SidebarItem({ icon, label, href, active, badge, onClick, items }
         <>
           <span className="flex-1 truncate text-left">{label}</span>
           {badge && <span className="rounded-full bg-primary/10 px-1.5 text-[11px] font-semibold text-primary">{badge}</span>}
-          {items && <ChevronDown className={cn('!size-3.5 transition-transform', open && 'rotate-180')} />}
+          {items && <ChevronDownIcon className={cn('!size-3.5 transition-transform', open && 'rotate-180')} />}
         </>
       )}
     </Tag>

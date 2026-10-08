@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Command as Cmdk } from 'cmdk';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { Search } from 'lucide-react';
+import { SearchIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 export const Command = React.forwardRef<
@@ -45,7 +45,7 @@ export const CommandInput = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof Cmdk.Input>
 >(({ className, ...props }, ref) => (
   <div className="flex items-center gap-2.5 border-b px-4">
-    <Search className="size-4 shrink-0 text-muted-foreground" />
+    <SearchIcon className="size-4 shrink-0 text-muted-foreground" />
     <Cmdk.Input
       ref={ref}
       className={cn('h-12 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground/70', className)}

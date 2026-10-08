@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChevronRight, File, Folder, FolderOpen } from 'lucide-react';
+import { ChevronRightIcon, FileIcon, FolderIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 export interface TreeNode {
@@ -11,7 +11,7 @@ export interface TreeNode {
 function Node({ node, depth, selected, onSelect }: { node: TreeNode; depth: number; selected?: string; onSelect?: (n: TreeNode) => void }) {
   const [open, setOpen] = React.useState(depth === 0);
   const isDir = !!node.children;
-  const Icon = isDir ? (open ? FolderOpen : Folder) : File;
+  const Icon = isDir ? FolderIcon : FileIcon;
   return (
     <li role="treeitem" aria-expanded={isDir ? open : undefined} aria-selected={selected === node.id}>
       <button
@@ -20,7 +20,7 @@ function Node({ node, depth, selected, onSelect }: { node: TreeNode; depth: numb
         className={cn('flex w-full items-center gap-1.5 rounded-md py-1 pr-2 text-left text-sm outline-none transition-colors hover:bg-secondary focus-visible:bg-secondary', selected === node.id && 'bg-accent text-accent-foreground')}
         style={{ paddingLeft: depth * 16 + 6 }}
       >
-        <ChevronRight className={cn('size-3.5 text-muted-foreground transition-transform duration-200', open && 'rotate-90', !isDir && 'invisible')} />
+        <ChevronRightIcon className={cn('size-3.5 text-muted-foreground transition-transform duration-200', open && 'rotate-90', !isDir && 'invisible')} />
         <Icon className={cn('size-4', isDir ? 'text-primary' : 'text-muted-foreground')} />
         {node.label}
       </button>

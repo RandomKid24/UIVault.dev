@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Mail } from 'lucide-react';
+import { MailIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -33,7 +33,7 @@ export default function SignIn() {
         <form onSubmit={submit} className="grid gap-4">
           {error && <Alert variant="danger" title={error} />}
           <Field label="Email" htmlFor="si-email">
-            <Input id="si-email" name="email" leftIcon={<Mail />} placeholder="you@company.com" aria-invalid={!!error} />
+            <Input id="si-email" name="email" leftIcon={<MailIcon />} placeholder="you@company.com" aria-invalid={!!error} />
           </Field>
           <Field label="Password" htmlFor="si-pw">
             <Input id="si-pw" type="password" placeholder="••••••••" />

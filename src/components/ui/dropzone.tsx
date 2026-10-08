@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { File as FileIcon, UploadCloud, X } from 'lucide-react';
+import { FileIcon, UploadIcon, XIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 /** Drag and drop file area that also opens the file picker on click or Enter. You own the File[] state. */
@@ -48,7 +48,7 @@ export function Dropzone({
         )}
       >
         <span className={cn('grid size-10 place-items-center rounded-full bg-secondary text-muted-foreground transition-transform duration-300', over && '-translate-y-1 bg-primary text-primary-foreground')}>
-          <UploadCloud className="size-5" />
+          <UploadIcon className="size-5" />
         </span>
         <span className="text-sm font-medium">{hint}</span>
         <span className="text-xs text-muted-foreground">Up to {maxSizeMB} MB each</span>
@@ -63,7 +63,7 @@ export function Dropzone({
               <span className="min-w-0 flex-1 truncate">{f.name}</span>
               <span className="text-xs tabular-nums text-muted-foreground">{(f.size / 1024).toFixed(f.size > 1048576 ? 0 : 1)} KB</span>
               <button type="button" aria-label={`Remove ${f.name}`} onClick={() => onFilesChange(files.filter((_, j) => j !== i))} className="rounded p-0.5 text-muted-foreground hover:bg-secondary hover:text-foreground">
-                <X className="size-3.5" />
+                <XIcon className="size-3.5" />
               </button>
             </li>
           ))}

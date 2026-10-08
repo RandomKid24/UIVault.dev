@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BarChart3, CalendarDays, Inbox, LayoutDashboard, Megaphone, Settings, Users } from 'lucide-react';
+import { BarChartIcon, CalendarIcon, InboxIcon, LayoutDashboardIcon, MegaphoneIcon, SettingsIcon, UsersIcon } from '@/components/ui/icons';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarItem, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { Avatar } from '@/components/ui/avatar';
 
@@ -17,25 +17,25 @@ export default function SidebarDemo() {
           </SidebarHeader>
           <SidebarContent>
             <SidebarGroup label="Overview">
-              <SidebarItem icon={<LayoutDashboard />} label="Dashboard" active={page === 'Dashboard'} onClick={go('Dashboard')} />
-              <SidebarItem icon={<Inbox />} label="Inbox" badge="3" active={page === 'Inbox'} onClick={go('Inbox')} />
+              <SidebarItem icon={<LayoutDashboardIcon />} label="Dashboard" active={page === 'Dashboard'} onClick={go('Dashboard')} />
+              <SidebarItem icon={<InboxIcon />} label="Inbox" badge="3" active={page === 'Inbox'} onClick={go('Inbox')} />
             </SidebarGroup>
             <SidebarGroup label="People">
-              <SidebarItem icon={<Users />} label="Employees" active={page === 'Employees'} onClick={go('Employees')} />
+              <SidebarItem icon={<UsersIcon />} label="Employees" active={page === 'Employees'} onClick={go('Employees')} />
               <SidebarItem
-                icon={<CalendarDays />}
+                icon={<CalendarIcon />}
                 label="Leave"
                 active={page === 'Leave'}
                 items={['Requests', 'Balances', 'Calendar'].map((l) => ({ label: l, active: page === 'Leave' && sub === l, onClick: () => { setPage('Leave'); setSub(l); } }))}
               />
             </SidebarGroup>
             <SidebarGroup label="Marketing">
-              <SidebarItem icon={<Megaphone />} label="Campaigns" active={page === 'Campaigns'} onClick={go('Campaigns')} />
-              <SidebarItem icon={<BarChart3 />} label="Reports" active={page === 'Reports'} onClick={go('Reports')} />
+              <SidebarItem icon={<MegaphoneIcon />} label="Campaigns" active={page === 'Campaigns'} onClick={go('Campaigns')} />
+              <SidebarItem icon={<BarChartIcon />} label="Reports" active={page === 'Reports'} onClick={go('Reports')} />
             </SidebarGroup>
           </SidebarContent>
           <SidebarFooter>
-            <SidebarItem icon={<Settings />} label="Settings" active={page === 'Settings'} onClick={go('Settings')} />
+            <SidebarItem icon={<SettingsIcon />} label="Settings" active={page === 'Settings'} onClick={go('Settings')} />
           </SidebarFooter>
         </Sidebar>
         <div className="flex min-w-0 flex-1 flex-col">

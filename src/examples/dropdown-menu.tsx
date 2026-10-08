@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CreditCard, LogOut, MoreHorizontal, Settings, User } from 'lucide-react';
+import { CreditCardIcon, LogOutIcon, MoreIcon, SettingsIcon, UserIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
@@ -9,18 +9,18 @@ export default function DropdownMenuDemo() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
-          Account <MoreHorizontal />
+          Account <MoreIcon />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start">
         <DropdownMenuLabel>aarav@company.com</DropdownMenuLabel>
-        <DropdownMenuItem><User /> Profile <DropdownMenuShortcut>P</DropdownMenuShortcut></DropdownMenuItem>
-        <DropdownMenuItem><CreditCard /> Billing</DropdownMenuItem>
-        <DropdownMenuItem><Settings /> Settings <DropdownMenuShortcut>,</DropdownMenuShortcut></DropdownMenuItem>
+        <DropdownMenuItem><UserIcon /> Profile <DropdownMenuShortcut>P</DropdownMenuShortcut></DropdownMenuItem>
+        <DropdownMenuItem><CreditCardIcon /> Billing</DropdownMenuItem>
+        <DropdownMenuItem><SettingsIcon /> Settings <DropdownMenuShortcut>,</DropdownMenuShortcut></DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuCheckboxItem checked={compact} onCheckedChange={setCompact}>Compact rows</DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem destructive><LogOut /> Sign out</DropdownMenuItem>
+        <DropdownMenuItem destructive><LogOutIcon /> Sign out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -5,7 +5,7 @@
 ## Setup
 - One time: `npx github:RandomKid24/befui init` (theme CSS, cn helper, AGENTS.md rules, .mcp.json)
 - Add: `npx github:RandomKid24/befui add <name> [name...]` or `add all`; blocks are `block:<name>`. It also installs npm packages and any befui files a component imports.
-- Exact source of any component as JSON (files, deps, requires, example): https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/<name>.json
+- Exact source of any component as JSON (files, npm deps, requires, example): https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/<name>.json (blocks: block-<name>.json). Every name below works in that URL.
 - MCP: `npx github:RandomKid24/befui mcp` gives tools list_components, get_component, add_components
 - Icons: our own set in `@/components/ui/icons`, e.g. `import { SearchIcon } from '@/components/ui/icons'`; no icon package needed
 - Theme: CSS variables in index.css (--primary, --ring, --accent...). Dark mode = `dark` class on <html>. Use tokens (`bg-primary`, `text-muted-foreground`, `border`), never hard-coded colors.
@@ -16,6 +16,8 @@
 - Sidebar, AppShell: put `SidebarProvider` above them. Dialog and Sheet are the same primitive; use `SheetContent` for a side drawer.
 - Stateful inputs are controlled: pass `value` and `onChange` (or `checked` / `onCheckedChange` for checkbox and switch).
 - Tables: `table` is bare parts for static layouts. `data-table` adds sort, filter, pagination, row selection (`selectable`, `bulkActions`), a column menu (`columnMenu`) and a sticky header (`maxHeight`); you pass rows and `Column[]`.
+- Animated components need keyframes from index.css: run `npx github:RandomKid24/befui update` after adding (`--check` to only report).
+- Fixed colors on purpose: terminal (always dark), avatar and tag-manager (per-name tints). Everything else follows theme tokens.
 - Merge classes with `cn` from `@/lib/utils`. Edit copied files freely; `add <name> --force` overwrites local edits.
 
 ## Which component for what
@@ -48,13 +50,12 @@ Sidebar, topbar and scrolling content area, plus a page header.
 Example:
 
 ```tsx
-import { Bell, Search } from 'lucide-react';
+import { BellIcon, HomeIcon, SearchIcon, SettingsIcon, UsersIcon } from '@/components/ui/icons';
 import { AppContent, AppShell, PageHeader, Topbar } from '@/components/ui/app-shell';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Kbd } from '@/components/ui/kbd';
 import { Sidebar, SidebarContent, SidebarHeader, SidebarItem } from '@/components/ui/sidebar';
-import { Home, Settings, Users } from 'lucide-react';
 
 /** Minimal frame. See the Admin shell block for a full one. */
 export default function AppShellDemo() {
@@ -64,15 +65,15 @@ export default function AppShellDemo() {
         <Sidebar>
           <SidebarHeader><span className="text-sm font-semibold">My app</span></SidebarHeader>
           <SidebarContent>
-            <SidebarItem icon={<Home />} label="Home" active />
-            <SidebarItem icon={<Users />} label="Team" />
-            <SidebarItem icon={<Settings />} label="Settings" />
+            <SidebarItem icon={<HomeIcon />} label="Home" active />
+            <SidebarItem icon={<UsersIcon />} label="Team" />
+            <SidebarItem icon={<SettingsIcon />} label="Settings" />
           </SidebarContent>
         </Sidebar>
       }>
         <Topbar>
-          <button className="ml-2 hidden h-8 w-56 items-center gap-2 rounded-md border bg-muted/60 px-2.5 text-[13px] text-muted-foreground sm:flex"><Search className="size-3.5" /> Search <Kbd className="ml-auto">/</Kbd></button>
-          <Button variant="ghost" size="icon-sm" className="ml-auto" aria-label="Notifications"><Bell /></Button>
+          <button className="ml-2 hidden h-8 w-56 items-center gap-2 rounded-md border bg-muted/60 px-2.5 text-[13px] text-muted-foreground sm:flex"><SearchIcon className="size-3.5" /> Search <Kbd className="ml-auto">/</Kbd></button>
+          <Button variant="ghost" size="icon-sm" className="ml-auto" aria-label="Notifications"><BellIcon /></Button>
         </Topbar>
         <AppContent>
           <PageHeader title="Home" description="Content scrolls here, the sidebar and topbar stay put." actions={<Button size="sm">New</Button>} />
@@ -89,14 +90,13 @@ Collapsible nav with groups, nested links and badges. Icon rail on desktop, slid
 - Group: Layout
 - Add: `npx github:RandomKid24/befui add sidebar`
 - Import: `import { useSidebar, SidebarProvider, SidebarTrigger, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarGroup, SidebarItem } from '@/components/ui/sidebar'`
-- Also needs: dialog, tooltip
-- npm packages: lucide-react
+- Also needs: dialog, icons, tooltip
 
 Example:
 
 ```tsx
 import * as React from 'react';
-import { BarChart3, CalendarDays, Inbox, LayoutDashboard, Megaphone, Settings, Users } from 'lucide-react';
+import { BarChartIcon, CalendarIcon, InboxIcon, LayoutDashboardIcon, MegaphoneIcon, SettingsIcon, UsersIcon } from '@/components/ui/icons';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarItem, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { Avatar } from '@/components/ui/avatar';
 
@@ -114,25 +114,25 @@ export default function SidebarDemo() {
           </SidebarHeader>
           <SidebarContent>
             <SidebarGroup label="Overview">
-              <SidebarItem icon={<LayoutDashboard />} label="Dashboard" active={page === 'Dashboard'} onClick={go('Dashboard')} />
-              <SidebarItem icon={<Inbox />} label="Inbox" badge="3" active={page === 'Inbox'} onClick={go('Inbox')} />
+              <SidebarItem icon={<LayoutDashboardIcon />} label="Dashboard" active={page === 'Dashboard'} onClick={go('Dashboard')} />
+              <SidebarItem icon={<InboxIcon />} label="Inbox" badge="3" active={page === 'Inbox'} onClick={go('Inbox')} />
             </SidebarGroup>
             <SidebarGroup label="People">
-              <SidebarItem icon={<Users />} label="Employees" active={page === 'Employees'} onClick={go('Employees')} />
+              <SidebarItem icon={<UsersIcon />} label="Employees" active={page === 'Employees'} onClick={go('Employees')} />
               <SidebarItem
-                icon={<CalendarDays />}
+                icon={<CalendarIcon />}
                 label="Leave"
                 active={page === 'Leave'}
                 items={['Requests', 'Balances', 'Calendar'].map((l) => ({ label: l, active: page === 'Leave' && sub === l, onClick: () => { setPage('Leave'); setSub(l); } }))}
               />
             </SidebarGroup>
             <SidebarGroup label="Marketing">
-              <SidebarItem icon={<Megaphone />} label="Campaigns" active={page === 'Campaigns'} onClick={go('Campaigns')} />
-              <SidebarItem icon={<BarChart3 />} label="Reports" active={page === 'Reports'} onClick={go('Reports')} />
+              <SidebarItem icon={<MegaphoneIcon />} label="Campaigns" active={page === 'Campaigns'} onClick={go('Campaigns')} />
+              <SidebarItem icon={<BarChartIcon />} label="Reports" active={page === 'Reports'} onClick={go('Reports')} />
             </SidebarGroup>
           </SidebarContent>
           <SidebarFooter>
-            <SidebarItem icon={<Settings />} label="Settings" active={page === 'Settings'} onClick={go('Settings')} />
+            <SidebarItem icon={<SettingsIcon />} label="Settings" active={page === 'Settings'} onClick={go('Settings')} />
           </SidebarFooter>
         </Sidebar>
         <div className="flex min-w-0 flex-1 flex-col">
@@ -219,7 +219,7 @@ Trail of parent pages.
 - Group: Navigation
 - Add: `npx github:RandomKid24/befui add breadcrumb`
 - Import: `import { Breadcrumb } from '@/components/ui/breadcrumb'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -297,7 +297,7 @@ Page buttons with ellipsis for long ranges.
 - Group: Navigation
 - Add: `npx github:RandomKid24/befui add pagination`
 - Import: `import { Pagination } from '@/components/ui/pagination'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -341,7 +341,7 @@ Horizontal steps for multi-step forms and onboarding.
 - Group: Navigation
 - Add: `npx github:RandomKid24/befui add stepper`
 - Import: `import { Stepper } from '@/components/ui/stepper'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -435,7 +435,7 @@ Nested expandable list with animated open and close.
 - Group: Navigation
 - Add: `npx github:RandomKid24/befui add tree-view`
 - Import: `import { TreeView } from '@/components/ui/tree-view'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -479,18 +479,19 @@ Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add button`
 - Import: `import { Button } from '@/components/ui/button'`
-- npm packages: @radix-ui/react-slot, lucide-react
+- Also needs: icons
+- npm packages: @radix-ui/react-slot
 
 Example:
 
 ```tsx
-import { Download } from 'lucide-react';
+import { DownloadIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 
 export default function ButtonDemo() {
   return (
     <Button>
-      <Download /> Export
+      <DownloadIcon /> Export
     </Button>
   );
 }
@@ -501,7 +502,7 @@ Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add calendar`
 - Import: `import { startOfDay, addDays, addMonths, isSameDay, Calendar } from '@/components/ui/calendar'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -531,7 +532,8 @@ Checked, unchecked and indeterminate. Works for select-all rows.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add checkbox`
 - Import: `import { Checkbox } from '@/components/ui/checkbox'`
-- npm packages: @radix-ui/react-checkbox, lucide-react
+- Also needs: icons
+- npm packages: @radix-ui/react-checkbox
 
 Example:
 
@@ -570,7 +572,7 @@ Toggleable filter chips, single or multi select.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add chip`
 - Import: `import { Chip, ChipGroup } from '@/components/ui/chip'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -613,8 +615,7 @@ Searchable select, single or multiple, with descriptions under each option.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add combobox`
 - Import: `import { Combobox, MultiCombobox } from '@/components/ui/combobox'`
-- Also needs: badge, command, popover
-- npm packages: lucide-react
+- Also needs: badge, command, icons, popover
 
 Example:
 
@@ -653,7 +654,7 @@ Copies text and morphs to a check.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add copy-button`
 - Import: `import { CopyButton } from '@/components/ui/copy-button'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -730,8 +731,7 @@ Date and date range fields that open a calendar. The range picker has optional q
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add date-picker`
 - Import: `import { formatDate, DatePicker, defaultRangePresets, DateRangePicker } from '@/components/ui/date-picker'`
-- Also needs: calendar, popover
-- npm packages: lucide-react
+- Also needs: calendar, icons, popover
 
 Example:
 
@@ -796,7 +796,7 @@ Drag and drop file area with size check and removable file list.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add dropzone`
 - Import: `import { Dropzone } from '@/components/ui/dropzone'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -889,7 +889,7 @@ Text input and textarea with icon, trailing slot, and invalid state.
 Example:
 
 ```tsx
-import { Mail, Search } from 'lucide-react';
+import { MailIcon, SearchIcon } from '@/components/ui/icons';
 import { Field } from '@/components/ui/label';
 import { Input, Textarea } from '@/components/ui/input';
 import { Kbd } from '@/components/ui/kbd';
@@ -901,12 +901,12 @@ export default function InputDemo() {
         <Input id="name" placeholder="Aarav Mehta" />
       </Field>
       <Field label="Work email" htmlFor="email">
-        <Input id="email" type="email" leftIcon={<Mail />} placeholder="you@company.com" />
+        <Input id="email" type="email" leftIcon={<MailIcon />} placeholder="you@company.com" />
       </Field>
       <Field label="Employee ID" htmlFor="eid" error="This ID is already taken.">
         <Input id="eid" defaultValue="EMP-0042" aria-invalid />
       </Field>
-      <Input leftIcon={<Search />} rightSlot={<Kbd>/</Kbd>} placeholder="Search..." />
+      <Input leftIcon={<SearchIcon />} rightSlot={<Kbd>/</Kbd>} placeholder="Search..." />
       <Field label="Notes" htmlFor="notes">
         <Textarea id="notes" placeholder="Anything the approver should know" />
       </Field>
@@ -1016,7 +1016,7 @@ Number field with plus and minus buttons and arrow keys.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add number-stepper`
 - Import: `import { NumberStepper } from '@/components/ui/number-stepper'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -1114,7 +1114,7 @@ Star rating with hover preview. Read-only when no handler is given.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add rating`
 - Import: `import { Rating } from '@/components/ui/rating'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -1253,7 +1253,7 @@ Example:
 
 ```tsx
 import * as React from 'react';
-import { LayoutGrid, List } from 'lucide-react';
+import { LayoutGridIcon, ListIcon } from '@/components/ui/icons';
 import { Segmented } from '@/components/ui/segmented';
 
 export default function SegmentedDemo() {
@@ -1262,7 +1262,7 @@ export default function SegmentedDemo() {
   return (
     <div className="grid gap-4">
       <Segmented value={range} onValueChange={setRange} options={[{ value: '7d', label: '7 days' }, { value: '30d', label: '30 days' }, { value: '90d', label: '90 days' }]} />
-      <Segmented value={view} onValueChange={setView} options={[{ value: 'list', label: <><List /> List</> }, { value: 'grid', label: <><LayoutGrid /> Grid</> }]} />
+      <Segmented value={view} onValueChange={setView} options={[{ value: 'list', label: <><ListIcon /> List</> }, { value: 'grid', label: <><LayoutGridIcon /> Grid</> }]} />
     </div>
   );
 }
@@ -1273,7 +1273,8 @@ Styled dropdown with groups, built on Radix Select.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add select`
 - Import: `import { Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectLabel, SelectItem } from '@/components/ui/select'`
-- npm packages: @radix-ui/react-select, lucide-react
+- Also needs: icons
+- npm packages: @radix-ui/react-select
 
 Example:
 
@@ -1363,7 +1364,7 @@ Type and press Enter to add chips. Backspace removes the last.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add tag-input`
 - Import: `import { TagInput } from '@/components/ui/tag-input'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -1409,7 +1410,7 @@ Collapsible sections with a smooth height animation. Single or multiple open.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add accordion`
 - Import: `import { Accordion } from '@/components/ui/accordion'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -1441,15 +1442,15 @@ Who did what and when, grouped under Today and Yesterday, with live relative tim
 Example:
 
 ```tsx
-import { FileText, GitMerge, MessageSquare, UserPlus } from 'lucide-react';
+import { FileIcon, GitMergeIcon, MessageSquareIcon, UserPlusIcon } from '@/components/ui/icons';
 import { ActivityFeed, type Activity } from '@/components/ui/activity-feed';
 
 const h = 3600000;
 const items: Activity[] = [
-  { id: '1', actor: 'Aarav Mehta', action: 'commented on', target: 'Leave policy 2025', at: Date.now() - 0.2 * h, icon: <MessageSquare />, detail: '“Carry-forward cap should be 12 days, not 10. Checked with Finance.”' },
-  { id: '2', actor: 'Diya Rao', action: 'uploaded', target: 'offer-letter-v3.pdf', at: Date.now() - 2 * h, icon: <FileText />, detail: '248 KB · PDF' },
-  { id: '3', actor: 'Isha Nair', action: 'added', target: 'Kabir Shah to Engineering', at: Date.now() - 5 * h, icon: <UserPlus /> },
-  { id: '4', actor: 'Rohan Das', action: 'merged', target: 'Payroll export fixes', at: Date.now() - 27 * h, icon: <GitMerge /> },
+  { id: '1', actor: 'Aarav Mehta', action: 'commented on', target: 'Leave policy 2025', at: Date.now() - 0.2 * h, icon: <MessageSquareIcon />, detail: '“Carry-forward cap should be 12 days, not 10. Checked with Finance.”' },
+  { id: '2', actor: 'Diya Rao', action: 'uploaded', target: 'offer-letter-v3.pdf', at: Date.now() - 2 * h, icon: <FileIcon />, detail: '248 KB · PDF' },
+  { id: '3', actor: 'Isha Nair', action: 'added', target: 'Kabir Shah to Engineering', at: Date.now() - 5 * h, icon: <UserPlusIcon /> },
+  { id: '4', actor: 'Rohan Das', action: 'merged', target: 'Payroll export fixes', at: Date.now() - 27 * h, icon: <GitMergeIcon /> },
   { id: '5', actor: 'Meera Iyer', action: 'approved', target: 'September expense report', at: Date.now() - 30 * h },
   { id: '6', actor: 'Vikram Joshi', action: 'closed', target: 'Duplicate employee IDs', at: Date.now() - 100 * h },
 ];
@@ -1548,7 +1549,7 @@ Status pill with semantic colors and an optional dot.
 Example:
 
 ```tsx
-import { Check } from 'lucide-react';
+import { CheckIcon } from '@/components/ui/icons';
 import { Badge } from '@/components/ui/badge';
 
 export default function BadgeDemo() {
@@ -1561,7 +1562,7 @@ export default function BadgeDemo() {
       <Badge variant="warning" dot>Pending</Badge>
       <Badge variant="danger" dot>Rejected</Badge>
       <Badge variant="info">
-        <Check /> Verified
+        <CheckIcon /> Verified
       </Badge>
     </div>
   );
@@ -1634,7 +1635,7 @@ Scroll-snap slides with arrows and animated dots.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add carousel`
 - Import: `import { Carousel } from '@/components/ui/carousel'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -1819,7 +1820,7 @@ Dashed placeholder with icon, text and an action.
 Example:
 
 ```tsx
-import { Inbox } from 'lucide-react';
+import { InboxIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/ui/empty-state';
 
@@ -1827,7 +1828,7 @@ export default function EmptyStateDemo() {
   return (
     <EmptyState
       className="w-full max-w-md"
-      icon={<Inbox />}
+      icon={<InboxIcon />}
       title="No leave requests"
       description="When someone on your team applies for leave, it shows up here."
       action={<Button size="sm" variant="outline">Invite teammate</Button>}
@@ -2185,13 +2186,13 @@ Card with a glow and border highlight that follow the cursor.
 Example:
 
 ```tsx
-import { BarChart3, ShieldCheck, Zap } from 'lucide-react';
+import { BarChartIcon, ShieldIcon, ZapIcon } from '@/components/ui/icons';
 import { SpotlightCard } from '@/components/ui/spotlight-card';
 
 const items = [
-  { icon: Zap, t: 'Fast', d: 'Approvals in one click.' },
-  { icon: ShieldCheck, t: 'Secure', d: 'Role-based access everywhere.' },
-  { icon: BarChart3, t: 'Insightful', d: 'Reports without a spreadsheet.' },
+  { icon: ZapIcon, t: 'Fast', d: 'Approvals in one click.' },
+  { icon: ShieldIcon, t: 'Secure', d: 'Role-based access everywhere.' },
+  { icon: BarChartIcon, t: 'Insightful', d: 'Reports without a spreadsheet.' },
 ];
 
 export default function SpotlightCardDemo() {
@@ -2241,7 +2242,7 @@ List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard
 Example:
 
 ```tsx
-import { Archive, Star, Trash2 } from 'lucide-react';
+import { ArchiveIcon, StarIcon, TrashIcon } from '@/components/ui/icons';
 import { Avatar } from '@/components/ui/avatar';
 import { SwipeActions } from '@/components/ui/swipe-actions';
 import { toast } from '@/components/ui/toast';
@@ -2259,9 +2260,9 @@ export default function SwipeActionsDemo() {
         <SwipeActions
           key={m.subject}
           actions={[
-            { label: 'Star', icon: <Star />, tone: 'warning', onClick: () => toast.info('Starred', m.subject) },
-            { label: 'Archive', icon: <Archive />, tone: 'primary', onClick: () => toast.success('Archived', m.subject) },
-            { label: 'Delete', icon: <Trash2 />, tone: 'danger', onClick: () => toast.error('Deleted', m.subject) },
+            { label: 'Star', icon: <StarIcon />, tone: 'warning', onClick: () => toast.info('Starred', m.subject) },
+            { label: 'Archive', icon: <ArchiveIcon />, tone: 'primary', onClick: () => toast.success('Archived', m.subject) },
+            { label: 'Delete', icon: <TrashIcon />, tone: 'danger', onClick: () => toast.error('Deleted', m.subject) },
           ]}
         >
           <div className="flex items-center gap-3 p-3">
@@ -2455,7 +2456,7 @@ Vertical activity feed with tone-colored markers.
 Example:
 
 ```tsx
-import { Check, FileText, UserPlus, X } from 'lucide-react';
+import { CheckIcon, FileIcon, UserPlusIcon, XIcon } from '@/components/ui/icons';
 import { Timeline } from '@/components/ui/timeline';
 
 export default function TimelineDemo() {
@@ -2463,10 +2464,10 @@ export default function TimelineDemo() {
     <Timeline
       className="w-full max-w-sm"
       items={[
-        { title: 'Offer accepted', description: 'Signed digitally by the candidate.', time: '2h ago', tone: 'success', icon: <Check /> },
-        { title: 'Documents uploaded', time: 'Yesterday', tone: 'info', icon: <FileText /> },
-        { title: 'Background check failed', description: 'Address could not be verified.', time: 'Mon', tone: 'danger', icon: <X /> },
-        { title: 'Application received', time: 'Last week', icon: <UserPlus /> },
+        { title: 'Offer accepted', description: 'Signed digitally by the candidate.', time: '2h ago', tone: 'success', icon: <CheckIcon /> },
+        { title: 'Documents uploaded', time: 'Yesterday', tone: 'info', icon: <FileIcon /> },
+        { title: 'Background check failed', description: 'Address could not be verified.', time: 'Mon', tone: 'danger', icon: <XIcon /> },
+        { title: 'Application received', time: 'Last week', icon: <UserPlusIcon /> },
       ]}
     />
   );
@@ -2611,7 +2612,6 @@ const columns: Column<Person>[] = [
   { key: 'name', header: 'Name', sortable: true, value: (p) => p.name, render: (p) => <span className="flex items-center gap-2 whitespace-nowrap"><Avatar name={p.name} size="sm" />{p.name}</span> },
   { key: 'email', header: 'Email', value: (p) => p.email, render: (p) => <TruncatedText className="w-36 text-muted-foreground">{p.email}</TruncatedText> },
   { key: 'team', header: 'Team', sortable: true, value: (p) => p.team },
-  { key: 'city', header: 'City', sortable: true, value: (p) => p.city },
   { key: 'joined', header: 'Joined', sortable: true, value: (p) => p.joined, render: (p) => <span className="whitespace-nowrap text-muted-foreground">{date(p.joined)}</span> },
   { key: 'salary', header: 'Salary', sortable: true, align: 'right', value: (p) => p.salary, render: (p) => `₹${(p.salary / 100000).toFixed(1)}L` },
   { key: 'status', header: 'Status', value: (p) => p.status, render: (p) => <Badge variant={tone[p.status]} dot>{p.status}</Badge> },
@@ -3112,22 +3112,21 @@ KPI tile with value, trend delta and a sparkline slot.
 - Group: Data
 - Add: `npx github:RandomKid24/befui add stat-card`
 - Import: `import { StatCard } from '@/components/ui/stat-card'`
-- Also needs: card
-- npm packages: lucide-react
+- Also needs: card, icons
 
 Example:
 
 ```tsx
-import { IndianRupee, Megaphone, Users } from 'lucide-react';
+import { IndianRupeeIcon, MegaphoneIcon, UsersIcon } from '@/components/ui/icons';
 import { Sparkline } from '@/components/ui/charts';
 import { StatCard } from '@/components/ui/stat-card';
 
 export default function StatCardDemo() {
   return (
     <div className="grid w-full gap-4 sm:grid-cols-3">
-      <StatCard label="Headcount" value="142" delta={4.2} icon={<Users />} chart={<Sparkline data={[3, 4, 4, 5, 6, 6, 8, 9]} />} />
-      <StatCard label="Revenue" value="₹48.2L" delta={12.5} icon={<IndianRupee />} chart={<Sparkline data={[2, 3, 2.5, 4, 5, 4.6, 6, 7]} className="text-success" />} />
-      <StatCard label="Open leads" value="64" delta={-3.1} icon={<Megaphone />} chart={<Sparkline data={[8, 7, 7.5, 6, 6.2, 5, 5.4, 4]} className="text-destructive" />} />
+      <StatCard label="Headcount" value="142" delta={4.2} icon={<UsersIcon />} chart={<Sparkline data={[3, 4, 4, 5, 6, 6, 8, 9]} />} />
+      <StatCard label="Revenue" value="₹48.2L" delta={12.5} icon={<IndianRupeeIcon />} chart={<Sparkline data={[2, 3, 2.5, 4, 5, 4.6, 6, 7]} className="text-success" />} />
+      <StatCard label="Open leads" value="64" delta={-3.1} icon={<MegaphoneIcon />} chart={<Sparkline data={[8, 7, 7.5, 6, 6.2, 5, 5.4, 4]} className="text-destructive" />} />
     </div>
   );
 }
@@ -3138,7 +3137,7 @@ Inline message in info, success, warning and danger.
 - Group: Feedback
 - Add: `npx github:RandomKid24/befui add alert`
 - Import: `import { Alert } from '@/components/ui/alert'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -3162,7 +3161,7 @@ Announcement bar that collapses smoothly when dismissed.
 - Group: Feedback
 - Add: `npx github:RandomKid24/befui add banner`
 - Import: `import { Banner } from '@/components/ui/banner'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -3403,7 +3402,7 @@ Call toast.success() from anywhere. No provider needed.
 - Group: Feedback
 - Add: `npx github:RandomKid24/befui add toast`
 - Import: `import { toast, Toaster } from '@/components/ui/toast'`
-- npm packages: lucide-react
+- Also needs: icons
 
 Example:
 
@@ -3496,13 +3495,14 @@ Searchable palette on cmdk. Bind it to Ctrl or Cmd K.
 - Group: Overlays
 - Add: `npx github:RandomKid24/befui add command`
 - Import: `import { Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from '@/components/ui/command'`
-- npm packages: @radix-ui/react-dialog, cmdk, lucide-react
+- Also needs: icons
+- npm packages: @radix-ui/react-dialog, cmdk
 
 Example:
 
 ```tsx
 import * as React from 'react';
-import { Calendar, FileText, Users } from 'lucide-react';
+import { CalendarIcon, FileIcon, UsersIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { Kbd } from '@/components/ui/kbd';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
@@ -3519,11 +3519,11 @@ export default function CommandDemo() {
         <CommandList>
           <CommandEmpty>No results.</CommandEmpty>
           <CommandGroup heading="People">
-            <CommandItem onSelect={() => setOpen(false)}><Users /> Employee directory</CommandItem>
-            <CommandItem onSelect={() => setOpen(false)}><Calendar /> Leave calendar</CommandItem>
+            <CommandItem onSelect={() => setOpen(false)}><UsersIcon /> Employee directory</CommandItem>
+            <CommandItem onSelect={() => setOpen(false)}><CalendarIcon /> Leave calendar</CommandItem>
           </CommandGroup>
           <CommandGroup heading="Reports">
-            <CommandItem onSelect={() => setOpen(false)}><FileText /> Payroll summary</CommandItem>
+            <CommandItem onSelect={() => setOpen(false)}><FileIcon /> Payroll summary</CommandItem>
           </CommandGroup>
         </CommandList>
       </CommandDialog>
@@ -3537,13 +3537,14 @@ Right-click menu with items, shortcuts, checkbox items, labels and nested submen
 - Group: Overlays
 - Add: `npx github:RandomKid24/befui add context-menu`
 - Import: `import { ContextMenu, ContextMenuTrigger, ContextMenuGroup, ContextMenuSub, ContextMenuContent, ContextMenuItem, ContextMenuCheckboxItem, ContextMenuSubTrigger, ContextMenuSubContent, ContextMenuLabel, ContextMenuSeparator, ContextMenuShortcut } from '@/components/ui/context-menu'`
-- npm packages: @radix-ui/react-context-menu, lucide-react
+- Also needs: icons
+- npm packages: @radix-ui/react-context-menu
 
 Example:
 
 ```tsx
 import * as React from 'react';
-import { Copy, Download, FolderInput, Link2, Pencil, Trash2 } from 'lucide-react';
+import { CopyIcon, DownloadIcon, FolderInputIcon, LinkIcon, EditIcon, TrashIcon } from '@/components/ui/icons';
 import { ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuShortcut, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger } from '@/components/ui/context-menu';
 import { toast } from '@/components/ui/toast';
 
@@ -3561,10 +3562,10 @@ export default function ContextMenuDemo() {
         </ContextMenuTrigger>
         <ContextMenuContent className="w-56">
           <ContextMenuLabel>Q3-budget.xlsx</ContextMenuLabel>
-          <ContextMenuItem onSelect={() => toast.info('Renaming')}><Pencil /> Rename <ContextMenuShortcut>F2</ContextMenuShortcut></ContextMenuItem>
-          <ContextMenuItem onSelect={() => toast.success('Copied')}><Copy /> Duplicate <ContextMenuShortcut>⌘D</ContextMenuShortcut></ContextMenuItem>
+          <ContextMenuItem onSelect={() => toast.info('Renaming')}><EditIcon /> Rename <ContextMenuShortcut>F2</ContextMenuShortcut></ContextMenuItem>
+          <ContextMenuItem onSelect={() => toast.success('Copied')}><CopyIcon /> Duplicate <ContextMenuShortcut>⌘D</ContextMenuShortcut></ContextMenuItem>
           <ContextMenuSub>
-            <ContextMenuSubTrigger><FolderInput /> Move to</ContextMenuSubTrigger>
+            <ContextMenuSubTrigger><FolderInputIcon /> Move to</ContextMenuSubTrigger>
             <ContextMenuSubContent className="w-44">
               <ContextMenuItem>Finance</ContextMenuItem>
               <ContextMenuItem>Archive</ContextMenuItem>
@@ -3573,10 +3574,10 @@ export default function ContextMenuDemo() {
           </ContextMenuSub>
           <ContextMenuCheckboxItem checked={starred} onCheckedChange={setStarred}>Starred</ContextMenuCheckboxItem>
           <ContextMenuSeparator />
-          <ContextMenuItem onSelect={() => toast.success('Link copied')}><Link2 /> Copy link</ContextMenuItem>
-          <ContextMenuItem><Download /> Download</ContextMenuItem>
+          <ContextMenuItem onSelect={() => toast.success('Link copied')}><LinkIcon /> Copy link</ContextMenuItem>
+          <ContextMenuItem><DownloadIcon /> Download</ContextMenuItem>
           <ContextMenuSeparator />
-          <ContextMenuItem destructive><Trash2 /> Delete <ContextMenuShortcut>⌫</ContextMenuShortcut></ContextMenuItem>
+          <ContextMenuItem destructive><TrashIcon /> Delete <ContextMenuShortcut>⌫</ContextMenuShortcut></ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
   );
@@ -3588,7 +3589,8 @@ Centered modal and edge-docked sheet on Radix Dialog.
 - Group: Overlays
 - Add: `npx github:RandomKid24/befui add dialog`
 - Import: `import { Dialog, DialogTrigger, DialogClose, DialogContent, SheetContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, Sheet, SheetTrigger, SheetClose, SheetHeader, SheetFooter, SheetTitle, SheetDescription } from '@/components/ui/dialog'`
-- npm packages: @radix-ui/react-dialog, lucide-react
+- Also needs: icons
+- npm packages: @radix-ui/react-dialog
 
 Example:
 
@@ -3646,13 +3648,14 @@ Action menu with checkbox items, shortcuts and destructive items.
 - Group: Overlays
 - Add: `npx github:RandomKid24/befui add dropdown-menu`
 - Import: `import { DropdownMenu, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuContent, DropdownMenuItem, DropdownMenuCheckboxItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut } from '@/components/ui/dropdown-menu'`
-- npm packages: @radix-ui/react-dropdown-menu, lucide-react
+- Also needs: icons
+- npm packages: @radix-ui/react-dropdown-menu
 
 Example:
 
 ```tsx
 import * as React from 'react';
-import { CreditCard, LogOut, MoreHorizontal, Settings, User } from 'lucide-react';
+import { CreditCardIcon, LogOutIcon, MoreIcon, SettingsIcon, UserIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
@@ -3662,18 +3665,18 @@ export default function DropdownMenuDemo() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
-          Account <MoreHorizontal />
+          Account <MoreIcon />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start">
         <DropdownMenuLabel>aarav@company.com</DropdownMenuLabel>
-        <DropdownMenuItem><User /> Profile <DropdownMenuShortcut>P</DropdownMenuShortcut></DropdownMenuItem>
-        <DropdownMenuItem><CreditCard /> Billing</DropdownMenuItem>
-        <DropdownMenuItem><Settings /> Settings <DropdownMenuShortcut>,</DropdownMenuShortcut></DropdownMenuItem>
+        <DropdownMenuItem><UserIcon /> Profile <DropdownMenuShortcut>P</DropdownMenuShortcut></DropdownMenuItem>
+        <DropdownMenuItem><CreditCardIcon /> Billing</DropdownMenuItem>
+        <DropdownMenuItem><SettingsIcon /> Settings <DropdownMenuShortcut>,</DropdownMenuShortcut></DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuCheckboxItem checked={compact} onCheckedChange={setCompact}>Compact rows</DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem destructive><LogOut /> Sign out</DropdownMenuItem>
+        <DropdownMenuItem destructive><LogOutIcon /> Sign out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -3799,7 +3802,7 @@ Hint on hover and focus. Optional title, keyboard shortcut, light style and arro
 Example:
 
 ```tsx
-import { Bell, Pencil, Save, Share2 } from 'lucide-react';
+import { BellIcon, EditIcon, SaveIcon, Share2Icon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { InfoTip, Tooltip, TooltipProvider, TruncatedText } from '@/components/ui/tooltip';
 
@@ -3808,10 +3811,10 @@ export default function TooltipDemo() {
     <TooltipProvider>
       <div className="grid justify-items-center gap-5">
         <div className="flex gap-2">
-          <Tooltip content="Edit"><Button variant="outline" size="icon"><Pencil /></Button></Tooltip>
-          <Tooltip content="Share" side="bottom" arrow><Button variant="outline" size="icon"><Share2 /></Button></Tooltip>
-          <Tooltip content="Notifications" side="right"><Button variant="outline" size="icon"><Bell /></Button></Tooltip>
-          <Tooltip content="Save changes" shortcut={['⌘', 'S']}><Button variant="outline" size="icon"><Save /></Button></Tooltip>
+          <Tooltip content="Edit"><Button variant="outline" size="icon"><EditIcon /></Button></Tooltip>
+          <Tooltip content="Share" side="bottom" arrow><Button variant="outline" size="icon"><Share2Icon /></Button></Tooltip>
+          <Tooltip content="Notifications" side="right"><Button variant="outline" size="icon"><BellIcon /></Button></Tooltip>
+          <Tooltip content="Save changes" shortcut={['⌘', 'S']}><Button variant="outline" size="icon"><SaveIcon /></Button></Tooltip>
         </div>
         <div className="flex items-center gap-1.5 text-sm font-medium">
           Net 30 terms
@@ -3977,7 +3980,7 @@ export default function WorldClockDemo() {
 
 - Group: ui
 - Add: `npx github:RandomKid24/befui add icons`
-- Import: `import { BefMark, SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ChevronRightIcon, SunIcon, MoonIcon, SparkleIcon, ZapIcon, ComponentsIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, BookIcon, CommandKeyIcon, MonitorIcon, TabletIcon, PhoneIcon, UploadIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ArrowLeftIcon, ArrowUpIcon, ArrowDownIcon, SortIcon, MinusIcon, MoreIcon, RefreshIcon, InfoIcon, AlertIcon, AlertCircleIcon, CheckCircleIcon, XCircleIcon, LoaderIcon, ShieldIcon, UserIcon, UsersIcon, MailIcon, BellIcon, CalendarIcon, ClockIcon, HomeIcon, SettingsIcon, LockIcon, GlobeIcon, StarIcon, HeartIcon, BookmarkIcon, EditIcon, TrashIcon, DownloadIcon, FilterIcon, EyeIcon, EyeOffIcon, LinkIcon, ExternalLinkIcon, LogOutIcon, ListIcon, FileIcon, FolderIcon, ImageIcon, PlayIcon, PauseIcon, BarChartIcon, TrendingIcon, CodeIcon, TerminalIcon, icons } from '@/components/ui/icons'`
+- Import: `import { BefMark, SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ChevronRightIcon, SunIcon, MoonIcon, SparkleIcon, ZapIcon, ComponentsIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, BookIcon, CommandKeyIcon, MonitorIcon, TabletIcon, PhoneIcon, UploadIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ArrowLeftIcon, ArrowUpIcon, ArrowDownIcon, SortIcon, MinusIcon, MoreIcon, RefreshIcon, InfoIcon, AlertIcon, AlertCircleIcon, CheckCircleIcon, XCircleIcon, LoaderIcon, ShieldIcon, UserIcon, UsersIcon, MailIcon, BellIcon, CalendarIcon, ClockIcon, HomeIcon, SettingsIcon, LockIcon, GlobeIcon, StarIcon, HeartIcon, BookmarkIcon, EditIcon, TrashIcon, DownloadIcon, FilterIcon, EyeIcon, EyeOffIcon, LinkIcon, ExternalLinkIcon, LogOutIcon, ListIcon, FileIcon, FolderIcon, ImageIcon, PlayIcon, PauseIcon, BarChartIcon, TrendingIcon, CodeIcon, TerminalIcon, ArchiveIcon, CakeIcon, CreditCardIcon, FolderInputIcon, GitMergeIcon, InboxIcon, IndianRupeeIcon, LayoutDashboardIcon, LayoutGridIcon, MegaphoneIcon, MessageSquareIcon, MousePointerClickIcon, PanelLeftIcon, SaveIcon, Share2Icon, TargetIcon, UserCircleIcon, UserMinusIcon, UserPlusIcon, WalletIcon, ArrowUpRightIcon, ArrowDownRightIcon, icons } from '@/components/ui/icons'`
 
 Example:
 
@@ -3989,5 +3992,5 @@ import { SearchIcon, ArrowRightIcon } from '@/components/ui/icons';
 <ArrowRightIcon draw />        // opt-in: redraws on hover
 <SearchIcon weight={2.5} />     // heavier stroke
 
-// All 73 icons: BefMark, SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ChevronRightIcon, SunIcon, MoonIcon, SparkleIcon, ZapIcon, ComponentsIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, BookIcon, CommandKeyIcon, MonitorIcon, TabletIcon, PhoneIcon, UploadIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ArrowLeftIcon, ArrowUpIcon, ArrowDownIcon, SortIcon, MinusIcon, MoreIcon, RefreshIcon, InfoIcon, AlertIcon, AlertCircleIcon, CheckCircleIcon, XCircleIcon, LoaderIcon, ShieldIcon, UserIcon, UsersIcon, MailIcon, BellIcon, CalendarIcon, ClockIcon, HomeIcon, SettingsIcon, LockIcon, GlobeIcon, StarIcon, HeartIcon, BookmarkIcon, EditIcon, TrashIcon, DownloadIcon, FilterIcon, EyeIcon, EyeOffIcon, LinkIcon, ExternalLinkIcon, LogOutIcon, ListIcon, FileIcon, FolderIcon, ImageIcon, PlayIcon, PauseIcon, BarChartIcon, TrendingIcon, CodeIcon, TerminalIcon
+// All 95 icons: BefMark, SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ChevronRightIcon, SunIcon, MoonIcon, SparkleIcon, ZapIcon, ComponentsIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, BookIcon, CommandKeyIcon, MonitorIcon, TabletIcon, PhoneIcon, UploadIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ArrowLeftIcon, ArrowUpIcon, ArrowDownIcon, SortIcon, MinusIcon, MoreIcon, RefreshIcon, InfoIcon, AlertIcon, AlertCircleIcon, CheckCircleIcon, XCircleIcon, LoaderIcon, ShieldIcon, UserIcon, UsersIcon, MailIcon, BellIcon, CalendarIcon, ClockIcon, HomeIcon, SettingsIcon, LockIcon, GlobeIcon, StarIcon, HeartIcon, BookmarkIcon, EditIcon, TrashIcon, DownloadIcon, FilterIcon, EyeIcon, EyeOffIcon, LinkIcon, ExternalLinkIcon, LogOutIcon, ListIcon, FileIcon, FolderIcon, ImageIcon, PlayIcon, PauseIcon, BarChartIcon, TrendingIcon, CodeIcon, TerminalIcon, ArchiveIcon, CakeIcon, CreditCardIcon, FolderInputIcon, GitMergeIcon, InboxIcon, IndianRupeeIcon, LayoutDashboardIcon, LayoutGridIcon, MegaphoneIcon, MessageSquareIcon, MousePointerClickIcon, PanelLeftIcon, SaveIcon, Share2Icon, TargetIcon, UserCircleIcon, UserMinusIcon, UserPlusIcon, WalletIcon, ArrowUpRightIcon, ArrowDownRightIcon
 ```

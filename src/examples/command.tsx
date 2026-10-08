@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Calendar, FileText, Users } from 'lucide-react';
+import { CalendarIcon, FileIcon, UsersIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { Kbd } from '@/components/ui/kbd';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
@@ -16,11 +16,11 @@ export default function CommandDemo() {
         <CommandList>
           <CommandEmpty>No results.</CommandEmpty>
           <CommandGroup heading="People">
-            <CommandItem onSelect={() => setOpen(false)}><Users /> Employee directory</CommandItem>
-            <CommandItem onSelect={() => setOpen(false)}><Calendar /> Leave calendar</CommandItem>
+            <CommandItem onSelect={() => setOpen(false)}><UsersIcon /> Employee directory</CommandItem>
+            <CommandItem onSelect={() => setOpen(false)}><CalendarIcon /> Leave calendar</CommandItem>
           </CommandGroup>
           <CommandGroup heading="Reports">
-            <CommandItem onSelect={() => setOpen(false)}><FileText /> Payroll summary</CommandItem>
+            <CommandItem onSelect={() => setOpen(false)}><FileIcon /> Payroll summary</CommandItem>
           </CommandGroup>
         </CommandList>
       </CommandDialog>

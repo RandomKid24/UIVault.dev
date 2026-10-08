@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CalendarDays, X } from 'lucide-react';
+import { CalendarIcon, XIcon } from './icons';
 import { cn } from '@/lib/utils';
 import { addDays, Calendar, startOfDay, type DateRange } from './calendar';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
@@ -48,7 +48,7 @@ function Shell({
       <div className="relative">
         <PopoverTrigger asChild>
           <button id={id} type="button" disabled={disabled} className={cn(trigger, onClear && !empty && 'pr-9', className)}>
-            <CalendarDays className="size-4 shrink-0 text-muted-foreground" />
+            <CalendarIcon className="size-4 shrink-0 text-muted-foreground" />
             <span className={cn('flex-1 truncate', empty && 'text-muted-foreground/70')}>{label}</span>
           </button>
         </PopoverTrigger>
@@ -59,7 +59,7 @@ function Shell({
             onClick={onClear}
             className="absolute right-2 top-1/2 grid size-5 -translate-y-1/2 place-items-center rounded text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
           >
-            <X className="size-3.5" />
+            <XIcon className="size-3.5" />
           </button>
         )}
       </div>

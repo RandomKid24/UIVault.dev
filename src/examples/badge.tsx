@@ -1,4 +1,4 @@
-import { Check } from 'lucide-react';
+import { CheckIcon } from '@/components/ui/icons';
 import { Badge } from '@/components/ui/badge';
 
 export default function BadgeDemo() {
@@ -11,7 +11,7 @@ export default function BadgeDemo() {
       <Badge variant="warning" dot>Pending</Badge>
       <Badge variant="danger" dot>Rejected</Badge>
       <Badge variant="info">
-        <Check /> Verified
+        <CheckIcon /> Verified
       </Badge>
     </div>
   );

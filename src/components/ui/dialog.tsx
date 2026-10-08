@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { X } from 'lucide-react';
+import { XIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 export const Dialog = DialogPrimitive.Root;
@@ -22,7 +22,7 @@ Overlay.displayName = 'DialogOverlay';
 
 const CloseButton = () => (
   <DialogPrimitive.Close className="absolute right-3.5 top-3.5 grid size-7 place-items-center rounded-md text-muted-foreground outline-none transition-colors hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40">
-    <X className="size-4" />
+    <XIcon className="size-4" />
     <span className="sr-only">Close</span>
   </DialogPrimitive.Close>
 );

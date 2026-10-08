@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRightIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 export function Breadcrumb({
@@ -24,7 +24,7 @@ export function Breadcrumb({
                 {item.label}
               </span>
             )}
-            {!last && <ChevronRight className="size-3.5 text-muted-foreground/60" />}
+            {!last && <ChevronRightIcon className="size-3.5 text-muted-foreground/60" />}
           </React.Fragment>
         );
       })}
