@@ -10,7 +10,7 @@ import { ScrollProgress } from '@/components/ui/scroll-progress';
 import { SearchInput } from '@/components/ui/search-input';
 import { Toaster } from '@/components/ui/toast';
 import { Tooltip, TooltipProvider } from '@/components/ui/tooltip';
-import { blocks, categories, components } from '@/registry';
+import { blocks, categories, components, NEW_SLUGS } from '@/registry';
 import { cn } from '@/lib/utils';
 import { Link, go } from './router';
 
@@ -180,6 +180,7 @@ export function SidebarNav({ path, onNavigate }: { path: string; onNavigate?: ()
       )}
     >
       {label}
+      {to.startsWith('/components/') && NEW_SLUGS.has(to.slice(12)) && <span className="ml-2 rounded-full bg-primary/10 px-1.5 py-px align-middle text-[10px] font-semibold text-primary">New</span>}
     </Link>
   );
   const top = [['/docs', 'Getting started', BookIcon], ['/components', 'All components', ComponentsIcon], ['/blocks', 'All blocks', BlocksIcon], ['/icons', 'Icons', SparkleIcon], ['/ai', 'Use with AI', ZapIcon]] as const;

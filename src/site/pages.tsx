@@ -171,6 +171,22 @@ export function GettingStarted() {
 
 /* ------------------------------------------------------------ components */
 
+function ComponentCard({ c, i }: { c: (typeof components)[number]; i: number }) {
+  return (
+    <Reveal delay={Math.min(i, 5) * 40} y={10}>
+      <Link to={`/components/${c.slug}`} className="group block h-full rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
+        <SpotlightCard className="h-full p-4 hover:translate-y-0">
+          <div className="flex items-center justify-between">
+            <p className="flex items-center gap-2 text-sm font-semibold">{c.name}{c.isNew && <Badge variant="primary">New</Badge>}</p>
+            <ArrowRightIcon className="size-4 text-muted-foreground/0 transition-all group-hover:translate-x-0.5 group-hover:text-muted-foreground" />
+          </div>
+          <p className="mt-1 text-[13px] text-muted-foreground">{c.description}</p>
+        </SpotlightCard>
+      </Link>
+    </Reveal>
+  );
+}
+
 export function ComponentsIndex() {
   const [q, setQ] = React.useState('');
   const [cat, setCat] = React.useState<string[]>([]);
@@ -190,23 +206,19 @@ export function ComponentsIndex() {
       {shown.length === 0 && (
         <EmptyState className="mt-10" icon={<SearchIcon />} title="Nothing matches" description="Try a different word, or clear the category filters." action={<Button variant="outline" size="sm" onClick={() => { setQ(''); setCat([]); }}>Clear filters</Button>} />
       )}
+      {shown.some((c) => c.isNew) && (
+        <section className="mt-10">
+          <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-muted-foreground">Newly added <Badge variant="primary">{shown.filter((c) => c.isNew).length}</Badge></h2>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {shown.filter((c) => c.isNew).map((c, i) => <ComponentCard key={c.slug} c={c} i={i} />)}
+          </div>
+        </section>
+      )}
       {categories.filter((k) => shown.some((c) => c.category === k)).map((k) => (
         <section key={k} className="mt-10">
           <h2 className="mb-3 text-sm font-semibold text-muted-foreground">{k}</h2>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {shown.filter((c) => c.category === k).map((c, i) => (
-              <Reveal key={c.slug} delay={Math.min(i, 5) * 40} y={10}>
-                <Link to={`/components/${c.slug}`} className="group block h-full rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
-                  <SpotlightCard className="h-full p-4 hover:translate-y-0">
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-semibold">{c.name}</p>
-                      <ArrowRightIcon className="size-4 text-muted-foreground/0 transition-all group-hover:translate-x-0.5 group-hover:text-muted-foreground" />
-                    </div>
-                    <p className="mt-1 text-[13px] text-muted-foreground">{c.description}</p>
-                  </SpotlightCard>
-                </Link>
-              </Reveal>
-            ))}
+            {shown.filter((c) => c.category === k).map((c, i) => <ComponentCard key={c.slug} c={c} i={i} />)}
           </div>
         </section>
       ))}
@@ -234,7 +246,7 @@ export function ComponentPage({ slug }: { slug: string }) {
   return (
     <article className="max-w-4xl">
       <Breadcrumb className="mb-4" items={[{ label: 'Components', href: '#/components' }, { label: c.category }, { label: c.name }]} />
-      <h1 className={h1}>{c.name}</h1>
+      <h1 className={h1}>{c.name}{c.isNew && <Badge variant="primary" className="ml-3 align-middle">New</Badge>}</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">{c.description}</p>
 
       <div className="mt-8">

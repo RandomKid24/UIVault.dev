@@ -12,6 +12,8 @@ export interface Entry {
   /** Other befui files this one imports. */
   requires: string[];
   keywords: string[];
+  /** Recently added: shown first and marked "New" on the docs site. */
+  isNew: boolean;
   /** Example needs the full page width, so skip the centered dotted frame. */
   wide: boolean;
   Demo: ComponentType;
@@ -20,7 +22,10 @@ export interface Entry {
   path: string;
 }
 
-type Meta = Omit<Entry, 'Demo' | 'demoSource' | 'source' | 'path'>;
+type Meta = Omit<Entry, 'Demo' | 'demoSource' | 'source' | 'path' | 'isNew'>;
+
+/** Slugs shown as "New". Trim this list when a release is no longer recent. */
+export const NEW_SLUGS = new Set(['changelog', 'testimonial-card', 'comment-thread', 'code-block', 'status-dot', 'search-bar', 'currency-input', 'inline-edit', 'filter-bar', 'notification-center', 'cookie-consent', 'table-of-contents']);
 
 const m = (
   slug: string,
@@ -143,6 +148,7 @@ export const components: Entry[] = metas.map((meta) => {
   const f = (dir: string, ext = '.tsx') => `/src/${dir}/${meta.slug}${ext}`;
   return {
     ...meta,
+    isNew: NEW_SLUGS.has(meta.slug),
     Demo: exMod[f('examples')].default,
     demoSource: exSrc[f('examples')],
     source: uiSrc[f('components/ui')],
