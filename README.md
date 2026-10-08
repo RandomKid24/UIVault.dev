@@ -310,6 +310,7 @@ Want the circular reveal the docs site uses? It is a few lines around `document.
 |---|---|
 | `befui init` | Adds `index.css`, `lib/utils.ts`, installs shared packages and writes the AI rules to `AGENTS.md` |
 | `befui add <name...>` | Copies components, plus the components and npm packages they need |
+| `befui mcp` | Runs an MCP server so Claude Code, Cursor etc. can list, read and add components (`init` registers it in `.mcp.json`) |
 | `befui add all` | Copies every component |
 | `befui add block:<name>` | Copies a block (and what it uses) |
 | `befui list` | Lists everything available |

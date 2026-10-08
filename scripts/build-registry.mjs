@@ -42,11 +42,11 @@ for (const [kind, dir, prefix] of [['ui', 'src/components/ui', ''], ['blocks', '
       requires: a.requires,
       files: [{ path: `${kind === 'ui' ? 'components/ui' : 'blocks'}/${f}`, content }],
     };
-    writeFileSync(`${out}/${prefix.replace(':', '-')}${slug}.json`, JSON.stringify(entry));
     const exportsList = [...content.matchAll(/^export (?:async )?(?:function|const|class) (\w+)/gm)].map((m) => m[1]);
     let example = '';
     try { example = readFileSync(`src/examples/${slug}.tsx`, 'utf8'); } catch { /* blocks have no separate example */ }
     if (slug === 'icons') example = `import { SearchIcon, ArrowRightIcon } from '@/components/ui/icons';\n\n<SearchIcon />                 // 16px, follows text color, static\n<SearchIcon className="size-6" />\n<ArrowRightIcon draw />        // opt-in: redraws on hover\n<SearchIcon weight={2.5} />     // heavier stroke\n\n// All ${exportsList.filter((e) => /^[A-Z]/.test(e) && e !== 'icons').length} icons: ${exportsList.filter((e) => /^[A-Z]/.test(e)).join(', ')}`;
+    writeFileSync(`${out}/${prefix.replace(':', '-')}${slug}.json`, JSON.stringify({ ...entry, exports: exportsList, example: example.trim() }));
     docs.push({ ...entry, kind, exports: exportsList, example });
     items.push({ name: entry.name, title: entry.title, group: entry.group, description: entry.description });
   }

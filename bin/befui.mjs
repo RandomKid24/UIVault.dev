@@ -4,6 +4,7 @@
 // befui add block:sign-in copy a block
 // befui init             add the theme CSS and cn() helper
 // befui list             show everything available
+// befui mcp              run the MCP server (AI tools fetch exact component source)
 // Flags: --dir <src>  --from <url-or-folder>  --force  --no-install
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -75,7 +76,72 @@ async function writeAgentRules() {
   }
 }
 
-if (cmd === 'list') {
+/** Registers the befui MCP server in .mcp.json so Claude Code, Cursor etc. can fetch exact component source. */
+function writeMcpConfig() {
+  const file = '.mcp.json';
+  const cfg = existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) : {};
+  cfg.mcpServers = { ...cfg.mcpServers, befui: { command: 'npx', args: ['-y', 'github:RandomKid24/befui', 'mcp'] } };
+  writeFileSync(file, JSON.stringify(cfg, null, 2) + '\n');
+  ok('MCP server registered in .mcp.json (restart your AI tool to pick it up).');
+}
+
+/** Minimal MCP server over stdio (newline-delimited JSON-RPC): lets an AI list, read and add befui components. */
+async function mcp() {
+  const index = async () => /^https?:/.test(from) ? (await fetch(`${from}/index.json`)).json() : JSON.parse(readFileSync(join(from, 'index.json'), 'utf8'));
+  const text = (t) => ({ content: [{ type: 'text', text: t }] });
+  const tools = {
+    list_components: {
+      description: 'List every befui component and block with group and description.',
+      schema: { type: 'object', properties: { query: { type: 'string', description: 'optional filter on name, group or description' } } },
+      run: async ({ query }) => text((await index()).filter((i) => !query || `${i.name} ${i.group} ${i.description}`.toLowerCase().includes(query.toLowerCase())).map((i) => `${i.name} (${i.group}): ${i.description}`).join('\n')),
+    },
+    get_component: {
+      description: 'Get the exact source, usage example, npm packages and import path of one befui component (blocks are "block:<name>").',
+      schema: { type: 'object', properties: { name: { type: 'string' } }, required: ['name'] },
+      run: async ({ name }) => {
+        const c = await load(name);
+        return text(`# ${c.title} (${c.name})\n${c.description}\n\nImport: import { ${(c.exports ?? []).join(', ')} } from '@/${c.name.startsWith('block:') ? `blocks/${c.name.slice(6)}` : `components/ui/${c.name}`}'\nAlso needs: ${c.requires.join(', ') || 'none'}\nnpm packages: ${c.deps.join(', ') || 'none'}\n\n## Example\n${c.example || '(none)'}\n\n## Source (${c.files[0].path})\n${c.files[0].content}`);
+      },
+    },
+    add_components: {
+      description: 'Copy befui components (and what they depend on) into the current project and install npm packages. Same as "befui add".',
+      schema: { type: 'object', properties: { names: { type: 'array', items: { type: 'string' } }, force: { type: 'boolean' } }, required: ['names'] },
+      run: async ({ names, force }) => {
+        const r = spawnSync(process.execPath, [process.argv[1], 'add', ...names, ...(force ? ['--force'] : []), ...(has('from') ? ['--from', from] : []), ...(has('dir') ? ['--dir', dir] : [])], { encoding: 'utf8' });
+        return { ...text((r.stdout + r.stderr).replace(/\x1b\[\d+m/g, '')), isError: r.status !== 0 };
+      },
+    },
+  };
+  const send = (m) => process.stdout.write(JSON.stringify({ jsonrpc: '2.0', ...m }) + '\n');
+  let buf = '';
+  process.stdin.setEncoding('utf8');
+  process.stdin.on('data', async (chunk) => {
+    buf += chunk;
+    let nl;
+    while ((nl = buf.indexOf('\n')) >= 0) {
+      const line = buf.slice(0, nl).trim();
+      buf = buf.slice(nl + 1);
+      if (!line) continue;
+      const { id, method, params } = JSON.parse(line);
+      if (id === undefined) continue; // notifications
+      try {
+        if (method === 'initialize') send({ id, result: { protocolVersion: params?.protocolVersion ?? '2024-11-05', capabilities: { tools: {} }, serverInfo: { name: 'befui', version: '1.0.0' } } });
+        else if (method === 'tools/list') send({ id, result: { tools: Object.entries(tools).map(([name, t]) => ({ name, description: t.description, inputSchema: t.schema })) } });
+        else if (method === 'tools/call') send({ id, result: await tools[params.name].run(params.arguments ?? {}) });
+        else send({ id, result: {} });
+      } catch (e) {
+        send({ id, error: { code: -32000, message: e.message } });
+      }
+    }
+  });
+}
+
+if (cmd === 'mcp') {
+  // load() calls die() (exit) on failure; keep the server alive instead
+  process.exit = ((exit) => (c) => { if (c) throw new Error('component not found, call list_components'); exit(c); })(process.exit);
+  console.error = () => {};
+  await mcp();
+} else if (cmd === 'list') {
   const idx = await (async () => /^https?:/.test(from) ? (await fetch(`${from}/index.json`)).json() : JSON.parse(readFileSync(join(from, 'index.json'), 'utf8')))();
   let g = '';
   for (const i of idx.sort((a, b) => a.group.localeCompare(b.group))) {
@@ -88,6 +154,7 @@ if (cmd === 'list') {
   install(new Set(init.deps));
   ok('Theme and helpers added.');
   await writeAgentRules();
+  writeMcpConfig();
   console.log('  Remaining: import "./index.css" in your entry file and add the "@" alias to src (tsconfig paths + vite resolve.alias).');
 } else if (cmd === 'add' && names.length) {
   const seen = new Map();
@@ -110,5 +177,5 @@ if (cmd === 'list') {
   install(deps);
   ok(`Done. ${seen.size} file${seen.size > 1 ? 's' : ''} added.`);
 } else {
-  console.log('Usage: befui <add|init|list> [names] [--dir src] [--from url-or-folder] [--force] [--no-install]');
+  console.log('Usage: befui <add|init|list|mcp> [names] [--dir src] [--from url-or-folder] [--force] [--no-install]');
 }
