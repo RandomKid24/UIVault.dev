@@ -575,10 +575,10 @@ export default function CurrencyInputDemo() {
 ```
 
 ## Date picker (`date-picker`)
-Date and date range fields that open a calendar. Closes on pick.
+Date and date range fields that open a calendar. The range picker has optional quick presets (Last 7 days, This month...) and a day count. Closes on pick.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add date-picker`
-- Import: `import { formatDate, DatePicker, DateRangePicker } from '@/components/ui/date-picker'`
+- Import: `import { formatDate, DatePicker, defaultRangePresets, DateRangePicker } from '@/components/ui/date-picker'`
 - Also needs: calendar, popover
 - npm packages: lucide-react
 
@@ -594,14 +594,18 @@ import { addDays, startOfDay } from '@/components/ui/calendar';
 export default function DatePickerDemo() {
   const [joined, setJoined] = React.useState<Date>();
   const [leave, setLeave] = React.useState<DateRange>();
+  const [period, setPeriod] = React.useState<DateRange>();
   const today = startOfDay(new Date());
   return (
-    <div className="grid w-full max-w-xs gap-4">
+    <div className="grid w-full max-w-sm gap-4">
       <Field label="Joining date" htmlFor="join" hint="Clear it with the x.">
         <DatePicker id="join" value={joined} onChange={setJoined} clearable />
       </Field>
       <Field label="Leave dates" htmlFor="leave" hint="Past dates are disabled.">
         <DateRangePicker id="leave" value={leave} onChange={setLeave} disabledDays={(d) => d < addDays(today, 0)} clearable />
+      </Field>
+      <Field label="Report period" htmlFor="period" hint="Quick ranges on the left.">
+        <DateRangePicker id="period" value={period} onChange={setPeriod} presets clearable />
       </Field>
     </div>
   );
@@ -1064,6 +1068,34 @@ export default function AccordionDemo() {
       ]}
     />
   );
+}
+```
+
+## Activity feed (`activity-feed`)
+Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add activity-feed`
+- Import: `import { ActivityFeed } from '@/components/ui/activity-feed'`
+- Also needs: avatar, relative-time
+
+Example:
+
+```tsx
+import { FileText, GitMerge, MessageSquare, UserPlus } from 'lucide-react';
+import { ActivityFeed, type Activity } from '@/components/ui/activity-feed';
+
+const h = 3600000;
+const items: Activity[] = [
+  { id: '1', actor: 'Aarav Mehta', action: 'commented on', target: 'Leave policy 2025', at: Date.now() - 0.2 * h, icon: <MessageSquare />, detail: '“Carry-forward cap should be 12 days, not 10. Checked with Finance.”' },
+  { id: '2', actor: 'Diya Rao', action: 'uploaded', target: 'offer-letter-v3.pdf', at: Date.now() - 2 * h, icon: <FileText />, detail: '248 KB · PDF' },
+  { id: '3', actor: 'Isha Nair', action: 'added', target: 'Kabir Shah to Engineering', at: Date.now() - 5 * h, icon: <UserPlus /> },
+  { id: '4', actor: 'Rohan Das', action: 'merged', target: 'Payroll export fixes', at: Date.now() - 27 * h, icon: <GitMerge /> },
+  { id: '5', actor: 'Meera Iyer', action: 'approved', target: 'September expense report', at: Date.now() - 30 * h },
+  { id: '6', actor: 'Vikram Joshi', action: 'closed', target: 'Duplicate employee IDs', at: Date.now() - 100 * h },
+];
+
+export default function ActivityFeedDemo() {
+  return <ActivityFeed className="w-full max-w-md" items={items} />;
 }
 ```
 
@@ -1918,6 +1950,67 @@ export default function HeatmapDemo() {
 }
 ```
 
+## Kanban board (`kanban`)
+Columns of draggable cards. Drag with the mouse or move a focused card with Alt and the arrow keys. Controlled, no drag library.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add kanban`
+- Import: `import { Kanban } from '@/components/ui/kanban'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Avatar } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Kanban, type KanbanColumn } from '@/components/ui/kanban';
+
+interface Task { id: string; title: string; tag: string; owner: string; due: string }
+
+const columns: KanbanColumn[] = [
+  { id: 'todo', title: 'To do', tone: 'default' },
+  { id: 'doing', title: 'In progress', tone: 'info' },
+  { id: 'review', title: 'In review', tone: 'warning' },
+  { id: 'done', title: 'Done', tone: 'success' },
+];
+
+const tagTone = { Bug: 'danger', Feature: 'info', Chore: 'default', Design: 'warning' } as const;
+
+export default function KanbanDemo() {
+  const [board, setBoard] = React.useState<Record<string, Task[]>>({
+    todo: [
+      { id: 't1', title: 'Onboarding checklist for new hires', tag: 'Feature', owner: 'Isha Nair', due: '14 Oct' },
+      { id: 't2', title: 'Fix payslip PDF margins', tag: 'Bug', owner: 'Rohan Das', due: '12 Oct' },
+      { id: 't3', title: 'Archive 2023 attendance logs', tag: 'Chore', owner: 'Meera Iyer', due: '30 Oct' },
+    ],
+    doing: [
+      { id: 't4', title: 'Leave balance widget', tag: 'Feature', owner: 'Aarav Mehta', due: '16 Oct' },
+      { id: 't5', title: 'Refresh login screen', tag: 'Design', owner: 'Diya Rao', due: '15 Oct' },
+    ],
+    review: [{ id: 't6', title: 'Holiday calendar import', tag: 'Feature', owner: 'Kabir Shah', due: '11 Oct' }],
+    done: [
+      { id: 't7', title: 'Dark mode for dashboards', tag: 'Design', owner: 'Diya Rao', due: '03 Oct' },
+      { id: 't8', title: 'Duplicate employee IDs', tag: 'Bug', owner: 'Vikram Joshi', due: '05 Oct' },
+    ],
+  });
+  return (
+    <Kanban
+      columns={columns}
+      value={board}
+      onChange={setBoard}
+      renderCard={(t) => (
+        <div className="grid gap-2">
+          <p className="font-medium leading-snug">{t.title}</p>
+          <div className="flex items-center justify-between gap-2">
+            <Badge variant={tagTone[t.tag as keyof typeof tagTone]}>{t.tag}</Badge>
+            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">{t.due}<Avatar name={t.owner} size="xs" /></span>
+          </div>
+        </div>
+      )}
+    />
+  );
+}
+```
+
 ## Number ticker (`number-ticker`)
 Counts up to a value with easing once it scrolls into view.
 - Group: Data
@@ -2152,6 +2245,57 @@ export default function CookieConsentDemo() {
 }
 ```
 
+## Loader (`loader`)
+Six loading animations (ring, dots, bars, pulse, orbit, dual), an indeterminate or determinate bar loader, and a loading overlay.
+- Group: Feedback
+- Add: `npx github:RandomKid24/befui add loader`
+- Import: `import { Loader, BarLoader, LoadingOverlay } from '@/components/ui/loader'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { BarLoader, Loader, LoadingOverlay, type LoaderVariant } from '@/components/ui/loader';
+import { Skeleton } from '@/components/ui/skeleton';
+
+const variants: LoaderVariant[] = ['ring', 'dots', 'bars', 'pulse', 'orbit', 'dual'];
+
+export default function LoaderDemo() {
+  const [loading, setLoading] = React.useState(true);
+  return (
+    <div className="grid w-full max-w-lg gap-6">
+      <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
+        {variants.map((v) => (
+          <div key={v} className="grid justify-items-center gap-2 rounded-lg border py-4">
+            <Loader variant={v} />
+            <span className="text-[11px] text-muted-foreground">{v}</span>
+          </div>
+        ))}
+      </div>
+      <div className="grid gap-3">
+        <BarLoader />
+        <BarLoader value={64} />
+      </div>
+      <Button size="sm" variant="outline" className="justify-self-start" onClick={() => setLoading((l) => !l)}>{loading ? 'Stop loading' : 'Reload report'}</Button>
+      <LoadingOverlay loading={loading} label="Fetching report" variant="orbit">
+        <Card>
+          <CardHeader>
+            <CardTitle>Monthly revenue</CardTitle>
+          </CardHeader>
+          <CardContent className="grid gap-2">
+            <Skeleton className="h-6 w-1/3" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-4/5" />
+          </CardContent>
+        </Card>
+      </LoadingOverlay>
+    </div>
+  );
+}
+```
+
 ## Notification center (`notification-center`)
 Bell with an unread count and a popover list. Click marks read, Mark all read clears it.
 - Group: Feedback
@@ -2317,6 +2461,57 @@ export default function CommandDemo() {
         </CommandList>
       </CommandDialog>
     </>
+  );
+}
+```
+
+## Context menu (`context-menu`)
+Right-click menu with items, shortcuts, checkbox items, labels and nested submenus.
+- Group: Overlays
+- Add: `npx github:RandomKid24/befui add context-menu`
+- Import: `import { ContextMenu, ContextMenuTrigger, ContextMenuGroup, ContextMenuSub, ContextMenuContent, ContextMenuItem, ContextMenuCheckboxItem, ContextMenuSubTrigger, ContextMenuSubContent, ContextMenuLabel, ContextMenuSeparator, ContextMenuShortcut } from '@/components/ui/context-menu'`
+- npm packages: @radix-ui/react-context-menu, lucide-react
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Copy, Download, FolderInput, Link2, Pencil, Trash2 } from 'lucide-react';
+import { ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuShortcut, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger } from '@/components/ui/context-menu';
+import { toast } from '@/components/ui/toast';
+
+export default function ContextMenuDemo() {
+  const [starred, setStarred] = React.useState(false);
+  return (
+    <ContextMenu>
+        <ContextMenuTrigger asChild>
+          <div className="grid h-40 w-72 cursor-context-menu place-items-center rounded-xl border border-dashed text-sm text-muted-foreground select-none">
+            <div className="text-center">
+              <p className="font-medium text-foreground">Q3-budget.xlsx</p>
+              <p>Right-click anywhere here</p>
+            </div>
+          </div>
+        </ContextMenuTrigger>
+        <ContextMenuContent className="w-56">
+          <ContextMenuLabel>Q3-budget.xlsx</ContextMenuLabel>
+          <ContextMenuItem onSelect={() => toast.info('Renaming')}><Pencil /> Rename <ContextMenuShortcut>F2</ContextMenuShortcut></ContextMenuItem>
+          <ContextMenuItem onSelect={() => toast.success('Copied')}><Copy /> Duplicate <ContextMenuShortcut>⌘D</ContextMenuShortcut></ContextMenuItem>
+          <ContextMenuSub>
+            <ContextMenuSubTrigger><FolderInput /> Move to</ContextMenuSubTrigger>
+            <ContextMenuSubContent className="w-44">
+              <ContextMenuItem>Finance</ContextMenuItem>
+              <ContextMenuItem>Archive</ContextMenuItem>
+              <ContextMenuItem>Shared drive</ContextMenuItem>
+            </ContextMenuSubContent>
+          </ContextMenuSub>
+          <ContextMenuCheckboxItem checked={starred} onCheckedChange={setStarred}>Starred</ContextMenuCheckboxItem>
+          <ContextMenuSeparator />
+          <ContextMenuItem onSelect={() => toast.success('Link copied')}><Link2 /> Copy link</ContextMenuItem>
+          <ContextMenuItem><Download /> Download</ContextMenuItem>
+          <ContextMenuSeparator />
+          <ContextMenuItem destructive><Trash2 /> Delete <ContextMenuShortcut>⌫</ContextMenuShortcut></ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
   );
 }
 ```

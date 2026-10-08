@@ -31,7 +31,7 @@
 - Time: time-picker, analog-clock, world-clock, stopwatch, timer, countdown, relative-time
 - Whole pages: blocks: admin-shell, hrms-overview, employee-directory, leave-approvals, leave-request-form, lead-pipeline, campaign-performance, sign-in
 
-## Components (93)
+## Components (97)
 
 ### Layout (2)
 - [app-shell](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/app-shell.json): Sidebar, topbar and scrolling content area, plus a page header. Import: AppShell, Topbar, AppContent, PageHeader. Needs befui: sidebar.
@@ -56,7 +56,7 @@
 - [combobox](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/combobox.json): Searchable select, single or multiple, with descriptions under each option. Import: Combobox, MultiCombobox. Needs befui: badge, command, popover. npm: lucide-react.
 - [copy-button](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/copy-button.json): Copies text and morphs to a check. Import: CopyButton. npm: lucide-react.
 - [currency-input](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/currency-input.json): Money field that groups digits as you type (1,25,000) and hands you a plain number. Import: CurrencyInput.
-- [date-picker](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/date-picker.json): Date and date range fields that open a calendar. Closes on pick. Import: formatDate, DatePicker, DateRangePicker. Needs befui: calendar, popover. npm: lucide-react.
+- [date-picker](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/date-picker.json): Date and date range fields that open a calendar. The range picker has optional quick presets (Last 7 days, This month...) and a day count. Closes on pick. Import: formatDate, DatePicker, defaultRangePresets, DateRangePicker. Needs befui: calendar, popover. npm: lucide-react.
 - [dropzone](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/dropzone.json): Drag and drop file area with size check and removable file list. Import: Dropzone. npm: lucide-react.
 - [inline-edit](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/inline-edit.json): Text that becomes a field on click. Enter saves, Escape cancels. Import: InlineEdit. Needs befui: icons.
 - [input](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/input.json): Text input and textarea with icon, trailing slot, and invalid state. Import: Input, Textarea.
@@ -75,8 +75,9 @@
 - [tag-input](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/tag-input.json): Type and press Enter to add chips. Backspace removes the last. Import: TagInput. npm: lucide-react.
 - [toggle](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/toggle.json): Two-state button for favourite, bold or mute. Announces its state to screen readers. Import: Toggle.
 
-### Display (25)
+### Display (26)
 - [accordion](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/accordion.json): Collapsible sections with a smooth height animation. Single or multiple open. Import: Accordion. npm: lucide-react.
+- [activity-feed](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/activity-feed.json): Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail. Import: ActivityFeed. Needs befui: avatar, relative-time.
 - [avatar](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/avatar.json): Image with initials fallback in a stable color, plus a stacked group. Import: Avatar, AvatarGroup. npm: @radix-ui/react-avatar.
 - [badge](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/badge.json): Status pill with semantic colors and an optional dot. Import: Badge.
 - [border-beam](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/border-beam.json): A light beam that circles the border. For pricing cards and featured content. Import: BorderBeam.
@@ -102,32 +103,35 @@
 - [timeline](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/timeline.json): Vertical activity feed with tone-colored markers. Import: Timeline.
 - [typewriter](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/typewriter.json): Types, holds and deletes phrases in a loop. Static for reduced motion. Import: Typewriter.
 
-### Data (11)
+### Data (12)
 - [charts](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/charts.json): Sparkline, bar chart and donut in plain SVG. No chart library. Import: Sparkline, BarChart, DonutChart.
 - [countdown](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/countdown.json): Live countdown with flipping digits. Import: Countdown.
 - [data-table](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/data-table.json): Sortable columns, a filter box and pagination, with optional row selection and bulk actions, a column visibility menu and a sticky header. You pass rows and column definitions. Import: DataTable. Needs befui: button, checkbox, dropdown-menu, icons, pagination, table.
 - [filter-bar](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/filter-bar.json): Removable filter chips with an Add filter menu: pick a field, then a value. Import: FilterBar. Needs befui: button, icons, popover.
 - [gauge](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/gauge.json): Half-circle meter with a needle that swings to the value. Import: Gauge.
 - [heatmap](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/heatmap.json): Contribution-style grid for daily activity. Cells pop in column by column. Import: Heatmap.
+- [kanban](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/kanban.json): Columns of draggable cards. Drag with the mouse or move a focused card with Alt and the arrow keys. Controlled, no drag library. Import: Kanban.
 - [number-ticker](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/number-ticker.json): Counts up to a value with easing once it scrolls into view. Import: NumberTicker.
 - [permission-matrix](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/permission-matrix.json): Roles by permissions grid of checkboxes with per-column toggle and locked roles. Import: PermissionMatrix. Needs befui: checkbox, table.
 - [progress](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/progress.json): Thin progress bar with four tones. Import: Progress. npm: @radix-ui/react-progress.
 - [progress-ring](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/progress-ring.json): Circular progress with an eased stroke animation. Import: ProgressRing.
 - [stat-card](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/stat-card.json): KPI tile with value, trend delta and a sparkline slot. Import: StatCard. Needs befui: card. npm: lucide-react.
 
-### Feedback (8)
+### Feedback (9)
 - [alert](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/alert.json): Inline message in info, success, warning and danger. Import: Alert. npm: lucide-react.
 - [banner](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/banner.json): Announcement bar that collapses smoothly when dismissed. Import: Banner. npm: lucide-react.
 - [confetti](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/confetti.json): Burst of confetti from any button, or call fireConfetti(x, y) yourself. Import: fireConfetti, Confetti.
 - [cookie-consent](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/cookie-consent.json): Bottom-left consent card that remembers Accept or Decline. Import: CookieConsent. Needs befui: button.
+- [loader](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/loader.json): Six loading animations (ring, dots, bars, pulse, orbit, dual), an indeterminate or determinate bar loader, and a loading overlay. Import: Loader, BarLoader, LoadingOverlay.
 - [notification-center](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/notification-center.json): Bell with an unread count and a popover list. Click marks read, Mark all read clears it. Import: NotificationCenter. Needs befui: button, icons, popover.
 - [skeleton](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/skeleton.json): Shimmering placeholder for content that is loading. Import: Skeleton.
 - [spinner](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/spinner.json): Tiny CSS spinner that inherits text color. Import: Spinner.
 - [toast](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/toast.json): Call toast.success() from anywhere. No provider needed. Import: toast, Toaster. npm: lucide-react.
 
-### Overlays (6)
+### Overlays (7)
 - [alert-dialog](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/alert-dialog.json): Confirm before something destructive. Cancel and confirm, controlled by you. Import: AlertDialog. Needs befui: button, dialog, icons.
 - [command](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/command.json): Searchable palette on cmdk. Bind it to Ctrl or Cmd K. Import: Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem. npm: @radix-ui/react-dialog, cmdk, lucide-react.
+- [context-menu](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/context-menu.json): Right-click menu with items, shortcuts, checkbox items, labels and nested submenus. Import: ContextMenu, ContextMenuTrigger, ContextMenuGroup, ContextMenuSub, ContextMenuContent, ContextMenuItem, ContextMenuCheckboxItem, ContextMenuSubTrigger, ContextMenuSubContent, ContextMenuLabel, ContextMenuSeparator, ContextMenuShortcut. npm: @radix-ui/react-context-menu, lucide-react.
 - [dialog](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/dialog.json): Centered modal and edge-docked sheet on Radix Dialog. Import: Dialog, DialogTrigger, DialogClose, DialogContent, SheetContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, Sheet, SheetTrigger, SheetClose, SheetHeader, SheetFooter, SheetTitle, SheetDescription. npm: @radix-ui/react-dialog, lucide-react.
 - [dropdown-menu](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/dropdown-menu.json): Action menu with checkbox items, shortcuts and destructive items. Import: DropdownMenu, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuContent, DropdownMenuItem, DropdownMenuCheckboxItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut. npm: @radix-ui/react-dropdown-menu, lucide-react.
 - [popover](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/popover.json): Floating panel anchored to a trigger. Import: Popover, PopoverTrigger, PopoverAnchor, PopoverContent. npm: @radix-ui/react-popover.

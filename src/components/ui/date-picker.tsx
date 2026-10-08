@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CalendarDays, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Calendar, type DateRange } from './calendar';
+import { addDays, Calendar, startOfDay, type DateRange } from './calendar';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 
 const fmt = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
@@ -95,9 +95,30 @@ export function DatePicker({ value, onChange, placeholder = 'Pick a date', disab
   );
 }
 
-export function DateRangePicker({ value, onChange, placeholder = 'Pick a date range', disabled, disabledDays, clearable, className, id }: PickerProps<DateRange>) {
+export interface RangePreset {
+  label: string;
+  range: () => DateRange;
+}
+
+const day = (d: Date) => startOfDay(d);
+/** Today, Yesterday, Last 7 days, Last 30 days, This month, Last month. Pass your own list via `presets` to change them. */
+export const defaultRangePresets: RangePreset[] = [
+  { label: 'Today', range: () => ({ from: day(new Date()), to: day(new Date()) }) },
+  { label: 'Yesterday', range: () => ({ from: addDays(day(new Date()), -1), to: addDays(day(new Date()), -1) }) },
+  { label: 'Last 7 days', range: () => ({ from: addDays(day(new Date()), -6), to: day(new Date()) }) },
+  { label: 'Last 30 days', range: () => ({ from: addDays(day(new Date()), -29), to: day(new Date()) }) },
+  { label: 'This month', range: () => { const t = new Date(); return { from: new Date(t.getFullYear(), t.getMonth(), 1), to: day(t) }; } },
+  { label: 'Last month', range: () => { const t = new Date(); return { from: new Date(t.getFullYear(), t.getMonth() - 1, 1), to: new Date(t.getFullYear(), t.getMonth(), 0) }; } },
+];
+
+const dayCount = (r: DateRange) => (r.from && r.to ? Math.round((r.to.getTime() - r.from.getTime()) / 86400000) + 1 : 0);
+
+/** Pick a start and end date. `presets` adds quick ranges beside the calendar (true for the defaults, or your own list). */
+export function DateRangePicker({ value, onChange, placeholder = 'Pick a date range', disabled, disabledDays, clearable, presets, className, id }: PickerProps<DateRange> & { presets?: boolean | RangePreset[] }) {
   const [open, setOpen] = React.useState(false);
+  const list = presets === true ? defaultRangePresets : presets || [];
   const label = value?.from ? (value.to ? `${formatDate(value.from)} to ${formatDate(value.to)}` : `${formatDate(value.from)} to ...`) : placeholder;
+  const n = value ? dayCount(value) : 0;
   return (
     <Shell
       open={open}
@@ -109,15 +130,34 @@ export function DateRangePicker({ value, onChange, placeholder = 'Pick a date ra
       label={label}
       onClear={clearable ? () => onChange?.(undefined) : undefined}
     >
-      <Calendar
-        mode="range"
-        selected={value}
-        disabled={disabledDays}
-        onSelect={(r) => {
-          onChange?.(r);
-          if (r.from && r.to) setOpen(false);
-        }}
-      />
+      <div className="flex gap-3">
+        {list.length > 0 && (
+          <div className="grid w-32 content-start gap-0.5 border-r pr-3">
+            {list.map((p) => (
+              <button
+                key={p.label}
+                type="button"
+                onClick={() => { onChange?.(p.range()); setOpen(false); }}
+                className="rounded-md px-2 py-1.5 text-left text-[13px] outline-none transition-colors hover:bg-secondary focus-visible:bg-secondary"
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+        )}
+        <div className="grid gap-2">
+          <Calendar
+            mode="range"
+            selected={value}
+            disabled={disabledDays}
+            onSelect={(r) => {
+              onChange?.(r);
+              if (r.from && r.to) setOpen(false);
+            }}
+          />
+          {n > 0 && <p className="text-center text-xs text-muted-foreground">{n} day{n === 1 ? '' : 's'} selected</p>}
+        </div>
+      </div>
     </Shell>
   );
 }

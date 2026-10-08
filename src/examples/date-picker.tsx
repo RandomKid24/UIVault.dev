@@ -7,14 +7,18 @@ import { addDays, startOfDay } from '@/components/ui/calendar';
 export default function DatePickerDemo() {
   const [joined, setJoined] = React.useState<Date>();
   const [leave, setLeave] = React.useState<DateRange>();
+  const [period, setPeriod] = React.useState<DateRange>();
   const today = startOfDay(new Date());
   return (
-    <div className="grid w-full max-w-xs gap-4">
+    <div className="grid w-full max-w-sm gap-4">
       <Field label="Joining date" htmlFor="join" hint="Clear it with the x.">
         <DatePicker id="join" value={joined} onChange={setJoined} clearable />
       </Field>
       <Field label="Leave dates" htmlFor="leave" hint="Past dates are disabled.">
         <DateRangePicker id="leave" value={leave} onChange={setLeave} disabledDays={(d) => d < addDays(today, 0)} clearable />
+      </Field>
+      <Field label="Report period" htmlFor="period" hint="Quick ranges on the left.">
+        <DateRangePicker id="period" value={period} onChange={setPeriod} presets clearable />
       </Field>
     </div>
   );

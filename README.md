@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-92 copy-paste React components, 73 hand-drawn icons and 8 full-page blocks.<br/>
+96 copy-paste React components, 73 hand-drawn icons and 8 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -111,7 +111,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ## What is inside
 
-### Components (92)
+### Components (96)
 
 <details>
 <summary><b>Layout</b> (2)</summary>
@@ -135,30 +135,30 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </details>
 
 <details>
-<summary><b>Display</b> (25)</summary>
+<summary><b>Display</b> (26)</summary>
 
-`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `pricing-card` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline` · `changelog` · `testimonial-card` · `comment-thread` · `code-block` · `status-dot`
-
-</details>
-
-<details>
-<summary><b>Data</b> (11)</summary>
-
-`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar` · `permission-matrix`
+`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `pricing-card` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline` · `changelog` · `testimonial-card` · `comment-thread` · `code-block` · `status-dot` · `activity-feed`
 
 </details>
 
 <details>
-<summary><b>Feedback</b> (8)</summary>
+<summary><b>Data</b> (12)</summary>
 
-`banner` · `confetti` · `alert` · `toast` · `skeleton` · `spinner` · `notification-center` · `cookie-consent`
+`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar` · `permission-matrix` · `kanban`
 
 </details>
 
 <details>
-<summary><b>Overlays</b> (6)</summary>
+<summary><b>Feedback</b> (9)</summary>
 
-`alert-dialog` · `dialog` · `dropdown-menu` · `popover` · `tooltip` · `command`
+`banner` · `confetti` · `alert` · `toast` · `skeleton` · `spinner` · `notification-center` · `cookie-consent` · `loader`
+
+</details>
+
+<details>
+<summary><b>Overlays</b> (7)</summary>
+
+`alert-dialog` · `dialog` · `dropdown-menu` · `popover` · `tooltip` · `command` · `context-menu`
 
 </details>
 

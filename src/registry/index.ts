@@ -25,7 +25,7 @@ export interface Entry {
 type Meta = Omit<Entry, 'Demo' | 'demoSource' | 'source' | 'path' | 'isNew'>;
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['permission-matrix', 'data-table', 'tooltip', 'changelog', 'testimonial-card', 'comment-thread', 'code-block', 'status-dot', 'search-bar', 'currency-input', 'inline-edit', 'filter-bar', 'notification-center', 'cookie-consent', 'table-of-contents']);
+export const NEW_SLUGS = new Set(['kanban', 'date-picker', 'context-menu', 'activity-feed', 'loader', 'permission-matrix', 'data-table', 'tooltip', 'changelog', 'testimonial-card', 'comment-thread', 'code-block', 'status-dot', 'search-bar', 'currency-input', 'inline-edit', 'filter-bar', 'notification-center', 'cookie-consent', 'table-of-contents']);
 
 const m = (
   slug: string,
@@ -44,7 +44,7 @@ const metas: Meta[] = [
   m('select', 'Select', 'Inputs', 'Styled dropdown with groups, built on Radix Select.', { deps: ['@radix-ui/react-select', 'lucide-react'], keywords: ['dropdown', 'picker', 'form'] }),
   m('combobox', 'Combobox', 'Inputs', 'Searchable select, single or multiple, with descriptions under each option.', { deps: ['cmdk', '@radix-ui/react-popover', 'lucide-react'], requires: ['badge', 'command', 'popover'], keywords: ['autocomplete', 'search select', 'typeahead', 'multi'] }),
   m('calendar', 'Calendar', 'Inputs', 'Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work.', { deps: ['lucide-react'], keywords: ['date', 'month', 'range', 'schedule'] }),
-  m('date-picker', 'Date picker', 'Inputs', 'Date and date range fields that open a calendar. Closes on pick.', { deps: ['@radix-ui/react-popover', 'lucide-react'], requires: ['calendar', 'popover'], keywords: ['date', 'range', 'leave', 'schedule', 'calendar'] }),
+  m('date-picker', 'Date picker', 'Inputs', 'Date and date range fields that open a calendar. The range picker has optional quick presets (Last 7 days, This month...) and a day count. Closes on pick.', { deps: ['@radix-ui/react-popover', 'lucide-react'], requires: ['calendar', 'popover'], keywords: ['date', 'range', 'leave', 'schedule', 'calendar'] }),
   m('segmented', 'Segmented control', 'Inputs', 'Pick one of a few views or ranges. Smaller than tabs.', { deps: ['@radix-ui/react-toggle-group'], keywords: ['toggle', 'filter', 'range'] }),
 
   m('accordion', 'Accordion', 'Display', 'Collapsible sections with a smooth height animation. Single or multiple open.', { deps: ['lucide-react'], keywords: ['faq', 'collapse', 'expand'] }),
@@ -102,6 +102,8 @@ const metas: Meta[] = [
   m('search-bar', 'Search bar', 'Inputs', 'Search field with live results, highlighted matches, recent searches and full keyboard control.', { requires: ['icons'], keywords: ['autocomplete', 'suggest', 'find', 'typeahead', 'lookup'] }),
   m('currency-input', 'Currency input', 'Inputs', 'Money field that groups digits as you type (1,25,000) and hands you a plain number.', { keywords: ['money', 'amount', 'price', 'salary', 'rupee', 'number'] }),
   m('inline-edit', 'Inline edit', 'Inputs', 'Text that becomes a field on click. Enter saves, Escape cancels.', { requires: ['icons'], keywords: ['rename', 'edit in place', 'title'] }),
+  m('kanban', 'Kanban board', 'Data', 'Columns of draggable cards. Drag with the mouse or move a focused card with Alt and the arrow keys. Controlled, no drag library.', { keywords: ['board', 'trello', 'pipeline', 'tasks', 'drag', 'drop', 'columns', 'crm'], wide: true }),
+  m('activity-feed', 'Activity feed', 'Display', 'Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail.', { requires: ['avatar', 'relative-time'], keywords: ['audit', 'log', 'history', 'updates', 'stream', 'events'] }),
   m('permission-matrix', 'Permission matrix', 'Data', 'Roles by permissions grid of checkboxes with per-column toggle and locked roles.', { requires: ['checkbox', 'table'], keywords: ['roles', 'access', 'rbac', 'acl', 'admin', 'permissions'] }),
   m('filter-bar', 'Filter bar', 'Data', 'Removable filter chips with an Add filter menu: pick a field, then a value.', { requires: ['icons', 'button', 'popover'], keywords: ['filters', 'facets', 'refine', 'table', 'chips'] }),
   m('notification-center', 'Notification center', 'Feedback', 'Bell with an unread count and a popover list. Click marks read, Mark all read clears it.', { requires: ['icons', 'button', 'popover'], keywords: ['bell', 'inbox', 'alerts', 'unread', 'notifications'] }),
@@ -124,11 +126,13 @@ const metas: Meta[] = [
   m('alert', 'Alert', 'Feedback', 'Inline message in info, success, warning and danger.', { deps: ['lucide-react'], keywords: ['banner', 'notice', 'message'] }),
   m('toast', 'Toast', 'Feedback', 'Call toast.success() from anywhere. No provider needed.', { deps: ['lucide-react'], keywords: ['notification', 'snackbar'] }),
   m('skeleton', 'Skeleton', 'Feedback', 'Shimmering placeholder for content that is loading.', { keywords: ['loading', 'placeholder'] }),
+  m('loader', 'Loader', 'Feedback', 'Six loading animations (ring, dots, bars, pulse, orbit, dual), an indeterminate or determinate bar loader, and a loading overlay.', { keywords: ['loading', 'spinner', 'wait', 'busy', 'progress', 'overlay', 'bar'] }),
   m('spinner', 'Spinner', 'Feedback', 'Tiny CSS spinner that inherits text color.', { keywords: ['loading', 'wait'] }),
 
   m('dialog', 'Dialog and Sheet', 'Overlays', 'Centered modal and edge-docked sheet on Radix Dialog.', { deps: ['@radix-ui/react-dialog', 'lucide-react'], keywords: ['modal', 'drawer', 'popup'] }),
   m('dropdown-menu', 'Dropdown menu', 'Overlays', 'Action menu with checkbox items, shortcuts and destructive items.', { deps: ['@radix-ui/react-dropdown-menu', 'lucide-react'], keywords: ['menu', 'actions', 'context'] }),
   m('popover', 'Popover', 'Overlays', 'Floating panel anchored to a trigger.', { deps: ['@radix-ui/react-popover'], keywords: ['floating', 'quick'] }),
+  m('context-menu', 'Context menu', 'Overlays', 'Right-click menu with items, shortcuts, checkbox items, labels and nested submenus.', { deps: ['@radix-ui/react-context-menu', 'lucide-react'], keywords: ['right click', 'menu', 'actions', 'popup'] }),
   m('tooltip', 'Tooltip', 'Overlays', 'Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off.', { deps: ['@radix-ui/react-tooltip'], requires: ['icons', 'kbd'], keywords: ['hint', 'hover', 'info', 'help', 'truncate', 'shortcut'] }),
   m('command', 'Command palette', 'Overlays', 'Searchable palette on cmdk. Bind it to Ctrl or Cmd K.', { deps: ['cmdk', '@radix-ui/react-dialog', 'lucide-react'], keywords: ['search', 'spotlight', 'cmdk'] }),
 
