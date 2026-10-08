@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-132 copy-paste React components, 189 hand-drawn icons and 10 full-page blocks.<br/>
+133 copy-paste React components, 189 hand-drawn icons and 10 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -138,7 +138,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
-### Components (132)
+### Components (133)
 
 <details>
 <summary><b>Layout</b> (3)</summary>
@@ -162,9 +162,9 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Display</b> (37)</summary>
+<summary><b>Display</b> (38)</summary>
 
-`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `pricing-card` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline` · `changelog` · `testimonial-card` · `comment-thread` · `code-block` · `status-dot` · `activity-feed` · `product-card` · `order-summary` · `sortable-list` · `chat` · `profile-card` · `terminal` · `swipe-actions` · `approval-flow` · `onboarding-checklist` · `tag-manager` · `format`
+`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `pricing-card` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline` · `changelog` · `testimonial-card` · `comment-thread` · `code-block` · `status-dot` · `activity-feed` · `product-card` · `order-summary` · `sortable-list` · `chat` · `profile-card` · `terminal` · `swipe-actions` · `approval-flow` · `onboarding-checklist` · `tag-manager` · `format` · `version-log`
 
 </details>
 

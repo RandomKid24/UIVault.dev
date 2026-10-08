@@ -38,7 +38,7 @@
 - Time: time-picker, analog-clock, world-clock, stopwatch, timer, countdown, relative-time
 - Whole pages: blocks: admin-shell, sales-dashboard, reports-table, hrms-overview, employee-directory, leave-approvals, leave-request-form, lead-pipeline, campaign-performance, sign-in
 
-## Components (133)
+## Components (134)
 
 ### Layout (3)
 - `app-shell`: Sidebar, topbar and scrolling content area, plus a page header. Exports: AppShell, Topbar, AppContent, PageHeader. Needs: sidebar.
@@ -94,7 +94,7 @@
 - `tag-input`: Type and press Enter to add chips. Backspace removes the last. Exports: TagInput. Needs: icons.
 - `toggle`: Two-state button for favourite, bold or mute. Announces its state to screen readers. Exports: Toggle.
 
-### Display (37)
+### Display (38)
 - `accordion`: Collapsible sections with a smooth height animation. Single or multiple open. Exports: Accordion. Needs: icons.
 - `activity-feed`: Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail. Exports: ActivityFeed. Needs: avatar, relative-time.
 - `approval-flow`: Chain of approvers with decisions, comments and times. The current approver gets Approve and Reject buttons. Exports: ApprovalFlow. Needs: avatar, button, icons.
@@ -132,6 +132,7 @@
 - `tilt-card`: 3D card that tilts toward the cursor with a moving sheen. Exports: TiltCard.
 - `timeline`: Vertical activity feed with tone-colored markers. Exports: Timeline.
 - `typewriter`: Types, holds and deletes phrases in a loop. Static for reduced motion. Exports: Typewriter.
+- `version-log`: Animated version history: the rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter. Exports: VersionLog. Needs: badge, icons, segmented.
 
 ### Data (20)
 - `audit-log`: Who changed what and when, with expandable before and after values. Exports: AuditLog. Needs: avatar, badge, icons.

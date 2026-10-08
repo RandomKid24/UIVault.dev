@@ -3,10 +3,11 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
-## 1.2.0 - 2026-10-08
+## 1.3.0 - 2026-10-08
 
-Changelog page and 95 more icons
+Animated changelog and a version log component
 
+- **Added:** Version log: an animated version history component. The rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter. The changelog page uses it. (Version log)
 - **Added:** A changelog page on the docs site. Click any component name to open it.
 - **Added:** 95 new icons (189 in total): devices and media, commerce, charts, text formatting, files, map and travel, status, playback and more. Find them on the Icons page.
 

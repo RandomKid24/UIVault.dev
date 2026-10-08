@@ -38,7 +38,7 @@ export function useSource(load: () => Promise<string>): string {
 }
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['schema-form', 'rich-text-editor', 'org-chart', 'gantt', 'approval-flow', 'notification-preferences', 'funnel-chart', 'onboarding-checklist', 'shortcuts-dialog', 'tag-manager', 'saved-views', 'format', 'avatar', 'avatar-upload', 'date-picker', 'data-table', 'tooltip']);
+export const NEW_SLUGS = new Set(['version-log', 'schema-form', 'rich-text-editor', 'org-chart', 'gantt', 'approval-flow', 'notification-preferences', 'funnel-chart', 'onboarding-checklist', 'shortcuts-dialog', 'tag-manager', 'saved-views', 'format', 'avatar', 'avatar-upload', 'date-picker', 'data-table', 'tooltip']);
 
 const m = (
   slug: string,
@@ -162,6 +162,7 @@ const metas: Meta[] = [
   m('shortcuts-dialog', 'Shortcuts dialog', 'Overlays', 'Keyboard cheat sheet that opens on ? and shows grouped shortcuts as keycaps.', { requires: ['dialog', 'kbd'], keywords: ['help', 'hotkeys', 'keyboard', 'cheat sheet', 'accessibility'] }),
   m('format', 'Format helpers', 'Display', 'formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default.', { keywords: ['number', 'money', 'currency', 'rupee', 'lakh', 'intl', 'format'] }),
 
+  m('version-log', 'Version log', 'Display', 'Animated version history: the rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter.', { requires: ['badge', 'icons', 'segmented'], keywords: ['changelog', 'releases', 'history', 'versions', 'release notes', 'whats new', 'timeline'], wide: true }),
   m('card', 'Card', 'Display', 'Bordered surface with header, content and footer parts.', { keywords: ['panel', 'container', 'surface'] }),
   m('badge', 'Badge', 'Display', 'Status pill with semantic colors and an optional dot.', { keywords: ['status', 'tag', 'chip', 'label'] }),
   m('avatar', 'Avatar', 'Display', 'Image with initials fallback in a stable color. Five sizes, circle or square, presence dot (online, away, busy, offline), a stacked group with hover names, and UserInfo for avatar plus name and subtitle.', { deps: ['@radix-ui/react-avatar'], keywords: ['user', 'profile', 'people', 'presence', 'status', 'initials', 'team'] }),

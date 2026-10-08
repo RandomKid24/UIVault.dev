@@ -130,4 +130,5 @@ export * from './toggle';
 export * from './tooltip';
 export * from './tree-view';
 export * from './typewriter';
+export * from './version-log';
 export * from './world-clock';
