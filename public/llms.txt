@@ -24,17 +24,22 @@
 - `calendar` (Inputs): Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work. Exports: startOfDay, addDays, addMonths, isSameDay, Calendar.
 - `card` (Display): Bordered surface with header, content and footer parts. Exports: Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter.
 - `carousel` (Display): Scroll-snap slides with arrows and animated dots. Exports: Carousel.
+- `changelog` (Display): Release notes: version and date on the left, tagged New, Improved, Fixed or Removed changes on the right. Exports: Changelog.
 - `charts` (Data): Sparkline, bar chart and donut in plain SVG. No chart library. Exports: Sparkline, BarChart, DonutChart.
 - `checkbox` (Inputs): Checked, unchecked and indeterminate. Works for select-all rows. Exports: Checkbox.
 - `chip` (Inputs): Toggleable filter chips, single or multi select. Exports: Chip, ChipGroup.
+- `code-block` (Display): Code with a title, optional line numbers and a copy button. No highlighter dependency. Exports: CodeBlock.
 - `collapsible` (Display): One section that opens with a smooth height animation. Exports: Collapsible.
 - `color-picker` (Inputs): Swatches, hex field and the native picker. Always returns a six-digit hex. Exports: ColorPicker.
 - `combobox` (Inputs): Searchable select, single or multiple, with descriptions under each option. Exports: Combobox, MultiCombobox.
 - `command` (Overlays): Searchable palette on cmdk. Bind it to Ctrl or Cmd K. Exports: Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem.
+- `comment-thread` (Display): Nested comments with inline reply boxes, three levels deep. Exports: CommentThread.
 - `compare` (Display): Before and after slider. Drag or use arrow keys. Exports: Compare.
 - `confetti` (Feedback): Burst of confetti from any button, or call fireConfetti(x, y) yourself. Exports: fireConfetti, Confetti.
+- `cookie-consent` (Feedback): Bottom-left consent card that remembers Accept or Decline. Exports: CookieConsent.
 - `copy-button` (Inputs): Copies text and morphs to a check. Exports: CopyButton.
 - `countdown` (Data): Live countdown with flipping digits. Exports: Countdown.
+- `currency-input` (Inputs): Money field that groups digits as you type (1,25,000) and hands you a plain number. Exports: CurrencyInput.
 - `data-table` (Data): Sortable columns, a filter box and pagination. You pass rows and column definitions. Exports: DataTable.
 - `date-picker` (Inputs): Date and date range fields that open a calendar. Closes on pick. Exports: formatDate, DatePicker, DateRangePicker.
 - `dialog` (Overlays): Centered modal and edge-docked sheet on Radix Dialog. Exports: Dialog, DialogTrigger, DialogClose, DialogContent, SheetContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, Sheet, SheetTrigger, SheetClose, SheetHeader, SheetFooter, SheetTitle, SheetDescription.
@@ -42,13 +47,16 @@
 - `dropdown-menu` (Overlays): Action menu with checkbox items, shortcuts and destructive items. Exports: DropdownMenu, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuContent, DropdownMenuItem, DropdownMenuCheckboxItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut.
 - `dropzone` (Inputs): Drag and drop file area with size check and removable file list. Exports: Dropzone.
 - `empty-state` (Display): Dashed placeholder with icon, text and an action. Exports: EmptyState.
+- `filter-bar` (Data): Removable filter chips with an Add filter menu: pick a field, then a value. Exports: FilterBar.
 - `gauge` (Data): Half-circle meter with a needle that swings to the value. Exports: Gauge.
 - `heatmap` (Data): Contribution-style grid for daily activity. Cells pop in column by column. Exports: Heatmap.
 - `icons` (ui):  Exports: BefMark, SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ChevronRightIcon, SunIcon, MoonIcon, SparkleIcon, ZapIcon, ComponentsIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, BookIcon, CommandKeyIcon, MonitorIcon, TabletIcon, PhoneIcon, UploadIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ArrowLeftIcon, ArrowUpIcon, ArrowDownIcon, SortIcon, MinusIcon, MoreIcon, RefreshIcon, InfoIcon, AlertIcon, AlertCircleIcon, CheckCircleIcon, XCircleIcon, LoaderIcon, ShieldIcon, UserIcon, UsersIcon, MailIcon, BellIcon, CalendarIcon, ClockIcon, HomeIcon, SettingsIcon, LockIcon, GlobeIcon, StarIcon, HeartIcon, BookmarkIcon, EditIcon, TrashIcon, DownloadIcon, FilterIcon, EyeIcon, EyeOffIcon, LinkIcon, ExternalLinkIcon, LogOutIcon, ListIcon, FileIcon, FolderIcon, ImageIcon, PlayIcon, PauseIcon, BarChartIcon, TrendingIcon, CodeIcon, TerminalIcon, icons.
+- `inline-edit` (Inputs): Text that becomes a field on click. Enter saves, Escape cancels. Exports: InlineEdit.
 - `input` (Inputs): Text input and textarea with icon, trailing slot, and invalid state. Exports: Input, Textarea.
 - `kbd` (Display): Keyboard key hint. Exports: Kbd.
 - `label` (Inputs): Label with required marker, plus Field for label, control and hint or error. Exports: Label, Field.
 - `marquee` (Display): Endless logo or tag scroll with edge fade. Pauses on hover. Exports: Marquee.
+- `notification-center` (Feedback): Bell with an unread count and a popover list. Click marks read, Mark all read clears it. Exports: NotificationCenter.
 - `number-stepper` (Inputs): Number field with plus and minus buttons and arrow keys. Exports: NumberStepper.
 - `number-ticker` (Data): Counts up to a value with easing once it scrolls into view. Exports: NumberTicker.
 - `otp-input` (Inputs): Code boxes with paste, backspace, arrow keys, autofill and a shake on error. Exports: OtpInput.
@@ -63,6 +71,7 @@
 - `relative-time` (Time): "3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale. Exports: relative, RelativeTime.
 - `reveal` (Display): Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each. Exports: Reveal, TextReveal.
 - `scroll-progress` (Navigation): Thin bar that fills as you scroll the page or a container. Exports: ScrollProgress.
+- `search-bar` (Inputs): Search field with live results, highlighted matches, recent searches and full keyboard control. Exports: SearchBar.
 - `search-input` (Inputs): Search field with a clear button, Escape to clear and a slash shortcut to focus. Exports: SearchInput.
 - `segmented` (Inputs): Pick one of a few views or ranges. Smaller than tabs. Exports: Segmented.
 - `select` (Inputs): Styled dropdown with groups, built on Radix Select. Exports: Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectLabel, SelectItem.
@@ -74,12 +83,15 @@
 - `spinner` (Feedback): Tiny CSS spinner that inherits text color. Exports: Spinner.
 - `spotlight-card` (Display): Card with a glow and border highlight that follow the cursor. Exports: SpotlightCard.
 - `stat-card` (Data): KPI tile with value, trend delta and a sparkline slot. Exports: StatCard.
+- `status-dot` (Display): Small status light with an optional pulse and label. Exports: StatusDot.
 - `stepper` (Navigation): Horizontal steps for multi-step forms and onboarding. Exports: Stepper.
 - `stopwatch` (Time): Start, pause, lap and reset, down to hundredths of a second. Exports: Stopwatch.
 - `switch` (Inputs): On/off toggle for settings that apply immediately. Exports: Switch.
+- `table-of-contents` (Navigation): On this page list that highlights the section currently in view. Exports: TableOfContents.
 - `table` (Display): Dense table parts with hover rows and a selected state. Exports: Table, TableHeader, TableBody, TableRow, TableHead, TableCell.
 - `tabs` (Navigation): Underline or pill tabs on Radix Tabs. Exports: Tabs, TabsList, TabsTrigger, TabsContent.
 - `tag-input` (Inputs): Type and press Enter to add chips. Backspace removes the last. Exports: TagInput.
+- `testimonial-card` (Display): Customer quote with avatar, role and optional star rating. Exports: TestimonialCard.
 - `tilt-card` (Display): 3D card that tilts toward the cursor with a moving sheen. Exports: TiltCard.
 - `time-picker` (Time): Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour. Exports: TimePicker.
 - `timeline` (Display): Vertical activity feed with tone-colored markers. Exports: Timeline.

@@ -1,0 +1,19 @@
+import { Changelog } from '@/components/ui/changelog';
+
+export default function ChangelogDemo() {
+  return (
+    <Changelog
+      className="w-full max-w-2xl"
+      releases={[
+        { version: '1.4.0', date: 'Oct 7, 2026', title: 'Time components', changes: [
+          { type: 'new', text: 'Time picker, analog clock, world clock, stopwatch and timer.' },
+          { type: 'improved', text: 'Heatmap cells now show a tooltip with the exact count.' },
+        ] },
+        { version: '1.3.2', date: 'Sep 21, 2026', changes: [
+          { type: 'fixed', text: 'Combobox kept the old highlight after the list was filtered.' },
+          { type: 'removed', text: 'The deprecated "ghost-outline" button variant.' },
+        ] },
+      ]}
+    />
+  );
+}

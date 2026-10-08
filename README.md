@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-79 copy-paste React components, 73 hand-drawn icons and 8 full-page blocks.<br/>
+91 copy-paste React components, 73 hand-drawn icons and 8 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -111,7 +111,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ## What is inside
 
-### Components (79)
+### Components (91)
 
 <details>
 <summary><b>Layout</b> (2)</summary>
@@ -121,9 +121,9 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </details>
 
 <details>
-<summary><b>Inputs</b> (23)</summary>
+<summary><b>Inputs</b> (26)</summary>
 
-`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker`
+`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker` · `search-bar` · `currency-input` · `inline-edit`
 
 </details>
 
@@ -135,23 +135,23 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </details>
 
 <details>
-<summary><b>Display</b> (20)</summary>
+<summary><b>Display</b> (25)</summary>
 
-`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `pricing-card` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline`
-
-</details>
-
-<details>
-<summary><b>Data</b> (9)</summary>
-
-`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress`
+`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `pricing-card` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline` · `changelog` · `testimonial-card` · `comment-thread` · `code-block` · `status-dot`
 
 </details>
 
 <details>
-<summary><b>Feedback</b> (6)</summary>
+<summary><b>Data</b> (10)</summary>
 
-`banner` · `confetti` · `alert` · `toast` · `skeleton` · `spinner`
+`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar`
+
+</details>
+
+<details>
+<summary><b>Feedback</b> (8)</summary>
+
+`banner` · `confetti` · `alert` · `toast` · `skeleton` · `spinner` · `notification-center` · `cookie-consent`
 
 </details>
 
@@ -163,9 +163,9 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </details>
 
 <details>
-<summary><b>Navigation</b> (7)</summary>
+<summary><b>Navigation</b> (8)</summary>
 
-`scroll-progress` · `tree-view` · `dock` · `tabs` · `breadcrumb` · `pagination` · `stepper`
+`scroll-progress` · `tree-view` · `dock` · `tabs` · `breadcrumb` · `pagination` · `stepper` · `table-of-contents`
 
 </details>
 
