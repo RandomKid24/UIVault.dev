@@ -41,7 +41,7 @@ export function PermissionMatrix({
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent">
-            <TableHead>Role</TableHead>
+            <TableHead className="align-bottom">Role</TableHead>
             {permissions.map((p) => {
               const n = editable.filter((r) => has(r, p.id)).length;
               return (
@@ -58,7 +58,7 @@ export function PermissionMatrix({
         <TableBody>
           {roles.map((r) => (
             <TableRow key={r.id}>
-              <TableCell>
+              <TableCell className="min-w-44">
                 <div className="font-medium">{r.label}</div>
                 {r.hint && <div className="text-xs text-muted-foreground">{r.hint}</div>}
               </TableCell>

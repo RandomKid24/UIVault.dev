@@ -3,113 +3,153 @@
 > Copy-paste React components (Radix + Tailwind 4 + CSS variables) with real motion, plus HRMS and marketing blocks. You own the files: add them with the CLI, then import from `@/components/ui/<name>`.
 
 ## Setup
-- One time: `npx github:RandomKid24/befui init` (theme CSS, cn helper, AGENTS.md rules)
-- Add: `npx github:RandomKid24/befui add <name> [name...]` or `add all`; blocks are `block:<name>`
+- One time: `npx github:RandomKid24/befui init` (theme CSS, cn helper, AGENTS.md rules, .mcp.json)
+- Add: `npx github:RandomKid24/befui add <name> [name...]` or `add all`; blocks are `block:<name>`. It also installs npm packages and any befui files a component imports.
+- Exact source of any component as JSON (files, deps, requires, example): https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/<name>.json
+- MCP: `npx github:RandomKid24/befui mcp` gives tools list_components, get_component, add_components
 - Icons: our own set in `@/components/ui/icons`, e.g. `import { SearchIcon } from '@/components/ui/icons'`; no icon package needed
-- Theme: CSS variables in index.css (--primary, --ring, --accent...). Dark mode = `dark` class on <html>
-- Full catalog with examples: https://raw.githubusercontent.com/RandomKid24/befui/main/public/llms-full.txt
+- Theme: CSS variables in index.css (--primary, --ring, --accent...). Dark mode = `dark` class on <html>. Use tokens (`bg-primary`, `text-muted-foreground`, `border`), never hard-coded colors.
+- Full catalog with a working example per component: https://raw.githubusercontent.com/RandomKid24/befui/main/public/llms-full.txt
 
-## Components
-- `accordion` (Display): Collapsible sections with a smooth height animation. Single or multiple open. Exports: Accordion.
-- `alert-dialog` (Overlays): Confirm before something destructive. Cancel and confirm, controlled by you. Exports: AlertDialog.
-- `alert` (Feedback): Inline message in info, success, warning and danger. Exports: Alert.
-- `analog-clock` (Time): SVG clock for any time zone, with a second hand that ticks with a small bounce. Exports: AnalogClock.
-- `app-shell` (Layout): Sidebar, topbar and scrolling content area, plus a page header. Exports: AppShell, Topbar, AppContent, PageHeader.
-- `avatar` (Display): Image with initials fallback in a stable color, plus a stacked group. Exports: Avatar, AvatarGroup.
-- `badge` (Display): Status pill with semantic colors and an optional dot. Exports: badgeVariants, Badge.
-- `banner` (Feedback): Announcement bar that collapses smoothly when dismissed. Exports: Banner.
-- `border-beam` (Display): A light beam that circles the border. For pricing cards and featured content. Exports: BorderBeam.
-- `breadcrumb` (Navigation): Trail of parent pages. Exports: Breadcrumb.
-- `button` (Inputs): Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links. Exports: buttonVariants, Button.
-- `calendar` (Inputs): Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work. Exports: startOfDay, addDays, addMonths, isSameDay, Calendar.
-- `card` (Display): Bordered surface with header, content and footer parts. Exports: Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter.
-- `carousel` (Display): Scroll-snap slides with arrows and animated dots. Exports: Carousel.
-- `changelog` (Display): Release notes: version and date on the left, tagged New, Improved, Fixed or Removed changes on the right. Exports: Changelog.
-- `charts` (Data): Sparkline, bar chart and donut in plain SVG. No chart library. Exports: Sparkline, BarChart, DonutChart.
-- `checkbox` (Inputs): Checked, unchecked and indeterminate. Works for select-all rows. Exports: Checkbox.
-- `chip` (Inputs): Toggleable filter chips, single or multi select. Exports: Chip, ChipGroup.
-- `code-block` (Display): Code with a title, optional line numbers and a copy button. No highlighter dependency. Exports: CodeBlock.
-- `collapsible` (Display): One section that opens with a smooth height animation. Exports: Collapsible.
-- `color-picker` (Inputs): Swatches, hex field and the native picker. Always returns a six-digit hex. Exports: ColorPicker.
-- `combobox` (Inputs): Searchable select, single or multiple, with descriptions under each option. Exports: Combobox, MultiCombobox.
-- `command` (Overlays): Searchable palette on cmdk. Bind it to Ctrl or Cmd K. Exports: Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem.
-- `comment-thread` (Display): Nested comments with inline reply boxes, three levels deep. Exports: CommentThread.
-- `compare` (Display): Before and after slider. Drag or use arrow keys. Exports: Compare.
-- `confetti` (Feedback): Burst of confetti from any button, or call fireConfetti(x, y) yourself. Exports: fireConfetti, Confetti.
-- `cookie-consent` (Feedback): Bottom-left consent card that remembers Accept or Decline. Exports: CookieConsent.
-- `copy-button` (Inputs): Copies text and morphs to a check. Exports: CopyButton.
-- `countdown` (Data): Live countdown with flipping digits. Exports: Countdown.
-- `currency-input` (Inputs): Money field that groups digits as you type (1,25,000) and hands you a plain number. Exports: CurrencyInput.
-- `data-table` (Data): Sortable columns, a filter box and pagination, with optional row selection and bulk actions, a column visibility menu and a sticky header. You pass rows and column definitions. Exports: DataTable.
-- `date-picker` (Inputs): Date and date range fields that open a calendar. Closes on pick. Exports: formatDate, DatePicker, DateRangePicker.
-- `dialog` (Overlays): Centered modal and edge-docked sheet on Radix Dialog. Exports: Dialog, DialogTrigger, DialogClose, DialogContent, SheetContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, Sheet, SheetTrigger, SheetClose, SheetHeader, SheetFooter, SheetTitle, SheetDescription.
-- `dock` (Navigation): Icons that grow toward the pointer, like the macOS dock. Exports: Dock.
-- `dropdown-menu` (Overlays): Action menu with checkbox items, shortcuts and destructive items. Exports: DropdownMenu, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuContent, DropdownMenuItem, DropdownMenuCheckboxItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut.
-- `dropzone` (Inputs): Drag and drop file area with size check and removable file list. Exports: Dropzone.
-- `empty-state` (Display): Dashed placeholder with icon, text and an action. Exports: EmptyState.
-- `filter-bar` (Data): Removable filter chips with an Add filter menu: pick a field, then a value. Exports: FilterBar.
-- `gauge` (Data): Half-circle meter with a needle that swings to the value. Exports: Gauge.
-- `heatmap` (Data): Contribution-style grid for daily activity. Cells pop in column by column. Exports: Heatmap.
-- `icons` (ui):  Exports: BefMark, SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ChevronRightIcon, SunIcon, MoonIcon, SparkleIcon, ZapIcon, ComponentsIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, BookIcon, CommandKeyIcon, MonitorIcon, TabletIcon, PhoneIcon, UploadIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ArrowLeftIcon, ArrowUpIcon, ArrowDownIcon, SortIcon, MinusIcon, MoreIcon, RefreshIcon, InfoIcon, AlertIcon, AlertCircleIcon, CheckCircleIcon, XCircleIcon, LoaderIcon, ShieldIcon, UserIcon, UsersIcon, MailIcon, BellIcon, CalendarIcon, ClockIcon, HomeIcon, SettingsIcon, LockIcon, GlobeIcon, StarIcon, HeartIcon, BookmarkIcon, EditIcon, TrashIcon, DownloadIcon, FilterIcon, EyeIcon, EyeOffIcon, LinkIcon, ExternalLinkIcon, LogOutIcon, ListIcon, FileIcon, FolderIcon, ImageIcon, PlayIcon, PauseIcon, BarChartIcon, TrendingIcon, CodeIcon, TerminalIcon, icons.
-- `inline-edit` (Inputs): Text that becomes a field on click. Enter saves, Escape cancels. Exports: InlineEdit.
-- `input` (Inputs): Text input and textarea with icon, trailing slot, and invalid state. Exports: Input, Textarea.
-- `kbd` (Display): Keyboard key hint. Exports: Kbd.
-- `label` (Inputs): Label with required marker, plus Field for label, control and hint or error. Exports: Label, Field.
-- `marquee` (Display): Endless logo or tag scroll with edge fade. Pauses on hover. Exports: Marquee.
-- `notification-center` (Feedback): Bell with an unread count and a popover list. Click marks read, Mark all read clears it. Exports: NotificationCenter.
-- `number-stepper` (Inputs): Number field with plus and minus buttons and arrow keys. Exports: NumberStepper.
-- `number-ticker` (Data): Counts up to a value with easing once it scrolls into view. Exports: NumberTicker.
-- `otp-input` (Inputs): Code boxes with paste, backspace, arrow keys, autofill and a shake on error. Exports: OtpInput.
-- `pagination` (Navigation): Page buttons with ellipsis for long ranges. Exports: Pagination.
-- `password-input` (Inputs): Show and hide toggle with an optional strength meter. Exports: passwordScore, PasswordInput.
-- `permission-matrix` (Data): Roles by permissions grid of checkboxes with per-column toggle and locked roles. Exports: PermissionMatrix.
-- `popover` (Overlays): Floating panel anchored to a trigger. Exports: Popover, PopoverTrigger, PopoverAnchor, PopoverContent.
-- `pricing-card` (Display): Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam. Exports: PricingCard.
-- `progress-ring` (Data): Circular progress with an eased stroke animation. Exports: ProgressRing.
-- `progress` (Data): Thin progress bar with four tones. Exports: Progress.
-- `radio-group` (Inputs): Native radios as selectable cards with descriptions. Exports: RadioGroup.
-- `rating` (Inputs): Star rating with hover preview. Read-only when no handler is given. Exports: Rating.
-- `relative-time` (Time): "3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale. Exports: relative, RelativeTime.
-- `reveal` (Display): Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each. Exports: Reveal, TextReveal.
-- `scroll-progress` (Navigation): Thin bar that fills as you scroll the page or a container. Exports: ScrollProgress.
-- `search-bar` (Inputs): Search field with live results, highlighted matches, recent searches and full keyboard control. Exports: SearchBar.
-- `search-input` (Inputs): Search field with a clear button, Escape to clear and a slash shortcut to focus. Exports: SearchInput.
-- `segmented` (Inputs): Pick one of a few views or ranges. Smaller than tabs. Exports: Segmented.
-- `select` (Inputs): Styled dropdown with groups, built on Radix Select. Exports: Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectLabel, SelectItem.
-- `separator` (Display): Horizontal or vertical divider. Exports: Separator.
-- `shimmer-text` (Display): Text with a light sweep passing over it. Exports: ShimmerText.
-- `sidebar` (Layout): Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile. Exports: useSidebar, SidebarProvider, SidebarTrigger, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarGroup, SidebarItem.
-- `skeleton` (Feedback): Shimmering placeholder for content that is loading. Exports: Skeleton.
-- `slider` (Inputs): Native range input with a filled track and floating value bubble. Exports: Slider.
-- `spinner` (Feedback): Tiny CSS spinner that inherits text color. Exports: Spinner.
-- `spotlight-card` (Display): Card with a glow and border highlight that follow the cursor. Exports: SpotlightCard.
-- `stat-card` (Data): KPI tile with value, trend delta and a sparkline slot. Exports: StatCard.
-- `status-dot` (Display): Small status light with an optional pulse and label. Exports: StatusDot.
-- `stepper` (Navigation): Horizontal steps for multi-step forms and onboarding. Exports: Stepper.
-- `stopwatch` (Time): Start, pause, lap and reset, down to hundredths of a second. Exports: Stopwatch.
-- `switch` (Inputs): On/off toggle for settings that apply immediately. Exports: Switch.
-- `table-of-contents` (Navigation): On this page list that highlights the section currently in view. Exports: TableOfContents.
-- `table` (Display): Dense table parts with hover rows, a selected state, footer and caption. Exports: Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, TableCaption.
-- `tabs` (Navigation): Underline or pill tabs on Radix Tabs. Exports: Tabs, TabsList, TabsTrigger, TabsContent.
-- `tag-input` (Inputs): Type and press Enter to add chips. Backspace removes the last. Exports: TagInput.
-- `testimonial-card` (Display): Customer quote with avatar, role and optional star rating. Exports: TestimonialCard.
-- `tilt-card` (Display): 3D card that tilts toward the cursor with a moving sheen. Exports: TiltCard.
-- `time-picker` (Time): Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour. Exports: TimePicker.
-- `timeline` (Display): Vertical activity feed with tone-colored markers. Exports: Timeline.
-- `timer` (Time): Countdown with a ring that drains smoothly, presets and an onDone callback. Exports: Timer.
-- `toast` (Feedback): Call toast.success() from anywhere. No provider needed. Exports: toast, Toaster.
-- `toggle` (Inputs): Two-state button for favourite, bold or mute. Announces its state to screen readers. Exports: Toggle.
-- `tooltip` (Overlays): Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off. Exports: TooltipProvider, Tooltip, InfoTip, TruncatedText.
-- `tree-view` (Navigation): Nested expandable list with animated open and close. Exports: TreeView.
-- `typewriter` (Display): Types, holds and deletes phrases in a loop. Static for reduced motion. Exports: Typewriter.
-- `world-clock` (Time): Cities with live local time, a day or night icon and the hour difference from you. Exports: WorldClock.
+## Rules that save a debugging round
+- Wrap the app once in `<TooltipProvider>` (tooltip) and render `<Toaster />` once, then call `toast.success('Saved')` anywhere (toast).
+- Sidebar, AppShell: put `SidebarProvider` above them. Dialog and Sheet are the same primitive; use `SheetContent` for a side drawer.
+- Stateful inputs are controlled: pass `value` and `onChange` (or `checked` / `onCheckedChange` for checkbox and switch).
+- Tables: `table` is bare parts for static layouts. `data-table` adds sort, filter, pagination, row selection (`selectable`, `bulkActions`), a column menu (`columnMenu`) and a sticky header (`maxHeight`); you pass rows and `Column[]`.
+- Merge classes with `cn` from `@/lib/utils`. Edit copied files freely; `add <name> --force` overwrites local edits.
+
+## Which component for what
+- Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), heatmap, charts
+- Hint or explain on hover: tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content
+- Pick a value: select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker
+- Type text or numbers: input, search-input, search-bar, password-input, otp-input, currency-input, number-stepper, tag-input, inline-edit
+- Confirm, ask, or show a form on top: dialog, alert-dialog (destructive), dialog's Sheet (side drawer), popover
+- Tell the user something: toast (transient), alert (inline), banner (page-wide), notification-center (inbox), cookie-consent
+- Navigate: sidebar, app-shell, tabs, breadcrumb, pagination, stepper, command (Ctrl K), table-of-contents
+- Show KPIs and status: stat-card, gauge, progress, progress-ring, number-ticker, badge, status-dot, charts (Sparkline, BarChart, DonutChart)
+- Show people and activity: avatar, timeline, comment-thread, changelog, testimonial-card, rating
+- Time: time-picker, analog-clock, world-clock, stopwatch, timer, countdown, relative-time
+- Whole pages: blocks: admin-shell, hrms-overview, employee-directory, leave-approvals, leave-request-form, lead-pipeline, campaign-performance, sign-in
+
+## Components (93)
+
+### Layout (2)
+- [app-shell](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/app-shell.json): Sidebar, topbar and scrolling content area, plus a page header. Import: AppShell, Topbar, AppContent, PageHeader. Needs befui: sidebar.
+- [sidebar](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/sidebar.json): Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile. Import: useSidebar, SidebarProvider, SidebarTrigger, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarGroup, SidebarItem. Needs befui: dialog, tooltip. npm: lucide-react.
+
+### Navigation (8)
+- [breadcrumb](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/breadcrumb.json): Trail of parent pages. Import: Breadcrumb. npm: lucide-react.
+- [dock](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/dock.json): Icons that grow toward the pointer, like the macOS dock. Import: Dock.
+- [pagination](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/pagination.json): Page buttons with ellipsis for long ranges. Import: Pagination. npm: lucide-react.
+- [scroll-progress](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/scroll-progress.json): Thin bar that fills as you scroll the page or a container. Import: ScrollProgress.
+- [stepper](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/stepper.json): Horizontal steps for multi-step forms and onboarding. Import: Stepper. npm: lucide-react.
+- [table-of-contents](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/table-of-contents.json): On this page list that highlights the section currently in view. Import: TableOfContents.
+- [tabs](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/tabs.json): Underline or pill tabs on Radix Tabs. Import: Tabs, TabsList, TabsTrigger, TabsContent. npm: @radix-ui/react-tabs.
+- [tree-view](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/tree-view.json): Nested expandable list with animated open and close. Import: TreeView. npm: lucide-react.
+
+### Inputs (26)
+- [button](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/button.json): Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links. Import: Button. npm: @radix-ui/react-slot, lucide-react.
+- [calendar](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/calendar.json): Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work. Import: startOfDay, addDays, addMonths, isSameDay, Calendar. npm: lucide-react.
+- [checkbox](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/checkbox.json): Checked, unchecked and indeterminate. Works for select-all rows. Import: Checkbox. npm: @radix-ui/react-checkbox, lucide-react.
+- [chip](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/chip.json): Toggleable filter chips, single or multi select. Import: Chip, ChipGroup. npm: lucide-react.
+- [color-picker](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/color-picker.json): Swatches, hex field and the native picker. Always returns a six-digit hex. Import: ColorPicker. Needs befui: icons.
+- [combobox](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/combobox.json): Searchable select, single or multiple, with descriptions under each option. Import: Combobox, MultiCombobox. Needs befui: badge, command, popover. npm: lucide-react.
+- [copy-button](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/copy-button.json): Copies text and morphs to a check. Import: CopyButton. npm: lucide-react.
+- [currency-input](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/currency-input.json): Money field that groups digits as you type (1,25,000) and hands you a plain number. Import: CurrencyInput.
+- [date-picker](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/date-picker.json): Date and date range fields that open a calendar. Closes on pick. Import: formatDate, DatePicker, DateRangePicker. Needs befui: calendar, popover. npm: lucide-react.
+- [dropzone](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/dropzone.json): Drag and drop file area with size check and removable file list. Import: Dropzone. npm: lucide-react.
+- [inline-edit](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/inline-edit.json): Text that becomes a field on click. Enter saves, Escape cancels. Import: InlineEdit. Needs befui: icons.
+- [input](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/input.json): Text input and textarea with icon, trailing slot, and invalid state. Import: Input, Textarea.
+- [label](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/label.json): Label with required marker, plus Field for label, control and hint or error. Import: Label, Field. npm: @radix-ui/react-label.
+- [number-stepper](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/number-stepper.json): Number field with plus and minus buttons and arrow keys. Import: NumberStepper. npm: lucide-react.
+- [otp-input](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/otp-input.json): Code boxes with paste, backspace, arrow keys, autofill and a shake on error. Import: OtpInput.
+- [password-input](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/password-input.json): Show and hide toggle with an optional strength meter. Import: passwordScore, PasswordInput. Needs befui: icons, input.
+- [radio-group](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/radio-group.json): Native radios as selectable cards with descriptions. Import: RadioGroup.
+- [rating](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/rating.json): Star rating with hover preview. Read-only when no handler is given. Import: Rating. npm: lucide-react.
+- [search-bar](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/search-bar.json): Search field with live results, highlighted matches, recent searches and full keyboard control. Import: SearchBar. Needs befui: icons.
+- [search-input](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/search-input.json): Search field with a clear button, Escape to clear and a slash shortcut to focus. Import: SearchInput. Needs befui: icons.
+- [segmented](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/segmented.json): Pick one of a few views or ranges. Smaller than tabs. Import: Segmented. npm: @radix-ui/react-toggle-group.
+- [select](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/select.json): Styled dropdown with groups, built on Radix Select. Import: Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectLabel, SelectItem. npm: @radix-ui/react-select, lucide-react.
+- [slider](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/slider.json): Native range input with a filled track and floating value bubble. Import: Slider.
+- [switch](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/switch.json): On/off toggle for settings that apply immediately. Import: Switch. npm: @radix-ui/react-switch.
+- [tag-input](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/tag-input.json): Type and press Enter to add chips. Backspace removes the last. Import: TagInput. npm: lucide-react.
+- [toggle](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/toggle.json): Two-state button for favourite, bold or mute. Announces its state to screen readers. Import: Toggle.
+
+### Display (25)
+- [accordion](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/accordion.json): Collapsible sections with a smooth height animation. Single or multiple open. Import: Accordion. npm: lucide-react.
+- [avatar](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/avatar.json): Image with initials fallback in a stable color, plus a stacked group. Import: Avatar, AvatarGroup. npm: @radix-ui/react-avatar.
+- [badge](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/badge.json): Status pill with semantic colors and an optional dot. Import: Badge.
+- [border-beam](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/border-beam.json): A light beam that circles the border. For pricing cards and featured content. Import: BorderBeam.
+- [card](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/card.json): Bordered surface with header, content and footer parts. Import: Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter.
+- [carousel](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/carousel.json): Scroll-snap slides with arrows and animated dots. Import: Carousel. npm: lucide-react.
+- [changelog](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/changelog.json): Release notes: version and date on the left, tagged New, Improved, Fixed or Removed changes on the right. Import: Changelog. Needs befui: badge.
+- [code-block](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/code-block.json): Code with a title, optional line numbers and a copy button. No highlighter dependency. Import: CodeBlock. Needs befui: icons.
+- [collapsible](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/collapsible.json): One section that opens with a smooth height animation. Import: Collapsible. Needs befui: icons.
+- [comment-thread](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/comment-thread.json): Nested comments with inline reply boxes, three levels deep. Import: CommentThread. Needs befui: avatar, button, input.
+- [compare](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/compare.json): Before and after slider. Drag or use arrow keys. Import: Compare.
+- [empty-state](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/empty-state.json): Dashed placeholder with icon, text and an action. Import: EmptyState.
+- [kbd](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/kbd.json): Keyboard key hint. Import: Kbd.
+- [marquee](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/marquee.json): Endless logo or tag scroll with edge fade. Pauses on hover. Import: Marquee.
+- [pricing-card](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/pricing-card.json): Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam. Import: PricingCard. Needs befui: badge, border-beam, button, icons, number-ticker.
+- [reveal](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/reveal.json): Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each. Import: Reveal, TextReveal.
+- [separator](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/separator.json): Horizontal or vertical divider. Import: Separator. npm: @radix-ui/react-separator.
+- [shimmer-text](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/shimmer-text.json): Text with a light sweep passing over it. Import: ShimmerText.
+- [spotlight-card](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/spotlight-card.json): Card with a glow and border highlight that follow the cursor. Import: SpotlightCard.
+- [status-dot](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/status-dot.json): Small status light with an optional pulse and label. Import: StatusDot.
+- [table](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/table.json): Dense table parts with hover rows, a selected state, footer and caption. Import: Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, TableCaption.
+- [testimonial-card](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/testimonial-card.json): Customer quote with avatar, role and optional star rating. Import: TestimonialCard. Needs befui: avatar, icons.
+- [tilt-card](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/tilt-card.json): 3D card that tilts toward the cursor with a moving sheen. Import: TiltCard.
+- [timeline](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/timeline.json): Vertical activity feed with tone-colored markers. Import: Timeline.
+- [typewriter](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/typewriter.json): Types, holds and deletes phrases in a loop. Static for reduced motion. Import: Typewriter.
+
+### Data (11)
+- [charts](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/charts.json): Sparkline, bar chart and donut in plain SVG. No chart library. Import: Sparkline, BarChart, DonutChart.
+- [countdown](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/countdown.json): Live countdown with flipping digits. Import: Countdown.
+- [data-table](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/data-table.json): Sortable columns, a filter box and pagination, with optional row selection and bulk actions, a column visibility menu and a sticky header. You pass rows and column definitions. Import: DataTable. Needs befui: button, checkbox, dropdown-menu, icons, pagination, table.
+- [filter-bar](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/filter-bar.json): Removable filter chips with an Add filter menu: pick a field, then a value. Import: FilterBar. Needs befui: button, icons, popover.
+- [gauge](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/gauge.json): Half-circle meter with a needle that swings to the value. Import: Gauge.
+- [heatmap](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/heatmap.json): Contribution-style grid for daily activity. Cells pop in column by column. Import: Heatmap.
+- [number-ticker](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/number-ticker.json): Counts up to a value with easing once it scrolls into view. Import: NumberTicker.
+- [permission-matrix](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/permission-matrix.json): Roles by permissions grid of checkboxes with per-column toggle and locked roles. Import: PermissionMatrix. Needs befui: checkbox, table.
+- [progress](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/progress.json): Thin progress bar with four tones. Import: Progress. npm: @radix-ui/react-progress.
+- [progress-ring](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/progress-ring.json): Circular progress with an eased stroke animation. Import: ProgressRing.
+- [stat-card](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/stat-card.json): KPI tile with value, trend delta and a sparkline slot. Import: StatCard. Needs befui: card. npm: lucide-react.
+
+### Feedback (8)
+- [alert](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/alert.json): Inline message in info, success, warning and danger. Import: Alert. npm: lucide-react.
+- [banner](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/banner.json): Announcement bar that collapses smoothly when dismissed. Import: Banner. npm: lucide-react.
+- [confetti](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/confetti.json): Burst of confetti from any button, or call fireConfetti(x, y) yourself. Import: fireConfetti, Confetti.
+- [cookie-consent](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/cookie-consent.json): Bottom-left consent card that remembers Accept or Decline. Import: CookieConsent. Needs befui: button.
+- [notification-center](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/notification-center.json): Bell with an unread count and a popover list. Click marks read, Mark all read clears it. Import: NotificationCenter. Needs befui: button, icons, popover.
+- [skeleton](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/skeleton.json): Shimmering placeholder for content that is loading. Import: Skeleton.
+- [spinner](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/spinner.json): Tiny CSS spinner that inherits text color. Import: Spinner.
+- [toast](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/toast.json): Call toast.success() from anywhere. No provider needed. Import: toast, Toaster. npm: lucide-react.
+
+### Overlays (6)
+- [alert-dialog](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/alert-dialog.json): Confirm before something destructive. Cancel and confirm, controlled by you. Import: AlertDialog. Needs befui: button, dialog, icons.
+- [command](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/command.json): Searchable palette on cmdk. Bind it to Ctrl or Cmd K. Import: Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem. npm: @radix-ui/react-dialog, cmdk, lucide-react.
+- [dialog](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/dialog.json): Centered modal and edge-docked sheet on Radix Dialog. Import: Dialog, DialogTrigger, DialogClose, DialogContent, SheetContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, Sheet, SheetTrigger, SheetClose, SheetHeader, SheetFooter, SheetTitle, SheetDescription. npm: @radix-ui/react-dialog, lucide-react.
+- [dropdown-menu](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/dropdown-menu.json): Action menu with checkbox items, shortcuts and destructive items. Import: DropdownMenu, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuContent, DropdownMenuItem, DropdownMenuCheckboxItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut. npm: @radix-ui/react-dropdown-menu, lucide-react.
+- [popover](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/popover.json): Floating panel anchored to a trigger. Import: Popover, PopoverTrigger, PopoverAnchor, PopoverContent. npm: @radix-ui/react-popover.
+- [tooltip](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/tooltip.json): Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off. Import: TooltipProvider, Tooltip, InfoTip, TruncatedText. Needs befui: icons, kbd. npm: @radix-ui/react-tooltip.
+
+### Time (6)
+- [analog-clock](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/analog-clock.json): SVG clock for any time zone, with a second hand that ticks with a small bounce. Import: AnalogClock.
+- [relative-time](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/relative-time.json): "3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale. Import: relative, RelativeTime.
+- [stopwatch](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/stopwatch.json): Start, pause, lap and reset, down to hundredths of a second. Import: Stopwatch. Needs befui: button, icons.
+- [time-picker](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/time-picker.json): Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour. Import: TimePicker. Needs befui: icons.
+- [timer](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/timer.json): Countdown with a ring that drains smoothly, presets and an onDone callback. Import: Timer. Needs befui: button, icons.
+- [world-clock](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/world-clock.json): Cities with live local time, a day or night icon and the hour difference from you. Import: WorldClock. Needs befui: icons.
+
+### ui (1)
+- [icons](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/icons.json):  Import: BefMark, SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ChevronRightIcon, SunIcon, MoonIcon, SparkleIcon, ZapIcon, ComponentsIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, BookIcon, CommandKeyIcon, MonitorIcon, TabletIcon, PhoneIcon, UploadIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ArrowLeftIcon, ArrowUpIcon, ArrowDownIcon, SortIcon, MinusIcon, MoreIcon, RefreshIcon, InfoIcon, AlertIcon, AlertCircleIcon, CheckCircleIcon, XCircleIcon, LoaderIcon, ShieldIcon, UserIcon, UsersIcon, MailIcon, BellIcon, CalendarIcon, ClockIcon, HomeIcon, SettingsIcon, LockIcon, GlobeIcon, StarIcon, HeartIcon, BookmarkIcon, EditIcon, TrashIcon, DownloadIcon, FilterIcon, EyeIcon, EyeOffIcon, LinkIcon, ExternalLinkIcon, LogOutIcon, ListIcon, FileIcon, FolderIcon, ImageIcon, PlayIcon, PauseIcon, BarChartIcon, TrendingIcon, CodeIcon, TerminalIcon, icons.
 
 ## Blocks
-- `block:admin-shell` (Layout): Full app frame: grouped sidebar with nested links, topbar with search, alerts and user menu, and a dashboard page. Uses: app-shell, avatar, breadcrumb, button, calendar, card, charts, date-picker, dropdown-menu, kbd, sidebar, stat-card, timeline.
-- `block:campaign-performance` (Marketing): Channel KPIs, weekly leads chart and a campaign budget table. Uses: badge, card, charts, progress, stat-card, table.
-- `block:employee-directory` (HRMS): Searchable table with status filter, row selection, actions and pagination. Uses: avatar, badge, button, card, checkbox, dropdown-menu, input, pagination, segmented, table.
-- `block:hrms-overview` (HRMS): Headcount, attendance, department split and activity feed. Uses: avatar, card, charts, stat-card, timeline.
-- `block:lead-pipeline` (Marketing): Drag-and-drop board with column totals and a keyboard-friendly move button. Uses: avatar, badge, button, card, toast.
-- `block:leave-approvals` (HRMS): Manager inbox with tabs, balance bars and approve or reject toasts. Uses: avatar, badge, button, card, empty-state, progress, tabs, toast.
-- `block:leave-request-form` (HRMS): Date range, approver combobox, multi-select notify list, working-day count and field validation. Uses: alert, button, calendar, card, combobox, date-picker, input, label, select, toast.
-- `block:sign-in` (Auth): Login card with validation, loading button and an error alert. Uses: alert, button, card, checkbox, input, label.
+- [block:admin-shell](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/block-admin-shell.json): Full app frame: grouped sidebar with nested links, topbar with search, alerts and user menu, and a dashboard page. Uses: app-shell, avatar, breadcrumb, button, calendar, card, charts, date-picker, dropdown-menu, kbd, sidebar, stat-card, timeline.
+- [block:campaign-performance](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/block-campaign-performance.json): Channel KPIs, weekly leads chart and a campaign budget table. Uses: badge, card, charts, progress, stat-card, table.
+- [block:employee-directory](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/block-employee-directory.json): Searchable table with status filter, row selection, actions and pagination. Uses: avatar, badge, button, card, checkbox, dropdown-menu, input, pagination, segmented, table.
+- [block:hrms-overview](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/block-hrms-overview.json): Headcount, attendance, department split and activity feed. Uses: avatar, card, charts, stat-card, timeline.
+- [block:lead-pipeline](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/block-lead-pipeline.json): Drag-and-drop board with column totals and a keyboard-friendly move button. Uses: avatar, badge, button, card, toast.
+- [block:leave-approvals](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/block-leave-approvals.json): Manager inbox with tabs, balance bars and approve or reject toasts. Uses: avatar, badge, button, card, empty-state, progress, tabs, toast.
+- [block:leave-request-form](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/block-leave-request-form.json): Date range, approver combobox, multi-select notify list, working-day count and field validation. Uses: alert, button, calendar, card, combobox, date-picker, input, label, select, toast.
+- [block:sign-in](https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/block-sign-in.json): Login card with validation, loading button and an error alert. Uses: alert, button, card, checkbox, input, label.
