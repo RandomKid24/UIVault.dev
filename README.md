@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-120 copy-paste React components, 73 hand-drawn icons and 9 full-page blocks.<br/>
+132 copy-paste React components, 73 hand-drawn icons and 10 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -111,7 +111,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ## What is inside
 
-### Components (120)
+### Components (132)
 
 <details>
 <summary><b>Layout</b> (3)</summary>
@@ -121,9 +121,9 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </details>
 
 <details>
-<summary><b>Inputs</b> (32)</summary>
+<summary><b>Inputs</b> (35)</summary>
 
-`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker` · `search-bar` · `currency-input` · `inline-edit` · `coupon-input` · `mention-input` · `fab` · `datetime-picker` · `image-upload` · `avatar-upload`
+`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker` · `search-bar` · `currency-input` · `inline-edit` · `coupon-input` · `mention-input` · `fab` · `datetime-picker` · `image-upload` · `avatar-upload` · `schema-form` · `rich-text-editor` · `notification-preferences`
 
 </details>
 
@@ -135,16 +135,16 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </details>
 
 <details>
-<summary><b>Display</b> (33)</summary>
+<summary><b>Display</b> (37)</summary>
 
-`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `pricing-card` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline` · `changelog` · `testimonial-card` · `comment-thread` · `code-block` · `status-dot` · `activity-feed` · `product-card` · `order-summary` · `sortable-list` · `chat` · `profile-card` · `terminal` · `swipe-actions`
+`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `pricing-card` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline` · `changelog` · `testimonial-card` · `comment-thread` · `code-block` · `status-dot` · `activity-feed` · `product-card` · `order-summary` · `sortable-list` · `chat` · `profile-card` · `terminal` · `swipe-actions` · `approval-flow` · `onboarding-checklist` · `tag-manager` · `format`
 
 </details>
 
 <details>
-<summary><b>Data</b> (16)</summary>
+<summary><b>Data</b> (20)</summary>
 
-`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar` · `permission-matrix` · `kanban` · `line-chart` · `radar-chart` · `audit-log` · `file-manager`
+`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar` · `permission-matrix` · `kanban` · `line-chart` · `radar-chart` · `audit-log` · `file-manager` · `saved-views` · `funnel-chart` · `gantt` · `org-chart`
 
 </details>
 
@@ -156,9 +156,9 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </details>
 
 <details>
-<summary><b>Overlays</b> (9)</summary>
+<summary><b>Overlays</b> (10)</summary>
 
-`alert-dialog` · `dialog` · `dropdown-menu` · `popover` · `tooltip` · `command` · `context-menu` · `image-viewer` · `bottom-sheet`
+`alert-dialog` · `dialog` · `dropdown-menu` · `popover` · `tooltip` · `command` · `context-menu` · `image-viewer` · `bottom-sheet` · `shortcuts-dialog`
 
 </details>
 
@@ -171,7 +171,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 Browse them live with search at the docs site, or run `npx github:RandomKid24/befui list`.
 
-### Blocks (9)
+### Blocks (10)
 
 Full screens built from the components, with mock data you swap for your own API.
 
@@ -181,6 +181,7 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:hrms-overview` | HRMS | Headcount, attendance, department split and activity feed. |
 | `block:employee-directory` | HRMS | Searchable table with status filter, row selection, actions and pagination. |
 | `block:reports-table` | Reports | Searchable, filterable, sortable reports table with row action menus and a details drawer. |
+| `block:sales-dashboard` | Marketing | KPI cards, revenue line chart against target, pipeline funnel and a top deals table. |
 | `block:leave-approvals` | HRMS | Manager inbox with tabs, balance bars and approve or reject toasts. |
 | `block:leave-request-form` | HRMS | Date range, approver combobox, multi-select notify list, working-day count and field validation. |
 | `block:campaign-performance` | Marketing | Channel KPIs, weekly leads chart and a campaign budget table. |

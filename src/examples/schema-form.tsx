@@ -1,0 +1,30 @@
+import { SchemaForm, type FormStep } from '@/components/ui/schema-form';
+import { toast } from '@/components/ui/toast';
+
+const steps: FormStep[] = [
+  {
+    title: 'Personal',
+    description: 'Basic details for the employee record.',
+    fields: [
+      { name: 'first', label: 'First name', required: true, half: true },
+      { name: 'last', label: 'Last name', required: true, half: true },
+      { name: 'email', label: 'Work email', type: 'email', required: true, placeholder: 'name@company.com' },
+      { name: 'phone', label: 'Phone', type: 'tel', half: true, validate: (v) => (v && !/^\d{10}$/.test(String(v)) ? 'Use 10 digits.' : undefined) },
+      { name: 'dob', label: 'Date of birth', type: 'date', half: true },
+    ],
+  },
+  {
+    title: 'Job',
+    description: 'Where they sit and what they do.',
+    fields: [
+      { name: 'dept', label: 'Department', type: 'select', required: true, half: true, options: [{ value: 'eng', label: 'Engineering' }, { value: 'design', label: 'Design' }, { value: 'sales', label: 'Sales' }] },
+      { name: 'salary', label: 'Annual salary (₹)', type: 'number', half: true },
+      { name: 'notes', label: 'Notes for HR', type: 'textarea', hint: 'Visible to the People team only.' },
+    ],
+  },
+  { title: 'Confirm', fields: [{ name: 'ok', label: 'I confirm these details are correct', type: 'checkbox', required: true }] },
+];
+
+export default function SchemaFormDemo() {
+  return <SchemaForm steps={steps} submitLabel="Create employee" onSubmit={async (v) => { await new Promise((r) => setTimeout(r, 700)); toast.success('Employee created', `${v.first} ${v.last}`); }} />;
+}

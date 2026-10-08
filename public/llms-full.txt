@@ -19,12 +19,14 @@
 - Merge classes with `cn` from `@/lib/utils`. Edit copied files freely; `add <name> --force` overwrites local edits.
 
 ## Which component for what
-- Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts, line-chart, radar-chart, audit-log (who changed what), file-manager
+- Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts, line-chart, radar-chart, funnel-chart, gantt (schedule), org-chart, saved-views (table presets), audit-log (who changed what), file-manager
 - Hint or explain on hover: tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content
 - Pick a value: select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker
-- Type text or numbers: input, search-input, search-bar, password-input, otp-input, currency-input, number-stepper, tag-input, inline-edit, datetime-picker, image-upload, mention-input (@ people), coupon-input
+- Type text or numbers: input, search-input, search-bar, password-input, otp-input, currency-input, number-stepper, tag-input, inline-edit, datetime-picker, image-upload, rich-text-editor (HTML), schema-form (form from a JSON-like description, wizard with steps), notification-preferences, mention-input (@ people), coupon-input
 - Confirm, ask, or show a form on top: dialog, alert-dialog (destructive), dialog's Sheet (side drawer), popover, context-menu (right click), image-viewer (lightbox), bottom-sheet (mobile)
 - Loading and failure states: loader (ring/dots/bars/pulse/orbit/dual, BarLoader, LoadingOverlay), skeleton, spinner, empty-state, error-state (404/500), pull-to-refresh
+- Workflows and settings: approval-flow (approver chain), onboarding-checklist, tag-manager, notification-preferences, shortcuts-dialog (press ?), permission-matrix
+- Format numbers: format (formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration, Currency); defaults to INR and en-IN
 - Online shop and checkout: product-card (and Price), order-summary, coupon-input, number-stepper (quantity), rating
 - Reorder or resize: sortable-list (rows), kanban (cards across columns), split-pane (resizable panels)
 - Tell the user something: toast (transient), alert (inline), banner (page-wide), notification-center (inbox), cookie-consent
@@ -32,7 +34,7 @@
 - Show KPIs and status: stat-card, gauge, progress, progress-ring, number-ticker, badge, status-dot, charts (Sparkline, BarChart, DonutChart)
 - Show people and activity: avatar, profile-card, activity-feed, timeline, chat, comment-thread, changelog, testimonial-card, rating, terminal (CLI output)
 - Time: time-picker, analog-clock, world-clock, stopwatch, timer, countdown, relative-time
-- Whole pages: blocks: admin-shell, hrms-overview, employee-directory, leave-approvals, leave-request-form, lead-pipeline, campaign-performance, sign-in
+- Whole pages: blocks: admin-shell, sales-dashboard, reports-table, hrms-overview, employee-directory, leave-approvals, leave-request-form, lead-pipeline, campaign-performance, sign-in
 
 # Components
 
@@ -976,6 +978,39 @@ export default function MentionInputDemo() {
 }
 ```
 
+## Notification preferences (`notification-preferences`)
+Grid of events by channel (email, push, SMS, in-app) with a switch per cell and a switch per channel.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add notification-preferences`
+- Import: `import { NotificationPreferences } from '@/components/ui/notification-preferences'`
+- Also needs: switch
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { NotificationPreferences, type Preferences } from '@/components/ui/notification-preferences';
+
+export default function NotificationPreferencesDemo() {
+  const [v, setV] = React.useState<Preferences>({ leave: ['email', 'push', 'app'], payroll: ['email'], mention: ['push', 'app'], digest: ['email'], security: ['email', 'sms', 'push', 'app'] });
+  return (
+    <NotificationPreferences
+      className="max-w-2xl"
+      value={v}
+      onChange={setV}
+      channels={[{ id: 'email', label: 'Email' }, { id: 'push', label: 'Push' }, { id: 'sms', label: 'SMS' }, { id: 'app', label: 'In-app' }]}
+      events={[
+        { id: 'leave', label: 'Leave requests', description: 'Submitted, approved or rejected' },
+        { id: 'payroll', label: 'Payslips', description: 'When a new payslip is ready' },
+        { id: 'mention', label: 'Mentions and comments' },
+        { id: 'digest', label: 'Weekly digest', description: 'Monday summary of your team' },
+        { id: 'security', label: 'Security alerts', description: 'New sign-ins and password changes' },
+      ]}
+    />
+  );
+}
+```
+
 ## Number stepper (`number-stepper`)
 Number field with plus and minus buttons and arrow keys.
 - Group: Inputs
@@ -1095,6 +1130,71 @@ export default function RatingDemo() {
       <Rating value={4} className="[&_svg]:size-4" />
     </div>
   );
+}
+```
+
+## Rich text editor (`rich-text-editor`)
+Small editor with bold, italic, underline, heading, lists, quote and link. Value is HTML. Built on contentEditable, no dependency.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add rich-text-editor`
+- Import: `import { RichTextEditor } from '@/components/ui/rich-text-editor'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { RichTextEditor } from '@/components/ui/rich-text-editor';
+
+export default function RichTextEditorDemo() {
+  const [html, setHtml] = React.useState('<p>Quarterly review notes: <b>on track</b> for the October release.</p><ul><li>Ship the reports block</li><li>Review hiring plan</li></ul>');
+  return (
+    <div className="grid w-full max-w-xl gap-3">
+      <RichTextEditor value={html} onChange={setHtml} />
+      <pre className="overflow-x-auto rounded-lg bg-muted p-3 font-mono text-[11px] text-muted-foreground">{html}</pre>
+    </div>
+  );
+}
+```
+
+## Schema form (`schema-form`)
+Build a form from a description: text, email, number, date, select, textarea and checkbox fields, validation, and optional multi-step wizard with a stepper.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add schema-form`
+- Import: `import { SchemaForm } from '@/components/ui/schema-form'`
+- Also needs: button, checkbox, input, label, select, stepper
+
+Example:
+
+```tsx
+import { SchemaForm, type FormStep } from '@/components/ui/schema-form';
+import { toast } from '@/components/ui/toast';
+
+const steps: FormStep[] = [
+  {
+    title: 'Personal',
+    description: 'Basic details for the employee record.',
+    fields: [
+      { name: 'first', label: 'First name', required: true, half: true },
+      { name: 'last', label: 'Last name', required: true, half: true },
+      { name: 'email', label: 'Work email', type: 'email', required: true, placeholder: 'name@company.com' },
+      { name: 'phone', label: 'Phone', type: 'tel', half: true, validate: (v) => (v && !/^\d{10}$/.test(String(v)) ? 'Use 10 digits.' : undefined) },
+      { name: 'dob', label: 'Date of birth', type: 'date', half: true },
+    ],
+  },
+  {
+    title: 'Job',
+    description: 'Where they sit and what they do.',
+    fields: [
+      { name: 'dept', label: 'Department', type: 'select', required: true, half: true, options: [{ value: 'eng', label: 'Engineering' }, { value: 'design', label: 'Design' }, { value: 'sales', label: 'Sales' }] },
+      { name: 'salary', label: 'Annual salary (₹)', type: 'number', half: true },
+      { name: 'notes', label: 'Notes for HR', type: 'textarea', hint: 'Visible to the People team only.' },
+    ],
+  },
+  { title: 'Confirm', fields: [{ name: 'ok', label: 'I confirm these details are correct', type: 'checkbox', required: true }] },
+];
+
+export default function SchemaFormDemo() {
+  return <SchemaForm steps={steps} submitLabel="Create employee" onSubmit={async (v) => { await new Promise((r) => setTimeout(r, 700)); toast.success('Employee created', `${v.first} ${v.last}`); }} />;
 }
 ```
 
@@ -1356,6 +1456,43 @@ const items: Activity[] = [
 
 export default function ActivityFeedDemo() {
   return <ActivityFeed className="w-full max-w-md" items={items} />;
+}
+```
+
+## Approval flow (`approval-flow`)
+Chain of approvers with decisions, comments and times. The current approver gets Approve and Reject buttons.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add approval-flow`
+- Import: `import { ApprovalFlow } from '@/components/ui/approval-flow'`
+- Also needs: avatar, button, icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { ApprovalFlow, type ApprovalStep } from '@/components/ui/approval-flow';
+import { toast } from '@/components/ui/toast';
+
+export default function ApprovalFlowDemo() {
+  const [steps, setSteps] = React.useState<ApprovalStep[]>([
+    { id: '1', approver: 'Rohan Das', role: 'Team lead', status: 'approved', comment: 'Looks fine, within the team budget.', at: '07 Oct' },
+    { id: '2', approver: 'Meera Iyer', role: 'Finance', status: 'pending' },
+    { id: '3', approver: 'Aarav Mehta', role: 'CTO', status: 'waiting' },
+  ]);
+  const decide = (id: string, d: 'approved' | 'rejected', comment: string) => {
+    setSteps((l) => l.map((s, i) => {
+      if (s.id === id) return { ...s, status: d, comment: comment || undefined, at: 'Just now' };
+      if (d === 'approved' && l[i - 1]?.id === id) return { ...s, status: 'pending' };
+      return s;
+    }));
+    toast[d === 'approved' ? 'success' : 'info'](d === 'approved' ? 'Approved' : 'Rejected');
+  };
+  return (
+    <div className="w-full max-w-md rounded-xl border bg-card p-5">
+      <p className="mb-4 text-sm font-semibold">Laptop purchase · ₹1,45,000</p>
+      <ApprovalFlow steps={steps} onDecide={decide} />
+    </div>
+  );
 }
 ```
 
@@ -1699,6 +1836,39 @@ export default function EmptyStateDemo() {
 }
 ```
 
+## Format helpers (`format`)
+formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add format`
+- Import: `import { formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration, Currency } from '@/components/ui/format'`
+
+Example:
+
+```tsx
+import { Currency, formatBytes, formatCompact, formatCurrency, formatDuration, formatPercent } from '@/components/ui/format';
+
+const rows: [string, string][] = [
+  ['formatCurrency(1250000)', formatCurrency(1250000)],
+  ['formatCurrency(1250000, { compact: true })', formatCurrency(1250000, { compact: true })],
+  ['formatCurrency(4999.5, { currency: "USD", locale: "en-US" })', formatCurrency(4999.5, { currency: 'USD', locale: 'en-US' })],
+  ['formatCompact(48200)', formatCompact(48200)],
+  ['formatPercent(0.1234)', formatPercent(0.1234)],
+  ['formatBytes(1536000)', formatBytes(1536000)],
+  ['formatDuration(3725)', formatDuration(3725)],
+];
+
+export default function FormatDemo() {
+  return (
+    <div className="grid w-full max-w-xl gap-4">
+      <dl className="grid gap-1.5 rounded-xl border bg-card p-4 font-mono text-xs">
+        {rows.map(([call, out]) => <div key={call} className="flex justify-between gap-4"><dt className="truncate text-muted-foreground">{call}</dt><dd className="shrink-0 font-semibold text-foreground">{out}</dd></div>)}
+      </dl>
+      <p className="flex gap-4 text-sm">Net change: <Currency value={42500} signed /> <Currency value={-18200} signed /></p>
+    </div>
+  );
+}
+```
+
 ## Kbd (`kbd`)
 Keyboard key hint.
 - Group: Display
@@ -1743,6 +1913,31 @@ export default function MarqueeDemo() {
       </Marquee>
     </div>
   );
+}
+```
+
+## Onboarding checklist (`onboarding-checklist`)
+Getting-started card with a progress bar, tick-off items, short help text and actions. Collapsible.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add onboarding-checklist`
+- Import: `import { OnboardingChecklist } from '@/components/ui/onboarding-checklist'`
+- Also needs: icons, progress
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { OnboardingChecklist, type ChecklistItem } from '@/components/ui/onboarding-checklist';
+
+export default function OnboardingChecklistDemo() {
+  const [items, setItems] = React.useState<ChecklistItem[]>([
+    { id: 'profile', title: 'Complete your profile', done: true },
+    { id: 'team', title: 'Invite your team', description: 'Add colleagues by email so they can see shared reports.', done: false, action: <Button size="xs">Invite people</Button> },
+    { id: 'data', title: 'Import employees', description: 'Upload a CSV or connect your payroll tool.', done: false, action: <Button size="xs" variant="outline">Upload CSV</Button> },
+    { id: 'leave', title: 'Set up leave policies', done: false },
+  ]);
+  return <OnboardingChecklist items={items} onToggle={(id, done) => setItems((l) => l.map((i) => (i.id === id ? { ...i, done } : i)))} />;
 }
 ```
 
@@ -2153,6 +2348,30 @@ export default function TableDemo() {
 }
 ```
 
+## Tag manager (`tag-manager`)
+Create, rename, recolor and delete labels, with usage counts.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add tag-manager`
+- Import: `import { tagColors, TagManager } from '@/components/ui/tag-manager'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { TagManager, type Tag } from '@/components/ui/tag-manager';
+
+export default function TagManagerDemo() {
+  const [tags, setTags] = React.useState<Tag[]>([
+    { id: '1', name: 'Urgent', color: 'rose' },
+    { id: '2', name: 'Finance', color: 'green' },
+    { id: '3', name: 'Q4 planning', color: 'violet' },
+    { id: '4', name: 'Follow up', color: 'amber' },
+  ]);
+  return <TagManager tags={tags} onChange={setTags} usage={{ '1': 12, '2': 41, '3': 7, '4': 23 }} />;
+}
+```
+
 ## Terminal (`terminal`)
 Dark terminal window with prompt lines and output. Optional typing animation.
 - Group: Display
@@ -2502,6 +2721,49 @@ export default function FilterBarDemo() {
 }
 ```
 
+## Funnel chart (`funnel-chart`)
+Conversion funnel with a bar per stage and the step-to-step rate.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add funnel-chart`
+- Import: `import { FunnelChart } from '@/components/ui/funnel-chart'`
+
+Example:
+
+```tsx
+import { FunnelChart } from '@/components/ui/funnel-chart';
+
+export default function FunnelChartDemo() {
+  return <FunnelChart className="max-w-xl" stages={[{ label: 'Visitors', value: 48200 }, { label: 'Sign-ups', value: 9640 }, { label: 'Qualified', value: 3120 }, { label: 'Demo booked', value: 1210 }, { label: 'Won', value: 340 }]} />;
+}
+```
+
+## Gantt chart (`gantt`)
+Schedule view with a bar per task, progress fill, weekend shading and a today line.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add gantt`
+- Import: `import { Gantt } from '@/components/ui/gantt'`
+
+Example:
+
+```tsx
+import { Gantt, type GanttTask } from '@/components/ui/gantt';
+
+const d = (offset: number) => { const t = new Date(); t.setDate(t.getDate() + offset); return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`; };
+
+const tasks: GanttTask[] = [
+  { id: '1', name: 'Discovery', owner: 'Isha Nair', start: d(-10), end: d(-4), progress: 100, tone: 'success' },
+  { id: '2', name: 'Design system', owner: 'Diya Rao', start: d(-6), end: d(3), progress: 70, tone: 'info' },
+  { id: '3', name: 'Backend APIs', owner: 'Rohan Das', start: d(-3), end: d(9), progress: 40 },
+  { id: '4', name: 'Frontend build', owner: 'Aarav Mehta', start: d(1), end: d(14), progress: 10 },
+  { id: '5', name: 'QA and fixes', owner: 'Vikram Joshi', start: d(10), end: d(18), progress: 0, tone: 'warning' },
+  { id: '6', name: 'Launch', owner: 'Meera Iyer', start: d(19), end: d(21), progress: 0, tone: 'danger' },
+];
+
+export default function GanttDemo() {
+  return <Gantt tasks={tasks} />;
+}
+```
+
 ## Gauge (`gauge`)
 Half-circle meter with a needle that swings to the value.
 - Group: Data
@@ -2671,6 +2933,35 @@ export default function NumberTickerDemo() {
 }
 ```
 
+## Org chart (`org-chart`)
+Reporting tree with connector lines and collapsible teams.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add org-chart`
+- Import: `import { OrgChart } from '@/components/ui/org-chart'`
+- Also needs: avatar, icons
+
+Example:
+
+```tsx
+import { OrgChart, type OrgNode } from '@/components/ui/org-chart';
+
+const tree: OrgNode = {
+  id: 'ceo', name: 'Meera Iyer', title: 'CEO',
+  children: [
+    { id: 'cto', name: 'Aarav Mehta', title: 'CTO', children: [
+      { id: 'e1', name: 'Rohan Das', title: 'Backend lead', children: [{ id: 'e1a', name: 'Ananya K.', title: 'Engineer' }, { id: 'e1b', name: 'Arjun Reddy', title: 'Engineer' }] },
+      { id: 'e2', name: 'Diya Rao', title: 'Design lead' },
+    ] },
+    { id: 'cfo', name: 'Kabir Shah', title: 'CFO', children: [{ id: 'f1', name: 'Nikhil Patil', title: 'Accounts' }] },
+    { id: 'chro', name: 'Isha Nair', title: 'Head of People', children: [{ id: 'h1', name: 'Pooja Desai', title: 'Recruiter' }, { id: 'h2', name: 'Tara Menon', title: 'HR partner' }] },
+  ],
+};
+
+export default function OrgChartDemo() {
+  return <OrgChart root={tree} openLevels={2} />;
+}
+```
+
 ## Permission matrix (`permission-matrix`)
 Roles by permissions grid of checkboxes with per-column toggle and locked roles.
 - Group: Data
@@ -2783,6 +3074,34 @@ export default function RadarChartDemo() {
         { name: 'Aarav', values: [88, 82, 70, 90, 76, 84] },
         { name: 'Team average', values: [72, 74, 78, 68, 80, 70] },
       ]}
+    />
+  );
+}
+```
+
+## Saved views (`saved-views`)
+Menu of saved table setups: pick one, save the current one under a name, delete.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add saved-views`
+- Import: `import { SavedViews } from '@/components/ui/saved-views'`
+- Also needs: button, icons, popover
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { SavedViews, type SavedView } from '@/components/ui/saved-views';
+
+export default function SavedViewsDemo() {
+  const [views, setViews] = React.useState<SavedView[]>([{ id: 'v1', name: 'My open tasks' }, { id: 'v2', name: 'Overdue invoices' }, { id: 'v3', name: 'On leave this week' }]);
+  const [active, setActive] = React.useState<string>();
+  return (
+    <SavedViews
+      views={views}
+      activeId={active}
+      onSelect={setActive}
+      onSave={(name) => { const id = `v${Date.now()}`; setViews([...views, { id, name }]); setActive(id); }}
+      onDelete={(id) => { setViews(views.filter((v) => v.id !== id)); if (active === id) setActive(undefined); }}
     />
   );
 }
@@ -3429,6 +3748,42 @@ export default function PopoverDemo() {
         <Button size="sm">Add lead</Button>
       </PopoverContent>
     </Popover>
+  );
+}
+```
+
+## Shortcuts dialog (`shortcuts-dialog`)
+Keyboard cheat sheet that opens on ? and shows grouped shortcuts as keycaps.
+- Group: Overlays
+- Add: `npx github:RandomKid24/befui add shortcuts-dialog`
+- Import: `import { ShortcutsDialog } from '@/components/ui/shortcuts-dialog'`
+- Also needs: dialog, kbd
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { Kbd } from '@/components/ui/kbd';
+import { ShortcutsDialog } from '@/components/ui/shortcuts-dialog';
+
+export default function ShortcutsDialogDemo() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div className="grid justify-items-center gap-3">
+      <Button variant="outline" onClick={() => setOpen(true)}>Keyboard shortcuts</Button>
+      <p className="text-xs text-muted-foreground">or press <Kbd>?</Kbd></p>
+      <ShortcutsDialog
+        open={open}
+        onOpenChange={setOpen}
+        groups={[
+          { title: 'General', items: [{ keys: ['Ctrl', 'K'], label: 'Command palette' }, { keys: ['?'], label: 'This help' }, { keys: ['Esc'], label: 'Close dialog' }] },
+          { title: 'Navigation', items: [{ keys: ['G', 'H'], label: 'Go to home' }, { keys: ['G', 'R'], label: 'Go to reports' }, { keys: ['/'], label: 'Focus search' }] },
+          { title: 'Tables', items: [{ keys: ['J'], label: 'Next row' }, { keys: ['K'], label: 'Previous row' }, { keys: ['Enter'], label: 'Open row' }] },
+          { title: 'Editing', items: [{ keys: ['⌘', 'S'], label: 'Save' }, { keys: ['⌘', 'Z'], label: 'Undo' }, { keys: ['Shift', '⌘', 'Z'], label: 'Redo' }] },
+        ]}
+      />
+    </div>
   );
 }
 ```

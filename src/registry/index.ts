@@ -25,7 +25,7 @@ export interface Entry {
 type Meta = Omit<Entry, 'Demo' | 'demoSource' | 'source' | 'path' | 'isNew'>;
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['avatar', 'avatar-upload', 'line-chart', 'radar-chart', 'swipe-actions', 'pull-to-refresh', 'datetime-picker', 'image-upload', 'audit-log', 'file-manager', 'bottom-sheet', 'kanban', 'date-picker', 'context-menu', 'activity-feed', 'loader', 'permission-matrix', 'data-table', 'tooltip']);
+export const NEW_SLUGS = new Set(['schema-form', 'rich-text-editor', 'org-chart', 'gantt', 'approval-flow', 'notification-preferences', 'funnel-chart', 'onboarding-checklist', 'shortcuts-dialog', 'tag-manager', 'saved-views', 'format', 'avatar', 'avatar-upload', 'date-picker', 'data-table', 'tooltip']);
 
 const m = (
   slug: string,
@@ -136,6 +136,19 @@ const metas: Meta[] = [
   m('bottom-sheet', 'Bottom sheet', 'Overlays', 'Sheet that rises from the bottom, with a drag handle to dismiss. Radix Dialog underneath.', { deps: ['@radix-ui/react-dialog'], keywords: ['mobile', 'drawer', 'modal', 'action sheet', 'picker'] }),
 
   m('avatar-upload', 'Avatar upload', 'Inputs', 'Click-to-change profile picture with instant preview, size and type checks, and a Remove link.', { requires: ['avatar', 'icons'], keywords: ['profile', 'photo', 'picture', 'account', 'settings'] }),
+  m('schema-form', 'Schema form', 'Inputs', 'Build a form from a description: text, email, number, date, select, textarea and checkbox fields, validation, and optional multi-step wizard with a stepper.', { requires: ['button', 'checkbox', 'input', 'label', 'select', 'stepper'], keywords: ['form builder', 'wizard', 'multi step', 'validation', 'onboarding', 'dynamic form', 'json'] }),
+  m('rich-text-editor', 'Rich text editor', 'Inputs', 'Small editor with bold, italic, underline, heading, lists, quote and link. Value is HTML. Built on contentEditable, no dependency.', { keywords: ['wysiwyg', 'notes', 'email', 'comment', 'html', 'editor', 'markdown'] }),
+  m('notification-preferences', 'Notification preferences', 'Inputs', 'Grid of events by channel (email, push, SMS, in-app) with a switch per cell and a switch per channel.', { requires: ['switch'], keywords: ['settings', 'alerts', 'subscribe', 'channels', 'email', 'preferences'] }),
+  m('saved-views', 'Saved views', 'Data', 'Menu of saved table setups: pick one, save the current one under a name, delete.', { requires: ['button', 'icons', 'popover'], keywords: ['filters', 'presets', 'bookmarks', 'table', 'segments'] }),
+  m('funnel-chart', 'Funnel chart', 'Data', 'Conversion funnel with a bar per stage and the step-to-step rate.', { keywords: ['conversion', 'sales', 'pipeline', 'stages', 'marketing', 'drop off'] }),
+  m('gantt', 'Gantt chart', 'Data', 'Schedule view with a bar per task, progress fill, weekend shading and a today line.', { keywords: ['timeline', 'schedule', 'project', 'plan', 'roadmap', 'tasks', 'calendar'], wide: true }),
+  m('org-chart', 'Org chart', 'Data', 'Reporting tree with connector lines and collapsible teams.', { requires: ['avatar', 'icons'], keywords: ['hierarchy', 'reporting', 'team', 'structure', 'people', 'tree'], wide: true }),
+  m('approval-flow', 'Approval flow', 'Display', 'Chain of approvers with decisions, comments and times. The current approver gets Approve and Reject buttons.', { requires: ['avatar', 'button', 'icons'], keywords: ['workflow', 'request', 'sign off', 'review', 'leave', 'purchase'] }),
+  m('onboarding-checklist', 'Onboarding checklist', 'Display', 'Getting-started card with a progress bar, tick-off items, short help text and actions. Collapsible.', { requires: ['icons', 'progress'], keywords: ['setup', 'getting started', 'steps', 'activation', 'tasks'] }),
+  m('tag-manager', 'Tag manager', 'Display', 'Create, rename, recolor and delete labels, with usage counts.', { requires: ['icons'], keywords: ['labels', 'categories', 'colors', 'badges', 'settings'] }),
+  m('shortcuts-dialog', 'Shortcuts dialog', 'Overlays', 'Keyboard cheat sheet that opens on ? and shows grouped shortcuts as keycaps.', { requires: ['dialog', 'kbd'], keywords: ['help', 'hotkeys', 'keyboard', 'cheat sheet', 'accessibility'] }),
+  m('format', 'Format helpers', 'Display', 'formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default.', { keywords: ['number', 'money', 'currency', 'rupee', 'lakh', 'intl', 'format'] }),
+
   m('card', 'Card', 'Display', 'Bordered surface with header, content and footer parts.', { keywords: ['panel', 'container', 'surface'] }),
   m('badge', 'Badge', 'Display', 'Status pill with semantic colors and an optional dot.', { keywords: ['status', 'tag', 'chip', 'label'] }),
   m('avatar', 'Avatar', 'Display', 'Image with initials fallback in a stable color. Five sizes, circle or square, presence dot (online, away, busy, offline), a stacked group with hover names, and UserInfo for avatar plus name and subtitle.', { deps: ['@radix-ui/react-avatar'], keywords: ['user', 'profile', 'people', 'presence', 'status', 'initials', 'team'] }),
@@ -205,6 +218,7 @@ const bMeta: Omit<Block, 'Demo' | 'source' | 'path'>[] = [
   { slug: 'hrms-overview', name: 'People overview', module: 'HRMS', description: 'Headcount, attendance, department split and activity feed.', uses: ['stat-card', 'charts', 'card', 'timeline', 'avatar'] },
   { slug: 'employee-directory', name: 'Employee directory', module: 'HRMS', description: 'Searchable table with status filter, row selection, actions and pagination.', uses: ['table', 'checkbox', 'segmented', 'dropdown-menu', 'pagination', 'badge', 'avatar'] },
   { slug: 'reports-table', name: 'Reports table', module: 'Reports', description: 'Searchable, filterable, sortable reports table with row action menus and a details drawer.', uses: ['data-table', 'filter-bar', 'dropdown-menu', 'dialog', 'charts', 'badge', 'toast'] },
+  { slug: 'sales-dashboard', name: 'Sales dashboard', module: 'Marketing', description: 'KPI cards, revenue line chart against target, pipeline funnel and a top deals table.', uses: ['stat-card', 'line-chart', 'funnel-chart', 'charts', 'table', 'badge', 'avatar', 'format'] },
   { slug: 'leave-approvals', name: 'Leave approvals', module: 'HRMS', description: 'Manager inbox with tabs, balance bars and approve or reject toasts.', uses: ['tabs', 'card', 'progress', 'badge', 'toast', 'empty-state'] },
   { slug: 'leave-request-form', name: 'Leave request form', module: 'HRMS', description: 'Date range, approver combobox, multi-select notify list, working-day count and field validation.', uses: ['date-picker', 'combobox', 'select', 'input', 'label', 'alert', 'toast', 'card'] },
   { slug: 'campaign-performance', name: 'Campaign performance', module: 'Marketing', description: 'Channel KPIs, weekly leads chart and a campaign budget table.', uses: ['stat-card', 'charts', 'table', 'progress', 'badge'] },
