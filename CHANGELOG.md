@@ -3,15 +3,22 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.4.1 - 2026-10-09
+
+An easier-to-read changelog
+
+- **Changed:** Version log: each release groups its notes under Added, Changed, Fixed and Removed, with a bold lead phrase on every note so a long release can be skimmed. Larger text and clearer spacing. (Version log)
+- **Fixed:** Event calendar: the "+n more" label no longer reads backwards in right-to-left pages. (Event calendar)
+
 ## 1.4.0 - 2026-10-09
 
 Install flow, four new components, two blocks and locale support
 
-- **Added:** Phone input with a country picker and E.164 output, signature pad, event calendar (month view with multi-day events and overflow) and virtual list for huge datasets. (Phone input, Signature pad, Event calendar, Virtual list)
-- **Added:** Pricing page and Settings page blocks. (Pricing page, Settings page)
-- **Added:** Every component page now shows the befui add command first, and has a Copy for AI button that copies the install line, an example and the full source.
-- **Added:** An RTL switch in every preview, to check a component right-to-left.
-- **Changed:** Calendar, date picker and range picker take a locale for month and weekday names and digits. Calendar flips its arrows and arrow-key movement in right-to-left pages, and the currency input and date picker use logical start and end spacing. (Calendar, Date picker, Currency input)
+- **Added:** New components: phone input (country picker, E.164 output), signature pad, event calendar (month view, multi-day events) and virtual list for huge datasets. (Phone input, Signature pad, Event calendar, Virtual list)
+- **Added:** New blocks: pricing page and settings page. (Pricing page, Settings page)
+- **Added:** Install flow: every component page now shows the befui add command first, and has a Copy for AI button that copies the install line, an example and the full source.
+- **Added:** RTL switch: every preview can be flipped right-to-left to check a component.
+- **Changed:** Locale support: calendar, date picker and range picker take a locale for month and weekday names and digits. Calendar flips its arrows and arrow-key movement in right-to-left pages, and the currency input and date picker use logical start and end spacing. (Calendar, Date picker, Currency input)
 
 ## 1.3.0 - 2026-10-08
 

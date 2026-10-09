@@ -20,6 +20,12 @@ export interface VersionRelease {
 }
 
 const badge = { added: 'success', changed: 'info', fixed: 'warning', removed: 'danger' } as const;
+const dot = { added: 'bg-success', changed: 'bg-info', fixed: 'bg-warning', removed: 'bg-destructive' } as const;
+/** "Label: details" text gets a bold label, so a long list can be skimmed. */
+function lead(text: React.ReactNode) {
+  const m = typeof text === 'string' ? text.match(/^([^:.]{3,48}):\s+([\s\S]+)$/) : null;
+  return m ? <><strong className="font-semibold text-foreground">{m[1]}.</strong> <span className="text-muted-foreground">{m[2]}</span></> : <span className="text-foreground/90">{text}</span>;
+}
 const kinds: VersionKind[] = ['added', 'changed', 'fixed', 'removed'];
 const fmtDate = (d: string) => (/^\d{4}-\d{2}-\d{2}$/.test(d) ? new Date(`${d}T00:00:00`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : d);
 
@@ -53,8 +59,8 @@ function Release({ r, latest, open, onToggle, kind, active, id }: { r: VersionRe
         {latest && <span className="absolute inset-0 animate-ping rounded-full border border-primary/40 [animation-duration:2.4s] motion-reduce:hidden" />}
       </span>
 
-      <button type="button" aria-expanded={open} onClick={onToggle} className="group flex w-full flex-wrap items-center gap-x-3 gap-y-1 rounded-lg py-1 text-left outline-none focus-visible:ring-2 focus-visible:ring-ring/40">
-        <span className="font-mono text-lg font-semibold tracking-tight">{r.version}</span>
+      <button type="button" aria-expanded={open} onClick={onToggle} className="group flex w-full flex-wrap items-center gap-x-3 gap-y-1 rounded-lg py-1 text-start outline-none focus-visible:ring-2 focus-visible:ring-ring/40">
+        <span className="font-mono text-xl font-semibold tracking-tight">{r.version}</span>
         {latest && <Badge variant="primary">Latest</Badge>}
         <time className="text-xs text-muted-foreground">{fmtDate(r.date)}</time>
         <span className="ml-auto hidden items-center gap-1.5 sm:flex">
@@ -62,25 +68,37 @@ function Release({ r, latest, open, onToggle, kind, active, id }: { r: VersionRe
         </span>
         <ChevronDownIcon className={cn('size-4 text-muted-foreground transition-transform duration-300', open && 'rotate-180')} />
       </button>
-      {r.title && <p className="text-[15px] font-medium text-foreground/90">{r.title}</p>}
+      {r.title && <p className="text-base font-medium">{r.title}</p>}
 
       <div className={cn('grid transition-[grid-template-rows] duration-500 motion-reduce:transition-none', ease)} style={{ gridTemplateRows: open ? '1fr' : '0fr' }}>
         <div className="overflow-hidden">
-          <ul className="grid gap-3.5 pb-1 pt-4">
-            {shown.map((e, i) => (
-              <li
-                key={`${kind}-${i}`}
-                className="grid gap-2 transition-[opacity,transform] duration-600 motion-reduce:transition-none"
-                style={{ opacity: seen && open ? 1 : 0, transform: seen && open ? 'none' : 'translateX(-12px)', transitionDelay: `${Math.min(i, 10) * 70 + 150}ms`, transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)' }}
-              >
-                <p className="text-[14px] leading-relaxed text-muted-foreground">
-                  <Badge variant={badge[e.kind]} className="mr-2 align-middle capitalize">{e.kind}</Badge>
-                  <span className="text-foreground/90">{e.text}</span>
-                </p>
-                {e.extra}
-              </li>
-            ))}
-          </ul>
+          <div className="grid gap-6 pb-2 pt-5">
+            {kinds.map((k) => {
+              const group = shown.filter((e) => e.kind === k);
+              if (!group.length) return null;
+              const before = shown.filter((e) => kinds.indexOf(e.kind) < kinds.indexOf(k)).length;
+              return (
+                <section key={k} aria-label={k} className="grid gap-3">
+                  <h4 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    <span className={cn('size-2 rounded-full', dot[k])} /> {k}
+                    <span className="rounded-full bg-secondary px-1.5 py-px text-[10px] tabular-nums normal-case tracking-normal">{group.length}</span>
+                  </h4>
+                  <ul className="grid gap-4 border-s ps-4">
+                    {group.map((e, i) => (
+                      <li
+                        key={`${kind}-${k}-${i}`}
+                        className="grid gap-2 transition-[opacity,transform] duration-600 motion-reduce:transition-none"
+                        style={{ opacity: seen && open ? 1 : 0, transform: seen && open ? 'none' : 'translateX(-12px)', transitionDelay: `${Math.min(before + i, 10) * 70 + 150}ms`, transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)' }}
+                      >
+                        <p className="text-[15px] leading-relaxed">{lead(e.text)}</p>
+                        {e.extra}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              );
+            })}
+          </div>
         </div>
       </div>
     </li>
