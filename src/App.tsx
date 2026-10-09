@@ -4,6 +4,7 @@ import { Home } from '@/site/landing';
 import { IconsPage } from '@/site/icons-page';
 import { AiPage } from '@/site/ai-page';
 import { ChangelogPage } from '@/site/changelog-page';
+import { WebPage } from '@/site/web-page';
 import { useRoute } from '@/site/router';
 
 export default function App() {
@@ -16,13 +17,14 @@ export default function App() {
   else if (section === 'docs') page = <GettingStarted />;
   else if (section === 'components') page = slug ? <ComponentPage slug={slug} /> : <ComponentsIndex />;
   else if (section === 'ai') page = <AiPage />;
+  else if (section === 'web') page = <WebPage />;
   else if (section === 'changelog') page = <ChangelogPage />;
   else if (section === 'icons') page = <IconsPage />;
   else if (section === 'blocks') page = slug ? <BlockPage slug={slug} /> : <BlocksIndex />;
   else page = <NotFound />;
 
   return (
-    <Shell path={path} docs={!home && section !== 'icons'}>
+    <Shell path={path} docs={!home && section !== 'icons' && section !== 'web'}>
       {page}
     </Shell>
   );
