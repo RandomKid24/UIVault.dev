@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Use befui without React</title>
+  <link rel="stylesheet" href="befui.css">
+  <script src="befui.js" defer></script>
+  <style>
+    body{margin:0;background:var(--background);color:var(--foreground);font:16px/1.6 var(--font-sans)}
+    header{position:sticky;top:0;z-index:5;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;padding:.75rem 1rem;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--background) 92%,transparent);backdrop-filter:blur(8px)}
+    header b{margin-right:auto}header a{color:var(--muted-foreground);text-decoration:none;font-size:.875rem}header a:hover{color:var(--foreground)}
+    main{max-width:46rem;margin:0 auto;padding:1rem 1rem 6rem}
+    section{padding-top:2.5rem}h1{font-size:2rem;margin:1.5rem 0 .5rem}h2{font-size:1.4rem;margin:0 0 .25rem}p{color:var(--muted-foreground);margin:.25rem 0 1rem}
+    code{font:.85em var(--font-mono);background:var(--secondary);padding:.1em .35em;border-radius:4px}
+    .demo{padding:1.25rem;border:1px solid var(--border);border-radius:var(--radius) var(--radius) 0 0;display:flex;gap:.75rem;flex-wrap:wrap;align-items:flex-start}
+    .demo form{width:100%;display:grid;gap:1rem}.demo output{display:block;font:.8rem var(--font-mono);color:var(--muted-foreground);word-break:break-all}
+    .code{position:relative;margin:0 0 1rem}.code pre{margin:0;padding:1rem;overflow:auto;border:1px solid var(--border);border-top:0;border-radius:0 0 var(--radius) var(--radius);background:var(--muted);font:.8rem/1.6 var(--font-mono);color:var(--foreground)}
+    .code .bf-btn{position:absolute;top:.5rem;right:.5rem}
+    pre.solo{border-top:1px solid var(--border);border-radius:var(--radius)}
+    table{border-collapse:collapse;width:100%;font-size:.875rem}td,th{text-align:left;padding:.4rem .5rem;border-bottom:1px solid var(--border);vertical-align:top}
+  </style>
+</head>
+<body>
+<header>
+  <b>befui · use without React</b>
+  <a href="#install">Install</a><a href="#theme">Theme</a><a href="#classes">Classes</a><a href="#select">Select</a><a href="#date">Date picker</a><a href="#dialog">Dialog</a><a href="#toast">Toast</a><a href="#htmx">htmx</a>
+  <button class="bf-btn bf-btn-outline bf-btn-sm" id="mode">Dark</button>
+</header>
+<main>
+  <h1>Use befui without React</h1>
+  <p>One stylesheet and one script. Works in Django, PHP, Rails or any plain HTML page. No build step, no dependencies.</p>
+
+  <section id="install">
+    <h2>Install</h2>
+    <p>Paste into <code>&lt;head&gt;</code>. Everything on this page is running from these two files.</p>
+    <pre class="code solo" style="padding:1rem;overflow:auto;background:var(--muted);font:.8rem/1.6 var(--font-mono);border-radius:var(--radius);border:1px solid var(--border)">&lt;link rel="stylesheet" href="https://unpkg.com/befui-web@1/befui.css"&gt;
+&lt;script src="https://unpkg.com/befui-web@1/befui.js" defer&gt;&lt;/script&gt;</pre>
+    <p>Or <code>npm i befui-web</code> and serve <code>node_modules/befui-web/befui.css</code> and <code>befui.js</code> yourself.</p>
+  </section>
+
+  <section id="theme">
+    <h2>Theme</h2>
+    <p>Colours are CSS variables on <code>:root</code>, the same names as the React version. Override any of them. Dark mode follows the OS; add <code>class="dark"</code> or <code>class="light"</code> to <code>&lt;html&gt;</code> to force it.</p>
+    <script type="text/plain" data-example="code">
+<style>
+  :root { --primary: #7c3aed; --radius: 0.75rem; }
+</style></script>
+  </section>
+
+  <section id="classes">
+    <h2>Button, input, checkbox, badge, card</h2>
+    <p>Plain classes. Buttons also come as <code>bf-btn-secondary</code> <code>-outline</code> <code>-ghost</code> <code>-destructive</code> and <code>-sm</code> <code>-lg</code>.</p>
+    <script type="text/plain" data-example>
+<div class="bf-card" style="width:100%">
+  <div class="bf-card-header">
+    <h3 class="bf-card-title">Newsletter <span class="bf-badge bf-badge-success">New</span></h3>
+    <p class="bf-card-desc">Monthly updates, no spam.</p>
+  </div>
+  <div class="bf-card-body" style="display:grid;gap:.75rem">
+    <input class="bf-input" type="email" placeholder="you@example.com">
+    <label style="display:flex;gap:.5rem;align-items:center">
+      <input class="bf-checkbox" type="checkbox" checked> Send me product news
+    </label>
+  </div>
+  <div class="bf-card-footer">
+    <button class="bf-btn">Subscribe</button>
+    <button class="bf-btn bf-btn-outline">Cancel</button>
+  </div>
+</div></script>
+  </section>
+
+  <section id="select">
+    <h2>&lt;bf-select&gt;</h2>
+    <p>Write normal <code>&lt;option&gt;</code> tags inside. Add <code>name</code> and it posts with the form like a native select. Supports <code>required</code>, <code>disabled</code>, <code>placeholder</code>, <code>&lt;optgroup&gt;</code>, keyboard and type-to-find. On a phone it opens as a bottom sheet (try narrowing the window under 640px). Listen for <code>change</code>.</p>
+    <script type="text/plain" data-example>
+<form action="/save" method="post">
+  <label class="bf-label" for="country">Country</label>
+  <bf-select id="country" name="country" placeholder="Choose a country" required>
+    <optgroup label="Asia">
+      <option value="in">India</option>
+      <option value="jp">Japan</option>
+    </optgroup>
+    <optgroup label="Europe">
+      <option value="de">Germany</option>
+      <option value="fr" disabled>France (soon)</option>
+    </optgroup>
+  </bf-select>
+  <div><button class="bf-btn">Save</button> <button class="bf-btn bf-btn-outline" type="reset">Reset</button></div>
+</form></script>
+  </section>
+
+  <section id="date">
+    <h2>&lt;bf-date-picker&gt;</h2>
+    <p>Value is <code>YYYY-MM-DD</code>, the same as <code>&lt;input type="date"&gt;</code>. Attributes: <code>name</code> <code>value</code> <code>min</code> <code>max</code> <code>required</code> <code>placeholder</code> <code>week-start</code> (0 = Sunday). The label follows the page <code>lang</code>. Arrow keys move by day, PageUp/PageDown by month.</p>
+    <script type="text/plain" data-example>
+<form action="/trip" method="post">
+  <label class="bf-label" for="start">Start date</label>
+  <bf-date-picker id="start" name="start" value="2026-10-09"
+                  min="2026-01-01" max="2027-12-31" required></bf-date-picker>
+  <button class="bf-btn">Book</button>
+</form></script>
+  </section>
+
+  <section id="dialog">
+    <h2>&lt;bf-dialog&gt;</h2>
+    <p>Built on the native <code>&lt;dialog&gt;</code>: Esc closes it, focus is trapped, the page behind is inert. Open with <code>data-bf-open="#id"</code>, close with <code>data-bf-close</code>, or call <code>el.show()</code> / <code>el.close()</code>. Put <code>slot="footer"</code> on the buttons. Phones get a bottom sheet.</p>
+    <script type="text/plain" data-example>
+<button class="bf-btn" data-bf-open="#confirm">Delete account</button>
+
+<bf-dialog id="confirm" heading="Delete account?" description="This cannot be undone.">
+  <p>All your data will be removed.</p>
+  <button slot="footer" class="bf-btn bf-btn-outline" data-bf-close>Cancel</button>
+  <button slot="footer" class="bf-btn bf-btn-destructive" data-bf-close>Delete</button>
+</bf-dialog></script>
+  </section>
+
+  <section id="toast">
+    <h2>&lt;bf-toast&gt;</h2>
+    <p>From JavaScript: <code>BefUI.toast(message, {type, duration, position})</code>. Types: <code>success</code> <code>warning</code> <code>error</code>. <code>duration</code> is ms (0 keeps it until dismissed). Positions: <code>top|bottom</code> + <code>left|center|right</code>. Or drop a tag in the HTML your server returns and it shows itself.</p>
+    <script type="text/plain" data-example>
+<button class="bf-btn" onclick="BefUI.toast('Saved your changes', {type: 'success'})">Toast from JS</button>
+<button class="bf-btn bf-btn-outline" onclick="document.body.insertAdjacentHTML('beforeend', '<bf-toast type=&quot;warning&quot; position=&quot;top-center&quot;>Heads up: from a tag</bf-toast>')">Toast from a tag</button></script>
+  </section>
+
+  <section id="htmx">
+    <h2>Added later (htmx, fetch, innerHTML)</h2>
+    <p>Elements set themselves up when they appear on the page, so there is nothing to re-initialise after a swap. This button inserts markup the way an htmx swap does.</p>
+    <script type="text/plain" data-example>
+<!-- htmx: the server returns <bf-select> markup, nothing else to do -->
+<div hx-get="/fields" hx-trigger="load" hx-swap="innerHTML"></div>
+
+<!-- htmx: ask for a toast from the server with a response header -->
+<!-- HX-Trigger: {"bf:toast": {"message": "Saved", "type": "success"}} --></script>
+    <div class="demo" id="late"><button class="bf-btn" id="add">Insert a select + date picker</button></div>
+    <p>Both are form fields, so htmx (<code>hx-post</code> on the form) sends their values too.</p>
+  </section>
+
+  <section>
+    <h2>Good to know</h2>
+    <table>
+      <tr><th>Events</th><td><code>input</code> and <code>change</code> bubble from <code>&lt;bf-select&gt;</code> and <code>&lt;bf-date-picker&gt;</code>. Read <code>el.value</code>, set <code>el.value = '…'</code>.</td></tr>
+      <tr><th>Validation</th><td><code>required</code> blocks submit and shows the browser's message. Change it with <code>data-required-message</code>.</td></tr>
+      <tr><th>Browsers</th><td>Current Chrome, Edge, Safari 16.4+, Firefox. Needs custom elements with form association.</td></tr>
+      <tr><th>Size</th><td>Two files, no dependencies, no build step.</td></tr>
+    </table>
+  </section>
+</main>
+
+<script>
+// Docs only: render every example live and show its source next to it.
+document.querySelectorAll('script[data-example]').forEach((s) => {
+  const src = s.textContent.replace(/^\n/, '').replace(/\s+$/, '');
+  const box = document.createElement('div'); box.className = 'code';
+  if (s.dataset.example !== 'code') {
+    const demo = document.createElement('div'); demo.className = 'demo'; demo.innerHTML = src;
+    s.before(demo);
+  }
+  const pre = document.createElement('pre'); if (s.dataset.example === 'code') pre.className = 'solo';
+  pre.textContent = src;
+  const copy = document.createElement('button'); copy.className = 'bf-btn bf-btn-outline bf-btn-sm'; copy.textContent = 'Copy';
+  copy.onclick = () => navigator.clipboard.writeText(src).then(() => { copy.textContent = 'Copied'; setTimeout(() => (copy.textContent = 'Copy'), 1200); });
+  box.append(pre, copy); s.replaceWith(box);
+});
+// Demo forms: show what would be posted instead of leaving the page.
+document.addEventListener('submit', (e) => {
+  if (!e.target.closest('.demo')) return;
+  e.preventDefault();
+  let o = e.target.querySelector('output');
+  if (!o) { o = document.createElement('output'); e.target.append(o); }
+  o.textContent = 'posted: ' + new URLSearchParams(new FormData(e.target));
+});
+document.getElementById('add').onclick = () => document.getElementById('late').insertAdjacentHTML('beforeend',
+  '<bf-select name="late" value="b"><option value="a">Added A</option><option value="b">Added B</option></bf-select><bf-date-picker name="when"></bf-date-picker>');
+const root = document.documentElement, mode = document.getElementById('mode');
+mode.onclick = () => { const dark = !root.classList.contains('dark'); root.classList.toggle('dark', dark); root.classList.toggle('light', !dark); mode.textContent = dark ? 'Light' : 'Dark'; };
+</script>
+</body>
+</html>
