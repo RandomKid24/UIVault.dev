@@ -14,6 +14,8 @@ type Base = {
   disabled?: (date: Date) => boolean;
   /** 0 is Sunday, 1 is Monday. */
   weekStartsOn?: 0 | 1;
+  /** BCP 47 tag for month and weekday names, e.g. 'de-DE' or 'ar-EG'. Defaults to 'en-US'. */
+  locale?: string;
   className?: string;
 };
 export type CalendarProps = Base &
@@ -29,11 +31,12 @@ export const isSameDay = (a?: Date, b?: Date) =>
   !!a && !!b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 const key = (d: Date) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 
-const monthFmt = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' });
-const dayFmt = new Intl.DateTimeFormat('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
 export function Calendar(props: CalendarProps) {
-  const { disabled, weekStartsOn = 0, className, defaultMonth } = props;
+  const { disabled, weekStartsOn = 0, className, defaultMonth, locale = 'en-US' } = props;
+  const monthFmt = React.useMemo(() => new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }), [locale]);
+  const dayFmt = React.useMemo(() => new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }), [locale]);
+  const dateNum = React.useMemo(() => new Intl.NumberFormat(locale), [locale]);
   const today = startOfDay(new Date());
   const range = props.mode === 'range' ? (props.selected as DateRange | undefined) : undefined;
   const single = props.mode === 'range' ? undefined : (props.selected as Date | undefined);
@@ -49,7 +52,7 @@ export function Calendar(props: CalendarProps) {
 
   const first = addDays(month, -((month.getDay() - weekStartsOn + 7) % 7));
   const days = Array.from({ length: 42 }, (_, i) => addDays(first, i));
-  const weekdays = days.slice(0, 7).map((d) => new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(d).slice(0, 2));
+  const weekdays = days.slice(0, 7).map((d) => new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(d).slice(0, 2));
 
   // Keep exactly one day tabbable: the focused day if visible, otherwise the 1st.
   const tabbable = days.some((d) => isSameDay(d, focused) && d.getMonth() === month.getMonth()) ? focused : month;
@@ -73,7 +76,8 @@ export function Calendar(props: CalendarProps) {
   }
 
   function onKeyDown(e: React.KeyboardEvent) {
-    const step: Record<string, number> = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 };
+    const rtl = getComputedStyle(e.currentTarget).direction === 'rtl';
+    const step: Record<string, number> = { ArrowLeft: rtl ? 1 : -1, ArrowRight: rtl ? -1 : 1, ArrowUp: -7, ArrowDown: 7 };
     let next: Date | undefined;
     if (e.key in step) next = addDays(focused, step[e.key]!);
     else if (e.key === 'PageUp') next = new Date(focused.getFullYear(), focused.getMonth() - 1, focused.getDate());
@@ -98,11 +102,11 @@ export function Calendar(props: CalendarProps) {
     <div className={cn('w-fit select-none', className)}>
       <div className="mb-2 flex items-center justify-between">
         <button type="button" className={nav} onClick={() => setMonth(addMonths(month, -1))} aria-label="Previous month">
-          <ChevronLeftIcon className="size-4" />
+          <ChevronLeftIcon className="size-4 rtl:rotate-180" />
         </button>
         <span className="text-[13px] font-semibold" aria-live="polite">{monthFmt.format(month)}</span>
         <button type="button" className={nav} onClick={() => setMonth(addMonths(month, 1))} aria-label="Next month">
-          <ChevronRightIcon className="size-4" />
+          <ChevronRightIcon className="size-4 rtl:rotate-180" />
         </button>
       </div>
       <div className="grid grid-cols-7">
@@ -119,7 +123,7 @@ export function Calendar(props: CalendarProps) {
           const inRange = !!range?.from && !!end && d > range.from && d < end;
           const selected = isStart || isEnd;
           return (
-            <div key={key(d)} className={cn('relative', inRange && 'bg-accent', isStart && end && !isSameDay(range?.from, end) && 'rounded-l-md bg-accent', isEnd && !isSameDay(range?.from, end) && 'rounded-r-md bg-accent')}>
+            <div key={key(d)} className={cn('relative', inRange && 'bg-accent', isStart && end && !isSameDay(range?.from, end) && 'rounded-s-md bg-accent', isEnd && !isSameDay(range?.from, end) && 'rounded-e-md bg-accent')}>
               <button
                 type="button"
                 data-day={key(d)}
@@ -140,7 +144,7 @@ export function Calendar(props: CalendarProps) {
                   isOff && 'pointer-events-none opacity-30',
                 )}
               >
-                {d.getDate()}
+                {dateNum.format(d.getDate())}
               </button>
             </div>
           );

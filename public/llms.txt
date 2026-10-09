@@ -38,7 +38,7 @@
 - Time: time-picker, analog-clock, world-clock, stopwatch, timer, countdown, relative-time
 - Whole pages: blocks: admin-shell, sales-dashboard, reports-table, hrms-overview, employee-directory, leave-approvals, leave-request-form, lead-pipeline, campaign-performance, sign-in
 
-## Components (134)
+## Components (138)
 
 ### Layout (3)
 - `app-shell`: Sidebar, topbar and scrolling content area, plus a page header. Exports: AppShell, Topbar, AppContent, PageHeader. Needs: sidebar.
@@ -57,7 +57,7 @@
 - `tabs`: Underline or pill tabs on Radix Tabs. Exports: Tabs, TabsList, TabsTrigger, TabsContent.
 - `tree-view`: Nested expandable list with animated open and close. Exports: TreeView. Needs: icons.
 
-### Inputs (35)
+### Inputs (37)
 - `avatar-upload`: Click-to-change profile picture with instant preview, size and type checks, and a Remove link. Exports: AvatarUpload. Needs: avatar, icons.
 - `button`: Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links. Exports: Button. Needs: icons.
 - `calendar`: Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work. Exports: startOfDay, addDays, addMonths, isSameDay, Calendar. Needs: icons.
@@ -81,6 +81,7 @@
 - `number-stepper`: Number field with plus and minus buttons and arrow keys. Exports: NumberStepper. Needs: icons.
 - `otp-input`: Code boxes with paste, backspace, arrow keys, autofill and a shake on error. Exports: OtpInput.
 - `password-input`: Show and hide toggle with an optional strength meter. Exports: passwordScore, PasswordInput. Needs: icons, input.
+- `phone-input`: Phone field with a country picker. Groups digits as you type and hands back the E.164 number and whether it is complete. Exports: COUNTRIES, PhoneInput.
 - `radio-group`: Native radios as selectable cards with descriptions. Exports: RadioGroup.
 - `rating`: Star rating with hover preview. Read-only when no handler is given. Exports: Rating. Needs: icons.
 - `rich-text-editor`: Small editor with bold, italic, underline, heading, lists, quote and link. Value is HTML. Built on contentEditable, no dependency. Exports: RichTextEditor.
@@ -89,6 +90,7 @@
 - `search-input`: Search field with a clear button, Escape to clear and a slash shortcut to focus. Exports: SearchInput. Needs: icons.
 - `segmented`: Pick one of a few views or ranges. Smaller than tabs. Exports: Segmented.
 - `select`: Styled dropdown with groups, built on Radix Select. Exports: Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectLabel, SelectItem. Needs: icons.
+- `signature-pad`: Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG. Exports: SignaturePad. Needs: button.
 - `slider`: Native range input with a filled track and floating value bubble. Exports: Slider.
 - `switch`: On/off toggle for settings that apply immediately. Exports: Switch.
 - `tag-input`: Type and press Enter to add chips. Backspace removes the last. Exports: TagInput. Needs: icons.
@@ -134,7 +136,7 @@
 - `typewriter`: Types, holds and deletes phrases in a loop. Static for reduced motion. Exports: Typewriter.
 - `version-log`: Animated version history: the rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter. Exports: VersionLog. Needs: badge, icons, segmented.
 
-### Data (20)
+### Data (21)
 - `audit-log`: Who changed what and when, with expandable before and after values. Exports: AuditLog. Needs: avatar, badge, icons.
 - `charts`: Sparkline, bar chart and donut in plain SVG. No chart library. Exports: Sparkline, BarChart, DonutChart.
 - `countdown`: Live countdown with flipping digits. Exports: Countdown.
@@ -155,6 +157,7 @@
 - `radar-chart`: Spider chart for comparing several scores across the same axes. Hover a legend name to highlight a series. Exports: RadarChart.
 - `saved-views`: Menu of saved table setups: pick one, save the current one under a name, delete. Exports: SavedViews. Needs: button, icons, popover.
 - `stat-card`: KPI tile with value, trend delta and a sparkline slot. Exports: StatCard. Needs: card, icons.
+- `virtual-list`: Windowed list that renders only the visible rows. 100,000 items stay smooth. Exports: VirtualList.
 
 ### Feedback (11)
 - `alert`: Inline message in info, success, warning and danger. Exports: Alert. Needs: icons.
@@ -181,8 +184,9 @@
 - `shortcuts-dialog`: Keyboard cheat sheet that opens on ? and shows grouped shortcuts as keycaps. Exports: ShortcutsDialog. Needs: dialog, kbd.
 - `tooltip`: Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off. Exports: TooltipProvider, Tooltip, InfoTip, TruncatedText. Needs: icons, kbd.
 
-### Time (6)
+### Time (7)
 - `analog-clock`: SVG clock for any time zone, with a second hand that ticks with a small bounce. Exports: AnalogClock.
+- `event-calendar`: Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows. Exports: EventCalendar. Needs: button, calendar, icons.
 - `relative-time`: "3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale. Exports: relative, RelativeTime.
 - `stopwatch`: Start, pause, lap and reset, down to hundredths of a second. Exports: Stopwatch. Needs: button, icons.
 - `time-picker`: Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour. Exports: TimePicker. Needs: icons.
@@ -200,6 +204,8 @@
 - `block:lead-pipeline`: Drag-and-drop board with column totals and a keyboard-friendly move button. Uses: avatar, badge, button, card, icons, toast.
 - `block:leave-approvals`: Manager inbox with tabs, balance bars and approve or reject toasts. Uses: avatar, badge, button, card, empty-state, icons, progress, tabs, toast.
 - `block:leave-request-form`: Date range, approver combobox, multi-select notify list, working-day count and field validation. Uses: alert, button, calendar, card, combobox, date-picker, input, label, select, toast.
+- `block:pricing-page`: Headline, monthly or yearly switch, three plan cards with a highlighted one, and an FAQ. Uses: accordion, pricing-card, reveal, segmented, toast.
 - `block:reports-table`: Searchable, filterable, sortable reports table with row action menus and a details drawer. Uses: badge, button, charts, data-table, dialog, dropdown-menu, filter-bar, icons, toast.
 - `block:sales-dashboard`: KPI cards, revenue line chart against target, pipeline funnel and a top deals table. Uses: avatar, badge, card, charts, format, funnel-chart, line-chart, stat-card, table.
+- `block:settings-page`: Profile form with photo and phone number, notification switches and language and time zone, in tabs. Uses: avatar, button, card, input, label, phone-input, select, switch, tabs, toast.
 - `block:sign-in`: Login card with validation, loading button and an error alert. Uses: alert, button, card, checkbox, icons, input, label.

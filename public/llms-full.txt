@@ -1079,6 +1079,34 @@ export default function PasswordInputDemo() {
 }
 ```
 
+## Phone input (`phone-input`)
+Phone field with a country picker. Groups digits as you type and hands back the E.164 number and whether it is complete.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add phone-input`
+- Import: `import { COUNTRIES, PhoneInput } from '@/components/ui/phone-input'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { PhoneInput, type PhoneValue } from '@/components/ui/phone-input';
+import { Field, Label } from '@/components/ui/label';
+
+export default function PhoneInputDemo() {
+  const [v, setV] = React.useState<PhoneValue>();
+  const bad = !!v?.national && !v.valid;
+  return (
+    <div className="w-full max-w-sm">
+      <Field>
+        <Label htmlFor="phone">Mobile number</Label>
+        <PhoneInput id="phone" value={v} onValueChange={setV} invalid={bad} />
+        <p className="text-xs text-muted-foreground">{v?.valid ? `Saved as ${v.e164}` : bad ? 'Number looks incomplete.' : 'We only use this for sign-in codes.'}</p>
+      </Field>
+    </div>
+  );
+}
+```
+
 ## Radio group (`radio-group`)
 Native radios as selectable cards with descriptions.
 - Group: Inputs
@@ -1298,6 +1326,30 @@ export default function SelectDemo() {
           </SelectGroup>
         </SelectContent>
       </Select>
+    </div>
+  );
+}
+```
+
+## Signature pad (`signature-pad`)
+Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add signature-pad`
+- Import: `import { SignaturePad } from '@/components/ui/signature-pad'`
+- Also needs: button
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { SignaturePad } from '@/components/ui/signature-pad';
+
+export default function SignaturePadDemo() {
+  const [png, setPng] = React.useState<string | null>(null);
+  return (
+    <div className="grid w-full max-w-md gap-3">
+      <SignaturePad onChange={setPng} />
+      <p className="text-xs text-muted-foreground">{png ? `Captured, ${Math.round(png.length / 1024)} KB PNG.` : 'Nothing signed yet.'}</p>
     </div>
   );
 }
@@ -3177,6 +3229,41 @@ export default function StatCardDemo() {
 }
 ```
 
+## Virtual list (`virtual-list`)
+Windowed list that renders only the visible rows. 100,000 items stay smooth.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add virtual-list`
+- Import: `import { VirtualList } from '@/components/ui/virtual-list'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { VirtualList } from '@/components/ui/virtual-list';
+
+const rows = Array.from({ length: 100_000 }, (_, i) => ({ id: i + 1, name: `Employee ${i + 1}`, dept: ['Design', 'Sales', 'Finance', 'Ops'][i % 4]! }));
+
+export default function VirtualListDemo() {
+  return (
+    <div className="w-full max-w-lg">
+      <p className="mb-2 text-xs text-muted-foreground">100,000 rows, about 20 in the DOM at a time.</p>
+      <VirtualList
+        items={rows}
+        rowHeight={44}
+        aria-label="Employees"
+        getKey={(r) => r.id}
+        renderRow={(r) => (
+          <div className="flex h-full items-center justify-between border-b px-4 text-sm">
+            <span><span className="me-3 tabular-nums text-muted-foreground">#{r.id}</span>{r.name}</span>
+            <span className="text-muted-foreground">{r.dept}</span>
+          </div>
+        )}
+      />
+    </div>
+  );
+}
+```
+
 ## Alert (`alert`)
 Inline message in info, success, warning and danger.
 - Group: Feedback
@@ -3898,6 +3985,36 @@ export default function AnalogClockDemo() {
       ))}
     </div>
   );
+}
+```
+
+## Event calendar (`event-calendar`)
+Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows.
+- Group: Time
+- Add: `npx github:RandomKid24/befui add event-calendar`
+- Import: `import { EventCalendar } from '@/components/ui/event-calendar'`
+- Also needs: button, calendar, icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { EventCalendar, type CalendarEvent } from '@/components/ui/event-calendar';
+import { toast } from '@/components/ui/toast';
+
+const d = (day: number) => { const t = new Date(); return new Date(t.getFullYear(), t.getMonth(), day); };
+const events: CalendarEvent[] = [
+  { id: '1', title: 'Sprint planning', start: d(3), tone: 'primary' },
+  { id: '2', title: 'Diwali break', start: d(9), end: d(12), tone: 'warning' },
+  { id: '3', title: 'Payroll run', start: d(15), tone: 'success' },
+  { id: '4', title: 'Design review', start: d(15), tone: 'primary' },
+  { id: '5', title: 'Offsite', start: d(15), end: d(16), tone: 'muted' },
+  { id: '6', title: '1:1 with Meera', start: d(15), tone: 'primary' },
+  { id: '7', title: 'Audit deadline', start: d(24), tone: 'destructive' },
+];
+
+export default function EventCalendarDemo() {
+  return <EventCalendar className="w-full" events={events} weekStartsOn={1} onEventClick={(e) => toast.info(e.title)} />;
 }
 ```
 

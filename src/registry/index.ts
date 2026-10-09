@@ -38,7 +38,7 @@ export function useSource(load: () => Promise<string>): string {
 }
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['version-log', 'schema-form', 'rich-text-editor', 'org-chart', 'gantt', 'approval-flow', 'notification-preferences', 'funnel-chart', 'onboarding-checklist', 'shortcuts-dialog', 'tag-manager', 'saved-views', 'format', 'avatar', 'avatar-upload', 'date-picker', 'data-table', 'tooltip']);
+export const NEW_SLUGS = new Set(['phone-input', 'signature-pad', 'event-calendar', 'virtual-list', 'calendar', 'date-picker', 'currency-input', 'version-log', 'schema-form', 'rich-text-editor', 'org-chart', 'gantt', 'approval-flow', 'notification-preferences', 'funnel-chart', 'onboarding-checklist', 'shortcuts-dialog', 'tag-manager', 'saved-views', 'format', 'avatar', 'avatar-upload', 'data-table', 'tooltip']);
 
 const m = (
   slug: string,
@@ -58,6 +58,10 @@ const metas: Meta[] = [
   m('combobox', 'Combobox', 'Inputs', 'Searchable select, single or multiple, with descriptions under each option.', { deps: ['cmdk', '@radix-ui/react-popover'], requires: ['badge', 'command', 'popover'], keywords: ['autocomplete', 'search select', 'typeahead', 'multi'] }),
   m('calendar', 'Calendar', 'Inputs', 'Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work.', { deps: [], keywords: ['date', 'month', 'range', 'schedule'] }),
   m('date-picker', 'Date picker', 'Inputs', 'Date and date range fields that open a calendar. The range picker has optional quick presets (Last 7 days, This month...) and a day count. Closes on pick.', { deps: ['@radix-ui/react-popover'], requires: ['calendar', 'popover'], keywords: ['date', 'range', 'leave', 'schedule', 'calendar'] }),
+  m('phone-input', 'Phone input', 'Inputs', 'Phone field with a country picker. Groups digits as you type and hands back the E.164 number and whether it is complete.', { keywords: ['mobile', 'tel', 'country code', 'dial', 'sms'] }),
+  m('signature-pad', 'Signature pad', 'Inputs', 'Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG.', { requires: ['button'], keywords: ['sign', 'draw', 'canvas', 'contract', 'esign'] }),
+  m('event-calendar', 'Event calendar', 'Time', 'Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows.', { requires: ['button', 'calendar', 'icons'], wide: true, keywords: ['schedule', 'agenda', 'month', 'planner', 'holidays'] }),
+  m('virtual-list', 'Virtual list', 'Data', 'Windowed list that renders only the visible rows. 100,000 items stay smooth.', { keywords: ['windowing', 'large list', 'performance', 'infinite', 'scroll'] }),
   m('segmented', 'Segmented control', 'Inputs', 'Pick one of a few views or ranges. Smaller than tabs.', { deps: ['@radix-ui/react-toggle-group'], keywords: ['toggle', 'filter', 'range'] }),
 
   m('accordion', 'Accordion', 'Display', 'Collapsible sections with a smooth height animation. Single or multiple open.', { deps: [], keywords: ['faq', 'collapse', 'expand'] }),
@@ -221,7 +225,7 @@ export const categories: Category[] = ['Layout', 'Inputs', 'Time', 'Display', 'D
 export interface Block {
   slug: string;
   name: string;
-  module: 'HRMS' | 'Marketing' | 'Auth' | 'Layout' | 'Reports';
+  module: 'HRMS' | 'Marketing' | 'Auth' | 'Layout' | 'Reports' | 'Account';
   description: string;
   uses: string[];
   Demo: ComponentType;
@@ -239,6 +243,8 @@ const bMeta: Omit<Block, 'Demo' | 'loadSource' | 'path'>[] = [
   { slug: 'leave-request-form', name: 'Leave request form', module: 'HRMS', description: 'Date range, approver combobox, multi-select notify list, working-day count and field validation.', uses: ['date-picker', 'combobox', 'select', 'input', 'label', 'alert', 'toast', 'card'] },
   { slug: 'campaign-performance', name: 'Campaign performance', module: 'Marketing', description: 'Channel KPIs, weekly leads chart and a campaign budget table.', uses: ['stat-card', 'charts', 'table', 'progress', 'badge'] },
   { slug: 'lead-pipeline', name: 'Lead pipeline', module: 'Marketing', description: 'Drag-and-drop board with column totals and a keyboard-friendly move button.', uses: ['card', 'badge', 'avatar', 'toast'] },
+  { slug: 'pricing-page', name: 'Pricing page', module: 'Marketing', description: 'Headline, monthly or yearly switch, three plan cards with a highlighted one, and an FAQ.', uses: ['pricing-card', 'segmented', 'accordion', 'reveal', 'toast'] },
+  { slug: 'settings-page', name: 'Settings page', module: 'Account', description: 'Profile form with photo and phone number, notification switches and language and time zone, in tabs.', uses: ['tabs', 'card', 'avatar', 'input', 'label', 'phone-input', 'select', 'switch', 'toast'] },
   { slug: 'sign-in', name: 'Sign in', module: 'Auth', description: 'Login card with validation, loading button and an error alert.', uses: ['card', 'input', 'label', 'checkbox', 'alert', 'button'] },
 ];
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Github } from 'lucide-react';
-import { ArrowRightIcon, CheckIcon, SearchIcon } from '@/components/ui/icons';
+import { ArrowRightIcon, CheckIcon, SearchIcon, SparkleIcon } from '@/components/ui/icons';
 import { Badge } from '@/components/ui/badge';
 import { ChipGroup } from '@/components/ui/chip';
 import { EmptyState } from '@/components/ui/empty-state';
@@ -248,6 +248,23 @@ function PrevNext<T extends { slug: string; name: string }>({ list, slug, base }
   );
 }
 
+/** Copies a ready-to-paste prompt (install command, usage example and full source) for an AI coding tool. */
+function CopyForAI({ c }: { c: (typeof components)[number] }) {
+  const [state, setState] = React.useState<'idle' | 'busy' | 'done'>('idle');
+  React.useEffect(() => setState('idle'), [c.slug]);
+  const copy = async () => {
+    setState('busy');
+    const [src, demo] = await Promise.all([c.loadSource(), c.loadDemoSource()]);
+    const text = `Use the befui "${c.name}" component (${c.description})\n\nInstall: npx github:RandomKid24/befui add ${c.slug}\nIt lives at src/${c.path}; import it from '@/components/ui/${c.slug}'.\n\nExample:\n\`\`\`tsx\n${demo}\`\`\`\n\nSource:\n\`\`\`tsx\n${src}\`\`\`\n`;
+    try { await navigator.clipboard.writeText(text); setState('done'); setTimeout(() => setState('idle'), 2000); } catch { setState('idle'); }
+  };
+  return (
+    <Button variant="outline" size="sm" onClick={copy} loading={state === 'busy'} className="mt-4">
+      {state === 'done' ? <CheckIcon /> : <SparkleIcon />} {state === 'done' ? 'Copied for AI' : 'Copy for AI'}
+    </Button>
+  );
+}
+
 export function ComponentPage({ slug }: { slug: string }) {
   const c = components.find((x) => x.slug === slug);
   if (!c) return <NotFound />;
@@ -258,6 +275,7 @@ export function ComponentPage({ slug }: { slug: string }) {
       <Breadcrumb className="mb-4" items={[{ label: 'Components', href: '#/components' }, { label: c.category }, { label: c.name }]} />
       <h1 className={h1}>{c.name}{c.isNew && <Badge variant="primary" className="ml-3 align-middle">New</Badge>}</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">{c.description}</p>
+      <CopyForAI c={c} />
 
       <div className="mt-8">
         {hasGallery(slug) ? (
@@ -271,7 +289,9 @@ export function ComponentPage({ slug }: { slug: string }) {
       </div>
 
       <h2 className={h2}>Install</h2>
-      <p className="mb-3 text-[13px] text-muted-foreground">Packages (skip any you already have):</p>
+      <p className="mb-3 text-[13px] text-muted-foreground">With the CLI. It installs packages and adds any components this one needs:</p>
+      <Command>{`npx github:RandomKid24/befui add ${c.slug}`}</Command>
+      <p className="mb-3 mt-6 text-[13px] text-muted-foreground">Or by hand. Packages (skip any you already have):</p>
       <Command>{`npm i ${[...new Set(packages)].join(' ')}`}</Command>
       <p className="mb-3 mt-6 text-[13px] text-muted-foreground">
         Copy this file to <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">src/{c.path}</code>

@@ -1,5 +1,47 @@
 [
   {
+    "version": "1.4.0",
+    "date": "2026-10-09",
+    "title": "Install flow, four new components, two blocks and locale support",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Phone input with a country picker and E.164 output, signature pad, event calendar (month view with multi-day events and overflow) and virtual list for huge datasets.",
+        "slugs": [
+          "phone-input",
+          "signature-pad",
+          "event-calendar",
+          "virtual-list"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Pricing page and Settings page blocks.",
+        "slugs": [
+          "block:pricing-page",
+          "block:settings-page"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Every component page now shows the befui add command first, and has a Copy for AI button that copies the install line, an example and the full source."
+      },
+      {
+        "kind": "added",
+        "text": "An RTL switch in every preview, to check a component right-to-left."
+      },
+      {
+        "kind": "changed",
+        "text": "Calendar, date picker and range picker take a locale for month and weekday names and digits. Calendar flips its arrows and arrow-key movement in right-to-left pages, and the currency input and date picker use logical start and end spacing.",
+        "slugs": [
+          "calendar",
+          "date-picker",
+          "currency-input"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.3.0",
     "date": "2026-10-08",
     "title": "Animated changelog and a version log component",

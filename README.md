@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-133 copy-paste React components, 189 hand-drawn icons and 10 full-page blocks.<br/>
+137 copy-paste React components, 189 hand-drawn icons and 12 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -25,6 +25,7 @@ Built on Radix, Tailwind 4 and CSS variables. You own every file.
 - **Real motion, tastefully.** Smooth height animations, a cursor spotlight, a 3D tilt card, a magnifying dock, confetti, a circular theme reveal. All plain CSS and pointer events, all switched off for people who ask for reduced motion.
 - **Accessible by default.** Radix handles focus, keyboard and ARIA for dialogs, menus, selects and tabs. The rest follow the same rules.
 - **One variable rebrands everything.** Change `--primary` once. Light and dark both follow.
+- **Global-ready.** Calendar and date pickers take a `locale`, and components use logical start/end spacing so they flip in right-to-left pages. Every docs preview has an RTL switch.
 - **Our own icon set.** 189 icons on one grid with an opt-in draw animation. No icon package.
 - **Built for AI coding tools.** `befui init` writes rules into your `AGENTS.md`, and the whole library is described in an `llms.txt` catalog, so an agent reuses components instead of retyping them.
 
@@ -138,7 +139,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
-### Components (133)
+### Components (137)
 
 <details>
 <summary><b>Layout</b> (3)</summary>
@@ -148,16 +149,16 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Inputs</b> (35)</summary>
+<summary><b>Inputs</b> (37)</summary>
 
-`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker` · `search-bar` · `currency-input` · `inline-edit` · `coupon-input` · `mention-input` · `fab` · `datetime-picker` · `image-upload` · `avatar-upload` · `schema-form` · `rich-text-editor` · `notification-preferences`
+`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `phone-input` · `signature-pad` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker` · `search-bar` · `currency-input` · `inline-edit` · `coupon-input` · `mention-input` · `fab` · `datetime-picker` · `image-upload` · `avatar-upload` · `schema-form` · `rich-text-editor` · `notification-preferences`
 
 </details>
 
 <details>
-<summary><b>Time</b> (6)</summary>
+<summary><b>Time</b> (7)</summary>
 
-`time-picker` · `analog-clock` · `world-clock` · `stopwatch` · `timer` · `relative-time`
+`time-picker` · `analog-clock` · `world-clock` · `stopwatch` · `timer` · `relative-time` · `event-calendar`
 
 </details>
 
@@ -169,9 +170,9 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Data</b> (20)</summary>
+<summary><b>Data</b> (21)</summary>
 
-`number-ticker` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar` · `permission-matrix` · `kanban` · `line-chart` · `radar-chart` · `audit-log` · `file-manager` · `saved-views` · `funnel-chart` · `gantt` · `org-chart`
+`number-ticker` · `virtual-list` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar` · `permission-matrix` · `kanban` · `line-chart` · `radar-chart` · `audit-log` · `file-manager` · `saved-views` · `funnel-chart` · `gantt` · `org-chart`
 
 </details>
 
@@ -198,7 +199,7 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 
 Browse them live with search at the docs site, or run `npx github:RandomKid24/befui list`.
 
-### Blocks (10)
+### Blocks (12)
 
 Full screens built from the components, with mock data you swap for your own API.
 
@@ -213,6 +214,8 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:leave-request-form` | HRMS | Date range, approver combobox, multi-select notify list, working-day count and field validation. |
 | `block:campaign-performance` | Marketing | Channel KPIs, weekly leads chart and a campaign budget table. |
 | `block:lead-pipeline` | Marketing | Drag-and-drop board with column totals and a keyboard-friendly move button. |
+| `block:pricing-page` | Marketing | Headline, monthly or yearly switch, three plan cards with a highlighted one, and an FAQ. |
+| `block:settings-page` | Account | Profile form with photo and phone number, notification switches and language and time zone, in tabs. |
 | `block:sign-in` | Auth | Login card with validation, loading button and an error alert. |
 
 ### Icons (189)
