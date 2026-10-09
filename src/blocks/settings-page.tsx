@@ -3,7 +3,7 @@ import { Avatar } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Field, Label } from '@/components/ui/label';
+import { Field } from '@/components/ui/label';
 import { PhoneInput } from '@/components/ui/phone-input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
@@ -43,9 +43,9 @@ export default function SettingsPage() {
                 <Button type="button" variant="outline" size="sm">Change photo</Button>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field><Label htmlFor="s-name">Full name</Label><Input id="s-name" defaultValue="Aditi Rao" /></Field>
-                <Field><Label htmlFor="s-mail">Work email</Label><Input id="s-mail" type="email" defaultValue="aditi@acme.in" /></Field>
-                <Field><Label>Mobile</Label><PhoneInput /></Field>
+                <Field label="Full name" htmlFor="s-name"><Input id="s-name" defaultValue="Aditi Rao" /></Field>
+                <Field label="Work email" htmlFor="s-mail"><Input id="s-mail" type="email" defaultValue="aditi@acme.in" /></Field>
+                <Field label="Mobile"><PhoneInput /></Field>
               </div>
               <div className="flex justify-end"><Button type="submit" loading={saving}>Save changes</Button></div>
             </form>
@@ -63,15 +63,13 @@ export default function SettingsPage() {
         </TabsContent>
         <TabsContent value="region" className="mt-4">
           <Card className="grid gap-4 p-6 sm:grid-cols-2">
-            <Field>
-              <Label>Language</Label>
+            <Field label="Language">
               <Select defaultValue="en">
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent><SelectItem value="en">English</SelectItem><SelectItem value="hi">हिन्दी</SelectItem><SelectItem value="ar">العربية</SelectItem></SelectContent>
               </Select>
             </Field>
-            <Field>
-              <Label>Time zone</Label>
+            <Field label="Time zone">
               <Select defaultValue="ist">
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent><SelectItem value="ist">India (GMT+5:30)</SelectItem><SelectItem value="gst">Gulf (GMT+4)</SelectItem><SelectItem value="utc">UTC</SelectItem></SelectContent>

@@ -38,7 +38,7 @@ export function useSource(load: () => Promise<string>): string {
 }
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['phone-input', 'signature-pad', 'event-calendar', 'virtual-list', 'calendar', 'date-picker', 'currency-input', 'version-log', 'schema-form', 'rich-text-editor', 'org-chart', 'gantt', 'approval-flow', 'notification-preferences', 'funnel-chart', 'onboarding-checklist', 'shortcuts-dialog', 'tag-manager', 'saved-views', 'format', 'avatar', 'avatar-upload', 'data-table', 'tooltip']);
+export const NEW_SLUGS = new Set(['pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar', 'version-log', 'schema-form', 'rich-text-editor', 'org-chart', 'gantt', 'approval-flow', 'notification-preferences', 'funnel-chart', 'onboarding-checklist', 'shortcuts-dialog', 'tag-manager', 'saved-views', 'format', 'avatar', 'avatar-upload', 'data-table', 'tooltip']);
 
 const m = (
   slug: string,
@@ -62,6 +62,10 @@ const metas: Meta[] = [
   m('signature-pad', 'Signature pad', 'Inputs', 'Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG.', { requires: ['button'], keywords: ['sign', 'draw', 'canvas', 'contract', 'esign'] }),
   m('event-calendar', 'Event calendar', 'Time', 'Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows.', { requires: ['button', 'calendar', 'icons'], wide: true, keywords: ['schedule', 'agenda', 'month', 'planner', 'holidays'] }),
   m('virtual-list', 'Virtual list', 'Data', 'Windowed list that renders only the visible rows. 100,000 items stay smooth.', { keywords: ['windowing', 'large list', 'performance', 'infinite', 'scroll'] }),
+  m('pivot-table', 'Pivot table', 'Data', 'Cross-tab of your rows: one field down the side, another across the top, sum, count, average, min or max in each cell, with totals and heat shading.', { wide: true, keywords: ['cross tab', 'aggregate', 'group by', 'summary', 'report', 'spreadsheet'] }),
+  m('tree-table', 'Tree table', 'Data', 'Table whose rows have child rows. Expand and collapse branches by click or arrow keys.', { requires: ['icons'], wide: true, keywords: ['hierarchy', 'nested', 'expand', 'budget', 'treegrid'] }),
+  m('file-uploader', 'File uploader', 'Inputs', 'Multi-file drop area with a progress bar per file, cancel, retry and a concurrency limit. You supply the upload function.', { requires: ['icons', 'progress'], keywords: ['upload', 'progress', 'dropzone', 'attachments', 'drag'] }),
+  m('onboarding-carousel', 'Onboarding carousel', 'Navigation', 'Mobile first-run intro with swipeable slides, dots, Skip and a final Get started button.', { requires: ['button'], keywords: ['intro', 'welcome', 'walkthrough', 'mobile', 'swipe', 'first run'] }),
   m('segmented', 'Segmented control', 'Inputs', 'Pick one of a few views or ranges. Smaller than tabs.', { deps: ['@radix-ui/react-toggle-group'], keywords: ['toggle', 'filter', 'range'] }),
 
   m('accordion', 'Accordion', 'Display', 'Collapsible sections with a smooth height animation. Single or multiple open.', { deps: [], keywords: ['faq', 'collapse', 'expand'] }),
@@ -245,6 +249,8 @@ const bMeta: Omit<Block, 'Demo' | 'loadSource' | 'path'>[] = [
   { slug: 'lead-pipeline', name: 'Lead pipeline', module: 'Marketing', description: 'Drag-and-drop board with column totals and a keyboard-friendly move button.', uses: ['card', 'badge', 'avatar', 'toast'] },
   { slug: 'pricing-page', name: 'Pricing page', module: 'Marketing', description: 'Headline, monthly or yearly switch, three plan cards with a highlighted one, and an FAQ.', uses: ['pricing-card', 'segmented', 'accordion', 'reveal', 'toast'] },
   { slug: 'settings-page', name: 'Settings page', module: 'Account', description: 'Profile form with photo and phone number, notification switches and language and time zone, in tabs.', uses: ['tabs', 'card', 'avatar', 'input', 'label', 'phone-input', 'select', 'switch', 'toast'] },
+  { slug: 'sign-up', name: 'Sign up', module: 'Auth', description: 'Registration card with name, email, password strength meter, terms checkbox, validation and a check-your-inbox confirmation.', uses: ['card', 'input', 'label', 'password-input', 'checkbox', 'button'] },
+  { slug: 'reset-password', name: 'Reset password', module: 'Auth', description: 'Four steps: ask for email, check your inbox with a resend timer, choose a new password, done.', uses: ['card', 'input', 'label', 'password-input', 'button'] },
   { slug: 'sign-in', name: 'Sign in', module: 'Auth', description: 'Login card with validation, loading button and an error alert.', uses: ['card', 'input', 'label', 'checkbox', 'alert', 'button'] },
 ];
 

@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-137 copy-paste React components, 189 hand-drawn icons and 12 full-page blocks.<br/>
+141 copy-paste React components, 189 hand-drawn icons and 14 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -139,7 +139,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
-### Components (137)
+### Components (141)
 
 <details>
 <summary><b>Layout</b> (3)</summary>
@@ -149,9 +149,9 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Inputs</b> (37)</summary>
+<summary><b>Inputs</b> (38)</summary>
 
-`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `phone-input` · `signature-pad` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker` · `search-bar` · `currency-input` · `inline-edit` · `coupon-input` · `mention-input` · `fab` · `datetime-picker` · `image-upload` · `avatar-upload` · `schema-form` · `rich-text-editor` · `notification-preferences`
+`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `phone-input` · `file-uploader` · `signature-pad` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker` · `search-bar` · `currency-input` · `inline-edit` · `coupon-input` · `mention-input` · `fab` · `datetime-picker` · `image-upload` · `avatar-upload` · `schema-form` · `rich-text-editor` · `notification-preferences`
 
 </details>
 
@@ -170,9 +170,9 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Data</b> (21)</summary>
+<summary><b>Data</b> (23)</summary>
 
-`number-ticker` · `virtual-list` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar` · `permission-matrix` · `kanban` · `line-chart` · `radar-chart` · `audit-log` · `file-manager` · `saved-views` · `funnel-chart` · `gantt` · `org-chart`
+`number-ticker` · `virtual-list` · `pivot-table` · `tree-table` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar` · `permission-matrix` · `kanban` · `line-chart` · `radar-chart` · `audit-log` · `file-manager` · `saved-views` · `funnel-chart` · `gantt` · `org-chart`
 
 </details>
 
@@ -191,15 +191,15 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Navigation</b> (10)</summary>
+<summary><b>Navigation</b> (11)</summary>
 
-`scroll-progress` · `tree-view` · `dock` · `tabs` · `breadcrumb` · `pagination` · `stepper` · `table-of-contents` · `navbar` · `bottom-nav`
+`scroll-progress` · `tree-view` · `dock` · `tabs` · `breadcrumb` · `pagination` · `stepper` · `table-of-contents` · `navbar` · `bottom-nav` · `onboarding-carousel`
 
 </details>
 
 Browse them live with search at the docs site, or run `npx github:RandomKid24/befui list`.
 
-### Blocks (12)
+### Blocks (14)
 
 Full screens built from the components, with mock data you swap for your own API.
 
@@ -216,6 +216,8 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:lead-pipeline` | Marketing | Drag-and-drop board with column totals and a keyboard-friendly move button. |
 | `block:pricing-page` | Marketing | Headline, monthly or yearly switch, three plan cards with a highlighted one, and an FAQ. |
 | `block:settings-page` | Account | Profile form with photo and phone number, notification switches and language and time zone, in tabs. |
+| `block:sign-up` | Auth | Registration card with name, email, password strength meter, terms checkbox, validation and a check-your-inbox confirmation. |
+| `block:reset-password` | Auth | Four steps: ask for email, check your inbox with a resend timer, choose a new password, done. |
 | `block:sign-in` | Auth | Login card with validation, loading button and an error alert. |
 
 ### Icons (189)

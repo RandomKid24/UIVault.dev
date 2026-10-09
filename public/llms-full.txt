@@ -292,6 +292,34 @@ export default function NavbarDemo() {
 }
 ```
 
+## Onboarding carousel (`onboarding-carousel`)
+Mobile first-run intro with swipeable slides, dots, Skip and a final Get started button.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add onboarding-carousel`
+- Import: `import { OnboardingCarousel } from '@/components/ui/onboarding-carousel'`
+- Also needs: button
+
+Example:
+
+```tsx
+import { BellIcon, CalendarIcon, UsersIcon } from '@/components/ui/icons';
+import { OnboardingCarousel } from '@/components/ui/onboarding-carousel';
+import { toast } from '@/components/ui/toast';
+
+export default function OnboardingCarouselDemo() {
+  return (
+    <OnboardingCarousel
+      onFinish={() => toast.success('Welcome aboard')}
+      slides={[
+        { title: 'Apply for leave in seconds', description: 'Pick your dates, choose an approver and send. No emails, no spreadsheets.', visual: <CalendarIcon /> },
+        { title: 'Know where your team is', description: 'See who is in, out or on leave today, right from the home screen.', visual: <UsersIcon /> },
+        { title: 'Never miss an approval', description: 'Get a nudge when something needs your attention, and none when it does not.', visual: <BellIcon /> },
+      ]}
+    />
+  );
+}
+```
+
 ## Pagination (`pagination`)
 Page buttons with ellipsis for long ranges.
 - Group: Navigation
@@ -842,6 +870,36 @@ export default function FabDemo() {
 }
 ```
 
+## File uploader (`file-uploader`)
+Multi-file drop area with a progress bar per file, cancel, retry and a concurrency limit. You supply the upload function.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add file-uploader`
+- Import: `import { FileUploader } from '@/components/ui/file-uploader'`
+- Also needs: icons, progress
+
+Example:
+
+```tsx
+import { FileUploader } from '@/components/ui/file-uploader';
+
+/** Fake upload: ticks to 100% over a couple of seconds. Files named "fail" error out so you can try Retry. */
+const fakeUpload = (file: File, onProgress: (p: number) => void, signal: AbortSignal) =>
+  new Promise<void>((resolve, reject) => {
+    let p = 0;
+    const id = setInterval(() => {
+      p += 8 + Math.random() * 12;
+      if (file.name.toLowerCase().includes('fail') && p > 55) { clearInterval(id); return reject(new Error('Server rejected the file.')); }
+      onProgress(Math.min(p, 100));
+      if (p >= 100) { clearInterval(id); resolve(); }
+    }, 250);
+    signal.addEventListener('abort', () => { clearInterval(id); reject(new DOMException('Aborted', 'AbortError')); });
+  });
+
+export default function FileUploaderDemo() {
+  return <FileUploader className="w-full max-w-md" upload={fakeUpload} />;
+}
+```
+
 ## Image upload (`image-upload`)
 Thumbnail grid with remove buttons, a cover label and a drop tile. Limits count, type and size.
 - Group: Inputs
@@ -1090,17 +1148,15 @@ Example:
 ```tsx
 import * as React from 'react';
 import { PhoneInput, type PhoneValue } from '@/components/ui/phone-input';
-import { Field, Label } from '@/components/ui/label';
+import { Field } from '@/components/ui/label';
 
 export default function PhoneInputDemo() {
   const [v, setV] = React.useState<PhoneValue>();
   const bad = !!v?.national && !v.valid;
   return (
     <div className="w-full max-w-sm">
-      <Field>
-        <Label htmlFor="phone">Mobile number</Label>
+      <Field label="Mobile number" htmlFor="phone" error={bad ? 'Number looks incomplete.' : undefined} hint={v?.valid ? `Saved as ${v.e164}` : 'We only use this for sign-in codes.'}>
         <PhoneInput id="phone" value={v} onValueChange={setV} invalid={bad} />
-        <p className="text-xs text-muted-foreground">{v?.valid ? `Saved as ${v.e164}` : bad ? 'Number looks incomplete.' : 'We only use this for sign-in codes.'}</p>
       </Field>
     </div>
   );
@@ -3103,6 +3159,35 @@ export default function PermissionMatrixDemo() {
 }
 ```
 
+## Pivot table (`pivot-table`)
+Cross-tab of your rows: one field down the side, another across the top, sum, count, average, min or max in each cell, with totals and heat shading.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add pivot-table`
+- Import: `import { PivotTable } from '@/components/ui/pivot-table'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { PivotTable } from '@/components/ui/pivot-table';
+import { Segmented } from '@/components/ui/segmented';
+
+const regions = ['North', 'South', 'West', 'East'];
+const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
+const products = ['Starter', 'Growth', 'Scale'];
+const sales = regions.flatMap((region, i) => quarters.flatMap((quarter, j) => products.map((product, k) => ({ region, quarter, product, revenue: ((i + 2) * (j + 3) * (k + 1) * 37_000) % 900_000 + 120_000 }))));
+
+export default function PivotTableDemo() {
+  const [by, setBy] = React.useState<'quarter' | 'product'>('quarter');
+  return (
+    <div className="grid w-full gap-4">
+      <Segmented value={by} onValueChange={setBy} options={[{ value: 'quarter', label: 'By quarter' }, { value: 'product', label: 'By product' }]} />
+      <PivotTable data={sales} rows="region" columns={by} value="revenue" rowLabel="Region" format={(n) => `₹${(n / 100_000).toFixed(1)}L`} />
+    </div>
+  );
+}
+```
+
 ## Progress (`progress`)
 Thin progress bar with four tones.
 - Group: Data
@@ -3225,6 +3310,56 @@ export default function StatCardDemo() {
       <StatCard label="Revenue" value="₹48.2L" delta={12.5} icon={<IndianRupeeIcon />} chart={<Sparkline data={[2, 3, 2.5, 4, 5, 4.6, 6, 7]} className="text-success" />} />
       <StatCard label="Open leads" value="64" delta={-3.1} icon={<MegaphoneIcon />} chart={<Sparkline data={[8, 7, 7.5, 6, 6.2, 5, 5.4, 4]} className="text-destructive" />} />
     </div>
+  );
+}
+```
+
+## Tree table (`tree-table`)
+Table whose rows have child rows. Expand and collapse branches by click or arrow keys.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add tree-table`
+- Import: `import { TreeTable } from '@/components/ui/tree-table'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { Badge } from '@/components/ui/badge';
+import { TreeTable, type TreeRow } from '@/components/ui/tree-table';
+
+interface Budget extends TreeRow { name: string; owner: string; budget: number; spent: number; children?: Budget[] }
+
+const rows: Budget[] = [
+  { id: 'eng', name: 'Engineering', owner: 'Aarav Mehta', budget: 9_000_000, spent: 6_400_000, children: [
+    { id: 'eng-web', name: 'Web platform', owner: 'Ananya K.', budget: 4_000_000, spent: 3_100_000, children: [
+      { id: 'eng-web-fe', name: 'Frontend', owner: 'Ananya K.', budget: 2_200_000, spent: 1_800_000 },
+      { id: 'eng-web-be', name: 'Backend', owner: 'Kabir Shah', budget: 1_800_000, spent: 1_300_000 },
+    ] },
+    { id: 'eng-mobile', name: 'Mobile', owner: 'Rohan Das', budget: 3_000_000, spent: 2_100_000 },
+    { id: 'eng-infra', name: 'Infrastructure', owner: 'Kabir Shah', budget: 2_000_000, spent: 1_200_000 },
+  ] },
+  { id: 'sales', name: 'Sales', owner: 'Vikram Joshi', budget: 5_000_000, spent: 5_300_000, children: [
+    { id: 'sales-in', name: 'India', owner: 'Vikram Joshi', budget: 3_000_000, spent: 3_400_000 },
+    { id: 'sales-me', name: 'Middle East', owner: 'Isha Nair', budget: 2_000_000, spent: 1_900_000 },
+  ] },
+  { id: 'ops', name: 'People Ops', owner: 'Isha Nair', budget: 1_500_000, spent: 900_000 },
+];
+const lakh = (n: number) => `₹${(n / 100_000).toFixed(1)}L`;
+
+export default function TreeTableDemo() {
+  return (
+    <TreeTable
+      className="w-full"
+      rows={rows}
+      defaultExpanded={['eng']}
+      columns={[
+        { key: 'name', header: 'Department' },
+        { key: 'owner', header: 'Owner' },
+        { key: 'budget', header: 'Budget', align: 'end', render: (r) => lakh(r.budget) },
+        { key: 'spent', header: 'Spent', align: 'end', render: (r) => lakh(r.spent) },
+        { key: 'status', header: 'Status', render: (r) => (r.spent > r.budget ? <Badge variant="danger">Over</Badge> : <Badge variant="success">On track</Badge>) },
+      ]}
+    />
   );
 }
 ```

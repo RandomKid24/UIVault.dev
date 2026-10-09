@@ -136,3 +136,7 @@ export * from './phone-input';
 export * from './signature-pad';
 export * from './event-calendar';
 export * from './virtual-list';
+export * from './pivot-table';
+export * from './tree-table';
+export * from './file-uploader';
+export * from './onboarding-carousel';
